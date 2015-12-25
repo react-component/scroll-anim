@@ -17,11 +17,13 @@
   "bugs": {
     "url": "https://github.com/react-component/scroll-anim/issues"
   },
-  "files":["lib", "assets/*.css"],
+  "files": [
+    "lib",
+    "assets/*.css"
+  ],
   "licenses": "MIT",
-  
-  "main":"./lib/index",
-  "config":{
+  "main": "./lib/index",
+  "config": {
     "port": 8020
   },
   "scripts": {
@@ -42,7 +44,9 @@
     "rc-tools": "4.x",
     "react": "0.14.x",
     "react-addons-test-utils": "0.14.x",
-    "react-dom": "0.14.x"
+    "react-dom": "0.14.x",
+    "rc-util": "3.x",
+    "rc-queue-anim": "0.11.3"
   },
   "pre-commit": [
     "lint"
