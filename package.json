@@ -1,21 +1,21 @@
 {
   "name": "rc-scroll-anim",
-  "version": "0.0.1",
-  "description": "scroll-anim ui component for react",
+  "version": "0.0.1-beta",
+  "description": "scroll-anim anim component for react",
   "keywords": [
     "react",
     "react-component",
     "react-scroll-anim",
     "scroll-anim"
   ],
-  "homepage": "https://github.com/react-component/scroll-anim",
+  "homepage": "https://github.com/ant-motion/scroll-anim",
   "author": "155259966@qq.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-component/scroll-anim.git"
+    "url": "https://github.com/ant-motion/scroll-anim.git"
   },
   "bugs": {
-    "url": "https://github.com/react-component/scroll-anim/issues"
+    "url": "https://github.com/ant-motion/scroll-anim/issues"
   },
   "files": [
     "lib",
@@ -46,9 +46,15 @@
     "react-addons-test-utils": "0.14.x",
     "react-dom": "0.14.x",
     "rc-util": "3.x",
-    "rc-queue-anim": "0.11.3"
+    "rc-queue-anim": "0.11.3",
+    "rc-tween-one":"0.1.x",
+    "rc-animate": "2.0.x"
   },
   "pre-commit": [
     "lint"
-  ]
+  ],
+  "dependencies": {
+    "object-assign": "~4.0.1",
+    "tween-functions": "^1.0.1"
+  }
 }

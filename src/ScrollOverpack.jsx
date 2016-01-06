@@ -16,20 +16,19 @@ function toArrayChildren(children) {
 class ScrollOverPack extends React.Component {
   constructor() {
     super(...arguments);
-
-    this.children = this.props.children || {};
     this.entered = false;
+    this.children = toArrayChildren(this.props.children);
+    this.oneEnter = false;
     this.state = {
-      show: true,
+      show: false,
+      children: toArrayChildren(this.props.children),
     };
-
-
     [
       'scrollEventListener',
     ].forEach((method) => this[method] = this[method].bind(this));
-
     const date = Date.now();
-    this.eventType = 'scroll.scrollEvent' + date;
+    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
+    this.eventType = 'scroll.scrollEvent' + date + length;
     EventListener.addEventListener(this.eventType, this.scrollEventListener);
   }
 
@@ -54,17 +53,17 @@ class ScrollOverPack extends React.Component {
     }
     if (this.scrollTop - offsetTop >= -(height * (1 - this.props.playScale))) {
       if (!this.state.show) {
-        this.entered = true;
         this.setState({
           show: true,
         });
       }
-    } else {
-      if (this.state.show) {
-        this.setState({
-          show: false,
-        });
+      if (!this.props.repeat) {
+        EventListener.removeEventListener(this.eventType, this.scrollEventListener);
       }
+    } else if (this.state.show) {
+      this.setState({
+        show: false,
+      });
     }
 
     if (e) {
@@ -79,19 +78,32 @@ class ScrollOverPack extends React.Component {
     if (this.computedStyle) {
       placeholderProps.height = this.computedStyle.height;
     }
-    let childToRender = createElement(this.props.component, this.props, this.props.children);
-    if (!this.state.show) {
+    let childToRender;
+    if (!this.oneEnter && !this.state.show) {
       childToRender = createElement(this.props.component, placeholderProps, null);
-      if (this.entered) {
-        const childWap = [];
-        toArrayChildren(this.props.children).map(item=> {
-          if (item.type.name === 'QueueAnim') {
-            const element = React.cloneElement(item, item.props, null);
-            childWap.push(element);
+      this.oneEnter = true;
+    } else {
+      if (!this.state.show) {
+        this.state.children = this.state.children.map(item=> {
+          let element;
+          switch (item.type.name || item.type.displayName) {
+          case 'QueueAnim':
+            element = React.cloneElement(item, item.props, null);
+            return element;
+          case 'TweenOne':
+            element = React.cloneElement(item, {type: 'reverse'});
+            return element;
+          case 'Animate':
+            element = React.cloneElement(item, item.props, null);
+            return element;
+          default:
+            return null;
           }
         });
-        childToRender = createElement(this.props.component, this.props, childWap);
+      } else {
+        this.state.children = this.children;
       }
+      childToRender = createElement(this.props.component, placeholderProps, this.state.children);
     }
     return childToRender;
   }
