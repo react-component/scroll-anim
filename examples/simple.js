@@ -89,7 +89,7 @@ webpackJsonp([1],{
 	        ),
 	        _react2['default'].createElement(
 	          ScrollOverPack,
-	          { className: 'pack-page', style: { backgroundColor: '#fff000', height: 400 } },
+	          { style: { backgroundColor: '#fff000' } },
 	          _react2['default'].createElement(
 	            _rcTweenOne2['default'],
 	            { key: '0', vars: { opacity: 1 },
@@ -4661,7 +4661,7 @@ webpackJsonp([1],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(166);
+	var _objectAssign = __webpack_require__(167);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	

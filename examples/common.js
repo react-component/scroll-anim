@@ -155,7 +155,7 @@
 	
 	var _ScrollOverPack2 = _interopRequireDefault(_ScrollOverPack);
 	
-	var _ScrollParallax = __webpack_require__(167);
+	var _ScrollParallax = __webpack_require__(166);
 	
 	var _ScrollParallax2 = _interopRequireDefault(_ScrollParallax);
 	
@@ -202,10 +202,6 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
-	var _objectAssign = __webpack_require__(166);
-	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-	
 	function noop() {}
 	
 	function toArrayChildren(children) {
@@ -245,7 +241,6 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var dom = _reactDom2['default'].findDOMNode(this);
-	      this.computedStyle = document.defaultView.getComputedStyle(dom);
 	      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 	      this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
 	      this.scrollEventListener(null);
@@ -283,12 +278,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var placeholderProps = {};
-	      placeholderProps.className = this.props.className || '';
-	      placeholderProps.style = (0, _objectAssign2['default'])({}, this.props.style);
-	      if (this.computedStyle) {
-	        placeholderProps.style.height = this.computedStyle.height;
-	      }
+	      var placeholderProps = this.props;
 	      var childToRender = undefined;
 	      if (!this.oneEnter && !this.state.show) {
 	        childToRender = (0, _react.createElement)(this.props.component, placeholderProps, null);
@@ -20027,51 +20017,6 @@
 
 /***/ },
 /* 166 */
-/***/ function(module, exports) {
-
-	/* eslint-disable no-unused-vars */
-	'use strict';
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-	
-	function toObject(val) {
-		if (val === null || val === undefined) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-	
-		return Object(val);
-	}
-	
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var to = toObject(target);
-		var symbols;
-	
-		for (var s = 1; s < arguments.length; s++) {
-			from = Object(arguments[s]);
-	
-			for (var key in from) {
-				if (hasOwnProperty.call(from, key)) {
-					to[key] = from[key];
-				}
-			}
-	
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
-				for (var i = 0; i < symbols.length; i++) {
-					if (propIsEnumerable.call(from, symbols[i])) {
-						to[symbols[i]] = from[symbols[i]];
-					}
-				}
-			}
-		}
-	
-		return to;
-	};
-
-
-/***/ },
-/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20098,7 +20043,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(166);
+	var _objectAssign = __webpack_require__(167);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
@@ -20403,6 +20348,51 @@
 	
 	exports['default'] = ScrollParallax;
 	module.exports = exports['default'];
+
+/***/ },
+/* 167 */
+/***/ function(module, exports) {
+
+	/* eslint-disable no-unused-vars */
+	'use strict';
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+	
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+	
+		return Object(val);
+	}
+	
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+	
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+	
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+	
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+	
+		return to;
+	};
+
 
 /***/ },
 /* 168 */
