@@ -34,7 +34,6 @@ class ScrollOverPack extends React.Component {
 
   componentDidMount() {
     const dom = ReactDom.findDOMNode(this);
-    this.computedStyle = document.defaultView.getComputedStyle(dom);
     const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
     this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
     this.scrollEventListener(null);
