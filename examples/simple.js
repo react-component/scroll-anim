@@ -23,7 +23,7 @@ class Demo extends React.Component {
         <div>我是内容</div>
         <div>我是内容</div>
       </div>
-      <ScrollOverPack className="pack-page" style={{backgroundColor: '#fff000'}}>
+      <ScrollOverPack className="pack-page" style={{backgroundColor: '#fff000', height: 400}}>
         <TweenOne key="0" vars={{opacity: 1}}
                   style={{width: '100%', opacity: 0, textAlign: 'center', color: '#fff', fontSize: 32}}>默认进入与出场</TweenOne>
         <QueueAnim key="1">

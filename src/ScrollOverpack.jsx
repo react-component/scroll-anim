@@ -1,6 +1,7 @@
 import React, { createElement } from 'react';
 import ReactDom from 'react-dom';
 import EventListener from './EventDispatcher';
+import assign from 'object-assign';
 
 function noop() {
 }
@@ -35,6 +36,8 @@ class ScrollOverPack extends React.Component {
   componentDidMount() {
     const dom = ReactDom.findDOMNode(this);
     this.computedStyle = document.defaultView.getComputedStyle(dom);
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
     this.scrollEventListener(null);
   }
 
@@ -43,15 +46,10 @@ class ScrollOverPack extends React.Component {
   }
 
   scrollEventListener(e) {
-    this.clientHeight = document.body.clientHeight;
-    this.scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    const dom = ReactDom.findDOMNode(this);
-    const height = parseFloat(this.computedStyle.height);
-    const offsetTop = dom.offsetTop;
-    if (!offsetTop) {
-      return;
-    }
-    if (this.scrollTop - offsetTop >= -(height * (1 - this.props.playScale))) {
+    const clientHeight = document.documentElement.clientHeight;
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    const elementShowHeight = scrollTop - this.offsetTop + clientHeight;
+    if (elementShowHeight >= clientHeight * this.props.playScale) {
       if (!this.state.show) {
         this.setState({
           show: true,
@@ -74,9 +72,9 @@ class ScrollOverPack extends React.Component {
   render() {
     const placeholderProps = {};
     placeholderProps.className = this.props.className || '';
-    placeholderProps.style = this.props.style;
+    placeholderProps.style = assign({}, this.props.style);
     if (this.computedStyle) {
-      placeholderProps.height = this.computedStyle.height;
+      placeholderProps.style.height = this.computedStyle.height;
     }
     let childToRender;
     if (!this.oneEnter && !this.state.show) {
