@@ -22,7 +22,7 @@ class Demo extends React.Component {
       </div>
       <div className="pack-page"
            style={{backgroundColor: '#fff000', position: 'relative', overflow: 'hidden'}}>
-        <ScrollParallax vars={[{translateX: '0px', opacity: 1, durationScale: 0.5}, {translateY: 400, durationScale: 0.3}, {rotateY: 180, durationScale: 0.5}]}
+        <ScrollParallax vars={[{translateX: '0px', opacity: 1, durationScale: 0.5}, {marginTop: 400, durationScale: 0.3}, {rotateY: 180, durationScale: 0.5}]}
                         style={{opacity: 0, transform: 'translateX(-100px) perspective(200px)', textAlign: 'center'}}>X到0后最Ｙ到400</ScrollParallax>
         <ScrollParallax vars={{scaleX: 1, scaleY: 1, opacity: 1, playScale: 0.3}}
                         style={{opacity: 0, transform: 'scale(0)', textAlign: 'center'}}>Scale示例示例示例</ScrollParallax>

@@ -177,7 +177,23 @@ class ScrollParallax extends React.Component {
     this.defaultData.forEach((item, i)=> {
       const playHeight = clientHeight * item.initScale;
       if (elementShowHeight > playHeight) {
-        Object.keys(item.data).forEach((_p)=>{
+        // start与end;
+        const start = 0;
+        const end = 1;
+        // 百分比；
+        let progress = (elementShowHeight - playHeight) / (clientHeight * (item.durationScale - item.playScale));
+        progress = progress >= 1 ? 1 : progress;
+        // 缓动参数；
+        const easeValue = easingTypes[item.ease](progress, start, end, 1);
+
+        if (!item.onStart.only) {
+          item.onStart();
+          item.onStart.only = true;
+        }
+
+        item.onUpdate(easeValue);
+
+        Object.keys(item.data).forEach((_p)=> {
           const _value = item.data[_p];
           const p = Css.getGsapType(_p);
           const cssName = Css.isTransform(p);
@@ -186,23 +202,18 @@ class ScrollParallax extends React.Component {
           this.parallaxStart[i][p] = this.parallaxStart[i][p] || this.computedStyle[p] || 0;
           // 设置初始状态；
           this.setStartStyle(newStyle, p, i, cssName);
-          // start与end;
-          const start = 0;
-          const end = 1;
-          // 百分比；
-          let progress = (elementShowHeight - playHeight) / (clientHeight * (item.durationScale - item.playScale));
-          progress = progress >= 1 ? 1 : progress;
-          // 缓动参数；
-          const easeValue = easingTypes[item.ease](progress, start, end, 1);
+
           // 把缓动合并把数据里；
           const easeValueMergeData = this.mergeDataToEase(easeValue, _value, this.parallaxStart[i][p], cssName);
           // 生成样式；
           newStyle[cssName] = this.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
-
-          if (progress >= 1) {
-            item.end = true;
-          }
         });
+
+        // 到达
+        if (progress >= 1) {
+          item.end = true;
+          item.onComplete();
+        }
       }
     });
     this.setState({
@@ -239,7 +250,6 @@ ScrollParallax.propTypes = {
   repeat: React.PropTypes.bool,
   vars: objectOrArray,
   always: React.PropTypes.bool,
-  scrollEvent: React.PropTypes.func,
   children: childPropTypes,
   className: React.PropTypes.string,
   style: objectOrArray,
@@ -250,7 +260,6 @@ ScrollParallax.defaultProps = {
   scrollScale: 1,
   vars: null,
   always: true,
-  scrollEvent: noop,
 };
 
 export default ScrollParallax;

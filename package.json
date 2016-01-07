@@ -1,6 +1,6 @@
 {
   "name": "rc-scroll-anim",
-  "version": "0.0.1-beta",
+  "version": "0.0.1",
   "description": "scroll-anim anim component for react",
   "keywords": [
     "react",
