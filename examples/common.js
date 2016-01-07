@@ -231,19 +231,24 @@
 	    ['scrollEventListener'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
-	    var date = Date.now();
-	    var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
-	    this.eventType = 'scroll.scrollEvent' + date + length;
-	    _EventDispatcher2['default'].addEventListener(this.eventType, this.scrollEventListener);
 	  }
 	
 	  _createClass(ScrollOverPack, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var _this2 = this;
+	
 	      var dom = _reactDom2['default'].findDOMNode(this);
-	      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-	      this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
-	      this.scrollEventListener(null);
+	      // height为100％时没刷新高，需要setTimeout
+	      setTimeout(function () {
+	        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+	        _this2.offsetTop = dom.getBoundingClientRect().top + scrollTop;
+	        var date = Date.now();
+	        var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
+	        _this2.eventType = 'scroll.scrollEvent' + date + length;
+	        _this2.scrollEventListener(null);
+	        _EventDispatcher2['default'].addEventListener(_this2.eventType, _this2.scrollEventListener);
+	      });
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
@@ -20102,15 +20107,20 @@
 	  _createClass(ScrollParallax, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var _this2 = this;
+	
 	      var dom = _reactDom2['default'].findDOMNode(this);
 	      this.computedStyle = document.defaultView.getComputedStyle(dom);
-	      var date = Date.now();
-	      var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
-	      this.eventType = 'scroll.scrollEvent' + date + length;
-	      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-	      this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
-	      this.scrollEventListener();
-	      _EventDispatcher2['default'].addEventListener(this.eventType, this.scrollEventListener);
+	      // height为100％时没刷新高，需要setTimeout
+	      setTimeout(function () {
+	        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+	        _this2.offsetTop = dom.getBoundingClientRect().top + scrollTop;
+	        var date = Date.now();
+	        var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
+	        _this2.eventType = 'scroll.scrollEvent' + date + length;
+	        _this2.scrollEventListener();
+	        _EventDispatcher2['default'].addEventListener(_this2.eventType, _this2.scrollEventListener);
+	      });
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -20138,7 +20148,7 @@
 	  }, {
 	    key: 'setDefaultData',
 	    value: function setDefaultData(_vars) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var vars = (0, _util.dataToArray)(_vars);
 	      var time = 0;
@@ -20152,18 +20162,18 @@
 	          }
 	        }
 	        time += parallaxData.durationScale;
-	        _this2.defaultData[i] = parallaxData;
+	        _this3.defaultData[i] = parallaxData;
 	      };
 	      vars.forEach(varsForIn);
 	    }
 	  }, {
 	    key: 'setStartStyle',
 	    value: function setStartStyle(newStyle, p, i, cssName) {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      var cssStyleForEach = function cssStyleForEach(item) {
 	        var _item = item.replace(/[(|)]/ig, '$').split('$');
-	        _this3.parallaxStart[i][_item[0]] = _item[1];
+	        _this4.parallaxStart[i][_item[0]] = _item[1];
 	      };
 	      if (cssName === 'transform' || cssName === 'filter') {
 	        if (!this.parallaxStart.end['Bool' + i]) {
@@ -20243,7 +20253,7 @@
 	  }, {
 	    key: 'scrollEventListener',
 	    value: function scrollEventListener() {
-	      var _this4 = this;
+	      var _this5 = this;
 	
 	      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 	      var clientHeight = document.documentElement.clientHeight;
@@ -20274,16 +20284,16 @@
 	              var _value = item.data[_p];
 	              var p = _Css2['default'].getGsapType(_p);
 	              var cssName = _Css2['default'].isTransform(p);
-	              _this4.parallaxStart[i] = _this4.parallaxStart[i] || {};
-	              _this4.parallaxStart.end = _this4.parallaxStart.end || {};
-	              _this4.parallaxStart[i][p] = _this4.parallaxStart[i][p] || _this4.computedStyle[p] || 0;
+	              _this5.parallaxStart[i] = _this5.parallaxStart[i] || {};
+	              _this5.parallaxStart.end = _this5.parallaxStart.end || {};
+	              _this5.parallaxStart[i][p] = _this5.parallaxStart[i][p] || _this5.computedStyle[p] || 0;
 	              // 设置初始状态；
-	              _this4.setStartStyle(newStyle, p, i, cssName);
+	              _this5.setStartStyle(newStyle, p, i, cssName);
 	
 	              // 把缓动合并把数据里；
-	              var easeValueMergeData = _this4.mergeDataToEase(easeValue, _value, _this4.parallaxStart[i][p], cssName);
+	              var easeValueMergeData = _this5.mergeDataToEase(easeValue, _value, _this5.parallaxStart[i][p], cssName);
 	              // 生成样式；
-	              newStyle[cssName] = _this4.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
+	              newStyle[cssName] = _this5.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
 	            });
 	
 	            // 到达
