@@ -1,7 +1,6 @@
 import React, { createElement } from 'react';
 import ReactDom from 'react-dom';
 import EventListener from './EventDispatcher';
-import assign from 'object-assign';
 
 function noop() {
 }
@@ -70,12 +69,7 @@ class ScrollOverPack extends React.Component {
   }
 
   render() {
-    const placeholderProps = {};
-    placeholderProps.className = this.props.className || '';
-    placeholderProps.style = assign({}, this.props.style);
-    if (this.computedStyle) {
-      placeholderProps.style.height = this.computedStyle.height;
-    }
+    const placeholderProps = this.props;
     let childToRender;
     if (!this.oneEnter && !this.state.show) {
       childToRender = createElement(this.props.component, placeholderProps, null);
