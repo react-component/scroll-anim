@@ -26,17 +26,20 @@ class ScrollOverPack extends React.Component {
     [
       'scrollEventListener',
     ].forEach((method) => this[method] = this[method].bind(this));
-    const date = Date.now();
-    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-    this.eventType = 'scroll.scrollEvent' + date + length;
-    EventListener.addEventListener(this.eventType, this.scrollEventListener);
   }
 
   componentDidMount() {
     const dom = ReactDom.findDOMNode(this);
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
-    this.scrollEventListener(null);
+    // height为100％时没刷新高，需要setTimeout
+    setTimeout(()=> {
+      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
+      const date = Date.now();
+      const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
+      this.eventType = 'scroll.scrollEvent' + date + length;
+      this.scrollEventListener(null);
+      EventListener.addEventListener(this.eventType, this.scrollEventListener);
+    });
   }
 
   componentWillUnmount() {
