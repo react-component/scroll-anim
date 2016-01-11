@@ -74,10 +74,20 @@ class ScrollParallax extends React.Component {
     }
     const styleEqual = objectEqual(this.props.style, nextProps.style);
     if (!styleEqual) {
-      const style = assign({}, this.state.style, nextProps.style);
-      this.setState({
-        style,
-      });
+      if (!this.defaultData.every(c=>c.end)) {
+        this.style = assign({}, this.style, nextProps.style);
+        if (this.tweenStart.end) {
+          Object.keys(this.tweenStart.end).forEach(key=> {
+            if (key.indexOf('Bool') >= 0) {
+              this.tweenStart.end[key] = false;
+            }
+          });
+        }
+      } else {
+        this.setState({
+          style: nextProps.style,
+        });
+      }
     }
   }
 
@@ -103,25 +113,40 @@ class ScrollParallax extends React.Component {
     vars.forEach(varsForIn);
   }
 
-  setStartStyle(newStyle, p, i, cssName) {
-    const cssStyleForEach = (item)=> {
-      const _item = item.replace(/[(|)]/ig, '$').split('$');
-      this.parallaxStart[i][_item[0]] = _item[1];
-    };
-    if (cssName === 'transform' || cssName === 'filter') {
-      if (!this.parallaxStart.end['Bool' + i]) {
-        if (newStyle && newStyle[cssName]) {
-          const cssStyleArr = newStyle[cssName].split(' ');
-          if (cssName === 'transform') {
-            cssStyleArr.forEach(cssStyleForEach);
-            this.parallaxStart[i][p] = Css.mergeTransformName(cssStyleArr, p) || this.parallaxStart[i][p];
+  getParallaxStart(item, i) {
+    const start = this.parallaxStart || {};
+    const newStyle = this.style;
+    start[i] = start[i] || {};
+    start.end = start.end || {};
+    if (!start.end['Bool' + i]) {
+      Object.keys(item.data).forEach((key)=> {
+        const cssName = Css.isTransform(key);
+        if (cssName === 'transform' || cssName === 'filter') {
+          if (newStyle && newStyle[cssName]) {
+            const cssStyleArr = newStyle[cssName].split(' ');
+            if (cssName === 'transform') {
+              for (let ii = 0; ii < cssStyleArr.length; ii++) {
+                const _item = cssStyleArr[ii].replace(/[(|)]/ig, '$').split('$');
+                start[i][_item[0]] = _item[1];
+              }
+              start[i][key] = Css.mergeTransformName(cssStyleArr, key) || start[i][key] || 0;
+            } else {
+              start[i][key] = cssStyleArr.length ? cssStyleArr.join(' ') : 0;
+            }
           } else {
-            this.parallaxStart[i][p] = cssStyleArr.length ? cssStyleArr.join(' ') : 0;
+            if (cssName === 'transform') {
+              start[i][key] = 0;
+            } else {
+              start[i][key] = Css.getFilterParam('', item.tween[key], 0);
+            }
           }
+        } else {
+          start[i][key] = newStyle[cssName] || this.computedStyle[key] || 0;
         }
-        this.parallaxStart.end['Bool' + i] = true;
-      }
+      });
+      start.end['Bool' + i] = true;
     }
+    return start;
   }
 
   getNewStyle(newStyle, easeValue, i, p, _value, cssName) {
@@ -221,15 +246,11 @@ class ScrollParallax extends React.Component {
       }
 
       item.onUpdate(easeValue);
+      this.parallaxStart = this.getParallaxStart(item, i);
       Object.keys(item.data).forEach((_p)=> {
         const _value = item.data[_p];
         const p = Css.getGsapType(_p);
         const cssName = Css.isTransform(p);
-        this.parallaxStart[i] = this.parallaxStart[i] || {};
-        this.parallaxStart.end = this.parallaxStart.end || {};
-        this.parallaxStart[i][p] = this.parallaxStart[i][p] || this.computedStyle[p] || 0;
-        // 设置初始状态；
-        this.setStartStyle(newStyle, p, i, cssName);
 
         // 把缓动合并把数据里；
         const easeValueMergeData = this.mergeDataToEase(easeValue, _value, this.parallaxStart[i][p], cssName);
@@ -246,7 +267,6 @@ class ScrollParallax extends React.Component {
     this.setState({
       style: newStyle,
     });
-
     // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
     if (this.defaultData.every(c=>c.end) && !this.props.always) {
       EventListener.removeEventListener(this.eventType, this.scrollEventListener);
