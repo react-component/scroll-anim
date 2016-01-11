@@ -40,12 +40,11 @@ class ScrollParallax extends React.Component {
   }
 
   componentDidMount() {
-    const dom = ReactDom.findDOMNode(this);
-    this.computedStyle = document.defaultView.getComputedStyle(dom);
+    this.dom = ReactDom.findDOMNode(this);
+    this.computedStyle = document.defaultView.getComputedStyle(this.dom);
+
     // height为100％时没刷新高，需要setTimeout
     setTimeout(()=> {
-      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-      this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
       const date = Date.now();
       const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
       this.eventType = 'scroll.scrollEvent' + date + length;
@@ -173,51 +172,64 @@ class ScrollParallax extends React.Component {
   }
 
   scrollEventListener() {
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    const scrollTop = window.pageYOffset;
     const clientHeight = document.documentElement.clientHeight;
-    const elementShowHeight = scrollTop - this.offsetTop + clientHeight;
+
     const newStyle = this.style;
 
     this.defaultData.forEach((item, i)=> {
       const playHeight = clientHeight * item.initScale;
-      if (elementShowHeight > playHeight) {
-        // start与end;
-        const start = 0;
-        const end = 1;
-        // 百分比；
-        let progress = (elementShowHeight - playHeight) / (clientHeight * (item.durationScale - item.playScale));
-        progress = progress >= 1 ? 1 : progress;
-        // 缓动参数；
-        const easeValue = easingTypes[item.ease](progress, start, end, 1);
-
-        if (!item.onStart.only) {
-          item.onStart();
-          item.onStart.only = true;
-        }
-
-        item.onUpdate(easeValue);
-
-        Object.keys(item.data).forEach((_p)=> {
-          const _value = item.data[_p];
-          const p = Css.getGsapType(_p);
-          const cssName = Css.isTransform(p);
-          this.parallaxStart[i] = this.parallaxStart[i] || {};
-          this.parallaxStart.end = this.parallaxStart.end || {};
-          this.parallaxStart[i][p] = this.parallaxStart[i][p] || this.computedStyle[p] || 0;
-          // 设置初始状态；
-          this.setStartStyle(newStyle, p, i, cssName);
-
-          // 把缓动合并把数据里；
-          const easeValueMergeData = this.mergeDataToEase(easeValue, _value, this.parallaxStart[i][p], cssName);
-          // 生成样式；
-          newStyle[cssName] = this.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
+      // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
+      // rotateY 或 rotateＸ 时对 getBoundingClientRect 受到影响。所以把 dom 的 transform 设为 none 后再取 getBoundingClientRect 的 top 值
+      const isTransform = Object.keys(item.data).some(c => Css.isTransform(c) === 'transform');
+      if (isTransform) {
+        this.dom.style.transform = 'none';
+      }
+      const offsetTop = this.dom.getBoundingClientRect().top + scrollTop - parseFloat(this.computedStyle.marginTop);
+      if (isTransform) {
+        Object.keys(this.state.style).forEach(key=> {
+          if (key === 'transform') {
+            this.dom.style[key] = this.state.style[key];
+          }
         });
+      }
+      const elementShowHeight = scrollTop - offsetTop + clientHeight;
+      // start与end;
+      const start = 0;
+      const end = 1;
+      // 百分比；
+      let progress = (elementShowHeight - playHeight ) / (clientHeight * item.durationScale);
+      progress = progress >= 1 ? 1 : progress;
+      progress = progress <= 0 ? 0 : progress;
+      // 缓动参数；
+      const easeValue = easingTypes[item.ease](progress, start, end, 1);
 
-        // 到达
-        if (progress >= 1) {
-          item.end = true;
-          item.onComplete();
-        }
+      if (!item.onStart.only) {
+        item.onStart();
+        item.onStart.only = true;
+      }
+
+      item.onUpdate(easeValue);
+      Object.keys(item.data).forEach((_p)=> {
+        const _value = item.data[_p];
+        const p = Css.getGsapType(_p);
+        const cssName = Css.isTransform(p);
+        this.parallaxStart[i] = this.parallaxStart[i] || {};
+        this.parallaxStart.end = this.parallaxStart.end || {};
+        this.parallaxStart[i][p] = this.parallaxStart[i][p] || this.computedStyle[p] || 0;
+        // 设置初始状态；
+        this.setStartStyle(newStyle, p, i, cssName);
+
+        // 把缓动合并把数据里；
+        const easeValueMergeData = this.mergeDataToEase(easeValue, _value, this.parallaxStart[i][p], cssName);
+        // 生成样式；
+        newStyle[cssName] = this.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
+      });
+
+      // 到达
+      if (progress >= 1) {
+        item.end = true;
+        item.onComplete();
       }
     });
     this.setState({

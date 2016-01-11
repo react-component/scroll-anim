@@ -29,11 +29,10 @@ class ScrollOverPack extends React.Component {
   }
 
   componentDidMount() {
-    const dom = ReactDom.findDOMNode(this);
+    this.dom = ReactDom.findDOMNode(this);
+    this.computedStyle = document.defaultView.getComputedStyle(this.dom);
     // height为100％时没刷新高，需要setTimeout
     setTimeout(()=> {
-      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-      this.offsetTop = dom.getBoundingClientRect().top + scrollTop;
       const date = Date.now();
       const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
       this.eventType = 'scroll.scrollEvent' + date + length;
@@ -48,8 +47,10 @@ class ScrollOverPack extends React.Component {
 
   scrollEventListener(e) {
     const clientHeight = document.documentElement.clientHeight;
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    const elementShowHeight = scrollTop - this.offsetTop + clientHeight;
+    const scrollTop = window.pageYOffset;// document.body.scrollTop || document.documentElement.scrollTop;
+    // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
+    const offsetTop = this.dom.getBoundingClientRect().top + scrollTop;
+    const elementShowHeight = scrollTop - offsetTop + clientHeight;
     if (elementShowHeight >= clientHeight * this.props.playScale) {
       if (!this.state.show) {
         this.setState({
