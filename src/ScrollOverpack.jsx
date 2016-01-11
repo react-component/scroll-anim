@@ -57,7 +57,7 @@ class ScrollOverPack extends React.Component {
           show: true,
         });
       }
-      if (!this.props.repeat) {
+      if (!this.props.always) {
         EventListener.removeEventListener(this.eventType, this.scrollEventListener);
       }
     } else if (this.state.show) {
@@ -107,7 +107,7 @@ const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.P
 ScrollOverPack.propTypes = {
   component: React.PropTypes.string,
   playScale: React.PropTypes.number,
-  repeat: React.PropTypes.bool,
+  always: React.PropTypes.bool,
   scrollEvent: React.PropTypes.func,
   children: objectOrArray,
   className: React.PropTypes.string,
@@ -117,7 +117,7 @@ ScrollOverPack.propTypes = {
 ScrollOverPack.defaultProps = {
   component: 'div',
   playScale: 0.5,
-  repeat: true,
+  always: true,
   scrollEvent: noop,
 };
 

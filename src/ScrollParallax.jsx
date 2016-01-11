@@ -11,12 +11,23 @@ const DEFAULT_EASING = 'easeInOutQuad';
 function noop() {
 }
 
+function playScaleToArray(playScale) {
+  if (Array.isArray(playScale)) {
+    if (playScale.length === 2) {
+      return playScale;
+    }
+    return [(playScale[0] || 0), (playScale[1] || 1)];
+  } else if (playScale) {
+    return [playScale, 1];
+  }
+  return [0, 1];
+}
+
 // 设置默认数据
 function defaultData(vars, initScale) {
   return {
     ease: vars.ease || DEFAULT_EASING,
-    playScale: vars.playScale || 0, // 开始播放，屏幕的百分比
-    durationScale: vars.durationScale || 1, // 过场的屏幕百分比
+    playScale: playScaleToArray(vars.playScale), // 开始播放与结束的比例，数组形式，[0,1],0为开始阶段，1为结束，屏幕的百分比
     initScale: initScale, // 启动的百分比
     onUpdate: vars.onUpdate || noop,
     onStart: vars.onStart || noop,
@@ -78,7 +89,7 @@ class ScrollParallax extends React.Component {
     const vars = dataToArray(_vars);
     let time = 0;
     const varsForIn = (item, i)=> {
-      time += item.playScale || 0;
+      time += playScaleToArray(item.playScale)[0] || 0;
       const parallaxData = defaultData(item, time);
       parallaxData.data = {};
       for (const p in item) {
@@ -86,7 +97,7 @@ class ScrollParallax extends React.Component {
           parallaxData.data[p] = item[p];
         }
       }
-      time += parallaxData.durationScale;
+      time += parallaxData.playScale[1];
       this.defaultData[i] = parallaxData;
     };
     vars.forEach(varsForIn);
@@ -198,7 +209,7 @@ class ScrollParallax extends React.Component {
       const start = 0;
       const end = 1;
       // 百分比；
-      let progress = (elementShowHeight - playHeight ) / (clientHeight * item.durationScale);
+      let progress = (elementShowHeight - playHeight ) / (clientHeight * (item.playScale[1] - item.playScale[0]));
       progress = progress >= 1 ? 1 : progress;
       progress = progress <= 0 ? 0 : progress;
       // 缓动参数；
@@ -273,7 +284,6 @@ ScrollParallax.propTypes = {
 
 ScrollParallax.defaultProps = {
   component: 'div',
-  scrollScale: 1,
   vars: null,
   always: true,
 };

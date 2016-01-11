@@ -22,12 +22,22 @@ class Demo extends React.Component {
       </div>
       <div className="pack-page"
            style={{backgroundColor: '#fff000', position: 'relative', overflow: 'hidden'}}>
-        <ScrollParallax id="a" vars={[{translateX: '0px', opacity: 1, durationScale: 0.5, boxShadow: '2px 2px 2px #000'}, {marginTop: 400, durationScale: 0.3}, {rotateY: 180, durationScale: 0.5}]}
-                        style={{opacity: 0, transform: 'perspective(200px) translateX(-100px)', textAlign: 'center'}}>X到0后最Ｙ到400,Y用的是marginTop,所以改变了下面两个的offsetTop</ScrollParallax>
-        <ScrollParallax id="b" vars={{scaleX: 1, scaleY: 1, opacity: 1, playScale: 0.5, durationScale: 0.5}}
+        <ScrollParallax
+          vars={[{translateX: '0px', opacity: 1, durationScale: 0.5, boxShadow: '2px 2px 2px #000'}, {marginTop: 400, durationScale: 0.3}, {rotateY: 180, durationScale: 0.5}]}
+          style={{opacity: 0, transform: 'perspective(200px) translateX(-100px)', textAlign: 'center'}}>X到0后最Ｙ到400,Y用的是marginTop,所以改变了下面两个的offsetTop</ScrollParallax>
+        <ScrollParallax vars={{scaleX: 1, scaleY: 1, opacity: 1, playScale: [0.5, 1]}}
                         style={{opacity: 0, transform: 'scale(0)', textAlign: 'center'}}>Scale示例示例示例</ScrollParallax>
-        <ScrollParallax id="c" vars={{filter: 'blur(0px)', opacity: 1, playScale: 0.5, durationScale: 0.5}}
+        <ScrollParallax vars={{filter: 'blur(0px)', opacity: 1, playScale: [0.5, 1]}}
                         style={{opacity: 0, filter: 'blur(10px)', textAlign: 'center'}}>filter示例示例示例</ScrollParallax>
+      </div>
+      <div className="pack-page"
+           style={{backgroundColor: '#ff0000', position: 'relative', textAlign: 'center', fontSize: 36}}>
+        <ScrollParallax vars={{translateY: 20, opacity: 1, ease: 'linear', playScale: [0, 1.5]}}
+                        style={{transform: 'translateY(320px) scale(.8)', color: '#fff', opacity: 0.5}}>视差示例示例示例</ScrollParallax>
+        <ScrollParallax vars={{translateY: -20, opacity: 1, ease: 'linear', playScale: [0, 1.2]}}
+                        style={{transform: 'translateY(320px) scale(.9)', color: '#fff', opacity: 0.7}}>视差示例示例示例</ScrollParallax>
+        <ScrollParallax vars={{translateY: -60, opacity: 1, ease: 'linear'}}
+                        style={{transform: 'translateY(320px)', color: '#fff'}}>视差示例示例示例</ScrollParallax>
       </div>
     </div>);
   }

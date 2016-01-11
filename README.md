@@ -50,10 +50,6 @@ npm start
 
 http://localhost:8020/examples/
 
-
-online example: http://react-component.github.io/scroll-anim/
-
-
 ## Feature
 
 * support ie8,ie8+,chrome,firefox,safari
@@ -71,33 +67,59 @@ online example: http://react-component.github.io/scroll-anim/
 
 ```js
 var ScrollAnim = require('rc-scroll-anim');
+var ScrollOverPack = ScrollAnim.OverPack;
+var ScrollParallax = ScrollAnim.Parallax;
 var React = require('react');
-React.render(<ScrollAnim />, container);
+// ScrollOverPack示例
+// ScrollOverPack目前只支持rc-animate,rc-queue-anim,rc-tween-one;
+React.render(<ScrollOverPack>
+  <QueueAnim key='queueAnim'>
+    <div key='a'>依次进入</div>
+    <div key='b'>依次进入</div>
+    <div key='b'>依次进入</div>
+  </QueueAnim>
+  <TweenOne key='tweenOne' vars={{x:100}}>单元素动画</TweenOne>
+  <Animate key='rc-animate' transitionName="fade" transitionAppear>rc-animate示例</Animate>
+</ScrollOverPack>, container);
+// Parallax示例
+React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,container);
 ```
 
 ## API
 
 ### props
 
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th style="width: 100px;">name</th>
-        <th style="width: 50px;">type</th>
-        <th style="width: 50px;">default</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>className</td>
-          <td>String</td>
-          <td></td>
-          <td>additional css class of root dom node</td>
-        </tr>
-    </tbody>
-</table>
+### OverPack
 
+| name      | type           | default | description    |
+|-----------|----------------|---------|----------------|
+| component | string         | `div`   | 组件标签        |
+| playScale | number         | `0.5`   | 开始播放的屏幕百分比, 0.5 为屏幕中间 |
+| always    | boolean        | `true`  | 到否重复播放，如为 false 将只进入一遍，不再触发出场效果 |
+
+### Parallax
+| name      | type           | default | description    |
+|-----------|----------------|---------|----------------|
+| vars      | object / array | `null`  | 组件动效数据     |
+| always    | boolean        | `true`  | 同上            |
+| component | string         | `div`   | 同上            |
+
+#### vars = { }
+| name      | type           | default | description    |
+| playScale | array          | `[0, 1]`| 播放的区域段，第一个数为开始时的窗口百分比，第二个为结束时的窗口百分比，当第一个数为0时，将从窗口底部开始播放，且第二个为1时将在窗口顶部结束动画 |
+| ease      | string         | `easeInOutQuad`| 动画的缓动 |
+| onUpdate  | function       |    -    | 更新时回调，传回带ease的百分比   ｜ 
+| onStart   | function       |    -    | 开始时回调 |
+| onComplete| function       |    -    | 结束时回调 |
+
+> vars = [{},{}] 时为timeline;
+
+### Event 
+```
+var Event = ScrollAnim.Event;
+Event.addEventListener('scroll.xxxx',func);
+Event.removeEventListener('scroll.xxx',func);
+```
 
 ## Test Case
 
