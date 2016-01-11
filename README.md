@@ -106,6 +106,7 @@ React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,contai
 
 #### vars = { }
 | name      | type           | default | description    |
+|-----------|----------------|---------|----------------|
 | playScale | array          | `[0, 1]`| 播放的区域段，第一个数为开始时的窗口百分比，第二个为结束时的窗口百分比，当第一个数为0时，将从窗口底部开始播放，且第二个为1时将在窗口顶部结束动画 |
 | ease      | string         | `easeInOutQuad`| 动画的缓动 |
 | onUpdate  | function       |    -    | 更新时回调，传回带ease的百分比   ｜ 
