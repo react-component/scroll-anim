@@ -64,7 +64,7 @@ class Demo extends React.Component {
       </div>
       <div style={{height: 2000}} id="Scroll-Pack">
         <ScrollParallax className="pack-page"
-                        position="div"
+                        position="#Scroll-Pack"
                         vars={{backgroundColor: '#ddff00', playScale: [1, 2], onStart: this.setCss.bind(this), onComplete: this.onComplete.bind(this)}}
                         style={this.state.css}>
           <ScrollParallax vars={[{translateY: 0}, {translateY: '500px'}]}
