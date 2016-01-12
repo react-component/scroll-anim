@@ -41,6 +41,9 @@ class ScrollParallax extends React.Component {
     this.style = this.props.style || {};
     this.defaultData = [];
     this.parallaxStart = {};
+    this.scrollTop = 0;
+    // 新增个记录props.style的；
+    this.currentStyle = assign({}, this.props.style);
     this.setDefaultData(this.props.vars || {});
     this.state = {
       style: this.style,
@@ -53,7 +56,7 @@ class ScrollParallax extends React.Component {
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
     this.computedStyle = document.defaultView.getComputedStyle(this.dom);
-
+    this.scrollTop = window.pageYOffset;
     // height为100％时没刷新高，需要setTimeout
     setTimeout(()=> {
       const date = Date.now();
@@ -65,21 +68,22 @@ class ScrollParallax extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const equal = objectEqual(this.props.vars, nextProps.vars);
-
+    const equal = objectEqual(this.props.vars, nextProps.vars, this.dom.id);
     if (!equal) {
       this.parallaxStart = {};
       this.defaultData = [];
       this.setDefaultData(nextProps.vars || {});
     }
-    const styleEqual = objectEqual(this.props.style, nextProps.style);
+    const styleEqual = objectEqual(this.currentStyle, nextProps.style);
     if (!styleEqual) {
+      this.currentStyle = assign({}, nextProps.style);
       if (!this.defaultData.every(c=>c.end)) {
+        // 为留住已做的动画样式
         this.style = assign({}, this.style, nextProps.style);
-        if (this.tweenStart.end) {
-          Object.keys(this.tweenStart.end).forEach(key=> {
+        if (this.parallaxStart.end) {
+          Object.keys(this.parallaxStart.end).forEach(key=> {
             if (key.indexOf('Bool') >= 0) {
-              this.tweenStart.end[key] = false;
+              this.parallaxStart.end[key] = false;
             }
           });
         }
@@ -152,7 +156,6 @@ class ScrollParallax extends React.Component {
   getNewStyle(newStyle, easeValue, i, p, _value, cssName) {
     if (cssName === 'transform') {
       this.parallaxStart.end[p] = Css.getParam(p, _value, easeValue);
-
       const cTransform = newStyle.transform;
       let str = '';
       if (cTransform) {
@@ -210,63 +213,115 @@ class ScrollParallax extends React.Component {
   scrollEventListener() {
     const scrollTop = window.pageYOffset;
     const clientHeight = document.documentElement.clientHeight;
-
     const newStyle = this.style;
-
     this.defaultData.forEach((item, i)=> {
-      const playHeight = clientHeight * item.initScale;
-      // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
-      // rotateY 或 rotateＸ 时对 getBoundingClientRect 受到影响。所以把 dom 的 transform 设为 none 后再取 getBoundingClientRect 的 top 值
-      const isTransform = Object.keys(item.data).some(c => Css.isTransform(c) === 'transform');
-      if (isTransform) {
-        this.dom.style.transform = 'none';
+      if (!item) {
+        return;
       }
-      const offsetTop = this.dom.getBoundingClientRect().top + scrollTop - parseFloat(this.computedStyle.marginTop);
-      if (isTransform) {
-        Object.keys(this.state.style).forEach(key=> {
-          if (key === 'transform') {
-            this.dom.style[key] = this.state.style[key];
+      if (item.data) {
+        const playHeight = clientHeight * item.initScale;
+
+        // position定位；
+        let dom = this.props.position ? document.querySelectorAll(this.props.position) : this.dom;
+        if (dom.length > 1) {
+          throw new Error('Error: "position" Length can not be more than 1, Current length:' + dom.length);
+        }
+        dom = dom.length ? dom[0] : dom;
+        const noPosition = dom === this.dom;
+        // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
+        // rotateY 或 rotateＸ 时对 getBoundingClientRect 受到影响。所以把 dom 的 transform 设为 none 后再取 getBoundingClientRect 的 top 值
+        const isTransform = Object.keys(item.data).some(c => Css.isTransform(c) === 'transform') && noPosition;
+        if (isTransform) {
+          dom.style.transform = 'none';
+        }
+        const offsetTop = dom.getBoundingClientRect().top + scrollTop - (noPosition ? parseFloat(this.computedStyle.marginTop) : 0);
+        if (isTransform) {
+          Object.keys(this.state.style).forEach(key=> {
+            if (key === 'transform') {
+              dom.style[key] = this.state.style[key];
+            }
+          });
+        }
+
+        const elementShowHeight = scrollTop - offsetTop + clientHeight;
+        const currentElementShowHeight = this.scrollTop - offsetTop + clientHeight;
+        // start与end;
+        const start = 0;
+        const end = 1;
+        // 百分比；
+        const factClientHeight = clientHeight * (item.playScale[1] - item.playScale[0]);
+        const _progress = (elementShowHeight - playHeight ) / factClientHeight;
+        let progress = _progress;
+        progress = progress >= 1 ? 1 : progress;
+        progress = progress <= 0 ? 0 : progress;
+
+        // 缓动参数；
+        const easeValue = easingTypes[item.ease](progress, start, end, 1);
+        // onStart 处理；
+        const currentProgress = (currentElementShowHeight - playHeight ) / factClientHeight;
+        const scrollTopValue = scrollTop - this.scrollTop;
+        /*
+         * scrollTopValue: < 0 为滚动轴往上， > 0 时为往下;
+         * _progress < 0 ----> scrollTopValue > 0 或 < 0 都设为false;
+         * _progress > 0 ----> 往上时设为false, 往下时不做处理;
+         */
+        if ((_progress <= 0 && scrollTopValue > 0) || (_progress >= 0 && scrollTopValue < 0)) {
+          item.onStart.only = false;
+        }
+        /*
+         * 百分比: _progress, 当前百分比: currentProgress;
+         * 往下滚时：
+         * 1. 当前百分比小于 0 时, 开始滚动时设定 start.only, 开始时，百分分大于等于 0 时调用 onStart;
+         * 2. 当前百分比大于 0 时, 不做处理；
+         * 往上滚时：
+         * 1. 当前百分比小于 0 时, 不做处理；
+         * 2. 当前百分比大于 0 时, 开始滚动时设定 start.only, 回到顶部, 百分比小于等于 0 时调用onStart;
+         */
+        if (!item.onStart.only && ((currentProgress <= 0 && scrollTopValue > 0 && _progress >= 0) || (currentProgress >= 0 && scrollTopValue < 0 && _progress <= 0))) {
+          item.onStart();
+          item.onStart.only = true;
+        }
+        // onUpdate 处理
+        if (_progress >= 0) {
+          if (_progress <= 1) {
+            item.onUpdate(easeValue);
           }
-        });
-      }
-      const elementShowHeight = scrollTop - offsetTop + clientHeight;
-      // start与end;
-      const start = 0;
-      const end = 1;
-      // 百分比；
-      let progress = (elementShowHeight - playHeight ) / (clientHeight * (item.playScale[1] - item.playScale[0]));
-      progress = progress >= 1 ? 1 : progress;
-      progress = progress <= 0 ? 0 : progress;
-      // 缓动参数；
-      const easeValue = easingTypes[item.ease](progress, start, end, 1);
+          // 开始样式设定
+          this.parallaxStart = this.getParallaxStart(item, i);
+        }
+        // 结合
+        if (this.parallaxStart[i]) {
+          Object.keys(item.data).forEach((_p)=> {
+            const _value = item.data[_p];
+            const p = Css.getGsapType(_p);
+            const cssName = Css.isTransform(p);
 
-      if (!item.onStart.only) {
-        item.onStart();
-        item.onStart.only = true;
-      }
-
-      item.onUpdate(easeValue);
-      this.parallaxStart = this.getParallaxStart(item, i);
-      Object.keys(item.data).forEach((_p)=> {
-        const _value = item.data[_p];
-        const p = Css.getGsapType(_p);
-        const cssName = Css.isTransform(p);
-
-        // 把缓动合并把数据里；
-        const easeValueMergeData = this.mergeDataToEase(easeValue, _value, this.parallaxStart[i][p], cssName);
-        // 生成样式；
-        newStyle[cssName] = this.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
-      });
-
-      // 到达
-      if (progress >= 1) {
-        item.end = true;
-        item.onComplete();
+            // 把缓动合并把数据里；
+            const easeValueMergeData = this.mergeDataToEase(easeValue, _value, this.parallaxStart[i][p], cssName);
+            // 生成样式；
+            newStyle[cssName] = this.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
+          });
+        }
+        // 到达
+        if (progress >= 1) {
+          item.end = true;
+        } else {
+          item.end = false;
+        }
+        // 同onStart; 数值改为1
+        if ((_progress < 1 && scrollTopValue > 0) || (_progress > 1 && scrollTopValue < 0)) {
+          item.onComplete.only = false;
+        }
+        if (!item.onComplete.only && ((currentProgress < 1 && scrollTopValue > 0 && _progress > 1) || (currentProgress > 1 && scrollTopValue < 0 && _progress < 1))) {
+          item.onComplete();
+          item.onComplete.only = true;
+        }
       }
     });
     this.setState({
       style: newStyle,
     });
+    this.scrollTop = scrollTop;
     // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
     if (this.defaultData.every(c=>c.end) && !this.props.always) {
       EventListener.removeEventListener(this.eventType, this.scrollEventListener);
@@ -297,6 +352,7 @@ ScrollParallax.propTypes = {
   repeat: React.PropTypes.bool,
   vars: objectOrArray,
   always: React.PropTypes.bool,
+  position: React.PropTypes.string,
   children: childPropTypes,
   className: React.PropTypes.string,
   style: objectOrArray,
@@ -306,6 +362,7 @@ ScrollParallax.defaultProps = {
   component: 'div',
   vars: null,
   always: true,
+  position: null,
 };
 
 export default ScrollParallax;

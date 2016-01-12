@@ -10,8 +10,31 @@ const ScrollParallax = ScrollAnim.Parallax;
 class Demo extends React.Component {
   constructor() {
     super(...arguments);
+    this.state = {
+      css: {backgroundColor: '#123400', height: 900},
+      cssNoPosition: true,
+    };
   }
 
+  onComplete() {
+    console.log('complete');
+  }
+
+  setCss() {
+    const css = this.state.css;
+    console.log('start');
+    if (this.state.cssNoPosition) {
+      css.position = 'fixed';
+      css.top = 0;
+    } else {
+      css.position = '';
+      css.top = '';
+    }
+    this.setState({
+      css,
+      cssNoPosition: !this.state.cssNoPosition,
+    });
+  }
 
   render() {
     return (<div>
@@ -38,6 +61,16 @@ class Demo extends React.Component {
                         style={{transform: 'translateY(320px) scale(.9)', color: '#fff', opacity: 0.7}}>视差示例示例示例</ScrollParallax>
         <ScrollParallax vars={{translateY: -60, opacity: 1, ease: 'linear'}}
                         style={{transform: 'translateY(320px)', color: '#fff'}}>视差示例示例示例</ScrollParallax>
+      </div>
+      <div style={{height: 2000}} id="Scroll-Pack">
+        <ScrollParallax className="pack-page"
+                        position="#Scroll-Pack"
+                        vars={{backgroundColor: '#ddff00', playScale: [1, 2], onStart: this.setCss.bind(this), onComplete: this.onComplete.bind(this)}}
+                        style={this.state.css}>
+          <ScrollParallax vars={[{translateY: 0}, {translateY: '500px'}]}
+                          position="#Scroll-Pack"
+                          style={{transform: 'translateY(300px)', color: '#fff', fontSize: 36}}>示例示例</ScrollParallax>
+        </ScrollParallax>
       </div>
     </div>);
   }

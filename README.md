@@ -101,6 +101,7 @@ React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,contai
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | vars      | object / array | `null`  | 组件动效数据     |
+| position  | string         | `null`  | 定位，默位自身dom, 格式：'#id','.class','tag',都必需是唯一的|
 | always    | boolean        | `true`  | 同上            |
 | component | string         | `div`   | 同上            |
 
@@ -110,8 +111,8 @@ React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,contai
 | playScale | array          | `[0, 1]`| 播放的区域段，第一个数为开始时的窗口百分比，第二个为结束时的窗口百分比，当第一个数为0时，将从窗口底部开始播放，且第二个为1时将在窗口顶部结束动画 |
 | ease      | string         | `easeInOutQuad`| 动画的缓动 |
 | onUpdate  | function       |    -    | 更新时回调，传回带ease的百分比   ｜ 
-| onStart   | function       |    -    | 开始时回调 |
-| onComplete| function       |    -    | 结束时回调 |
+| onStart   | function       |    -    | 开始 (playScale[0]) 时回调 |
+| onComplete| function       |    -    | 到达 (playScale[1]) 时回调 |
 
 > vars = [{},{}] 时为timeline;
 

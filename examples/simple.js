@@ -23,7 +23,7 @@ class Demo extends React.Component {
         <div>我是内容</div>
         <div>我是内容</div>
       </div>
-      <ScrollOverPack className="pack-page" style={{backgroundColor: '#fff000', marginTop: 100, transform: 'translateY(200px)'}}>
+      <ScrollOverPack style={{backgroundColor: '#fff000', height: 800}}>
         <TweenOne key="0" vars={{opacity: 1}}
                   style={{width: '100%', opacity: 0, textAlign: 'center', color: '#fff', fontSize: 32}}>默认进入与出场</TweenOne>
         <QueueAnim key="1">
@@ -34,12 +34,14 @@ class Demo extends React.Component {
         </QueueAnim>
       </ScrollOverPack>
 
-      <ScrollOverPack className="pack-page" style={{backgroundColor: '#128303'}} repeat={false}>
+      <ScrollOverPack className="pack-page" style={{backgroundColor: '#128303'}} always={false}>
         <div style={{width: '100%', textAlign: 'center', color: '#fff', fontSize: 32}}>只进入一次</div>
         <Animate key="0" transitionName="fade" transitionAppear>
           <div>Animate示例示例</div>
         </Animate>
-        <TweenOne key="one" vars={{marginTop: 100}} className="tween-one">demo</TweenOne>
+        <TweenOne vars={{x: 200, opacity: 1}} style={{opacity: 0, width: 100}} key="1">
+          单元素用例
+        </TweenOne>
       </ScrollOverPack>
 
       <ScrollOverPack className="pack-page" style={{backgroundColor: '#00ffff'}} playScale={0.8}>
