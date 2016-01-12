@@ -224,7 +224,7 @@ class ScrollParallax extends React.Component {
         // position定位；
         let dom = this.props.position ? document.querySelectorAll(this.props.position) : this.dom;
         if (dom.length > 1) {
-          throw new Error('Error: "position" Length can not be more than 1, Current length:' + dom.length);
+          throw new Error('"position" Length can not be more than 1, Current length:' + dom.length);
         }
         dom = dom.length ? dom[0] : dom;
         const noPosition = dom === this.dom;
