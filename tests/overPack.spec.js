@@ -60,6 +60,28 @@ describe('rc-scroll-anim', function() {
     expect(child.length).to.be(3);
   });
 
+  it('overPack always false', function(done) {
+    window.scrollTo(0, 0);
+    instance = createScrollOverPack({
+      always: false,
+    });
+    window.scrollTo(0, 1200);
+    let child;
+    setTimeout(()=> {
+      window.scrollTo(0, 0);
+      setTimeout(()=> {
+        console.log('window.pageYOffset:', window.pageYOffset);
+        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+        console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
+        expect(getFloat(child[0].style.opacity)).to.be(1);
+        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
+        console.log('always = false -> QueueAnim end child length:', child.length);
+        expect(child.length).to.be(2);
+        done();
+      }, 30);
+    }, 930);
+  });
+
   it('overPack enter leave', function(done) {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
@@ -91,30 +113,8 @@ describe('rc-scroll-anim', function() {
           console.log('leave -> QueueAnim end child length:', child.length);
           expect(child.length).to.be(0);
           done();
-        }, 950);
-      }, 930);
+        }, 600);
+      }, 600);
     }, 0);
-  });
-
-  it('overPack always false', function(done) {
-    window.scrollTo(0, 0);
-    instance = createScrollOverPack({
-      always: false,
-    });
-    window.scrollTo(0, 1200);
-    let child;
-    setTimeout(()=> {
-      window.scrollTo(0, 0);
-      setTimeout(()=> {
-        console.log('window.pageYOffset:', window.pageYOffset);
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-        console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
-        expect(getFloat(child[0].style.opacity)).to.be(1);
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-        console.log('always = false -> QueueAnim end child length:', child.length);
-        expect(child.length).to.be(2);
-        done();
-      }, 30);
-    }, 930);
   });
 });
