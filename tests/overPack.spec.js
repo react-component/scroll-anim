@@ -90,10 +90,10 @@ describe('rc-scroll-anim', function() {
     setTimeout(()=> {
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
       console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
-      expect(getFloat(child[0].style.opacity)).to.be(0);
+      expect(getFloat(child[0].style.opacity)).to.above(0);
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
       console.log('enter -> QueueAnim start child length:', child.length);
-      expect(child.length).to.be(0);
+      expect(child.length).to.above(0);
       setTimeout(()=> {
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
         console.log('enter -> TweenOne end opacity:', child[0].style.opacity);
@@ -109,12 +109,14 @@ describe('rc-scroll-anim', function() {
           console.log(child[0].style);
           console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.below(1);
+        }, 500);
+        setTimeout(()=> {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
           console.log('leave -> QueueAnim end child length:', child.length);
           expect(child.length).to.be(0);
           done();
-        }, 600);
+        }, 1000);
       }, 600);
-    }, 0);
+    }, 30);
   });
 });
