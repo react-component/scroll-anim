@@ -31,10 +31,6 @@ React ScrollAnim Component
 | --- | --- | --- | --- | --- |
 | IE 8+ ✔ | Chrome 31.0+ ✔ | Firefox 31.0+ ✔ | Opera 30.0+ ✔ | Safari 7.0+ ✔ |
 
-## Screenshots
-
-<img src="" width="288"/>
-
 
 ## Development
 
@@ -119,15 +115,3 @@ var Event = ScrollAnim.Event;
 Event.addEventListener('scroll.xxxx',func);
 Event.removeEventListener('scroll.xxx',func);
 ```
-
-## Test Case
-
-http://localhost:8020/tests/runner.html?coverage
-
-## Coverage
-
-http://localhost:8020/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8020/tests/runner.html?coverage
-
-## License
-
-rc-scroll-anim is released under the MIT license.
