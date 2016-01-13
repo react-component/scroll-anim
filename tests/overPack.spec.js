@@ -108,7 +108,7 @@ describe('rc-scroll-anim', function() {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
           console.log(child[0].style);
           console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
-          expect(getFloat(child[0].style.opacity)).to.be(0);
+          expect(getFloat(child[0].style.opacity)).to.below(1);
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
           console.log('leave -> QueueAnim end child length:', child.length);
           expect(child.length).to.be(0);
