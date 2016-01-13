@@ -84,7 +84,7 @@ describe('rc-scroll-anim', function() {
         window.scrollTo(0, 0);
         setTimeout(()=> {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-          console.log(child.style);
+          console.log(child[0].style);
           console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.be(0);
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
