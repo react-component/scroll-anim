@@ -23,7 +23,7 @@ describe('rc-scroll-anim', function() {
         return (<div>
           <div style={{height: 600}}></div>
           <ScrollAnim.OverPack {...this.props} style={{height: 800}}>
-            <TweenOne key="one" vars={{opacity: 1}} className="tween-one" style={{opacity: 0}}>demo</TweenOne>
+            <TweenOne key="one" vars={{opacity: 1}} className="tween-one" style={{opacity: 0}} component="i">demo</TweenOne>
             <QueueAnim key="queueAnim" className="queue-anim">
               <p key="0">demo</p>
               <p key="1">demo</p>
@@ -60,22 +60,22 @@ describe('rc-scroll-anim', function() {
     expect(child.length).to.be(3);
   });
 
-  it.only('overPack enter leave', function(done) {
+  it('overPack enter leave', function(done) {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
     window.scrollTo(0, 1200);
     let child;
     setTimeout(()=> {
-      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-      console.log('enter -> TweenOne start opacity:', child[3].style.opacity);
-      expect(getFloat(child[3].style.opacity)).to.be(0);
+      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+      console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
+      expect(getFloat(child[0].style.opacity)).to.be(0);
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
       console.log('enter -> QueueAnim start child length:', child.length);
       expect(child.length).to.be(0);
       setTimeout(()=> {
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        console.log('enter -> TweenOne end opacity:', child[3].style.opacity);
-        expect(getFloat(child[3].style.opacity)).to.be(1);
+        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+        console.log('enter -> TweenOne end opacity:', child[0].style.opacity);
+        expect(getFloat(child[0].style.opacity)).to.be(1);
       }, 500);
       setTimeout(()=> {
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
@@ -83,9 +83,10 @@ describe('rc-scroll-anim', function() {
         expect(child.length).to.be(2);
         window.scrollTo(0, 0);
         setTimeout(()=> {
-          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-          // console.log('leave -> TweenOne end opacity:', child[3].style.opacity);
-          // expect(getFloat(child[3].style.opacity)).to.be(0);
+          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+          console.log(child.style);
+          console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
+          expect(getFloat(child[0].style.opacity)).to.be(0);
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
           console.log('leave -> QueueAnim end child length:', child.length);
           expect(child.length).to.be(0);
@@ -106,9 +107,9 @@ describe('rc-scroll-anim', function() {
       window.scrollTo(0, 0);
       setTimeout(()=> {
         console.log('window.pageYOffset:', window.pageYOffset);
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        console.log('always = false -> TweenOne end opacity:', child[3].style.opacity);
-        expect(getFloat(child[3].style.opacity)).to.be(1);
+        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+        console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
+        expect(getFloat(child[0].style.opacity)).to.be(1);
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
         console.log('always = false -> QueueAnim end child length:', child.length);
         expect(child.length).to.be(2);
