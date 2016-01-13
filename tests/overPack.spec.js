@@ -60,7 +60,7 @@ describe('rc-scroll-anim', function() {
     expect(child.length).to.be(3);
   });
 
-  it('overPack enter', function(done) {
+  it.only('overPack enter leave', function(done) {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
     window.scrollTo(0, 1200);
@@ -81,34 +81,18 @@ describe('rc-scroll-anim', function() {
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
         console.log('enter -> QueueAnim end child length:', child.length);
         expect(child.length).to.be(2);
-        done();
+        window.scrollTo(0, 0);
+        setTimeout(()=> {
+          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+          console.log('leave -> TweenOne end opacity:', child[3].style.opacity);
+          expect(getFloat(child[3].style.opacity)).to.be(0);
+          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
+          console.log('leave -> QueueAnim end child length:', child.length);
+          expect(child.length).to.be(0);
+          done();
+        }, 950);
       }, 930);
     }, 0);
-  });
-
-  it.only('overPack leave', function(done) {
-    instance = createScrollOverPack();
-    window.scrollTo(0, 1200);
-    let child;
-    setTimeout(()=> {
-      window.scrollTo(0, 0);
-      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-      console.log('leave -> TweenOne start opacity:', child[3].style.opacity);
-      console.log(child.length);
-      expect(getFloat(child[3].style.opacity)).to.be(1);
-      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-      console.log('leave -> QueueAnim start child length:', child.length);
-      expect(child.length).to.be(2);
-      setTimeout(()=> {
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        console.log('leave -> TweenOne end opacity:', child[3].style.opacity);
-        expect(getFloat(child[3].style.opacity)).to.be(0);
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-        console.log('leave -> QueueAnim end child length:', child.length);
-        expect(child.length).to.be(0);
-        done();
-      }, 1000);
-    }, 500);
   });
 
   it('overPack always false', function(done) {
