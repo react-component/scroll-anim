@@ -8,6 +8,16 @@ export function dataToArray(vars) {
   return [vars];
 }
 
+export function transformArguments(arg) {
+  if (Array.isArray(arg)) {
+    if (arg.length === 2) {
+      return arg;
+    }
+    return [arg.join(), arg.join()];
+  }
+  return [arg, arg];
+}
+
 export function objectEqual(obj1, obj2) {
   if (!obj1 || !obj2) {
     return false;

@@ -58,12 +58,11 @@ http://localhost:8020/examples/
 
 ## Usage
 
+#### ScrollOverPack示例
 ```js
 var ScrollAnim = require('rc-scroll-anim');
 var ScrollOverPack = ScrollAnim.OverPack;
-var ScrollParallax = ScrollAnim.Parallax;
 var React = require('react');
-// ScrollOverPack示例
 // ScrollOverPack目前只支持rc-animate,rc-queue-anim,rc-tween-one;
 React.render(<ScrollOverPack>
   <QueueAnim key='queueAnim'>
@@ -74,8 +73,26 @@ React.render(<ScrollOverPack>
   <TweenOne key='tweenOne' vars={{x:100}}>单元素动画</TweenOne>
   <Animate key='rc-animate' transitionName="fade" transitionAppear>rc-animate示例</Animate>
 </ScrollOverPack>, container);
-// Parallax示例
+```
+#### Parallax示例
+
+```js
+var ScrollParallax = ScrollAnim.Parallax;
 React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,container);
+```
+
+#### Link示例
+
+```js
+var Link = ScrollAnim.Link;
+React.render(<div>
+  <div className="nav">
+    <Link className="nav-list" to="#page0">page0</Link>
+    <Link className="nav-list" to="#page1">page1</Link>
+  </div>
+  <div className="pack-page" id="page0"></div>
+  <div className="pack-page" id="page1"></div>
+</div>,container);
 ```
 
 ## API
@@ -108,6 +125,16 @@ React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,contai
 | onComplete| function       |    -    | 到达 (playScale[1]) 时回调 |
 
 > vars = [{},{}] 时为timeline;
+
+### Link
+| name      | type           | default | description    |
+|-----------|----------------|---------|----------------|
+| to        | string         | `null`  | 必需; 指定元素到达顶部; 如 '#page1'; 注: 元素必需是唯一的 |
+| duration  | number         | `450`   | 点击滚动动画的时间 |
+| ease      | string         | `easeInOutQuad` | 动画缓动 | 
+| active    | string         | `active`| 选中时的样式    |
+| showHeightActive| string / number / array | `0` | 如设定了值，在进入时距顶部还有指定值的时, `link` 标签被附于 `active` 值; 在出场时是还有指定值时, `link` 标签移除 `active` 值; 如果为Array时，第一个为进场，第二个为出场; |
+| toShowHeight | boolean     | false   | 点击时是否滚到 `showHeightActive` 上 |
 
 ### Event 
 ```

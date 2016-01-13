@@ -1,16 +1,18 @@
 @zero: 0;
-.pack-page{
+.pack-page {
   width: 100%;
   height: 800px;
 }
+
 .motion-common() {
   animation-duration: .5s;
   animation-fill-mode: both;
 }
 
-.fade-enter,.fade-leave,.fade-appear {
+.fade-enter, .fade-leave, .fade-appear {
   animation-duration: 2s;
 }
+
 .fade-enter {
   opacity: 0;
   .motion-common();
@@ -61,5 +63,28 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+// link css
+.nav {
+  position: fixed;
+  background: rgba(0, 0, 0, .85);
+  color: #fff;
+  width: 100%;
+  height: 80px;
+  z-index: 9999;
+  top: 0;
+  & .nav-list {
+    width: 100px;
+    height: 100%;
+    float: left;
+    line-height: 80px;
+    text-align: center;
+    cursor: pointer;
+    transition: background .45s;
+    &:hover, &.active {
+      background: #333;
+    }
   }
 }

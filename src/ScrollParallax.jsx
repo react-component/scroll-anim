@@ -357,9 +357,7 @@ ScrollParallax.propTypes = {
 
 ScrollParallax.defaultProps = {
   component: 'div',
-  vars: null,
   always: true,
-  position: null,
 };
 
 export default ScrollParallax;
