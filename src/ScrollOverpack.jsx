@@ -31,14 +31,12 @@ class ScrollOverPack extends React.Component {
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
     this.computedStyle = document.defaultView.getComputedStyle(this.dom);
-    // height为100％时没刷新高，需要setTimeout
-    setTimeout(()=> {
-      const date = Date.now();
-      const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-      this.eventType = 'scroll.scrollEvent' + date + length;
-      this.scrollEventListener(null);
-      EventListener.addEventListener(this.eventType, this.scrollEventListener);
-    });
+
+    const date = Date.now();
+    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
+    this.eventType = 'scroll.scrollEvent' + date + length;
+    this.scrollEventListener();
+    EventListener.addEventListener(this.eventType, this.scrollEventListener);
   }
 
   componentWillUnmount() {

@@ -57,18 +57,16 @@ class ScrollParallax extends React.Component {
     this.dom = ReactDom.findDOMNode(this);
     this.computedStyle = document.defaultView.getComputedStyle(this.dom);
     this.scrollTop = window.pageYOffset;
-    // height为100％时没刷新高，需要setTimeout
-    setTimeout(()=> {
-      const date = Date.now();
-      const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-      this.eventType = 'scroll.scrollEvent' + date + length;
-      this.scrollEventListener();
-      EventListener.addEventListener(this.eventType, this.scrollEventListener);
-    });
+
+    const date = Date.now();
+    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
+    this.eventType = 'scroll.scrollEvent' + date + length;
+    this.scrollEventListener();
+    EventListener.addEventListener(this.eventType, this.scrollEventListener);
   }
 
   componentWillReceiveProps(nextProps) {
-    const equal = objectEqual(this.props.vars, nextProps.vars, this.dom.id);
+    const equal = objectEqual(this.props.vars, nextProps.vars);
     if (!equal) {
       this.parallaxStart = {};
       this.defaultData = [];
@@ -349,7 +347,6 @@ const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.P
 const childPropTypes = React.PropTypes.oneOfType([objectOrArray, React.PropTypes.string]);
 ScrollParallax.propTypes = {
   component: React.PropTypes.string,
-  repeat: React.PropTypes.bool,
   vars: objectOrArray,
   always: React.PropTypes.bool,
   position: React.PropTypes.string,
