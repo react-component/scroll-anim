@@ -64,23 +64,27 @@ describe('rc-scroll-anim', function() {
       component: 'i',
       vars: {opacity: 1},
     });
+    const windowHeight = document.documentElement.clientHeight;
+    const docHeight = document.documentElement.getBoundingClientRect().height;
+    const startHeight = docHeight - 600 - windowHeight;
+    const endHeight = startHeight + windowHeight;
+    console.log('window height:', windowHeight, 'doc height:', docHeight);
     // 窗口高度 300, 其它样式高度: 145, parallax里的高为 1200,
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
     expect(getFloat(child[0].style.opacity)).to.be(0);
-    console.log('window height:', document.documentElement.getBoundingClientRect().height);
-    window.scrollTo(0, 445);
+    window.scrollTo(0, startHeight);
     setTimeout(()=> {
       console.log('scroll to start:', child[0].style.opacity);
       expect(getFloat(child[0].style.opacity)).to.be(0);
-      window.scrollTo(0, 500);
+      window.scrollTo(0, startHeight + 0.1 * windowHeight);
       setTimeout(()=> {
         console.log('scroll update access start:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.above(0).below(0.1);
-        window.scrollTo(0, 700);
+        window.scrollTo(0, startHeight + 0.9 * windowHeight);
         setTimeout(()=> {
           console.log('scroll update access end:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.above(0.9).below(1);
-          window.scrollTo(0, 745);
+          window.scrollTo(0, endHeight);
           setTimeout(()=> {
             console.log('scroll to end:', child[0].style.opacity);
             expect(getFloat(child[0].style.opacity)).to.be(1);
@@ -99,15 +103,20 @@ describe('rc-scroll-anim', function() {
       vars: {opacity: 1, playScale: [0.5, 1]},
     });
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+    const windowHeight = document.documentElement.clientHeight;
+    const docHeight = document.documentElement.getBoundingClientRect().height;
+    const startHeight = docHeight - 600 - windowHeight;
+    const endHeight = startHeight + windowHeight;
+    console.log('window height:', windowHeight, 'doc height:', docHeight);
     expect(getFloat(child[0].style.opacity)).to.be(0);
-    console.log('window height:', document.documentElement.getBoundingClientRect().height);
-    console.log('playScale = [0.5, 1]: pageYOffset is:', 'start:' + (0.5 * 300 + 300 + 145), 'end:' + (145 + 300 + 300));
-    window.scrollTo(0, 595);
+    console.log('window height:', docHeight, 'window height:', windowHeight);
+    console.log('playScale = [0.5, 1]: pageYOffset is:', 'start:' + (startHeight + windowHeight * 0.5), 'end:' + endHeight);
+    window.scrollTo(0, startHeight + windowHeight * 0.5);
     setTimeout(()=> {
       console.log('window.pageYOffset:', window.pageYOffset);
       console.log('scroll to start:', child[0].style.opacity);
       expect(getFloat(child[0].style.opacity)).to.be(0);
-      window.scrollTo(0, 745);
+      window.scrollTo(0, endHeight);
       setTimeout(()=> {
         console.log('window.pageYOffset:', window.pageYOffset);
         console.log('scroll to end:', child[0].style.opacity);
@@ -125,7 +134,12 @@ describe('rc-scroll-anim', function() {
       vars: {opacity: 1},
       always: false,
     });
-    window.scrollTo(0, 745);
+    const windowHeight = document.documentElement.clientHeight;
+    const docHeight = document.documentElement.getBoundingClientRect().height;
+    const startHeight = docHeight - 600 - windowHeight;
+    const endHeight = startHeight + windowHeight;
+    console.log('window height:', windowHeight, 'doc height:', docHeight);
+    window.scrollTo(0, endHeight);
     console.log('window.pageYOffset:', window.pageYOffset);
     setTimeout(()=> {
       window.scrollTo(0, 0);

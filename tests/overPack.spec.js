@@ -61,6 +61,7 @@ describe('rc-scroll-anim', function() {
   });
 
   it('overPack enter', function(done) {
+    window.scrollTo(0, 0);
     instance = createScrollOverPack();
     window.scrollTo(0, 1200);
     let child;
@@ -86,6 +87,7 @@ describe('rc-scroll-anim', function() {
   });
 
   it('overPack leave', function(done) {
+    window.scrollTo(0, 0);
     instance = createScrollOverPack();
     window.scrollTo(0, 1200);
     let child;
@@ -110,6 +112,7 @@ describe('rc-scroll-anim', function() {
   });
 
   it('overPack always false', function(done) {
+    window.scrollTo(0, 0);
     instance = createScrollOverPack({
       always: false,
     });
