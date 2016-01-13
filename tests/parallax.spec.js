@@ -85,10 +85,10 @@ describe('rc-scroll-anim', function() {
             console.log('scroll to end:', child[0].style.opacity);
             expect(getFloat(child[0].style.opacity)).to.be(1);
             done();
-          }, 0);
-        }, 0);
-      }, 0);
-    }, 0);
+          }, 30);
+        }, 30);
+      }, 30);
+    }, 30);
   });
 
   it('parallax playScale', function(done) {
@@ -113,8 +113,8 @@ describe('rc-scroll-anim', function() {
         console.log('scroll to end:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.be(1);
         done();
-      }, 0);
-    }, 0);
+      }, 30);
+    }, 30);
   });
 
   it('parallax always false', function(done) {

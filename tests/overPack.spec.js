@@ -126,7 +126,7 @@ describe('rc-scroll-anim', function() {
         console.log('always = false -> QueueAnim end child length:', child.length);
         expect(child.length).to.be(2);
         done();
-      }, 0);
+      }, 30);
     }, 930);
   });
 });
