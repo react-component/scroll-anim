@@ -86,8 +86,7 @@ describe('rc-scroll-anim', function() {
     }, 0);
   });
 
-  it('overPack leave', function(done) {
-    window.scrollTo(0, 0);
+  it.only('overPack leave', function(done) {
     instance = createScrollOverPack();
     window.scrollTo(0, 1200);
     let child;
@@ -95,6 +94,7 @@ describe('rc-scroll-anim', function() {
       window.scrollTo(0, 0);
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       console.log('leave -> TweenOne start opacity:', child[3].style.opacity);
+      console.log(child.length);
       expect(getFloat(child[3].style.opacity)).to.be(1);
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
       console.log('leave -> QueueAnim start child length:', child.length);
@@ -107,8 +107,8 @@ describe('rc-scroll-anim', function() {
         console.log('leave -> QueueAnim end child length:', child.length);
         expect(child.length).to.be(0);
         done();
-      }, 960);
-    }, 930);
+      }, 1000);
+    }, 500);
   });
 
   it('overPack always false', function(done) {
