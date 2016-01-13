@@ -107,7 +107,7 @@ describe('rc-scroll-anim', function() {
         console.log('leave -> QueueAnim end child length:', child.length);
         expect(child.length).to.be(0);
         done();
-      }, 930);
+      }, 960);
     }, 930);
   });
 
