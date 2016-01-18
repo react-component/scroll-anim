@@ -81,17 +81,18 @@ var ScrollParallax = ScrollAnim.Parallax;
 React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,container);
 ```
 
-#### Link示例
+#### Link,Element示例
 
 ```js
 var Link = ScrollAnim.Link;
+var Element = ScrollAnim.Element;
 React.render(<div>
   <div className="nav">
-    <Link className="nav-list" to="#page0">page0</Link>
-    <Link className="nav-list" to="#page1">page1</Link>
+    <Link className="nav-list" to="page0">page0</Link>
+    <Link className="nav-list" to="page1">page1</Link>
   </div>
-  <div className="pack-page" id="page0"></div>
-  <div className="pack-page" id="page1"></div>
+  <Element className="pack-page" name="page0"></Element>
+  <Element className="pack-page" name="page1"></Element>
 </div>,container);
 ```
 
@@ -110,13 +111,23 @@ React.render(<div>
 #### 子级动画支持 `rc-queue-anim` `rc-animte` `rc-tween-one`
 
 > children 为 `rc-queue-anim` `rc-animte` 或其它把children设为 null 就有动画的组件时: scrollHideProps={{child: null}}
-> children 为 `rc-tween-one` 或其它有倒放功能的组件时: scrollHideProps={{type: 'reverse'}}
+> children 为 `rc-tween-one` 或其它有倒放功能在出场时不想删掉元素的组件时: scrollHideProps={{type: 'reverse'}}
+
+#### scrollHideProps示例
+```jsx
+<ScrollOverPack>
+  <QueueAnim scrollHideProps={{child: null}}>
+    <div key='0'>0</div>
+    <div key='1'>1</div>
+  </QueueAnim>
+</ScrollOVerPack>
+```
 
 ### Parallax
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | vars      | object / array | `null`  | 组件动效数据     |
-| position  | string         | `null`  | 定位，默位自身dom, 格式：'#id','.class','tag',都必需是唯一的|
+| position  | string         | `null`  | 定位,`Element`的 name 值，必需是唯一的|
 | always    | boolean        | `true`  | 同上            |
 | component | string         | `div`   | 同上            |
 
@@ -134,13 +145,21 @@ React.render(<div>
 ### Link
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| to        | string         | `null`  | 必需; 指定元素到达顶部; 如 '#page1'; 注: 元素必需是唯一的 |
+| to        | string         | `null`  | 必需; 指定元素到达顶部; `Element` 的 name 值, 元素必需是唯一的 |
 | duration  | number         | `450`   | 点击滚动动画的时间 |
 | ease      | string         | `easeInOutQuad` | 动画缓动 | 
 | active    | string         | `active`| 选中时的样式    |
 | showHeightActive| string / number / array | `0` | 如设定了值，在进入时距顶部还有指定值的时, `link` 标签被附于 `active` 值; 在出场时是还有指定值时, `link` 标签移除 `active` 值; 如果为Array时，第一个为进场，第二个为出场; |
 | toShowHeight | boolean     | false   | 点击时是否滚到 `showHeightActive` 上 |
 | component | string         | `div`   | 同上            |
+
+### Element 
+
+| name      | type           | default | description    |
+|-----------|----------------|---------|----------------|
+| name      | string         | null    | 需要定位的名称，parallax的 position 或 link 的 to, 都需要以此元素做定位 |
+| component | string         | `div`   | 同上            |
+
 
 ### Event 
 ```
