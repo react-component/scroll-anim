@@ -120,7 +120,7 @@ React.render(<div>
     <div key='0'>0</div>
     <div key='1'>1</div>
   </QueueAnim>
-</ScrollOVerPack>
+</ScrollOverPack>
 ```
 
 ### Parallax
@@ -162,7 +162,7 @@ React.render(<div>
 
 
 ### Event 
-```
+```jsx
 var Event = ScrollAnim.Event;
 Event.addEventListener('scroll.xxxx',func);
 Event.removeEventListener('scroll.xxx',func);
