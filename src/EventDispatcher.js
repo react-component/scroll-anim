@@ -4,10 +4,9 @@ function EventDispatcher(target) {
 }
 EventDispatcher.prototype = {
   addEventListener(type, callback) {
-    const types = type.split('.').sort();
+    const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
-
     let list = this._listeners[_type];
     let index = 0;
     let listener;
