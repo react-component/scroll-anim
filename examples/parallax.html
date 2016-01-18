@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>parallax.js - example - rc-scroll-anim@0.0.5</title>
+  <title>parallax.js - example - rc-scroll-anim@0.1.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-scroll-anim@0.0.5</h1>
+    <h1>rc-scroll-anim@0.1.0</h1>
 
     <p>scroll-anim anim component for react</p>
   </div>
@@ -272,12 +272,36 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
 <span class="hljs-keyword">const</span> ScrollParallax = ScrollAnim.Parallax;
+<span class="hljs-keyword">const</span> ScrollElement = ScrollAnim.Element;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   constructor() {
     <span class="hljs-keyword">super</span>(...arguments);
+    <span class="hljs-keyword">this</span>.state = {
+      css: {backgroundColor: <span class="hljs-string">'#123400'</span>, height: <span class="hljs-number">900</span>},
+      cssNoPosition: <span class="hljs-literal">true</span>,
+    };
   }
 
+  onComplete() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'complete'</span>);
+  }
+
+  setCss() {
+    <span class="hljs-keyword">const</span> css = <span class="hljs-keyword">this</span>.state.css;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.cssNoPosition) {
+      css.position = <span class="hljs-string">'fixed'</span>;
+      css.top = <span class="hljs-number">0</span>;
+    } <span class="hljs-keyword">else</span> {
+      css.position = <span class="hljs-string">''</span>;
+      css.top = <span class="hljs-string">''</span>;
+    }
+    <span class="hljs-keyword">this</span>.setState({
+      css,
+      cssNoPosition: !<span class="hljs-keyword">this</span>.state.cssNoPosition,
+    });
+  }
 
   render() {
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
@@ -288,13 +312,33 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span>
            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{backgroundColor:</span> '#<span class="hljs-attribute">fff000</span>', <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">relative</span>', <span class="hljs-attribute">overflow:</span> '<span class="hljs-attribute">hidden</span>'}}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{[{translateX:</span> '<span class="hljs-attribute">0px</span>', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">durationScale:</span> <span class="hljs-attribute">0.5</span>}, {<span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">400</span>, <span class="hljs-attribute">durationScale:</span> <span class="hljs-attribute">0.3</span>}, {<span class="hljs-attribute">rotateY:</span> <span class="hljs-attribute">180</span>, <span class="hljs-attribute">durationScale:</span> <span class="hljs-attribute">0.5</span>}]}
-                        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{opacity:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">translateX</span>(<span class="hljs-attribute">-100px</span>) <span class="hljs-attribute">perspective</span>(<span class="hljs-attribute">200px</span>)', <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>'}}&gt;</span>X到0后最Ｙ到400<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{scaleX:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">scaleY:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">playScale:</span> <span class="hljs-attribute">0.3</span>}}
+        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
+          <span class="hljs-attribute">vars</span>=<span class="hljs-value">{[{translateX:</span> '<span class="hljs-attribute">0px</span>', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0</span>, <span class="hljs-attribute">0.5</span>], <span class="hljs-attribute">boxShadow:</span> '<span class="hljs-attribute">2px</span> <span class="hljs-attribute">2px</span> <span class="hljs-attribute">2px</span> #<span class="hljs-attribute">000</span>'}, {<span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">400</span>, <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0</span>, <span class="hljs-attribute">0.3</span>]}, {<span class="hljs-attribute">rotateY:</span> <span class="hljs-attribute">180</span>, <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0</span>, <span class="hljs-attribute">0.5</span>]}]}
+          <span class="hljs-attribute">style</span>=<span class="hljs-value">{{opacity:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">perspective</span>(<span class="hljs-attribute">200px</span>) <span class="hljs-attribute">translateX</span>(<span class="hljs-attribute">-100px</span>)', <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>'}}&gt;</span>X到0后最Ｙ到400,Y用的是marginTop,所以改变了下面两个的offsetTop<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{scaleX:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">scaleY:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0.5</span>, <span class="hljs-attribute">1</span>]}}
                         <span class="hljs-attribute">style</span>=<span class="hljs-value">{{opacity:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">scale</span>(<span class="hljs-attribute">0</span>)', <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>'}}&gt;</span>Scale示例示例示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{filter:</span> '<span class="hljs-attribute">blur</span>(<span class="hljs-attribute">0px</span>)', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">playScale:</span> <span class="hljs-attribute">0.3</span>}}
+        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{filter:</span> '<span class="hljs-attribute">blur</span>(<span class="hljs-attribute">0px</span>)', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0.5</span>, <span class="hljs-attribute">1</span>]}}
                         <span class="hljs-attribute">style</span>=<span class="hljs-value">{{opacity:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">filter:</span> '<span class="hljs-attribute">blur</span>(<span class="hljs-attribute">10px</span>)', <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>'}}&gt;</span>filter示例示例示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span>
+           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{backgroundColor:</span> '#<span class="hljs-attribute">ff0000</span>', <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">relative</span>', <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>', <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">36</span>}}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{translateY:</span> <span class="hljs-attribute">20</span>, <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">ease:</span> '<span class="hljs-attribute">linear</span>', <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0</span>, <span class="hljs-attribute">1.5</span>]}}
+                        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{transform:</span> '<span class="hljs-attribute">translateY</span>(<span class="hljs-attribute">320px</span>) <span class="hljs-attribute">scale</span>(<span class="hljs-attribute">.8</span>)', <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">0.5</span>}}&gt;</span>视差示例示例示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{translateY:</span> <span class="hljs-attribute">-20</span>, <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">ease:</span> '<span class="hljs-attribute">linear</span>', <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0</span>, <span class="hljs-attribute">1.2</span>]}}
+                        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{transform:</span> '<span class="hljs-attribute">translateY</span>(<span class="hljs-attribute">320px</span>) <span class="hljs-attribute">scale</span>(<span class="hljs-attribute">.9</span>)', <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">0.7</span>}}&gt;</span>视差示例示例示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{translateY:</span> <span class="hljs-attribute">-60</span>, <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span>, <span class="hljs-attribute">ease:</span> '<span class="hljs-attribute">linear</span>'}}
+                        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{transform:</span> '<span class="hljs-attribute">translateY</span>(<span class="hljs-attribute">320px</span>)', <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>'}}&gt;</span>视差示例示例示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">ScrollElement</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{height:</span> <span class="hljs-attribute">2000</span>}} <span class="hljs-attribute">name</span>=<span class="hljs-value">"Scroll-Pack"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span>
+                        <span class="hljs-attribute">position</span>=<span class="hljs-value">"Scroll-Pack"</span>
+                        <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{backgroundColor:</span> '#<span class="hljs-attribute">ddff00</span>', <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">1</span>, <span class="hljs-attribute">2</span>], <span class="hljs-attribute">onStart:</span> <span class="hljs-attribute">this.setCss.bind</span>(<span class="hljs-attribute">this</span>), <span class="hljs-attribute">onComplete:</span> <span class="hljs-attribute">this.onComplete.bind</span>(<span class="hljs-attribute">this</span>)}}
+                        <span class="hljs-attribute">style</span>=<span class="hljs-value">{this.state.css}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{[{translateY:</span> <span class="hljs-attribute">0</span>}, {<span class="hljs-attribute">translateY:</span> '<span class="hljs-attribute">500px</span>'}]}
+                          <span class="hljs-attribute">position</span>=<span class="hljs-value">"Scroll-Pack"</span>
+                          <span class="hljs-attribute">style</span>=<span class="hljs-value">{{transform:</span> '<span class="hljs-attribute">translateY</span>(<span class="hljs-attribute">300px</span>)', <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">36</span>}}&gt;</span>示例示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollElement</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   }
 }

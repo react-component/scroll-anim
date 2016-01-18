@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.0.5 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@0.1.0 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,12 +737,14 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.0.5</h1>
+  <h1>rc-scroll-anim@0.1.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
   <div class="examples-body">
     <ul>
+      
+      <li><a href="examples/link.html">link</a></li>
       
       <li><a href="examples/parallax.html">parallax</a></li>
       
@@ -761,9 +763,7 @@
 <a href="https://coveralls.io/r/ant-motion/scroll-anim?branch=master" title="null"><img src="https://img.shields.io/coveralls/ant-motion/scroll-anim.svg?style=flat-square" alt="Test coverage"></a>
 <a href="https://gemnasium.com/ant-motion/scroll-anim" title="null"><img src="http://img.shields.io/gemnasium/ant-motion/scroll-anim.svg?style=flat-square" alt="gemnasium deps"></a>
 <a href="http://nodejs.org/download/" title="null"><img src="https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square" alt="node version"></a>
-<a href="https://npmjs.org/package/rc-scroll-anim" title="null"><img src="https://img.shields.io/npm/dm/rc-scroll-anim.svg?style=flat-square" alt="npm download"></a>
-<a href="https://saucelabs.com/u/rc-scroll-anim" title="null"><img src="https://saucelabs.com/buildstatus/rc-scroll-anim" alt="Sauce Test Status"></a></p>
-<p><a href="https://saucelabs.com/u/rc-scroll-anim" title="null"><img src="https://saucelabs.com/browser-matrix/rc-scroll-anim.svg" alt="Sauce Test Status"></a></p>
+<a href="https://npmjs.org/package/rc-scroll-anim" title="null"><img src="https://img.shields.io/npm/dm/rc-scroll-anim.svg?style=flat-square" alt="npm download"></a></p>
 <h2>Browser Support<a id="user-content-browser-support" name="browser-support" class="anchor" aria-hidden="true" href="#browser-support"><span class="octicon octicon-link"></span></a></h2><table>
 <thead>
 <tr>
@@ -784,40 +784,205 @@
 </tr>
 </tbody>
 </table>
-<h2>Screenshots<a id="user-content-screenshots" name="screenshots" class="anchor" aria-hidden="true" href="#screenshots"><span class="octicon octicon-link"></span></a></h2><p><img src="" width="288"/></p>
 <h2>Development<a id="user-content-development" name="development" class="anchor" aria-hidden="true" href="#development"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm install
 npm start</code></pre></div><h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8020/examples/" title="null">http://localhost:8020/examples/</a></p>
-<p>online example: <a href="http://react-component.github.io/scroll-anim/" title="null">http://react-component.github.io/scroll-anim/</a></p>
 <h2>Feature<a id="user-content-feature" name="feature" class="anchor" aria-hidden="true" href="#feature"><span class="octicon octicon-link"></span></a></h2><ul>
 <li>support ie8,ie8+,chrome,firefox,safari</li>
 </ul>
 <h3>Keyboard<a id="user-content-keyboard" name="keyboard" class="anchor" aria-hidden="true" href="#keyboard"><span class="octicon octicon-link"></span></a></h3><h2>install<a id="user-content-install" name="install" class="anchor" aria-hidden="true" href="#install"><span class="octicon octicon-link"></span></a></h2><p><a href="https://npmjs.org/package/rc-scroll-anim" title="null"><img src="https://nodei.co/npm/rc-scroll-anim.png" alt="rc-scroll-anim"></a></p>
-<h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> ScrollAnim = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rc-scroll-anim'</span>);
+<h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><h4>ScrollOverPack示例<a id="user-content-scrolloverpack示例" name="scrolloverpack示例" class="anchor" aria-hidden="true" href="#scrolloverpack示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> ScrollAnim = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rc-scroll-anim'</span>);
+<span class="hljs-keyword">var</span> ScrollOverPack = ScrollAnim.OverPack;
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
-React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollAnim</span> /&gt;</span>, container);</span></code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th style="width: 100px;">name</th>
-        <th style="width: 50px;">type</th>
-        <th style="width: 50px;">default</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>className</td>
-          <td>String</td>
-          <td></td>
-          <td>additional css class of root dom node</td>
-        </tr>
-    </tbody>
+<span class="hljs-comment">// ScrollOverPack目前只支持rc-animate,rc-queue-anim,rc-tween-one;</span>
+React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollOverPack</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'queueAnim'</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{child:</span> <span class="hljs-attribute">null</span>}}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'a'</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'b'</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'b'</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">TweenOne</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'tweenOne'</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{type:</span> '<span class="hljs-attribute">reverse</span>'}}&gt;</span>单元素动画<span class="hljs-tag">&lt;/<span class="hljs-title">TweenOne</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'rc-animate'</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"fade"</span> <span class="hljs-attribute">transitionAppear</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{child:</span> <span class="hljs-attribute">null</span>}}&gt;</span>rc-animate示例<span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollOverPack</span>&gt;</span>, container);</span></code></pre></div><h4>Parallax示例<a id="user-content-parallax示例" name="parallax示例" class="anchor" aria-hidden="true" href="#parallax示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> ScrollParallax = ScrollAnim.Parallax;
+React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span>&gt;</span>Parallax示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollPallax</span>&gt;</span>,container);</span></code></pre></div><h4>Link示例<a id="user-content-link示例" name="link示例" class="anchor" aria-hidden="true" href="#link示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> Link = ScrollAnim.Link;
+React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"#page0"</span>&gt;</span>page0<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"#page1"</span>&gt;</span>page1<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"page0"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"page1"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,container);</span></code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><h3>OverPack<a id="user-content-overpack" name="overpack" class="anchor" aria-hidden="true" href="#overpack"><span class="octicon octicon-link"></span></a></h3><table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>component</td>
+<td>string</td>
+<td><code>div</code></td>
+<td>组件标签</td>
+</tr>
+<tr>
+<td>playScale</td>
+<td>number</td>
+<td><code>0.5</code></td>
+<td>开始播放的屏幕百分比, 0.5 为屏幕中间</td>
+</tr>
+<tr>
+<td>always</td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>到否重复播放，如为 false 将只进入一遍，不再触发出场效果</td>
+</tr>
+</tbody>
 </table>
-
-
-<h2>Test Case<a id="user-content-test-case" name="test-case" class="anchor" aria-hidden="true" href="#test-case"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8020/tests/runner.html?coverage" title="null">http://localhost:8020/tests/runner.html?coverage</a></p>
-<h2>Coverage<a id="user-content-coverage" name="coverage" class="anchor" aria-hidden="true" href="#coverage"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8020/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8020/tests/runner.html?coverage" title="null">http://localhost:8020/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8020/tests/runner.html?coverage</a></p>
-<h2>License<a id="user-content-license" name="license" class="anchor" aria-hidden="true" href="#license"><span class="octicon octicon-link"></span></a></h2><p>rc-scroll-anim is released under the MIT license.</p>
-
+<h4>子级动画支持 <code>rc-queue-anim</code> <code>rc-animte</code> <code>rc-tween-one</code><a id="user-content-子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" name="子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" class="anchor" aria-hidden="true" href="#子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>"><span class="octicon octicon-link"></span></a></h4><blockquote>
+<p>children 为 <code>rc-queue-anim</code> <code>rc-animte</code> 或其它把children设为 null 就有动画的组件时: scrollHideProps={{child: null}}
+children 为 <code>rc-tween-one</code> 或其它有倒放功能的组件时: scrollHideProps={{type: &#39;reverse&#39;}}</p>
+</blockquote>
+<h3>Parallax<a id="user-content-parallax" name="parallax" class="anchor" aria-hidden="true" href="#parallax"><span class="octicon octicon-link"></span></a></h3><table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vars</td>
+<td>object / array</td>
+<td><code>null</code></td>
+<td>组件动效数据</td>
+</tr>
+<tr>
+<td>position</td>
+<td>string</td>
+<td><code>null</code></td>
+<td>定位，默位自身dom, 格式：&#39;#id&#39;,&#39;.class&#39;,&#39;tag&#39;,都必需是唯一的</td>
+</tr>
+<tr>
+<td>always</td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td>component</td>
+<td>string</td>
+<td><code>div</code></td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<h4>vars = { }<a id="user-content-vars-=-{-}" name="vars-=-{-}" class="anchor" aria-hidden="true" href="#vars-=-{-}"><span class="octicon octicon-link"></span></a></h4><table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>playScale</td>
+<td>array</td>
+<td><code>[0, 1]</code></td>
+<td>播放的区域段，第一个数为开始时的窗口百分比，第二个为结束时的窗口百分比，当第一个数为0时，将从窗口底部开始播放，且第二个为1时将在窗口顶部结束动画</td>
+</tr>
+<tr>
+<td>ease</td>
+<td>string</td>
+<td><code>easeInOutQuad</code></td>
+<td>动画的缓动</td>
+</tr>
+<tr>
+<td>onUpdate</td>
+<td>function</td>
+<td>-</td>
+<td>更新时回调，传回带ease的百分比   ｜ </td>
+</tr>
+<tr>
+<td>onStart</td>
+<td>function</td>
+<td>-</td>
+<td>开始 (playScale[0]) 时回调</td>
+</tr>
+<tr>
+<td>onComplete</td>
+<td>function</td>
+<td>-</td>
+<td>到达 (playScale[1]) 时回调</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>vars = [{},{}] 时为timeline;</p>
+</blockquote>
+<h3>Link<a id="user-content-link" name="link" class="anchor" aria-hidden="true" href="#link"><span class="octicon octicon-link"></span></a></h3><table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>to</td>
+<td>string</td>
+<td><code>null</code></td>
+<td>必需; 指定元素到达顶部; 如 &#39;#page1&#39;; 注: 元素必需是唯一的</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>number</td>
+<td><code>450</code></td>
+<td>点击滚动动画的时间</td>
+</tr>
+<tr>
+<td>ease</td>
+<td>string</td>
+<td><code>easeInOutQuad</code></td>
+<td>动画缓动</td>
+</tr>
+<tr>
+<td>active</td>
+<td>string</td>
+<td><code>active</code></td>
+<td>选中时的样式</td>
+</tr>
+<tr>
+<td>showHeightActive</td>
+<td>string / number / array</td>
+<td><code>0</code></td>
+<td>如设定了值，在进入时距顶部还有指定值的时, <code>link</code> 标签被附于 <code>active</code> 值; 在出场时是还有指定值时, <code>link</code> 标签移除 <code>active</code> 值; 如果为Array时，第一个为进场，第二个为出场;</td>
+</tr>
+<tr>
+<td>toShowHeight</td>
+<td>boolean</td>
+<td>false</td>
+<td>点击时是否滚到 <code>showHeightActive</code> 上</td>
+</tr>
+<tr>
+<td>component</td>
+<td>string</td>
+<td><code>div</code></td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<h3>Event<a id="user-content-event" name="event" class="anchor" aria-hidden="true" href="#event"><span class="octicon octicon-link"></span></a></h3><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> Event = ScrollAnim.Event;
+Event.addEventListener(<span class="hljs-string">'scroll.xxxx'</span>,func);
+Event.removeEventListener(<span class="hljs-string">'scroll.xxx'</span>,func);</code></pre></div>
   </div>
 </div>
 <a href="https://github.com/ant-motion/scroll-anim"><img style="position: absolute; top: 0; right: 0; border: 0;"
