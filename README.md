@@ -138,6 +138,8 @@ React.render(<div>
 | active    | string         | `active`| 选中时的样式    |
 | showHeightActive| string / number / array | `0` | 如设定了值，在进入时距顶部还有指定值的时, `link` 标签被附于 `active` 值; 在出场时是还有指定值时, `link` 标签移除 `active` 值; 如果为Array时，第一个为进场，第二个为出场; |
 | toShowHeight | boolean     | false   | 点击时是否滚到 `showHeightActive` 上 |
+| onFocus   | func           | null    | 选中时回调，返回参数{target,to} |
+| onBlur    | func           | null    | 失去焦点时回调，返回参数同上 ｜
 | component | string         | `div`   | 同上            |
 
 ### Element 
