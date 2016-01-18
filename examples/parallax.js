@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const ScrollParallax = ScrollAnim.Parallax;
+const ScrollElement = ScrollAnim.Element;
 
 class Demo extends React.Component {
   constructor() {
@@ -62,16 +63,16 @@ class Demo extends React.Component {
         <ScrollParallax vars={{translateY: -60, opacity: 1, ease: 'linear'}}
                         style={{transform: 'translateY(320px)', color: '#fff'}}>视差示例示例示例</ScrollParallax>
       </div>
-      <div style={{height: 2000}} id="Scroll-Pack">
+      <ScrollElement style={{height: 2000}} name="Scroll-Pack">
         <ScrollParallax className="pack-page"
-                        position="#Scroll-Pack"
+                        position="Scroll-Pack"
                         vars={{backgroundColor: '#ddff00', playScale: [1, 2], onStart: this.setCss.bind(this), onComplete: this.onComplete.bind(this)}}
                         style={this.state.css}>
           <ScrollParallax vars={[{translateY: 0}, {translateY: '500px'}]}
-                          position="#Scroll-Pack"
+                          position="Scroll-Pack"
                           style={{transform: 'translateY(300px)', color: '#fff', fontSize: 36}}>示例示例</ScrollParallax>
         </ScrollParallax>
-      </div>
+      </ScrollElement>
     </div>);
   }
 }

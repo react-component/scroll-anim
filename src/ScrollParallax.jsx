@@ -5,6 +5,7 @@ import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Css from './Css';
 import {dataToArray, objectEqual} from './util';
+import mapped from './Mapped';
 
 const DEFAULT_EASING = 'easeInOutQuad';
 
@@ -61,8 +62,11 @@ class ScrollParallax extends React.Component {
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = 'scroll.scrollEvent' + date + length;
-    this.scrollEventListener();
     EventListener.addEventListener(this.eventType, this.scrollEventListener);
+    // 第一次进入;
+    setTimeout(()=>{
+      this.scrollEventListener();
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -220,11 +224,10 @@ class ScrollParallax extends React.Component {
         const playHeight = clientHeight * item.initScale;
 
         // position定位；
-        let dom = this.props.position ? document.querySelectorAll(this.props.position) : this.dom;
-        if (dom.length > 1) {
-          throw new Error('"position" Length can not be more than 1, Current length:' + dom.length);
+        const dom = this.props.position ? mapped.get(this.props.position) : this.dom;
+        if (!dom) {
+          throw new Error('"position" is null');
         }
-        dom = dom.length ? dom[0] : dom;
         const noPosition = dom === this.dom;
         // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
         // rotateY 或 rotateＸ 时对 getBoundingClientRect 受到影响。所以把 dom 的 transform 设为 none 后再取 getBoundingClientRect 的 top 值
