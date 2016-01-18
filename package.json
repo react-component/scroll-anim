@@ -47,7 +47,7 @@
     "react-dom": "0.14.x",
     "rc-util": "3.x",
     "rc-queue-anim": "0.11.3",
-    "rc-tween-one": "0.1.x",
+    "rc-tween-one": "0.1.8",
     "rc-animate": "2.0.x"
   },
   "pre-commit": [
