@@ -47,11 +47,7 @@ http://localhost:8020/examples/
 
 * support ie8,ie8+,chrome,firefox,safari
 
-### Keyboard
-
-
 ## install
-
 
 [![rc-scroll-anim](https://nodei.co/npm/rc-scroll-anim.png)](https://npmjs.org/package/rc-scroll-anim)
 
@@ -81,18 +77,18 @@ var ScrollParallax = ScrollAnim.Parallax;
 React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,container);
 ```
 
-#### Link,Element示例
+#### Link, Element示例
 
 ```js
 var Link = ScrollAnim.Link;
 var Element = ScrollAnim.Element;
 React.render(<div>
   <div className="nav">
-    <Link className="nav-list" to="page0">page0</Link>
-    <Link className="nav-list" to="page1">page1</Link>
+    <Link className="nav-list" to="page0">nav0</Link>
+    <Link className="nav-list" to="page1">nav1</Link>
   </div>
-  <Element className="pack-page" name="page0"></Element>
-  <Element className="pack-page" name="page1"></Element>
+  <Element className="pack-page" name="page0">示例</Element>
+  <Element className="pack-page" name="page1">示例</Element>
 </div>,container);
 ```
 
