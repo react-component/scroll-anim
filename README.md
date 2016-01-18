@@ -108,16 +108,7 @@ React.render(<div>
 
 > children 为 `rc-queue-anim` `rc-animte` 或其它把children设为 null 就有动画的组件时: scrollHideProps={{child: null}}
 > children 为 `rc-tween-one` 或其它有倒放功能在出场时不想删掉元素的组件时: scrollHideProps={{type: 'reverse'}}
-
-#### scrollHideProps示例
-```jsx
-<ScrollOverPack>
-  <QueueAnim scrollHideProps={{child: null}}>
-    <div key='0'>0</div>
-    <div key='1'>1</div>
-  </QueueAnim>
-</ScrollOverPack>
-```
+> 详细看 ScrollOverPack 示例
 
 ### Parallax
 | name      | type           | default | description    |
