@@ -65,13 +65,13 @@ var ScrollOverPack = ScrollAnim.OverPack;
 var React = require('react');
 // ScrollOverPack目前只支持rc-animate,rc-queue-anim,rc-tween-one;
 React.render(<ScrollOverPack>
-  <QueueAnim key='queueAnim'>
+  <QueueAnim key='queueAnim' scrollHideProps={{child: null}}>
     <div key='a'>依次进入</div>
     <div key='b'>依次进入</div>
     <div key='b'>依次进入</div>
   </QueueAnim>
-  <TweenOne key='tweenOne' vars={{x:100}}>单元素动画</TweenOne>
-  <Animate key='rc-animate' transitionName="fade" transitionAppear>rc-animate示例</Animate>
+  <TweenOne key='tweenOne' vars={{x:100}} scrollHideProps={{type: 'reverse'}}>单元素动画</TweenOne>
+  <Animate key='rc-animate' transitionName="fade" transitionAppear scrollHideProps={{child: null}}>rc-animate示例</Animate>
 </ScrollOverPack>, container);
 ```
 #### Parallax示例
@@ -107,6 +107,11 @@ React.render(<div>
 | playScale | number         | `0.5`   | 开始播放的屏幕百分比, 0.5 为屏幕中间 |
 | always    | boolean        | `true`  | 到否重复播放，如为 false 将只进入一遍，不再触发出场效果 |
 
+#### 子级动画支持 `rc-queue-anim` `rc-animte` `rc-tween-one`
+
+> children 为 `rc-queue-anim` `rc-animte` 或其它把children设为 null 就有动画的组件时: scrollHideProps={{child: null}}
+> children 为 `rc-tween-one` 或其它有倒放功能的组件时: scrollHideProps={{type: 'reverse'}}
+
 ### Parallax
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
@@ -135,6 +140,7 @@ React.render(<div>
 | active    | string         | `active`| 选中时的样式    |
 | showHeightActive| string / number / array | `0` | 如设定了值，在进入时距顶部还有指定值的时, `link` 标签被附于 `active` 值; 在出场时是还有指定值时, `link` 标签移除 `active` 值; 如果为Array时，第一个为进场，第二个为出场; |
 | toShowHeight | boolean     | false   | 点击时是否滚到 `showHeightActive` 上 |
+| component | string         | `div`   | 同上            |
 
 ### Event 
 ```

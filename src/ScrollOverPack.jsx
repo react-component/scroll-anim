@@ -79,19 +79,17 @@ class ScrollOverPack extends React.Component {
       if (!this.state.show) {
         this.state.children = this.state.children.map(item=> {
           let element;
-          switch (item.type.name || item.type.displayName) {
-          case 'QueueAnim':
-            element = React.cloneElement(item, item.props, null);
-            return element;
-          case 'TweenOne':
-            element = React.cloneElement(item, {type: 'reverse'});
-            return element;
-          case 'Animate':
-            element = React.cloneElement(item, item.props, null);
-            return element;
-          default:
-            return null;
+          const hideProps = item.props.scrollHideProps;
+          if (hideProps) {
+            if ('child' in hideProps) {
+              element = React.cloneElement(item, item.props, null);
+              return element;
+            } else if ('type' in hideProps) {
+              element = React.cloneElement(item, hideProps);
+              return element;
+            }
           }
+          return null;
         });
       } else {
         this.state.children = this.children;

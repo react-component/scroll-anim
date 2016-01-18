@@ -23,8 +23,8 @@ describe('rc-scroll-anim', function() {
         return (<div>
           <div style={{height: 600}}></div>
           <ScrollAnim.OverPack {...this.props} style={{height: 800}}>
-            <TweenOne key="one" vars={{opacity: 1}} className="tween-one" style={{opacity: 0}} component="i">demo</TweenOne>
-            <QueueAnim key="queueAnim" className="queue-anim">
+            <TweenOne key="one" vars={{opacity: 1}} className="tween-one" style={{opacity: 0}} component="i" scrollHideProps={{type: 'reverse'}}>demo</TweenOne>
+            <QueueAnim key="queueAnim" className="queue-anim" scrollHideProps={{child: null}}>
               <p key="0">demo</p>
               <p key="1">demo</p>
             </QueueAnim>
@@ -106,9 +106,8 @@ describe('rc-scroll-anim', function() {
         window.scrollTo(0, 0);
         setTimeout(()=> {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-          console.log(child[0].style);
-          // console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
-          // expect(getFloat(child[0].style.opacity)).to.below(1);
+          console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
+          expect(getFloat(child[0].style.opacity)).to.below(1);
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
           console.log('leave -> QueueAnim end child length:', child.length);
           expect(child.length).to.be(0);
