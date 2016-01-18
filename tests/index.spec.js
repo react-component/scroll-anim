@@ -3,3 +3,4 @@
  */
 require('./overPack.spec');
 require('./parallax.spec');
+require('./link.spec');
