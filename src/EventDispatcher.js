@@ -34,7 +34,7 @@ EventDispatcher.prototype = {
   },
 
   removeEventListener(type, callback, force) {
-    const types = type.split('.').sort();
+    const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
     const list = this._listeners[_type];
