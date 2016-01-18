@@ -1,0 +1,32 @@
+.nav {
+  position: fixed;
+  background: rgba(0, 0, 0, .85);
+  color: #fff;
+  width: 100%;
+  height: 80px;
+  z-index: 9999;
+  top: 0;
+}
+
+.nav-list {
+  width: 100px;
+  height: 100%;
+  float: left;
+  line-height: 80px;
+  text-align: center;
+  cursor: pointer;
+  transition: background .45s;
+}
+
+.nav-list:hover, .nav-list.active {
+  background: #333;
+}
+
+.nav-bar {
+  width: 100px;
+  position: absolute;
+  top: 78px;
+  left: 0;
+  height: 2px;
+  background: #ff73fd;
+}

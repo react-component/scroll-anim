@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
-require('./link.spec.css');
+require('./link.spec.less');
 
 describe('rc-scroll-anim', function() {
   let div;
