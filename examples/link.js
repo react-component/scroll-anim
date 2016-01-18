@@ -31,36 +31,39 @@ class Demo extends React.Component {
     return (<div>
       <div className="nav">
         <Link className="nav-list" to="page0" showHeightActive="300"
-              onFocus={this.onFocus.bind(this)}>page0</Link>
+              onFocus={this.onFocus.bind(this)}>Page4</Link>
         <Link className="nav-list" to="page1" showHeightActive={[300, 500]}
-              onFocus={this.onFocus.bind(this)}>page1</Link>
+              onFocus={this.onFocus.bind(this)}>Page1</Link>
         <Link className="nav-list" to="page2" showHeightActive={[500, 200]} toShowHeight
-              onFocus={this.onFocus.bind(this)}>page2</Link>
+              onFocus={this.onFocus.bind(this)}>Page2</Link>
         <Link className="nav-list" to="page3" showHeightActive={[200, '10%']}
-              onFocus={this.onFocus.bind(this)}>page3</Link>
+              onFocus={this.onFocus.bind(this)}>Page3</Link>
         <div ref="bar" className="nav-bar"></div>
       </div>
       <Element className="pack-page" name="page0">
-        <div>我是内容</div>
-        <div>我是内容</div>
-        <div>我是内容</div>
+        <div className="page-title">
+          <p>rc-scroll-anim@0.1.0</p>
+        </div>
+        <div className="page-description">
+            <p>A simple demo</p>
+        </div>
       </Element>
       <Element name="page1">
-        <ScrollOverPack style={{backgroundColor: '#fff000', height: 800}}>
-          <TweenOne key="0" vars={{opacity: 1}}
-                    style={{width: '100%', opacity: 0, textAlign: 'center', color: '#fff', fontSize: 32}}
-                    scrollHideProps={{type: 'reverse'}}>默认进入与出场</TweenOne>
+        <ScrollOverPack>
+          <TweenOne name="tweenone" key="0" vars={{opacity: 1}}
+                    scrollHideProps={{type: 'reverse'}}>默认进入与出场
+          </TweenOne>
           <QueueAnim key="1" scrollHideProps={{child: null}}>
-            <div key="0">示例示例</div>
-            <div key="1">示例示例</div>
-            <div key="2">示例示例</div>
-            <div key="3">示例示例</div>
+            <div key="0" name="demo1"></div>
+            <div key="1" name="demo1"></div>
+            <div key="2" name="demo1"></div>
+            <div key="3" name="demo1"></div>
           </QueueAnim>
         </ScrollOverPack>
       </Element>
 
       <Element name="page2">
-        <ScrollOverPack className="pack-page" style={{backgroundColor: '#128303'}} always={false} id="page2">
+        <ScrollOverPack className="pack-page" style={{backgroundColor: '#0097D0'}} always={false} id="page2">
           <div style={{width: '100%', textAlign: 'center', color: '#fff', fontSize: 32}}>只进入一次</div>
           <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
             <div>Animate示例示例</div>
@@ -73,7 +76,7 @@ class Demo extends React.Component {
       </Element>
 
       <Element name="page3">
-        <ScrollOverPack className="pack-page" style={{backgroundColor: '#00ffff'}} playScale={0.8} id="page3">
+        <ScrollOverPack className="pack-page" style={{backgroundColor: '#174270'}} playScale={0.8} id="page3">
           <div style={{width: '100%', textAlign: 'center', color: '#fff', fontSize: 32}}>在页面80％时进入</div>
           <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
             <div>Animate示例示例</div>
