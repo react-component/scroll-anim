@@ -5,11 +5,13 @@ import mapped from './Mapped';
 class ScrollElement extends React.Component {
   componentDidMount() {
     const domNode = ReactDOM.findDOMNode(this);
-    mapped.register(this.props.name, domNode);
+    if (this.props.scrollName) {
+      mapped.register(this.props.scrollName, domNode);
+    }
   }
 
   componentWillUnmount() {
-    mapped.unregister(this.props.name);
+    mapped.unregister(this.props.scrollName);
   }
 
   render() {
@@ -19,7 +21,7 @@ class ScrollElement extends React.Component {
 const funcOrString = React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]);
 ScrollElement.propTypes = {
   component: funcOrString,
-  name: React.PropTypes.string,
+  scrollName: React.PropTypes.string,
 };
 
 ScrollElement.defaultProps = {

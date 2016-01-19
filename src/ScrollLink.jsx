@@ -48,7 +48,7 @@ class ScrollLink extends React.Component {
   onClick(e) {
     e.preventDefault();
     const docRect = document.documentElement.getBoundingClientRect();
-    const elementDom = mapped.get(this.props.to);
+    const elementDom = mapped.get(this.props.location);
     const elementRect = elementDom.getBoundingClientRect();
     this.scrollTop = window.pageYOffset;
     const toTop = Math.round(elementRect.top) - Math.round(docRect.top);
@@ -80,9 +80,9 @@ class ScrollLink extends React.Component {
 
   scrollEventListener() {
     const docRect = document.documentElement.getBoundingClientRect();
-    const elementDom = mapped.get(this.props.to);
+    const elementDom = mapped.get(this.props.location);
     if (!elementDom) {
-      throw new Error('"to" is null');
+      throw new Error('"location" is null');
     }
     const elementRect = elementDom.getBoundingClientRect();
     const elementClientHeight = elementDom.clientHeight;
@@ -95,7 +95,7 @@ class ScrollLink extends React.Component {
       if (!this.props.onFocus.only) {
         const obj = {
           target: this.dom,
-          to: this.props.to,
+          location: this.props.location,
         };
         this.props.onFocus.call(this, obj);
         this.props.onFocus.only = true;
@@ -107,7 +107,7 @@ class ScrollLink extends React.Component {
       if (this.props.onFocus.only) {
         const obj = {
           target: this.dom,
-          to: this.props.to,
+          location: this.props.location,
         };
         this.props.onBlur.call(this, obj);
       }
@@ -143,7 +143,7 @@ ScrollLink.propTypes = {
   style: objectOrArray,
   duration: React.PropTypes.number,
   active: React.PropTypes.string,
-  to: React.PropTypes.string,
+  location: React.PropTypes.string,
   showHeightActive: stringOrNumberOrArray,
   toShowHeight: React.PropTypes.bool,
   ease: React.PropTypes.string,
