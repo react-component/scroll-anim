@@ -11,42 +11,54 @@ import Animate from 'rc-animate';
 const Link = ScrollAnim.Link;
 const Element = ScrollAnim.Element;
 const ScrollOverPack = ScrollAnim.OverPack;
+const EventListener = ScrollAnim.Event;
 
 class Demo extends React.Component {
   constructor() {
     super(...arguments);
   }
 
-  onFocus(e) {
-    const dom = e.target;
-    this.barAnimate(dom);
+  componentDidMount() {
+    // 初始设dom为第一个
+    this.dom = this.refs.page0;
+    // 添加改变窗口事件,可加setTimeout
+    EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
   }
 
-  barAnimate(dom) {
+  onFocus(e) {
+    this.dom = e.target;
+    this.barAnimate();
+  }
+
+  barAnimate() {
     const bar = this.refs.bar;
-    bar.style.left = dom.getBoundingClientRect().left + 'px';
+    bar.style.left = this.dom.getBoundingClientRect().left + 'px';
   }
 
   render() {
     return (<div>
       <div className="nav">
-        <Link className="nav-list" to="page0" showHeightActive="300"
-              onFocus={this.onFocus.bind(this)}>Page4</Link>
-        <Link className="nav-list" to="page1" showHeightActive={[300, 500]}
-              onFocus={this.onFocus.bind(this)}>Page1</Link>
-        <Link className="nav-list" to="page2" showHeightActive={[500, 200]} toShowHeight
-              onFocus={this.onFocus.bind(this)}>Page2</Link>
-        <Link className="nav-list" to="page3" showHeightActive={[200, '10%']}
-              onFocus={this.onFocus.bind(this)}>Page3</Link>
-        <div ref="bar" className="nav-bar"></div>
+        <div className="nav-wap">
+          <Link className="nav-list" to="page0" showHeightActive="300" ref="page0"
+                onFocus={this.onFocus.bind(this)}>Page0</Link>
+          <Link className="nav-list" to="page1" showHeightActive={[300, 500]}
+                onFocus={this.onFocus.bind(this)}>Page1</Link>
+          <Link className="nav-list" to="page2" showHeightActive={[500, 200]} toShowHeight
+                onFocus={this.onFocus.bind(this)}>Page2</Link>
+          <Link className="nav-list" to="page3" showHeightActive={[200, '10%']}
+                onFocus={this.onFocus.bind(this)}>Page3</Link>
+          <div ref="bar" className="nav-bar"></div>
+        </div>
       </div>
       <Element className="pack-page" name="page0">
-        <div className="page-title">
-          <p>rc-scroll-anim@0.1.0</p>
-        </div>
-        <div className="page-description">
+        <QueueAnim>
+          <div className="page-title" key="title">
+            <p>rc-scroll-anim@0.1.0</p>
+          </div>
+          <div className="page-description" key="c">
             <p>A simple demo</p>
-        </div>
+          </div>
+        </QueueAnim>
       </Element>
       <Element name="page1">
         <ScrollOverPack>
