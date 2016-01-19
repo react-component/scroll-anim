@@ -34,10 +34,10 @@ describe('rc-scroll-anim', function() {
                              onFocus={this.onFocus.bind(this)}>page1</ScrollAnim.Link>
             <div ref="bar" className="nav-bar"></div>
           </div>
-          <ScrollAnim.Element style={{height: 600}} name="page0">
+          <ScrollAnim.Element style={{height: 600}} scrollName="page0">
             示例
           </ScrollAnim.Element>
-          <ScrollAnim.Element style={{height: 600}} name="page1">
+          <ScrollAnim.Element style={{height: 600}} scrollName="page1">
             示例
           </ScrollAnim.Element>
         </div>);
