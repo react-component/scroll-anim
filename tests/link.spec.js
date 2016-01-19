@@ -28,9 +28,9 @@ describe('rc-scroll-anim', function() {
       render() {
         return (<div>
           <div className="nav">
-            <ScrollAnim.Link className="nav-list" to="page0" {...this.props}
+            <ScrollAnim.Link className="nav-list" location="page0" {...this.props}
                              onFocus={this.onFocus.bind(this)}>page0</ScrollAnim.Link>
-            <ScrollAnim.Link className="nav-list" to="page1" {...this.props}
+            <ScrollAnim.Link className="nav-list" location="page1" {...this.props}
                              onFocus={this.onFocus.bind(this)}>page1</ScrollAnim.Link>
             <div ref="bar" className="nav-bar"></div>
           </div>
