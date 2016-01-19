@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.1.0 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@0.1.1 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.1.0</h1>
+  <h1>rc-scroll-anim@0.1.1</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -789,7 +789,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <h2>Feature<a id="user-content-feature" name="feature" class="anchor" aria-hidden="true" href="#feature"><span class="octicon octicon-link"></span></a></h2><ul>
 <li>support ie8,ie8+,chrome,firefox,safari</li>
 </ul>
-<h3>Keyboard<a id="user-content-keyboard" name="keyboard" class="anchor" aria-hidden="true" href="#keyboard"><span class="octicon octicon-link"></span></a></h3><h2>install<a id="user-content-install" name="install" class="anchor" aria-hidden="true" href="#install"><span class="octicon octicon-link"></span></a></h2><p><a href="https://npmjs.org/package/rc-scroll-anim" title="null"><img src="https://nodei.co/npm/rc-scroll-anim.png" alt="rc-scroll-anim"></a></p>
+<h2>install<a id="user-content-install" name="install" class="anchor" aria-hidden="true" href="#install"><span class="octicon octicon-link"></span></a></h2><p><a href="https://npmjs.org/package/rc-scroll-anim" title="null"><img src="https://nodei.co/npm/rc-scroll-anim.png" alt="rc-scroll-anim"></a></p>
 <h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><h4>ScrollOverPack示例<a id="user-content-scrolloverpack示例" name="scrolloverpack示例" class="anchor" aria-hidden="true" href="#scrolloverpack示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> ScrollAnim = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rc-scroll-anim'</span>);
 <span class="hljs-keyword">var</span> ScrollOverPack = ScrollAnim.OverPack;
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
@@ -803,14 +803,15 @@ React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-titl
   <span class="hljs-tag">&lt;<span class="hljs-title">TweenOne</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'tweenOne'</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{type:</span> '<span class="hljs-attribute">reverse</span>'}}&gt;</span>单元素动画<span class="hljs-tag">&lt;/<span class="hljs-title">TweenOne</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'rc-animate'</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"fade"</span> <span class="hljs-attribute">transitionAppear</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{child:</span> <span class="hljs-attribute">null</span>}}&gt;</span>rc-animate示例<span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollOverPack</span>&gt;</span>, container);</span></code></pre></div><h4>Parallax示例<a id="user-content-parallax示例" name="parallax示例" class="anchor" aria-hidden="true" href="#parallax示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> ScrollParallax = ScrollAnim.Parallax;
-React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span>&gt;</span>Parallax示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollPallax</span>&gt;</span>,container);</span></code></pre></div><h4>Link示例<a id="user-content-link示例" name="link示例" class="anchor" aria-hidden="true" href="#link示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> Link = ScrollAnim.Link;
+React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span>&gt;</span>Parallax示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollPallax</span>&gt;</span>,container);</span></code></pre></div><h4>Link, Element示例<a id="user-content-link,-element示例" name="link,-element示例" class="anchor" aria-hidden="true" href="#link,-element示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> Link = ScrollAnim.Link;
+<span class="hljs-keyword">var</span> Element = ScrollAnim.Element;
 React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"#page0"</span>&gt;</span>page0<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"#page1"</span>&gt;</span>page1<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"page0"</span>&gt;</span>nav0<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"page1"</span>&gt;</span>nav1<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"page0"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"page1"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Element</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page0"</span>&gt;</span>示例<span class="hljs-tag">&lt;/<span class="hljs-title">Element</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Element</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page1"</span>&gt;</span>示例<span class="hljs-tag">&lt;/<span class="hljs-title">Element</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,container);</span></code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><h3>OverPack<a id="user-content-overpack" name="overpack" class="anchor" aria-hidden="true" href="#overpack"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>
 <tr>
@@ -839,11 +840,18 @@ React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-titl
 <td><code>true</code></td>
 <td>到否重复播放，如为 false 将只进入一遍，不再触发出场效果</td>
 </tr>
+<tr>
+<td>scrollName</td>
+<td>string</td>
+<td><code>null</code></td>
+<td>需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位</td>
+</tr>
 </tbody>
 </table>
 <h4>子级动画支持 <code>rc-queue-anim</code> <code>rc-animte</code> <code>rc-tween-one</code><a id="user-content-子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" name="子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" class="anchor" aria-hidden="true" href="#子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>"><span class="octicon octicon-link"></span></a></h4><blockquote>
 <p>children 为 <code>rc-queue-anim</code> <code>rc-animte</code> 或其它把children设为 null 就有动画的组件时: scrollHideProps={{child: null}}
-children 为 <code>rc-tween-one</code> 或其它有倒放功能的组件时: scrollHideProps={{type: &#39;reverse&#39;}}</p>
+children 为 <code>rc-tween-one</code> 或其它有倒放功能在出场时不想删掉元素的组件时: scrollHideProps={{type: &#39;reverse&#39;}}
+详细看 ScrollOverPack 示例</p>
 </blockquote>
 <h3>Parallax<a id="user-content-parallax" name="parallax" class="anchor" aria-hidden="true" href="#parallax"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>
@@ -862,16 +870,22 @@ children 为 <code>rc-tween-one</code> 或其它有倒放功能的组件时: scr
 <td>组件动效数据</td>
 </tr>
 <tr>
-<td>position</td>
+<td>location</td>
 <td>string</td>
 <td><code>null</code></td>
-<td>定位，默位自身dom, 格式：&#39;#id&#39;,&#39;.class&#39;,&#39;tag&#39;,都必需是唯一的</td>
+<td>定位,<code>Element</code>的 name 值，必需是唯一的</td>
 </tr>
 <tr>
 <td>always</td>
 <td>boolean</td>
 <td><code>true</code></td>
 <td>同上</td>
+</tr>
+<tr>
+<td>scrollName</td>
+<td>string</td>
+<td><code>null</code></td>
+<td>需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位</td>
 </tr>
 <tr>
 <td>component</td>
@@ -937,10 +951,10 @@ children 为 <code>rc-tween-one</code> 或其它有倒放功能的组件时: scr
 </thead>
 <tbody>
 <tr>
-<td>to</td>
+<td>location</td>
 <td>string</td>
 <td><code>null</code></td>
-<td>必需; 指定元素到达顶部; 如 &#39;#page1&#39;; 注: 元素必需是唯一的</td>
+<td>必需; 指定元素到达顶部; <code>Element</code> 的 name 值, 元素必需是唯一的</td>
 </tr>
 <tr>
 <td>duration</td>
@@ -973,6 +987,18 @@ children 为 <code>rc-tween-one</code> 或其它有倒放功能的组件时: scr
 <td>点击时是否滚到 <code>showHeightActive</code> 上</td>
 </tr>
 <tr>
+<td>onFocus</td>
+<td>func</td>
+<td>null</td>
+<td>选中时回调，返回参数{target,to}</td>
+</tr>
+<tr>
+<td>onBlur</td>
+<td>func</td>
+<td>null</td>
+<td>失去焦点时回调，返回参数同上 ｜</td>
+</tr>
+<tr>
 <td>component</td>
 <td>string</td>
 <td><code>div</code></td>
@@ -980,6 +1006,33 @@ children 为 <code>rc-tween-one</code> 或其它有倒放功能的组件时: scr
 </tr>
 </tbody>
 </table>
+<h3>Element<a id="user-content-element" name="element" class="anchor" aria-hidden="true" href="#element"><span class="octicon octicon-link"></span></a></h3><table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scrollName</td>
+<td>string</td>
+<td>null</td>
+<td>需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位</td>
+</tr>
+<tr>
+<td>component</td>
+<td>string</td>
+<td><code>div</code></td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注: 如果元素不是以上组件时，需要定位到此元素上时，请用 <code>Element</code></p>
+</blockquote>
 <h3>Event<a id="user-content-event" name="event" class="anchor" aria-hidden="true" href="#event"><span class="octicon octicon-link"></span></a></h3><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> Event = ScrollAnim.Event;
 Event.addEventListener(<span class="hljs-string">'scroll.xxxx'</span>,func);
 Event.removeEventListener(<span class="hljs-string">'scroll.xxx'</span>,func);</code></pre></div>

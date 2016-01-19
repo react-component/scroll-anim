@@ -136,7 +136,7 @@
 	
 	var _ScrollOverPack2 = _interopRequireDefault(_ScrollOverPack);
 	
-	var _ScrollParallax = __webpack_require__(165);
+	var _ScrollParallax = __webpack_require__(166);
 	
 	var _ScrollParallax2 = _interopRequireDefault(_ScrollParallax);
 	
@@ -193,6 +193,10 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
+	var _Mapped = __webpack_require__(165);
+	
+	var _Mapped2 = _interopRequireDefault(_Mapped);
+	
 	function noop() {}
 	
 	function toArrayChildren(children) {
@@ -229,7 +233,9 @@
 	    value: function componentDidMount() {
 	      this.dom = _reactDom2['default'].findDOMNode(this);
 	      this.computedStyle = document.defaultView.getComputedStyle(this.dom);
-	
+	      if (this.props.scrollName) {
+	        _Mapped2['default'].register(this.props.scrollName, this.dom);
+	      }
 	      var date = Date.now();
 	      var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
 	      this.eventType = 'scroll.scrollEvent' + date + length;
@@ -239,6 +245,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
+	      _Mapped2['default'].unregister(this.props.scrollName);
 	      _EventDispatcher2['default'].removeEventListener(this.eventType, this.scrollEventListener);
 	    }
 	  }, {
@@ -312,7 +319,8 @@
 	  scrollEvent: _react2['default'].PropTypes.func,
 	  children: objectOrArray,
 	  className: _react2['default'].PropTypes.string,
-	  style: objectOrArray
+	  style: objectOrArray,
+	  scrollName: _react2['default'].PropTypes.string
 	};
 	
 	ScrollOverPack.defaultProps = {
@@ -19927,10 +19935,9 @@
 	}
 	EventDispatcher.prototype = {
 	  addEventListener: function addEventListener(type, callback) {
-	    var types = type.split('.').sort();
+	    var types = type.split('.');
 	    var _type = types[0];
 	    var namespaces = types[1];
-	
 	    var list = this._listeners[_type];
 	    var index = 0;
 	    var listener = undefined;
@@ -19958,7 +19965,7 @@
 	  },
 	
 	  removeEventListener: function removeEventListener(type, callback, force) {
-	    var types = type.split('.').sort();
+	    var types = type.split('.');
 	    var _type = types[0];
 	    var namespaces = types[1];
 	    var list = this._listeners[_type];
@@ -20008,6 +20015,36 @@
 
 /***/ },
 /* 165 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var __mapped = {};
+	
+	exports["default"] = {
+	  unmount: function unmount() {
+	    __mapped = {};
+	  },
+	
+	  register: function register(name, element) {
+	    __mapped[name] = element;
+	  },
+	
+	  unregister: function unregister(name) {
+	    delete __mapped[name];
+	  },
+	
+	  get: function get(name) {
+	    return __mapped[name];
+	  }
+	};
+	module.exports = exports["default"];
+
+/***/ },
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20034,7 +20071,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(166);
+	var _objectAssign = __webpack_require__(167);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
@@ -20042,17 +20079,17 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
-	var _tweenFunctions = __webpack_require__(167);
+	var _tweenFunctions = __webpack_require__(168);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
-	var _Css = __webpack_require__(168);
+	var _Css = __webpack_require__(169);
 	
 	var _Css2 = _interopRequireDefault(_Css);
 	
-	var _util = __webpack_require__(169);
+	var _util = __webpack_require__(170);
 	
-	var _Mapped = __webpack_require__(170);
+	var _Mapped = __webpack_require__(165);
 	
 	var _Mapped2 = _interopRequireDefault(_Mapped);
 	
@@ -20114,6 +20151,9 @@
 	      var _this2 = this;
 	
 	      this.dom = _reactDom2['default'].findDOMNode(this);
+	      if (this.props.scrollName) {
+	        _Mapped2['default'].register(this.props.scrollName, this.dom);
+	      }
 	      this.computedStyle = document.defaultView.getComputedStyle(this.dom);
 	      this.scrollTop = window.pageYOffset;
 	
@@ -20162,6 +20202,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
+	      _Mapped2['default'].unregister(this.props.scrollName);
 	      _EventDispatcher2['default'].removeEventListener(this.eventType, this.scrollEventListener);
 	    }
 	  }, {
@@ -20300,9 +20341,9 @@
 	            var playHeight = clientHeight * item.initScale;
 	
 	            // position定位；
-	            var dom = _this6.props.position ? _Mapped2['default'].get(_this6.props.position) : _this6.dom;
+	            var dom = _this6.props.location ? _Mapped2['default'].get(_this6.props.location) : _this6.dom;
 	            if (!dom) {
-	              throw new Error('"position" is null');
+	              throw new Error('"location" is null');
 	            }
 	            var noPosition = dom === _this6.dom;
 	            // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
@@ -20437,10 +20478,11 @@
 	  component: _react2['default'].PropTypes.string,
 	  vars: objectOrArray,
 	  always: _react2['default'].PropTypes.bool,
-	  position: _react2['default'].PropTypes.string,
+	  location: _react2['default'].PropTypes.string,
 	  children: childPropTypes,
 	  className: _react2['default'].PropTypes.string,
-	  style: objectOrArray
+	  style: objectOrArray,
+	  scrollName: _react2['default'].PropTypes.string
 	};
 	
 	ScrollParallax.defaultProps = {
@@ -20452,7 +20494,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports) {
 
 	/* eslint-disable no-unused-vars */
@@ -20497,7 +20539,7 @@
 
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20752,7 +20794,7 @@
 
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21162,7 +21204,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21256,36 +21298,6 @@
 	}
 
 /***/ },
-/* 170 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var __mapped = {};
-	
-	exports["default"] = {
-	  unmount: function unmount() {
-	    __mapped = {};
-	  },
-	
-	  register: function register(name, element) {
-	    __mapped[name] = element;
-	  },
-	
-	  unregister: function unregister(name) {
-	    delete __mapped[name];
-	  },
-	
-	  get: function get(name) {
-	    return __mapped[name];
-	  }
-	};
-	module.exports = exports["default"];
-
-/***/ },
 /* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21316,11 +21328,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(166);
+	var _objectAssign = __webpack_require__(167);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _tweenFunctions = __webpack_require__(167);
+	var _tweenFunctions = __webpack_require__(168);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
@@ -21332,9 +21344,9 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
-	var _util = __webpack_require__(169);
+	var _util = __webpack_require__(170);
 	
-	var _Mapped = __webpack_require__(170);
+	var _Mapped = __webpack_require__(165);
 	
 	var _Mapped2 = _interopRequireDefault(_Mapped);
 	
@@ -21384,7 +21396,7 @@
 	    value: function onClick(e) {
 	      e.preventDefault();
 	      var docRect = document.documentElement.getBoundingClientRect();
-	      var elementDom = _Mapped2['default'].get(this.props.to);
+	      var elementDom = _Mapped2['default'].get(this.props.location);
 	      var elementRect = elementDom.getBoundingClientRect();
 	      this.scrollTop = window.pageYOffset;
 	      var toTop = Math.round(elementRect.top) - Math.round(docRect.top);
@@ -21419,9 +21431,9 @@
 	    key: 'scrollEventListener',
 	    value: function scrollEventListener() {
 	      var docRect = document.documentElement.getBoundingClientRect();
-	      var elementDom = _Mapped2['default'].get(this.props.to);
+	      var elementDom = _Mapped2['default'].get(this.props.location);
 	      if (!elementDom) {
-	        throw new Error('"to" is null');
+	        throw new Error('"location" is null');
 	      }
 	      var elementRect = elementDom.getBoundingClientRect();
 	      var elementClientHeight = elementDom.clientHeight;
@@ -21434,7 +21446,7 @@
 	        if (!this.props.onFocus.only) {
 	          var obj = {
 	            target: this.dom,
-	            to: this.props.to
+	            location: this.props.location
 	          };
 	          this.props.onFocus.call(this, obj);
 	          this.props.onFocus.only = true;
@@ -21446,7 +21458,7 @@
 	        if (this.props.onFocus.only) {
 	          var obj = {
 	            target: this.dom,
-	            to: this.props.to
+	            location: this.props.location
 	          };
 	          this.props.onBlur.call(this, obj);
 	        }
@@ -21488,7 +21500,7 @@
 	  style: objectOrArray,
 	  duration: _react2['default'].PropTypes.number,
 	  active: _react2['default'].PropTypes.string,
-	  to: _react2['default'].PropTypes.string,
+	  location: _react2['default'].PropTypes.string,
 	  showHeightActive: stringOrNumberOrArray,
 	  toShowHeight: _react2['default'].PropTypes.bool,
 	  ease: _react2['default'].PropTypes.string,
@@ -21652,7 +21664,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Mapped = __webpack_require__(170);
+	var _Mapped = __webpack_require__(165);
 	
 	var _Mapped2 = _interopRequireDefault(_Mapped);
 	
@@ -21669,12 +21681,14 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var domNode = _reactDom2['default'].findDOMNode(this);
-	      _Mapped2['default'].register(this.props.name, domNode);
+	      if (this.props.scrollName) {
+	        _Mapped2['default'].register(this.props.scrollName, domNode);
+	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _Mapped2['default'].unregister(this.props.name);
+	      _Mapped2['default'].unregister(this.props.scrollName);
 	    }
 	  }, {
 	    key: 'render',
@@ -21689,7 +21703,7 @@
 	var funcOrString = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, _react2['default'].PropTypes.string]);
 	ScrollElement.propTypes = {
 	  component: funcOrString,
-	  name: _react2['default'].PropTypes.string
+	  scrollName: _react2['default'].PropTypes.string
 	};
 	
 	ScrollElement.defaultProps = {

@@ -54,6 +54,7 @@ webpackJsonp([0],{
 	var Link = _rcScrollAnim2['default'].Link;
 	var Element = _rcScrollAnim2['default'].Element;
 	var ScrollOverPack = _rcScrollAnim2['default'].OverPack;
+	var EventListener = _rcScrollAnim2['default'].Event;
 	
 	var Demo = (function (_React$Component) {
 	  _inherits(Demo, _React$Component);
@@ -65,16 +66,25 @@ webpackJsonp([0],{
 	  }
 	
 	  _createClass(Demo, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // 添加改变窗口事件,可加setTimeout
+	      EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
+	    }
+	  }, {
 	    key: 'onFocus',
 	    value: function onFocus(e) {
-	      var dom = e.target;
-	      this.barAnimate(dom);
+	      this.dom = e.target;
+	      this.barAnimate();
 	    }
 	  }, {
 	    key: 'barAnimate',
-	    value: function barAnimate(dom) {
+	    value: function barAnimate() {
+	      if (!this.dom) {
+	        return;
+	      }
 	      var bar = this.refs.bar;
-	      bar.style.left = dom.getBoundingClientRect().left + 'px';
+	      bar.style.left = this.dom.getBoundingClientRect().left + 'px';
 	    }
 	  }, {
 	    key: 'render',
@@ -86,143 +96,127 @@ webpackJsonp([0],{
 	          'div',
 	          { className: 'nav' },
 	          _react2['default'].createElement(
-	            Link,
-	            { className: 'nav-list', to: 'page0', showHeightActive: '300',
-	              onFocus: this.onFocus.bind(this) },
-	            'page0'
-	          ),
-	          _react2['default'].createElement(
-	            Link,
-	            { className: 'nav-list', to: 'page1', showHeightActive: [300, 500],
-	              onFocus: this.onFocus.bind(this) },
-	            'page1'
-	          ),
-	          _react2['default'].createElement(
-	            Link,
-	            { className: 'nav-list', to: 'page2', showHeightActive: [500, 200], toShowHeight: true,
-	              onFocus: this.onFocus.bind(this) },
-	            'page2'
-	          ),
-	          _react2['default'].createElement(
-	            Link,
-	            { className: 'nav-list', to: 'page3', showHeightActive: [200, '10%'],
-	              onFocus: this.onFocus.bind(this) },
-	            'page3'
-	          ),
-	          _react2['default'].createElement('div', { ref: 'bar', className: 'nav-bar' })
-	        ),
-	        _react2['default'].createElement(
-	          Element,
-	          { className: 'pack-page', name: 'page0' },
-	          _react2['default'].createElement(
 	            'div',
-	            null,
-	            '我是内容'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            null,
-	            '我是内容'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            null,
-	            '我是内容'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          Element,
-	          { name: 'page1' },
-	          _react2['default'].createElement(
-	            ScrollOverPack,
-	            { style: { backgroundColor: '#fff000', height: 800 } },
+	            { className: 'nav-wap' },
 	            _react2['default'].createElement(
-	              _rcTweenOne2['default'],
-	              { key: '0', vars: { opacity: 1 },
-	                style: { width: '100%', opacity: 0, textAlign: 'center', color: '#fff', fontSize: 32 },
-	                scrollHideProps: { type: 'reverse' } },
-	              '默认进入与出场'
+	              Link,
+	              { className: 'nav-list', location: 'page0', showHeightActive: '300', ref: 'page0',
+	                onFocus: this.onFocus.bind(this) },
+	              'Page0'
 	            ),
 	            _react2['default'].createElement(
-	              _rcQueueAnim2['default'],
-	              { key: '1', scrollHideProps: { child: null } },
-	              _react2['default'].createElement(
-	                'div',
-	                { key: '0' },
-	                '示例示例'
-	              ),
-	              _react2['default'].createElement(
-	                'div',
-	                { key: '1' },
-	                '示例示例'
-	              ),
-	              _react2['default'].createElement(
-	                'div',
-	                { key: '2' },
-	                '示例示例'
-	              ),
-	              _react2['default'].createElement(
-	                'div',
-	                { key: '3' },
-	                '示例示例'
-	              )
-	            )
+	              Link,
+	              { className: 'nav-list', location: 'page1', showHeightActive: [300, 500],
+	                onFocus: this.onFocus.bind(this) },
+	              'Page1'
+	            ),
+	            _react2['default'].createElement(
+	              Link,
+	              { className: 'nav-list', location: 'page2', showHeightActive: [500, 200], toShowHeight: true,
+	                onFocus: this.onFocus.bind(this) },
+	              'Page2'
+	            ),
+	            _react2['default'].createElement(
+	              Link,
+	              { className: 'nav-list', location: 'page3', showHeightActive: [200, '10%'],
+	                onFocus: this.onFocus.bind(this) },
+	              'Page3'
+	            ),
+	            _react2['default'].createElement('div', { ref: 'bar', className: 'nav-bar' })
 	          )
 	        ),
 	        _react2['default'].createElement(
 	          Element,
-	          { name: 'page2' },
+	          { className: 'pack-page page0', scrollName: 'page0' },
 	          _react2['default'].createElement(
-	            ScrollOverPack,
-	            { className: 'pack-page', style: { backgroundColor: '#128303' }, always: false, id: 'page2' },
+	            _rcQueueAnim2['default'],
+	            null,
 	            _react2['default'].createElement(
 	              'div',
-	              { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
-	              '只进入一次'
-	            ),
-	            _react2['default'].createElement(
-	              _rcAnimate2['default'],
-	              { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
+	              { className: 'page-title', key: 'title' },
 	              _react2['default'].createElement(
-	                'div',
+	                'p',
 	                null,
-	                'Animate示例示例'
+	                'rc-scroll-anim@0.1.0'
 	              )
 	            ),
 	            _react2['default'].createElement(
-	              _rcTweenOne2['default'],
-	              { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
-	                scrollHideProps: { type: 'reverse' } },
-	              '单元素用例'
+	              'div',
+	              { className: 'page-description', key: 'c' },
+	              _react2['default'].createElement(
+	                'p',
+	                null,
+	                'A simple demo'
+	              )
 	            )
 	          )
 	        ),
 	        _react2['default'].createElement(
-	          Element,
-	          { name: 'page3' },
+	          ScrollOverPack,
+	          { scrollName: 'page1', className: 'page1' },
 	          _react2['default'].createElement(
-	            ScrollOverPack,
-	            { className: 'pack-page', style: { backgroundColor: '#00ffff' }, playScale: 0.8, id: 'page3' },
+	            _rcTweenOne2['default'],
+	            { className: 'tween-one', key: '0', vars: { opacity: 1 },
+	              scrollHideProps: { type: 'reverse' } },
+	            '默认进入与出场'
+	          ),
+	          _react2['default'].createElement(
+	            _rcQueueAnim2['default'],
+	            { key: '1', scrollHideProps: { child: null } },
+	            _react2['default'].createElement('div', { key: '0', className: 'demo' }),
+	            _react2['default'].createElement('div', { key: '1', className: 'demo' }),
+	            _react2['default'].createElement('div', { key: '2', className: 'demo' }),
+	            _react2['default'].createElement('div', { key: '3', className: 'demo' })
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          ScrollOverPack,
+	          { scrollName: 'page2', className: 'pack-page page2', style: { backgroundColor: '#0097D0' }, always: false,
+	            id: 'page2' },
+	          _react2['default'].createElement(
+	            'div',
+	            { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
+	            '只进入一次'
+	          ),
+	          _react2['default'].createElement(
+	            _rcAnimate2['default'],
+	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
 	            _react2['default'].createElement(
 	              'div',
-	              { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
-	              '在页面80％时进入'
-	            ),
-	            _react2['default'].createElement(
-	              _rcAnimate2['default'],
-	              { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
-	              _react2['default'].createElement(
-	                'div',
-	                null,
-	                'Animate示例示例'
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _rcTweenOne2['default'],
-	              { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
-	                scrollHideProps: { type: 'reverse' } },
-	              '单元素用例'
+	              null,
+	              'Animate示例示例'
 	            )
+	          ),
+	          _react2['default'].createElement(
+	            _rcTweenOne2['default'],
+	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
+	              scrollHideProps: { type: 'reverse' } },
+	            '单元素用例'
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          ScrollOverPack,
+	          { scrollName: 'page3', className: 'pack-page page3', style: { backgroundColor: '#174270' },
+	            playScale: 0.8, id: 'page3' },
+	          _react2['default'].createElement(
+	            'div',
+	            { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
+	            '在页面80％时进入'
+	          ),
+	          _react2['default'].createElement(
+	            _rcAnimate2['default'],
+	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
+	            _react2['default'].createElement(
+	              'div',
+	              null,
+	              'Animate示例示例'
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _rcTweenOne2['default'],
+	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
+	              scrollHideProps: { type: 'reverse' } },
+	            '单元素用例'
 	          )
 	        )
 	      );
@@ -4719,11 +4713,11 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(166);
+	var _objectAssign = __webpack_require__(167);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _tweenFunctions = __webpack_require__(167);
+	var _tweenFunctions = __webpack_require__(168);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	

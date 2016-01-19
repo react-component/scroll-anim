@@ -4491,11 +4491,11 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(166);
+	var _objectAssign = __webpack_require__(167);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _tweenFunctions = __webpack_require__(167);
+	var _tweenFunctions = __webpack_require__(168);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	

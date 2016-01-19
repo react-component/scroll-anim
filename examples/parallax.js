@@ -155,13 +155,13 @@ webpackJsonp([1],{
 	          _react2['default'].createElement(
 	            ScrollParallax,
 	            { className: 'pack-page',
-	              position: 'Scroll-Pack',
+	              location: 'Scroll-Pack',
 	              vars: { backgroundColor: '#ddff00', playScale: [1, 2], onStart: this.setCss.bind(this), onComplete: this.onComplete.bind(this) },
 	              style: this.state.css },
 	            _react2['default'].createElement(
 	              ScrollParallax,
 	              { vars: [{ translateY: 0 }, { translateY: '500px' }],
-	                position: 'Scroll-Pack',
+	                location: 'Scroll-Pack',
 	                style: { transform: 'translateY(300px)', color: '#fff', fontSize: 36 } },
 	              '示例示例'
 	            )
