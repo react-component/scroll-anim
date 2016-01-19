@@ -84,8 +84,8 @@ var Link = ScrollAnim.Link;
 var Element = ScrollAnim.Element;
 React.render(<div>
   <div className="nav">
-    <Link className="nav-list" to="page0">nav0</Link>
-    <Link className="nav-list" to="page1">nav1</Link>
+    <Link className="nav-list" location="page0">nav0</Link>
+    <Link className="nav-list" location="page1">nav1</Link>
   </div>
   <Element className="pack-page" scrollName="page0">示例</Element>
   <Element className="pack-page" scrollName="page1">示例</Element>
