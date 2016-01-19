@@ -56,6 +56,9 @@ class ScrollParallax extends React.Component {
 
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
+    if (this.props.scrollName) {
+      mapped.register(this.props.scrollName, this.dom);
+    }
     this.computedStyle = document.defaultView.getComputedStyle(this.dom);
     this.scrollTop = window.pageYOffset;
 
@@ -64,7 +67,7 @@ class ScrollParallax extends React.Component {
     this.eventType = 'scroll.scrollEvent' + date + length;
     EventListener.addEventListener(this.eventType, this.scrollEventListener);
     // 第一次进入;
-    setTimeout(()=>{
+    setTimeout(()=> {
       this.scrollEventListener();
     });
   }
@@ -98,6 +101,7 @@ class ScrollParallax extends React.Component {
   }
 
   componentWillUnmount() {
+    mapped.unregister(this.props.scrollName);
     EventListener.removeEventListener(this.eventType, this.scrollEventListener);
   }
 
@@ -224,9 +228,9 @@ class ScrollParallax extends React.Component {
         const playHeight = clientHeight * item.initScale;
 
         // position定位；
-        const dom = this.props.position ? mapped.get(this.props.position) : this.dom;
+        const dom = this.props.location ? mapped.get(this.props.location) : this.dom;
         if (!dom) {
-          throw new Error('"position" is null');
+          throw new Error('"location" is null');
         }
         const noPosition = dom === this.dom;
         // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
@@ -352,10 +356,11 @@ ScrollParallax.propTypes = {
   component: React.PropTypes.string,
   vars: objectOrArray,
   always: React.PropTypes.bool,
-  position: React.PropTypes.string,
+  location: React.PropTypes.string,
   children: childPropTypes,
   className: React.PropTypes.string,
   style: objectOrArray,
+  scrollName: React.PropTypes.string,
 };
 
 ScrollParallax.defaultProps = {

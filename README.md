@@ -87,8 +87,8 @@ React.render(<div>
     <Link className="nav-list" to="page0">nav0</Link>
     <Link className="nav-list" to="page1">nav1</Link>
   </div>
-  <Element className="pack-page" name="page0">示例</Element>
-  <Element className="pack-page" name="page1">示例</Element>
+  <Element className="pack-page" scrollName="page0">示例</Element>
+  <Element className="pack-page" scrollName="page1">示例</Element>
 </div>,container);
 ```
 
@@ -103,6 +103,7 @@ React.render(<div>
 | component | string         | `div`   | 组件标签        |
 | playScale | number         | `0.5`   | 开始播放的屏幕百分比, 0.5 为屏幕中间 |
 | always    | boolean        | `true`  | 到否重复播放，如为 false 将只进入一遍，不再触发出场效果 |
+| scrollName| string         | `null`  | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
 
 #### 子级动画支持 `rc-queue-anim` `rc-animte` `rc-tween-one`
 
@@ -114,8 +115,9 @@ React.render(<div>
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | vars      | object / array | `null`  | 组件动效数据     |
-| position  | string         | `null`  | 定位,`Element`的 name 值，必需是唯一的|
+| location  | string         | `null`  | 定位,`Element`的 name 值，必需是唯一的|
 | always    | boolean        | `true`  | 同上            |
+| scrollName| string         | `null`  | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
 | component | string         | `div`   | 同上            |
 
 #### vars = { }
@@ -132,7 +134,7 @@ React.render(<div>
 ### Link
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| to        | string         | `null`  | 必需; 指定元素到达顶部; `Element` 的 name 值, 元素必需是唯一的 |
+| location  | string         | `null`  | 必需; 指定元素到达顶部; `Element` 的 name 值, 元素必需是唯一的 |
 | duration  | number         | `450`   | 点击滚动动画的时间 |
 | ease      | string         | `easeInOutQuad` | 动画缓动 | 
 | active    | string         | `active`| 选中时的样式    |
@@ -146,9 +148,10 @@ React.render(<div>
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| name      | string         | null    | 需要定位的名称，parallax的 position 或 link 的 to, 都需要以此元素做定位 |
+| scrollName | string         | null    | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
 | component | string         | `div`   | 同上            |
 
+> 注: 如果元素不是以上组件时，需要定位到此元素上时，请用 `Element`
 
 ### Event 
 ```jsx

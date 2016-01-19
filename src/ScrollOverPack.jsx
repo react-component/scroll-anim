@@ -1,6 +1,7 @@
 import React, { createElement } from 'react';
 import ReactDom from 'react-dom';
 import EventListener from './EventDispatcher';
+import mapped from './Mapped';
 
 function noop() {
 }
@@ -31,7 +32,9 @@ class ScrollOverPack extends React.Component {
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
     this.computedStyle = document.defaultView.getComputedStyle(this.dom);
-
+    if (this.props.scrollName) {
+      mapped.register(this.props.scrollName, this.dom);
+    }
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = 'scroll.scrollEvent' + date + length;
@@ -40,6 +43,7 @@ class ScrollOverPack extends React.Component {
   }
 
   componentWillUnmount() {
+    mapped.unregister(this.props.scrollName);
     EventListener.removeEventListener(this.eventType, this.scrollEventListener);
   }
 
@@ -108,6 +112,7 @@ ScrollOverPack.propTypes = {
   children: objectOrArray,
   className: React.PropTypes.string,
   style: objectOrArray,
+  scrollName: React.PropTypes.string,
 };
 
 ScrollOverPack.defaultProps = {

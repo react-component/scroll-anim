@@ -1,7 +1,15 @@
 @zero: 0;
+//all css
+h1 {
+  margin: 13px;
+}
+p {
+  margin: 0px;
+}
 .pack-page {
   width: 100%;
-  height: 800px;
+  height: 720px;
+  background-color: #0098CE;
 }
 
 .motion-common() {
@@ -67,33 +75,80 @@
 }
 
 // link css
+
 .nav {
   position: fixed;
-  background: rgba(0, 0, 0, .85);
+  background: #0098CE;
   color: #fff;
   width: 100%;
-  height: 80px;
+  height: 58px;
   z-index: 9999;
   top: 0;
+  & .nav-wap{
+    float: right;
+  }
   & .nav-list {
     width: 100px;
     height: 100%;
     float: left;
-    line-height: 80px;
+    line-height: 58px;
     text-align: center;
     cursor: pointer;
     transition: background .45s;
     &:hover, &.active {
-      background: #333;
+      background: #0180AD;
     }
   }
   & .nav-bar {
     width: 100px;
     position: absolute;
-    top: 78px;
+    top: 58px;
     left: 0;
     height: 2px;
-    background: #ff73fd;
+    background: #fff;
     transition: left .3s;
+  }
+}
+.page0{
+  padding-top: 300px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+.page1{
+  background-color:#19436E;
+  height:720px;
+}
+
+.tween-one{
+  width:100%;
+  opacity: 0;
+  color:#fff;
+  font-size:32px;
+  padding-top: 100px;
+  text-align: center;
+  padding-bottom: 50px;
+}
+.demo{
+  margin: 0 auto;
+  width: 600px;
+  height: 80px;
+  background-color: #133252;
+  margin-top: 30px;
+  border-radius: 4px;
+}
+
+
+.page-title{
+  & p{
+    font-size: 50px;
+    color: #fff;
+  }
+}
+.page-description{
+  padding-top: 20px;
+  & p{
+    font-size: 18px;
+    color: #fff;
   }
 }
