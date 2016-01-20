@@ -84,8 +84,7 @@ class Demo extends React.Component {
           <div className="demo"></div>
         </Animate>
         <TweenOne className="demo" vars={{x: 100, opacity: 1}} key="1"
-                  scrollHideProps={{type: 'reverse'}}>
-        </TweenOne>
+                  scrollHideProps={{type: 'reverse'}}/>
       </ScrollOverPack>
 
       <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#2F3D4C'}}
@@ -95,9 +94,7 @@ class Demo extends React.Component {
           <div className="demo"></div>
         </Animate>
         <TweenOne className="demo" vars={{x: 200, opacity: 1}} key="1"
-                  scrollHideProps={{type: 'reverse'}}>
-
-        </TweenOne>
+                  scrollHideProps={{type: 'reverse'}}/>
       </ScrollOverPack>
     </div>);
   }
