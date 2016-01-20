@@ -21786,6 +21786,10 @@
 	
 	    var _mapped = _Mapped2['default'].getMapped();
 	    var _arr = _mapped.__arr;
+	    if (!_arr.length) {
+	      _EventDispatcher2['default'].removeEventListener('wheel.scrollWheel', this.onWheel);
+	      return;
+	    }
 	    this.scrollTop = window.pageYOffset;
 	    _arr.forEach(function (str, i) {
 	      var dom = _mapped[str];
@@ -21838,68 +21842,72 @@
 	  onWheel: function onWheel(e) {
 	    var _this4 = this;
 	
+	    var _mapped = _Mapped2['default'].getMapped();
+	    if (!_mapped.__arr.length) {
+	      _EventDispatcher2['default'].removeEventListener('wheel.scrollWheel', this.onWheel);
+	      return;
+	    }
 	    var deltaY = e.deltaY;
 	    e.preventDefault();
 	    // console.log(e.wheelDelta,e.deltaY)
 	    if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
-	      var _ret = (function () {
-	        // 如果滚动条托动过了，需要获取当前的num;
-	        var _mapped = _Mapped2['default'].getMapped();
-	        var _arr = _mapped.__arr;
-	        var endDom = _Mapped2['default'].get(_arr[_arr.length - 1]);
-	        var startDom = _Mapped2['default'].get(_arr[0]);
-	        var windowHeight = document.documentElement.clientHeight;
-	        _this4.scrollTop = window.pageYOffset;
-	        _arr.forEach(function (str, i) {
-	          var dom = _mapped[str];
-	          var domOffsetTop = dom.offsetTop;
-	          var domHeight = dom.getBoundingClientRect().height;
-	          if (_this4.scrollTop >= domOffsetTop && _this4.scrollTop < domOffsetTop + domHeight) {
-	            _this4.num = i;
-	          }
-	        });
-	        if (_this4.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
-	          var tooNum = Math.ceil((_this4.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
-	          _this4.num = _arr.length + tooNum;
-	        } else if (_this4.scrollTop < startDom.offsetTop) {
-	          _this4.num = 0;
+	      // 如果滚动条托动过了，需要获取当前的num;
+	      var _arr = _mapped.__arr;
+	      var endDom = _Mapped2['default'].get(_arr[_arr.length - 1]);
+	      var startDom = _Mapped2['default'].get(_arr[0]);
+	      var windowHeight = document.documentElement.clientHeight;
+	      this.scrollTop = window.pageYOffset;
+	      _arr.forEach(function (str, i) {
+	        var dom = _mapped[str];
+	        var domOffsetTop = dom.offsetTop;
+	        var domHeight = dom.getBoundingClientRect().height;
+	        if (_this4.scrollTop >= domOffsetTop && _this4.scrollTop < domOffsetTop + domHeight) {
+	          _this4.num = i;
 	        }
-	        if (deltaY < 0) {
-	          _this4.num--;
-	        } else if (deltaY > 0) {
-	          _this4.num++;
-	        }
-	        // docHeight: 在 body, html 设了 100% 的情况下,给用户设置，如查没设置用默认的。。
-	        var docHeight = _this4.vars.docHeight || document.documentElement.getBoundingClientRect().height;
-	        var manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
-	        var manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
-	        manyScale = manyScale > 0 ? manyScale : 0;
-	        var maxNum = _arr.length + manyScale;
-	        if (_this4.vars.loop) {
-	          _this4.num = _this4.num < 0 ? maxNum - 1 : _this4.num;
-	          _this4.num = _this4.num >= maxNum ? 0 : _this4.num;
-	        } else {
-	          _this4.num = _this4.num <= 0 ? 0 : _this4.num;
-	          _this4.num = _this4.num >= maxNum ? maxNum : _this4.num;
-	        }
-	        if (_this4.num === _this4.currentNum) {
-	          return {
-	            v: undefined
-	          };
-	        }
-	        _this4.initTime = Date.now();
-	        var currentDom = _Mapped2['default'].get(_Mapped2['default'].getMapped().__arr[_this4.num]);
-	        _this4.toHeight = currentDom ? currentDom.offsetTop : null;
-	        _this4.toHeight = typeof _this4.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (_this4.num - _Mapped2['default'].getMapped().__arr.length) : _this4.toHeight;
-	        _this4.rafID = (0, _raf2['default'])(_this4.raf);
-	        _this4.currentNum = _this4.num;
-	      })();
-	
-	      if (typeof _ret === 'object') return _ret.v;
+	      });
+	      if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
+	        var tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+	        this.num = _arr.length + tooNum;
+	      } else if (this.scrollTop < startDom.offsetTop) {
+	        this.num = 0;
+	      }
+	      if (deltaY < 0) {
+	        this.num--;
+	      } else if (deltaY > 0) {
+	        this.num++;
+	      }
+	      // docHeight: 在 body, html 设了 100% 的情况下,给用户设置，如查没设置用默认的。。
+	      var docHeight = this.vars.docHeight || document.documentElement.getBoundingClientRect().height;
+	      var manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
+	      var manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
+	      manyScale = manyScale > 0 ? manyScale : 0;
+	      var maxNum = _arr.length + manyScale;
+	      if (this.vars.loop) {
+	        this.num = this.num < 0 ? maxNum - 1 : this.num;
+	        this.num = this.num >= maxNum ? 0 : this.num;
+	      } else {
+	        this.num = this.num <= 0 ? 0 : this.num;
+	        this.num = this.num >= maxNum ? maxNum : this.num;
+	      }
+	      if (this.num === this.currentNum) {
+	        return;
+	      }
+	      this.initTime = Date.now();
+	      var currentDom = _Mapped2['default'].get(_Mapped2['default'].getMapped().__arr[this.num]);
+	      this.toHeight = currentDom ? currentDom.offsetTop : null;
+	      this.toHeight = typeof this.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (this.num - _Mapped2['default'].getMapped().__arr.length) : this.toHeight;
+	      this.rafID = (0, _raf2['default'])(this.raf);
+	      this.currentNum = this.num;
 	    }
+	  },
+	  unMount: function unMount() {
+	    _EventDispatcher2['default'].removeEventListener('wheel.scrollWheel', this.onWheel);
 	  }
 	};
-	exports['default'] = ScrollScreen.init.bind(ScrollScreen);
+	exports['default'] = {
+	  init: ScrollScreen.init.bind(ScrollScreen),
+	  unMount: ScrollScreen.unMount.bind(ScrollScreen)
+	};
 	module.exports = exports['default'];
 
 /***/ }

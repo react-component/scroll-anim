@@ -151,7 +151,7 @@ webpackJsonp([1],{
 	        ),
 	        _react2['default'].createElement(
 	          ScrollElement,
-	          { style: { height: 2000 }, name: 'Scroll-Pack' },
+	          { style: { height: 2000 }, scrollName: 'Scroll-Pack' },
 	          _react2['default'].createElement(
 	            ScrollParallax,
 	            { className: 'pack-page',
