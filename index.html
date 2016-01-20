@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.1.3 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@0.1.4 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.1.3</h1>
+  <h1>rc-scroll-anim@0.1.4</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -1055,6 +1055,12 @@ children 为 <code>rc-tween-one</code> 或其它有倒放功能在出场时不�
 <td>string</td>
 <td><code>easeInOutQuad</code></td>
 <td>动画缓动</td>
+</tr>
+<tr>
+<td>docHeight</td>
+<td>number</td>
+<td>null</td>
+<td>如果设置了 body 或 html 的 height: 100% 时, 页面高度无法获取, 需要自已定义; 为 null 时用的是html的高度</td>
 </tr>
 <tr>
 <td>loop</td>

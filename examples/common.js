@@ -21759,6 +21759,7 @@
 	  return {
 	    ease: vars.ease || 'easeInOutQuad',
 	    duration: vars.duration || 450,
+	    docHeight: vars.docHeight,
 	    scrollInterval: vars.scrollInterval || 1000,
 	    loop: vars.loop || false
 	  };
@@ -21768,7 +21769,7 @@
 	  init: function init(vars) {
 	    var _this = this;
 	
-	    this.vars = defaultData(vars);
+	    this.vars = defaultData(vars || {});
 	    this.rafID = -1;
 	    this.toHeight = -1;
 	    this.num = 0;
@@ -21844,11 +21845,13 @@
 	      } else if (deltaY > 0) {
 	        this.num++;
 	      }
-	      var docHeight = document.documentElement.getBoundingClientRect().height;
+	      // docHeight: 在 body, html 设了 100% 的情况下,给用户设置，如查没设置用默认的。。
+	      var docHeight = this.vars.docHeight || document.documentElement.getBoundingClientRect().height;
 	      var windowHeight = document.documentElement.clientHeight;
 	      var endDom = _Mapped2['default'].get(_Mapped2['default'].getMapped().__arr[_Mapped2['default'].getMapped().__arr.length - 1]);
 	      var manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
 	      var manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
+	      manyScale = manyScale > 0 ? manyScale : 0;
 	      var maxNum = _Mapped2['default'].getMapped().__arr.length - 1 + manyScale;
 	      if (this.vars.loop) {
 	        this.num = this.num < 0 ? maxNum : this.num;
