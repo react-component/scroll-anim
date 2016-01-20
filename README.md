@@ -92,6 +92,12 @@ React.render(<div>
 </div>,container);
 ```
 
+### scrollScreen示例
+
+```js
+ScrollAnim.scrollScreen();
+```
+
 ## API
 
 ### props
@@ -152,6 +158,19 @@ React.render(<div>
 | component | string         | `div`   | 同上            |
 
 > 注: 如果元素不是以上组件时，需要定位到此元素上时，请用 `Element`
+
+### .scrollScreen(vars)
+
+用处: 滚动一屏窗口;
+
+#### vars = { }
+
+| name      | type           | default | description    |
+|-----------|----------------|---------|----------------|
+| duration  | number         | 450     | 滚动一段的时间   |
+| ease      | string         | `easeInOutQuad` | 动画缓动 |
+| scrollInterval | number    | 1000    | 滚动事件间隔时间 |
+
 
 ### Event 
 ```jsx
