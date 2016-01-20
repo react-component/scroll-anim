@@ -29,6 +29,10 @@ const ScrollScreen = {
   startScroll() {
     const _mapped = mapped.getMapped();
     const _arr = _mapped.__arr;
+    if (!_arr.length) {
+      EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
+      return;
+    }
     this.scrollTop = window.pageYOffset;
     _arr.forEach((str, i)=> {
       const dom = _mapped[str];
@@ -80,9 +84,12 @@ const ScrollScreen = {
     const deltaY = e.deltaY;
     e.preventDefault();
     // console.log(e.wheelDelta,e.deltaY)
+    const _mapped = mapped.getMapped();
+    if (!_mapped.__arr.length) {
+      EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
+    }
     if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
       // 如果滚动条托动过了，需要获取当前的num;
-      const _mapped = mapped.getMapped();
       const _arr = _mapped.__arr;
       const endDom = mapped.get(_arr[_arr.length - 1]);
       const startDom = mapped.get(_arr[0]);
