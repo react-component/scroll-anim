@@ -41,6 +41,7 @@ const ScrollScreen = {
       if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
         this.num = i;
         this.toHeight = domOffsetTop;
+        this.currentNum = this.num;
       }
     });
     // 如果 toHeight === -1 且 this.scrollTop 有值时；
