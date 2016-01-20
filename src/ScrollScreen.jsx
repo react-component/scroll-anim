@@ -139,5 +139,11 @@ const ScrollScreen = {
       this.currentNum = this.num;
     }
   },
+  unMount() {
+    EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
+  },
 };
-export default ScrollScreen.init.bind(ScrollScreen);
+export default {
+  init: ScrollScreen.init.bind(ScrollScreen),
+  unMount: ScrollScreen.unMount.bind(ScrollScreen),
+};
