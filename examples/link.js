@@ -12,7 +12,7 @@ const Link = ScrollAnim.Link;
 const Element = ScrollAnim.Element;
 const ScrollOverPack = ScrollAnim.OverPack;
 const EventListener = ScrollAnim.Event;
-
+ScrollAnim.scrollScreen();
 class Demo extends React.Component {
   constructor() {
     super(...arguments);

@@ -61,7 +61,7 @@ EventDispatcher.prototype = {
     }
   },
 
-  dispatchEvent(type) {
+  dispatchEvent(type, e) {
     const list = this._listeners[type];
     let i;
     let t;
@@ -72,7 +72,8 @@ EventDispatcher.prototype = {
       while (--i > -1) {
         listener = list[i];
         if (listener) {
-          listener.c.call(t, {type: type, target: t});
+          const _e = e || {type: type, target: t};
+          listener.c.call(t, _e);
         }
       }
     }

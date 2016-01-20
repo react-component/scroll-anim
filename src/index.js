@@ -4,6 +4,7 @@ import ScrollParallax from './ScrollParallax';
 import ScrollLink from './ScrollLink';
 import ScrollElement from './ScrollElement';
 import ScrollEvent from './EventDispatcher';
+import scrollScreen from './ScrollScreen';
 
 export default {
   OverPack: ScrollOverPack,
@@ -11,4 +12,5 @@ export default {
   Element: ScrollElement,
   Link: ScrollLink,
   Event: ScrollEvent,
+  scrollScreen,
 };

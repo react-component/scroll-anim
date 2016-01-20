@@ -1,19 +1,27 @@
-let __mapped = {};
+let __mapped = {
+  __arr: [],
+};
 
 export default{
-  unmount: ()=> {
-    __mapped = {};
+  unMount() {
+    __mapped = {__arr: []};
   },
 
-  register: (name, element)=> {
+  register(name, element) {
     __mapped[name] = element;
+    __mapped.__arr.push(name);
   },
 
-  unregister: (name)=> {
+  unRegister(name) {
+    __mapped.__arr.splice(__mapped.__arr.indexOf(name), 1);
     delete __mapped[name];
   },
 
-  get: (name)=> {
+  get(name) {
     return __mapped[name];
+  },
+
+  getMapped() {
+    return __mapped;
   },
 };
