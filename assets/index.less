@@ -1,5 +1,14 @@
 @zero: 0;
 //all css
+html{
+  font-family:'PingFang SC';
+}
+body {
+  margin: 0;
+}
+body h1:first-child{
+    display: none;
+  }
 h1 {
   margin: 13px;
 }
@@ -75,7 +84,13 @@ p {
 }
 
 // link css
-
+.logo{
+  float:left;
+  height:58px;
+  font-size:26px;
+  line-height:56px;
+  padding-left:200px;
+}
 .nav {
   position: fixed;
   background: #0098CE;
@@ -86,6 +101,7 @@ p {
   top: 0;
   & .nav-wap{
     float: right;
+    padding-right:200px;
   }
   & .nav-list {
     width: 100px;
@@ -96,7 +112,6 @@ p {
     cursor: pointer;
     transition: background .45s;
     &:hover, &.active {
-      background: #0180AD;
     }
   }
   & .nav-bar {
@@ -110,14 +125,14 @@ p {
   }
 }
 .page0{
-  padding-top: 300px;
+  padding-top: 400px;
   margin: 0 auto;
   width: 100%;
   text-align: center;
 }
 .page1{
   background-color:#19436E;
-  height:720px;
+  height:800px;
 }
 
 .tween-one{
@@ -129,6 +144,14 @@ p {
   text-align: center;
   padding-bottom: 50px;
 }
+.page-title{
+  width:100%;
+  text-align:center;
+  color:#fff;
+  font-size:32px;
+  padding-top:100px;
+  padding-bottom:50px;
+}
 .demo{
   margin: 0 auto;
   width: 600px;
@@ -138,10 +161,9 @@ p {
   border-radius: 4px;
 }
 
-
 .page-title{
   & p{
-    font-size: 50px;
+    font-size: 60px;
     color: #fff;
   }
 }
