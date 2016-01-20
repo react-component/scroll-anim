@@ -152,12 +152,17 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
+	var _ScrollScreen = __webpack_require__(175);
+	
+	var _ScrollScreen2 = _interopRequireDefault(_ScrollScreen);
+	
 	exports['default'] = {
 	  OverPack: _ScrollOverPack2['default'],
 	  Parallax: _ScrollParallax2['default'],
 	  Element: _ScrollElement2['default'],
 	  Link: _ScrollLink2['default'],
-	  Event: _EventDispatcher2['default']
+	  Event: _EventDispatcher2['default'],
+	  scrollScreen: _ScrollScreen2['default']
 	};
 	module.exports = exports['default'];
 
@@ -19992,7 +19997,7 @@
 	    }
 	  },
 	
-	  dispatchEvent: function dispatchEvent(type) {
+	  dispatchEvent: function dispatchEvent(type, e) {
 	    var list = this._listeners[type];
 	    var i = undefined;
 	    var t = undefined;
@@ -20003,7 +20008,8 @@
 	      while (--i > -1) {
 	        listener = list[i];
 	        if (listener) {
-	          listener.c.call(t, { type: type, target: t });
+	          var _e = e || { type: type, target: t };
+	          listener.c.call(t, _e);
 	        }
 	      }
 	    }
@@ -20022,23 +20028,31 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var __mapped = {};
+	var __mapped = {
+	  __arr: []
+	};
 	
 	exports["default"] = {
-	  unmount: function unmount() {
-	    __mapped = {};
+	  unMount: function unMount() {
+	    __mapped = { __arr: [] };
 	  },
 	
 	  register: function register(name, element) {
 	    __mapped[name] = element;
+	    __mapped.__arr.push(name);
 	  },
 	
-	  unregister: function unregister(name) {
+	  unRegister: function unRegister(name) {
+	    __mapped.__arr.splice(__mapped.__arr.indexOf(name), 1);
 	    delete __mapped[name];
 	  },
 	
 	  get: function get(name) {
 	    return __mapped[name];
+	  },
+	
+	  getMapped: function getMapped() {
+	    return __mapped;
 	  }
 	};
 	module.exports = exports["default"];
@@ -21710,6 +21724,153 @@
 	  component: 'div'
 	};
 	exports['default'] = ScrollElement;
+	module.exports = exports['default'];
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _tweenFunctions = __webpack_require__(168);
+	
+	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
+	
+	var _raf = __webpack_require__(172);
+	
+	var _raf2 = _interopRequireDefault(_raf);
+	
+	var _EventDispatcher = __webpack_require__(164);
+	
+	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
+	
+	var _Mapped = __webpack_require__(165);
+	
+	var _Mapped2 = _interopRequireDefault(_Mapped);
+	
+	// 设置默认数据
+	function defaultData(vars) {
+	  return {
+	    ease: vars.ease || 'easeInOutQuad',
+	    duration: vars.duration || 450,
+	    scrollInterval: vars.scrollInterval || 1000,
+	    loop: vars.loop || false
+	  };
+	}
+	
+	var ScrollScreen = {
+	  init: function init(vars) {
+	    var _this = this;
+	
+	    this.vars = defaultData(vars);
+	    this.rafID = -1;
+	    this.toHeight = -1;
+	    this.num = 0;
+	    this.currentNum = 0;
+	    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll'].forEach(function (method) {
+	      return _this[method] = _this[method].bind(_this);
+	    });
+	    _EventDispatcher2['default'].addEventListener('wheel.scrollWheel', this.onWheel);
+	    // 刚进入时滚动条位置
+	    setTimeout(this.startScroll);
+	  },
+	  startScroll: function startScroll() {
+	    var _this2 = this;
+	
+	    var _mapped = _Mapped2['default'].getMapped();
+	    var _arr = _mapped.__arr;
+	    this.scrollTop = document.body.scrollTop || document.documentElement.scrollTop; // window.pageXOffset;
+	    _arr.forEach(function (str, i) {
+	      var dom = _mapped[str];
+	      var domOffsetTop = dom.offsetTop;
+	      var domHeight = dom.getBoundingClientRect().height;
+	      if (_this2.scrollTop >= domOffsetTop && _this2.scrollTop < domOffsetTop + domHeight) {
+	        _this2.num = i;
+	        _this2.toHeight = domOffsetTop;
+	      }
+	    });
+	    // 如果 toHeight === -1 且 this.scrollTop 有值时；
+	    if (this.toHeight === -1) {
+	      if (this.scrollTop > 0) {
+	        var endDom = _Mapped2['default'].get(_Mapped2['default'].getMapped().__arr[_Mapped2['default'].getMapped().__arr.length - 1]);
+	        var windowHeight = document.documentElement.clientHeight;
+	        var tooNum = Math.floor((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+	        this.num = _Mapped2['default'].getMapped().__arr.length + tooNum;
+	        this.currentNum = this.num;
+	      }
+	      return;
+	    }
+	    if (this.toHeight !== this.scrollTop) {
+	      this.initTime = Date.now();
+	      this.rafID = (0, _raf2['default'])(this.raf);
+	    } else {
+	      this.toHeight = -1;
+	    }
+	  },
+	  raf: function raf() {
+	    var _this3 = this;
+	
+	    var duration = this.vars.duration;
+	    var now = Date.now();
+	    var progressTime = now - this.initTime > duration ? duration : now - this.initTime;
+	    var easeValue = _tweenFunctions2['default'][this.vars.ease](progressTime, this.scrollTop, this.toHeight, duration);
+	    window.scrollTo(window.scrollX, easeValue);
+	    if (progressTime === duration) {
+	      this.cancelRequestAnimationFrame();
+	      setTimeout(function () {
+	        _this3.toHeight = -1;
+	      }, this.vars.scrollInterval);
+	    } else {
+	      this.rafID = (0, _raf2['default'])(this.raf);
+	    }
+	  },
+	  cancelRequestAnimationFrame: function cancelRequestAnimationFrame() {
+	    _raf2['default'].cancel(this.rafID);
+	    this.rafID = -1;
+	  },
+	  onWheel: function onWheel(e) {
+	    var deltaY = e.deltaY;
+	    e.preventDefault();
+	    // console.log(e.wheelDelta,e.deltaY)
+	    if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
+	      if (deltaY < 0) {
+	        this.num--;
+	      } else if (deltaY > 0) {
+	        this.num++;
+	      }
+	      var docHeight = document.documentElement.getBoundingClientRect().height;
+	      var windowHeight = document.documentElement.clientHeight;
+	      var endDom = _Mapped2['default'].get(_Mapped2['default'].getMapped().__arr[_Mapped2['default'].getMapped().__arr.length - 1]);
+	      var manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
+	      var manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
+	      var maxNum = _Mapped2['default'].getMapped().__arr.length - 1 + manyScale;
+	      if (this.vars.loop) {
+	        this.num = this.num < 0 ? maxNum : this.num;
+	        this.num = this.num > maxNum ? 0 : this.num;
+	      } else {
+	        this.num = this.num <= 0 ? 0 : this.num;
+	        this.num = this.num >= maxNum ? maxNum : this.num;
+	      }
+	      if (this.num === this.currentNum) {
+	        return;
+	      }
+	      this.initTime = Date.now();
+	      this.scrollTop = window.pageYOffset;
+	      var currentDom = _Mapped2['default'].get(_Mapped2['default'].getMapped().__arr[this.num]);
+	      this.toHeight = currentDom ? currentDom.offsetTop : null;
+	      this.toHeight = typeof this.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (this.num - _Mapped2['default'].getMapped().__arr.length) : this.toHeight;
+	      this.rafID = (0, _raf2['default'])(this.raf);
+	      this.currentNum = this.num;
+	    }
+	  }
+	};
+	exports['default'] = ScrollScreen.init.bind(ScrollScreen);
 	module.exports = exports['default'];
 
 /***/ }
