@@ -29,7 +29,7 @@ const ScrollScreen = {
   startScroll() {
     const _mapped = mapped.getMapped();
     const _arr = _mapped.__arr;
-    this.scrollTop = document.body.scrollTop || document.documentElement.scrollTop;// window.pageXOffset;
+    this.scrollTop = window.pageYOffset;
     _arr.forEach((str, i)=> {
       const dom = _mapped[str];
       const domOffsetTop = dom.offsetTop;
@@ -81,6 +81,27 @@ const ScrollScreen = {
     e.preventDefault();
     // console.log(e.wheelDelta,e.deltaY)
     if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
+      // 如果滚动条托动过了，需要获取当前的num;
+      const _mapped = mapped.getMapped();
+      const _arr = _mapped.__arr;
+      const endDom = mapped.get(_arr[_arr.length - 1]);
+      const startDom = mapped.get(_arr[0]);
+      const windowHeight = document.documentElement.clientHeight;
+      this.scrollTop = window.pageYOffset;
+      _arr.forEach((str, i)=> {
+        const dom = _mapped[str];
+        const domOffsetTop = dom.offsetTop;
+        const domHeight = dom.getBoundingClientRect().height;
+        if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
+          this.num = i;
+        }
+      });
+      if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
+        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+        this.num = _arr.length + tooNum;
+      } else if (this.scrollTop < startDom.offsetTop) {
+        this.num = 0;
+      }
       if (deltaY < 0) {
         this.num--;
       } else if (deltaY > 0) {
@@ -88,15 +109,13 @@ const ScrollScreen = {
       }
       // docHeight: 在 body, html 设了 100% 的情况下,给用户设置，如查没设置用默认的。。
       const docHeight = this.vars.docHeight || document.documentElement.getBoundingClientRect().height;
-      const windowHeight = document.documentElement.clientHeight;
-      const endDom = mapped.get(mapped.getMapped().__arr[mapped.getMapped().__arr.length - 1]);
       const manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
       let manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
       manyScale = manyScale > 0 ? manyScale : 0;
-      const maxNum = mapped.getMapped().__arr.length - 1 + manyScale;
+      const maxNum = _arr.length + manyScale;
       if (this.vars.loop) {
-        this.num = this.num < 0 ? maxNum : this.num;
-        this.num = this.num > maxNum ? 0 : this.num;
+        this.num = this.num < 0 ? maxNum - 1 : this.num;
+        this.num = this.num >= maxNum ? 0 : this.num;
       } else {
         this.num = this.num <= 0 ? 0 : this.num;
         this.num = this.num >= maxNum ? maxNum : this.num;
@@ -105,7 +124,6 @@ const ScrollScreen = {
         return;
       }
       this.initTime = Date.now();
-      this.scrollTop = window.pageYOffset;
       const currentDom = mapped.get(mapped.getMapped().__arr[this.num]);
       this.toHeight = currentDom ? currentDom.offsetTop : null;
       this.toHeight = typeof this.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
