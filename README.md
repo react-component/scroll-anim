@@ -169,6 +169,7 @@ ScrollAnim.scrollScreen();
 |-----------|----------------|---------|----------------|
 | duration  | number         | 450     | 滚动一段的时间   |
 | ease      | string         | `easeInOutQuad` | 动画缓动 |
+| loop      | boolean        | false   | 前后相接循环  |
 | scrollInterval | number    | 1000    | 滚动事件间隔时间 |
 
 

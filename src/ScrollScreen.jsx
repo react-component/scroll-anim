@@ -9,6 +9,7 @@ function defaultData(vars) {
     ease: vars.ease || 'easeInOutQuad',
     duration: vars.duration || 450,
     scrollInterval: vars.scrollInterval || 1000,
+    loop: vars.loop || false,
   };
 }
 
@@ -84,14 +85,19 @@ const ScrollScreen = {
       } else if (deltaY > 0) {
         this.num++;
       }
-      this.num = this.num <= 0 ? 0 : this.num;
       const docHeight = document.documentElement.getBoundingClientRect().height;
       const windowHeight = document.documentElement.clientHeight;
       const endDom = mapped.get(mapped.getMapped().__arr[mapped.getMapped().__arr.length - 1]);
       const manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
       const manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
       const maxNum = mapped.getMapped().__arr.length - 1 + manyScale;
-      this.num = this.num >= maxNum ? maxNum : this.num;
+      if (this.vars.loop) {
+        this.num = this.num < 0 ? maxNum : this.num;
+        this.num = this.num > maxNum ? 0 : this.num;
+      } else {
+        this.num = this.num <= 0 ? 0 : this.num;
+        this.num = this.num >= maxNum ? maxNum : this.num;
+      }
       if (this.num === this.currentNum) {
         return;
       }
