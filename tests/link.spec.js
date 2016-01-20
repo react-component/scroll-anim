@@ -34,10 +34,10 @@ describe('rc-scroll-anim', function() {
                              onFocus={this.onFocus.bind(this)}>page1</ScrollAnim.Link>
             <div ref="bar" className="nav-bar"></div>
           </div>
-          <ScrollAnim.Element style={{height: 600}} scrollName="page0">
+          <ScrollAnim.Element style={{height: 1000}} scrollName="page0">
             示例
           </ScrollAnim.Element>
-          <ScrollAnim.Element style={{height: 600}} scrollName="page1">
+          <ScrollAnim.Element style={{height: 1000}} scrollName="page1">
             示例
           </ScrollAnim.Element>
         </div>);
@@ -72,7 +72,7 @@ describe('rc-scroll-anim', function() {
     setTimeout(()=> {
       console.log('bar left:', barChild.style.left || 0);
       expect(getFloat(barChild.style.left) || 0).to.be(0);
-      window.scrollTo(0, 1200);
+      window.scrollTo(0, 2000);
       setTimeout(()=> {
         console.log('bar left:', barChild.style.left);
         console.log('className is active:', listChild[1].className);

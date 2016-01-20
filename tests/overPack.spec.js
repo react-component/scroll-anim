@@ -21,8 +21,8 @@ describe('rc-scroll-anim', function() {
 
       render() {
         return (<div>
-          <div style={{height: 600}}></div>
-          <ScrollAnim.OverPack {...this.props} style={{height: 800}}>
+          <div style={{height: 1000}}></div>
+          <ScrollAnim.OverPack {...this.props} style={{height: 1000}}>
             <TweenOne key="one" vars={{opacity: 1}} className="tween-one" style={{opacity: 0}} component="i" scrollHideProps={{type: 'reverse'}}>demo</TweenOne>
             <QueueAnim key="queueAnim" className="queue-anim" scrollHideProps={{child: null}}>
               <p key="0">demo</p>
@@ -65,7 +65,7 @@ describe('rc-scroll-anim', function() {
     instance = createScrollOverPack({
       always: false,
     });
-    window.scrollTo(0, 1200);
+    window.scrollTo(0, 2000);
     let child;
     setTimeout(()=> {
       window.scrollTo(0, 0);
@@ -85,7 +85,7 @@ describe('rc-scroll-anim', function() {
   it('overPack enter leave', function(done) {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
-    window.scrollTo(0, 1200);
+    window.scrollTo(0, 2000);
     let child;
     setTimeout(()=> {
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
