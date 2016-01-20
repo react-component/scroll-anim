@@ -8,6 +8,7 @@ function defaultData(vars) {
   return {
     ease: vars.ease || 'easeInOutQuad',
     duration: vars.duration || 450,
+    docHeight: vars.docHeight,
     scrollInterval: vars.scrollInterval || 1000,
     loop: vars.loop || false,
   };
@@ -15,7 +16,7 @@ function defaultData(vars) {
 
 const ScrollScreen = {
   init(vars) {
-    this.vars = defaultData(vars);
+    this.vars = defaultData(vars || {});
     this.rafID = -1;
     this.toHeight = -1;
     this.num = 0;
@@ -85,11 +86,13 @@ const ScrollScreen = {
       } else if (deltaY > 0) {
         this.num++;
       }
-      const docHeight = document.documentElement.getBoundingClientRect().height;
+      // docHeight: 在 body, html 设了 100% 的情况下,给用户设置，如查没设置用默认的。。
+      const docHeight = this.vars.docHeight || document.documentElement.getBoundingClientRect().height;
       const windowHeight = document.documentElement.clientHeight;
       const endDom = mapped.get(mapped.getMapped().__arr[mapped.getMapped().__arr.length - 1]);
       const manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
-      const manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
+      let manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
+      manyScale = manyScale > 0 ? manyScale : 0;
       const maxNum = mapped.getMapped().__arr.length - 1 + manyScale;
       if (this.vars.loop) {
         this.num = this.num < 0 ? maxNum : this.num;
