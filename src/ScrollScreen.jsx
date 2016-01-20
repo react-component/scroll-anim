@@ -81,13 +81,14 @@ const ScrollScreen = {
     this.rafID = -1;
   },
   onWheel(e) {
-    const deltaY = e.deltaY;
-    e.preventDefault();
-    // console.log(e.wheelDelta,e.deltaY)
     const _mapped = mapped.getMapped();
     if (!_mapped.__arr.length) {
       EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
+      return;
     }
+    const deltaY = e.deltaY;
+    e.preventDefault();
+    // console.log(e.wheelDelta,e.deltaY)
     if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
       // 如果滚动条托动过了，需要获取当前的num;
       const _arr = _mapped.__arr;
