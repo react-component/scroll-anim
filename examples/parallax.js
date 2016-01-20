@@ -63,7 +63,7 @@ class Demo extends React.Component {
         <ScrollParallax vars={{translateY: -60, opacity: 1, ease: 'linear'}}
                         style={{transform: 'translateY(320px)', color: '#fff'}}>视差示例示例示例</ScrollParallax>
       </div>
-      <ScrollElement style={{height: 2000}} name="Scroll-Pack">
+      <ScrollElement style={{height: 2000}} scrollName="Scroll-Pack">
         <ScrollParallax className="pack-page"
                         location="Scroll-Pack"
                         vars={{backgroundColor: '#ddff00', playScale: [1, 2], onStart: this.setCss.bind(this), onComplete: this.onComplete.bind(this)}}
