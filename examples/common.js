@@ -250,7 +250,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _Mapped2['default'].unregister(this.props.scrollName);
+	      _Mapped2['default'].unRegister(this.props.scrollName);
 	      _EventDispatcher2['default'].removeEventListener(this.eventType, this.scrollEventListener);
 	    }
 	  }, {
@@ -20216,7 +20216,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _Mapped2['default'].unregister(this.props.scrollName);
+	      _Mapped2['default'].unRegister(this.props.scrollName);
 	      _EventDispatcher2['default'].removeEventListener(this.eventType, this.scrollEventListener);
 	    }
 	  }, {
@@ -21702,7 +21702,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _Mapped2['default'].unregister(this.props.scrollName);
+	      _Mapped2['default'].unRegister(this.props.scrollName);
 	    }
 	  }, {
 	    key: 'render',
