@@ -43,7 +43,7 @@ class ScrollOverPack extends React.Component {
   }
 
   componentWillUnmount() {
-    mapped.unregister(this.props.scrollName);
+    mapped.unRegister(this.props.scrollName);
     EventListener.removeEventListener(this.eventType, this.scrollEventListener);
   }
 
