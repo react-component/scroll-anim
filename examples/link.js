@@ -55,7 +55,7 @@ webpackJsonp([0],{
 	var Element = _rcScrollAnim2['default'].Element;
 	var ScrollOverPack = _rcScrollAnim2['default'].OverPack;
 	var EventListener = _rcScrollAnim2['default'].Event;
-	_rcScrollAnim2['default'].scrollScreen();
+	_rcScrollAnim2['default'].scrollScreen({ loop: true });
 	
 	var Demo = (function (_React$Component) {
 	  _inherits(Demo, _React$Component);
