@@ -55,12 +55,12 @@ class Demo extends React.Component {
         </div>
       </div>
       <Element className="pack-page page0" scrollName="page0">
-        <QueueAnim>
+        <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>
           </div>
           <div className="page-description" key="c">
-            <p>The simple demo</p>
+            <p>The link demo</p>
           </div>
         </QueueAnim>
       </Element>

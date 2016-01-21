@@ -117,7 +117,7 @@ class ScrollParallax extends React.Component {
           parallaxData.data[p] = item[p];
         }
       }
-      time += parallaxData.playScale[1];
+      time += parallaxData.playScale[1] - parallaxData.playScale[0];
       this.defaultData[i] = parallaxData;
     };
     vars.forEach(varsForIn);
@@ -129,7 +129,8 @@ class ScrollParallax extends React.Component {
     start[i] = start[i] || {};
     start.end = start.end || {};
     if (!start.end['Bool' + i]) {
-      Object.keys(item.data).forEach((key)=> {
+      Object.keys(item.data).forEach((_key)=> {
+        const key = Css.getGsapType(_key);
         const cssName = Css.isTransform(key);
         if (cssName === 'transform' || cssName === 'filter') {
           if (newStyle && newStyle[cssName]) {
@@ -236,16 +237,13 @@ class ScrollParallax extends React.Component {
         // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
         // rotateY 或 rotateＸ 时对 getBoundingClientRect 受到影响。所以把 dom 的 transform 设为 none 后再取 getBoundingClientRect 的 top 值
         const isTransform = Object.keys(item.data).some(c => Css.isTransform(c) === 'transform') && noPosition;
+        const _transform = dom.style.transform;
         if (isTransform) {
           dom.style.transform = 'none';
         }
         const offsetTop = dom.getBoundingClientRect().top + scrollTop - (noPosition ? parseFloat(this.computedStyle.marginTop) : 0);
         if (isTransform) {
-          Object.keys(this.state.style).forEach(key=> {
-            if (key === 'transform') {
-              dom.style[key] = this.state.style[key];
-            }
-          });
+          dom.style.transform = _transform;
         }
 
         const elementShowHeight = scrollTop - offsetTop + clientHeight;
@@ -259,7 +257,6 @@ class ScrollParallax extends React.Component {
         let progress = _progress;
         progress = progress >= 1 ? 1 : progress;
         progress = progress <= 0 ? 0 : progress;
-
         // 缓动参数；
         const easeValue = easingTypes[item.ease](progress, start, end, 1);
         // onStart 处理；
@@ -307,6 +304,14 @@ class ScrollParallax extends React.Component {
             newStyle[cssName] = this.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
           });
         }
+        // 恢复到 start 后删除;
+        if (_progress < 0) {
+          delete this.parallaxStart[i];
+          if (this.parallaxStart.end) {
+            delete this.parallaxStart.end['Bool' + i];
+          }
+        }
+
         // 到达
         if (progress >= 1) {
           item.end = true;
@@ -323,6 +328,7 @@ class ScrollParallax extends React.Component {
         }
       }
     });
+
     this.setState({
       style: newStyle,
     });

@@ -47,17 +47,17 @@ class Demo extends React.Component {
         <div className="nav-wap">
           <Link className="nav-list" location="page0" showHeightActive="300" ref="page0"
                 onFocus={this.onFocus}>Page0</Link>
-          <Link className="nav-list" location="page1" showHeightActive={[300, 500]}
+          <Link className="nav-list" location="page1" showHeightActive="300"
                 onFocus={this.onFocus}>Page1</Link>
-          <Link className="nav-list" location="page2" showHeightActive={[500, 200]} toShowHeight
+          <Link className="nav-list" location="page2" showHeightActive="300"
                 onFocus={this.onFocus}>Page2</Link>
-          <Link className="nav-list" location="page3" showHeightActive={[200, '10%']}
+          <Link className="nav-list" location="page3" showHeightActive="300"
                 onFocus={this.onFocus}>Page3</Link>
           <div ref="bar" className="nav-bar"></div>
         </div>
       </div>
       <Element className="pack-page page0" scrollName="page0">
-        <QueueAnim>
+        <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>
           </div>
