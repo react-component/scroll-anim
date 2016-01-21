@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		3:0
+/******/ 		4:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"link","1":"parallax","2":"simple"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"link","1":"parallax","2":"scrollScreen","3":"simple"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -241,6 +241,7 @@
 	      if (this.props.scrollName) {
 	        _Mapped2['default'].register(this.props.scrollName, this.dom);
 	      }
+	      this.prevScrollTop = window.pageYOffset;
 	      var date = Date.now();
 	      var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
 	      this.eventType = 'scroll.scrollEvent' + date + length;
@@ -259,9 +260,32 @@
 	      var clientHeight = document.documentElement.clientHeight;
 	      var scrollTop = window.pageYOffset; // document.body.scrollTop || document.documentElement.scrollTop;
 	      // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
-	      var offsetTop = this.dom.getBoundingClientRect().top + scrollTop;
+	      var domRect = this.dom.getBoundingClientRect();
+	      var offsetTop = domRect.top + scrollTop;
 	      var elementShowHeight = scrollTop - offsetTop + clientHeight;
-	      if (elementShowHeight >= clientHeight * this.props.playScale) {
+	      var playHeight = clientHeight * this.props.playScale;
+	      // onPlay
+	      // const scrollTopValue = scrollTop - this.prevScrollTop;
+	      /*
+	       * scrollTopValue: < 0 为滚动轴往上， > 0 时为往下;
+	       * 当前显示: elementShowHeight, 开始播放点: playHeight;
+	       * elementShowHeight < playHeight ----> scrollTopValue > 0 或 < 0 都设为false;
+	       * elementShowHeight > playHeight ----> 往上时设为 false, 往下时不做处理;
+	       * 往下滚时：
+	       * 1. 当前显示大于开始播放时,
+	       * 往上滚时：
+	       * 1. 当前显示小于等于开始播放加时.
+	       */
+	      // if ((elementShowHeight >= playHeight && scrollTopValue < 0) || (elementShowHeight < playHeight && scrollTopValue > 0)) {
+	      //  this.props.onPlay.only = false;
+	      // }
+	      // if (!this.props.onPlay.only && ((elementShowHeight >= playHeight && elementShowHeight <= playHeight + clientHeight && scrollTopValue > 0) || (elementShowHeight <= playHeight && scrollTopValue < 0))) {
+	      //  console.log(this.props.scrollName, 111)
+	      //  this.props.onPlay();
+	      //  this.props.onPlay.only = true;
+	      // }
+	      var replay = this.props.replay ? elementShowHeight >= playHeight && elementShowHeight <= clientHeight : elementShowHeight >= playHeight;
+	      if (replay) {
 	        if (!this.state.show) {
 	          this.setState({
 	            show: true
@@ -279,6 +303,7 @@
 	      if (e) {
 	        this.props.scrollEvent(e);
 	      }
+	      // this.prevScrollTop = scrollTop;
 	    }
 	  }, {
 	    key: 'render',
@@ -325,14 +350,16 @@
 	  children: objectOrArray,
 	  className: _react2['default'].PropTypes.string,
 	  style: objectOrArray,
-	  scrollName: _react2['default'].PropTypes.string
+	  scrollName: _react2['default'].PropTypes.string,
+	  replay: _react2['default'].PropTypes.bool
 	};
 	
 	ScrollOverPack.defaultProps = {
 	  component: 'div',
 	  playScale: 0.5,
 	  always: true,
-	  scrollEvent: noop
+	  scrollEvent: noop,
+	  replay: false
 	};
 	
 	exports['default'] = ScrollOverPack;
@@ -20043,8 +20070,11 @@
 	  },
 	
 	  unRegister: function unRegister(name) {
-	    __mapped.__arr.splice(__mapped.__arr.indexOf(name), 1);
-	    delete __mapped[name];
+	    var index = __mapped.__arr.indexOf(name);
+	    if (index >= 0) {
+	      __mapped.__arr.splice(__mapped.__arr.indexOf(name), 1);
+	      delete __mapped[name];
+	    }
 	  },
 	
 	  get: function get(name) {
@@ -21779,6 +21809,7 @@
 	    });
 	    _EventDispatcher2['default'].addEventListener('wheel.scrollWheel', this.onWheel);
 	    // 刚进入时滚动条位置
+	    // requestAnimationFrame(this.startScroll)
 	    setTimeout(this.startScroll);
 	  },
 	  startScroll: function startScroll() {
@@ -21798,6 +21829,7 @@
 	      if (_this2.scrollTop >= domOffsetTop && _this2.scrollTop < domOffsetTop + domHeight) {
 	        _this2.num = i;
 	        _this2.toHeight = domOffsetTop;
+	        _this2.currentNum = _this2.num;
 	      }
 	    });
 	    // 如果 toHeight === -1 且 this.scrollTop 有值时；
@@ -21805,7 +21837,7 @@
 	      if (this.scrollTop > 0) {
 	        var endDom = _Mapped2['default'].get(_Mapped2['default'].getMapped().__arr[_Mapped2['default'].getMapped().__arr.length - 1]);
 	        var windowHeight = document.documentElement.clientHeight;
-	        var tooNum = Math.floor((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+	        var tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
 	        this.num = _Mapped2['default'].getMapped().__arr.length + tooNum;
 	        this.currentNum = this.num;
 	      }

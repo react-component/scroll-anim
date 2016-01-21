@@ -1,233 +1,10 @@
-webpackJsonp([0],{
+webpackJsonp([2],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(195);
 
-
-/***/ },
-
-/***/ 1:
-/***/ function(module, exports, __webpack_require__) {
-
-	// use jsx to render html, do not modify simple.html
-	
-	'use strict';
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	__webpack_require__(2);
-	
-	var _rcScrollAnim = __webpack_require__(3);
-	
-	var _rcScrollAnim2 = _interopRequireDefault(_rcScrollAnim);
-	
-	var _react = __webpack_require__(6);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(163);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _rcQueueAnim = __webpack_require__(176);
-	
-	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
-	
-	var _rcTweenOne = __webpack_require__(181);
-	
-	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
-	
-	var _rcAnimate = __webpack_require__(186);
-	
-	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
-	
-	var Link = _rcScrollAnim2['default'].Link;
-	var Element = _rcScrollAnim2['default'].Element;
-	var ScrollOverPack = _rcScrollAnim2['default'].OverPack;
-	var EventListener = _rcScrollAnim2['default'].Event;
-	// ScrollAnim.scrollScreen({loop: true});
-	
-	var Demo = (function (_React$Component) {
-	  _inherits(Demo, _React$Component);
-	
-	  function Demo() {
-	    _classCallCheck(this, Demo);
-	
-	    _get(Object.getPrototypeOf(Demo.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  _createClass(Demo, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // 添加改变窗口事件,可加setTimeout
-	      EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
-	    }
-	  }, {
-	    key: 'onFocus',
-	    value: function onFocus(e) {
-	      this.dom = e.target;
-	      this.barAnimate();
-	    }
-	  }, {
-	    key: 'barAnimate',
-	    value: function barAnimate() {
-	      if (!this.dom) {
-	        return;
-	      }
-	      var bar = this.refs.bar;
-	      bar.style.left = this.dom.getBoundingClientRect().left + 'px';
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'nav' },
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'nav-wap' },
-	            _react2['default'].createElement(
-	              Link,
-	              { className: 'nav-list', location: 'page0', showHeightActive: '300', ref: 'page0',
-	                onFocus: this.onFocus.bind(this) },
-	              'Page0'
-	            ),
-	            _react2['default'].createElement(
-	              Link,
-	              { className: 'nav-list', location: 'page1', showHeightActive: [300, 500],
-	                onFocus: this.onFocus.bind(this) },
-	              'Page1'
-	            ),
-	            _react2['default'].createElement(
-	              Link,
-	              { className: 'nav-list', location: 'page2', showHeightActive: [500, 200], toShowHeight: true,
-	                onFocus: this.onFocus.bind(this) },
-	              'Page2'
-	            ),
-	            _react2['default'].createElement(
-	              Link,
-	              { className: 'nav-list', location: 'page3', showHeightActive: [200, '10%'],
-	                onFocus: this.onFocus.bind(this) },
-	              'Page3'
-	            ),
-	            _react2['default'].createElement('div', { ref: 'bar', className: 'nav-bar' })
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          Element,
-	          { className: 'pack-page page0', scrollName: 'page0' },
-	          _react2['default'].createElement(
-	            _rcQueueAnim2['default'],
-	            null,
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'page-title', key: 'title' },
-	              _react2['default'].createElement(
-	                'p',
-	                null,
-	                'rc-scroll-anim@0.1.0'
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'page-description', key: 'c' },
-	              _react2['default'].createElement(
-	                'p',
-	                null,
-	                'A simple demo'
-	              )
-	            )
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          ScrollOverPack,
-	          { scrollName: 'page1', className: 'page1' },
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { className: 'tween-one', key: '0', vars: { opacity: 1 },
-	              scrollHideProps: { type: 'reverse' } },
-	            '默认进入与出场'
-	          ),
-	          _react2['default'].createElement(
-	            _rcQueueAnim2['default'],
-	            { key: '1', scrollHideProps: { child: null } },
-	            _react2['default'].createElement('div', { key: '0', className: 'demo' }),
-	            _react2['default'].createElement('div', { key: '1', className: 'demo' }),
-	            _react2['default'].createElement('div', { key: '2', className: 'demo' }),
-	            _react2['default'].createElement('div', { key: '3', className: 'demo' })
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          ScrollOverPack,
-	          { scrollName: 'page2', className: 'pack-page page2', style: { backgroundColor: '#0097D0' }, always: false,
-	            id: 'page2' },
-	          _react2['default'].createElement(
-	            'div',
-	            { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
-	            '只进入一次'
-	          ),
-	          _react2['default'].createElement(
-	            _rcAnimate2['default'],
-	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
-	            _react2['default'].createElement(
-	              'div',
-	              null,
-	              'Animate示例示例'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
-	              scrollHideProps: { type: 'reverse' } },
-	            '单元素用例'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          ScrollOverPack,
-	          { scrollName: 'page3', className: 'pack-page page3', style: { backgroundColor: '#174270' },
-	            playScale: 0.8, id: 'page3' },
-	          _react2['default'].createElement(
-	            'div',
-	            { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
-	            '在页面80％时进入'
-	          ),
-	          _react2['default'].createElement(
-	            _rcAnimate2['default'],
-	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
-	            _react2['default'].createElement(
-	              'div',
-	              null,
-	              'Animate示例示例'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
-	              scrollHideProps: { type: 'reverse' } },
-	            '单元素用例'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Demo;
-	})(_react2['default'].Component);
-	
-	_reactDom2['default'].render(_react2['default'].createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ },
 
@@ -7038,7 +6815,306 @@ webpackJsonp([0],{
 	exports["default"] = util;
 	module.exports = exports["default"];
 
+/***/ },
+
+/***/ 195:
+/***/ function(module, exports, __webpack_require__) {
+
+	// use jsx to render html, do not modify simple.html
+	
+	'use strict';
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	__webpack_require__(2);
+	
+	var _rcScrollAnim = __webpack_require__(3);
+	
+	var _rcScrollAnim2 = _interopRequireDefault(_rcScrollAnim);
+	
+	var _react = __webpack_require__(6);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(163);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _rcQueueAnim = __webpack_require__(176);
+	
+	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
+	
+	var _rcTweenOne = __webpack_require__(181);
+	
+	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
+	
+	var _rcAnimate = __webpack_require__(186);
+	
+	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
+	
+	var _package = __webpack_require__(196);
+	
+	var Link = _rcScrollAnim2['default'].Link;
+	var Element = _rcScrollAnim2['default'].Element;
+	var ScrollOverPack = _rcScrollAnim2['default'].OverPack;
+	var EventListener = _rcScrollAnim2['default'].Event;
+	_rcScrollAnim2['default'].scrollScreen.init({ loop: true });
+	
+	var Demo = (function (_React$Component) {
+	  _inherits(Demo, _React$Component);
+	
+	  function Demo() {
+	    var _this = this;
+	
+	    _classCallCheck(this, Demo);
+	
+	    _get(Object.getPrototypeOf(Demo.prototype), 'constructor', this).apply(this, arguments);
+	    ['barAnimate', 'onFocus'].forEach(function (method) {
+	      return _this[method] = _this[method].bind(_this);
+	    });
+	  }
+	
+	  _createClass(Demo, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // 添加改变窗口事件,可加setTimeout
+	      EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
+	    }
+	  }, {
+	    key: 'onFocus',
+	    value: function onFocus(e) {
+	      this.dom = e.target;
+	      this.barAnimate();
+	    }
+	  }, {
+	    key: 'barAnimate',
+	    value: function barAnimate() {
+	      if (!this.dom) {
+	        return;
+	      }
+	      var bar = this.refs.bar;
+	      bar.style.left = this.dom.getBoundingClientRect().left + 'px';
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'nav' },
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'nav-wap' },
+	            _react2['default'].createElement(
+	              Link,
+	              { className: 'nav-list', location: 'page0', showHeightActive: '300', ref: 'page0',
+	                onFocus: this.onFocus },
+	              'Page0'
+	            ),
+	            _react2['default'].createElement(
+	              Link,
+	              { className: 'nav-list', location: 'page1', showHeightActive: [300, 500],
+	                onFocus: this.onFocus },
+	              'Page1'
+	            ),
+	            _react2['default'].createElement(
+	              Link,
+	              { className: 'nav-list', location: 'page2', showHeightActive: [500, 200], toShowHeight: true,
+	                onFocus: this.onFocus },
+	              'Page2'
+	            ),
+	            _react2['default'].createElement(
+	              Link,
+	              { className: 'nav-list', location: 'page3', showHeightActive: [200, '10%'],
+	                onFocus: this.onFocus },
+	              'Page3'
+	            ),
+	            _react2['default'].createElement('div', { ref: 'bar', className: 'nav-bar' })
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          Element,
+	          { className: 'pack-page page0', scrollName: 'page0' },
+	          _react2['default'].createElement(
+	            _rcQueueAnim2['default'],
+	            null,
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'page-title', key: 'title' },
+	              _react2['default'].createElement(
+	                'p',
+	                null,
+	                _package.name,
+	                '@',
+	                _package.version
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'page-description', key: 'c' },
+	              _react2['default'].createElement(
+	                'p',
+	                null,
+	                'A scrollScreen demo'
+	              )
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          ScrollOverPack,
+	          { scrollName: 'page1', className: 'page1', playScale: 1, replay: true },
+	          _react2['default'].createElement(
+	            _rcTweenOne2['default'],
+	            { className: 'tween-one', key: '0', vars: { opacity: 1 },
+	              scrollHideProps: { type: 'reverse' } },
+	            '每次进入都启动播放'
+	          ),
+	          _react2['default'].createElement(
+	            _rcQueueAnim2['default'],
+	            { key: '1', scrollHideProps: { child: null } },
+	            _react2['default'].createElement('div', { key: '0', className: 'demo' }),
+	            _react2['default'].createElement('div', { key: '1', className: 'demo' }),
+	            _react2['default'].createElement('div', { key: '2', className: 'demo' }),
+	            _react2['default'].createElement('div', { key: '3', className: 'demo' })
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          ScrollOverPack,
+	          { scrollName: 'page2', className: 'pack-page page2', style: { backgroundColor: '#174270' }, id: 'page3',
+	            playScale: 1 },
+	          _react2['default'].createElement(
+	            _rcTweenOne2['default'],
+	            { className: 'tween-one', vars: { opacity: 1 }, key: '0', scrollHideProps: { type: 'reverse' } },
+	            '只从上往下时播放'
+	          ),
+	          _react2['default'].createElement(
+	            _rcAnimate2['default'],
+	            { key: '1', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
+	            _react2['default'].createElement(
+	              'div',
+	              null,
+	              'Animate示例示例'
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _rcTweenOne2['default'],
+	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '2',
+	              scrollHideProps: { type: 'reverse' } },
+	            '单元素用例'
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          ScrollOverPack,
+	          { scrollName: 'page3', className: 'pack-page page3', style: { backgroundColor: '#174270' }, always: false,
+	            id: 'page2', playScale: 1 },
+	          _react2['default'].createElement(
+	            _rcTweenOne2['default'],
+	            { className: 'tween-one', vars: { opacity: 1 }, key: 't' },
+	            '只进入一次'
+	          ),
+	          _react2['default'].createElement(
+	            _rcAnimate2['default'],
+	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
+	            _react2['default'].createElement(
+	              'div',
+	              null,
+	              'Animate示例示例'
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _rcTweenOne2['default'],
+	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
+	              scrollHideProps: { type: 'reverse' } },
+	            '单元素用例'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Demo;
+	})(_react2['default'].Component);
+	
+	_reactDom2['default'].render(_react2['default'].createElement(Demo, null), document.getElementById('__react-content'));
+
+/***/ },
+
+/***/ 196:
+/***/ function(module, exports) {
+
+	module.exports = {
+		"name": "rc-scroll-anim",
+		"version": "0.1.7",
+		"description": "scroll-anim anim component for react",
+		"keywords": [
+			"react",
+			"react-component",
+			"react-scroll-anim",
+			"scroll-anim"
+		],
+		"homepage": "https://github.com/ant-motion/scroll-anim",
+		"author": "155259966@qq.com",
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/ant-motion/scroll-anim.git"
+		},
+		"bugs": {
+			"url": "https://github.com/ant-motion/scroll-anim/issues"
+		},
+		"files": [
+			"lib",
+			"assets/*.css"
+		],
+		"licenses": "MIT",
+		"main": "./lib/index",
+		"config": {
+			"port": 8020
+		},
+		"scripts": {
+			"build": "rc-tools run build",
+			"gh-pages": "rc-tools run gh-pages",
+			"start": "rc-server",
+			"pub": "rc-tools run pub",
+			"lint": "rc-tools run lint",
+			"karma": "rc-tools run karma",
+			"saucelabs": "rc-tools run saucelabs",
+			"browser-test": "rc-tools run browser-test",
+			"browser-test-cover": "rc-tools run browser-test-cover"
+		},
+		"devDependencies": {
+			"expect.js": "0.3.x",
+			"pre-commit": "1.x",
+			"rc-server": "3.x",
+			"rc-tools": "4.x",
+			"react": "0.14.x",
+			"react-addons-test-utils": "0.14.x",
+			"react-dom": "0.14.x",
+			"rc-util": "3.x",
+			"rc-queue-anim": "0.11.3",
+			"rc-tween-one": "0.1.8",
+			"rc-animate": "2.0.x"
+		},
+		"pre-commit": [
+			"lint"
+		],
+		"dependencies": {
+			"object-assign": "~4.0.1",
+			"tween-functions": "^1.0.1",
+			"raf": "^3.1.0"
+		}
+	};
+
 /***/ }
 
 });
-//# sourceMappingURL=link.js.map
+//# sourceMappingURL=scrollScreen.js.map
