@@ -145,38 +145,38 @@ const CSS = {
     if (name.indexOf('translate') >= 0) {
       if ('translate' in obj || 'translate3d' in obj) {
         switch (name) {
-        case 'translateX':
-          return obj.translate.split(',')[0];
-        case 'translateY':
-          return obj.translate.split(',')[1];
-        case 'translateZ':
-          return obj.translate.split(',')[2];
-        default :
-          return null;
+          case 'translateX':
+            return obj.translate.split(',')[0];
+          case 'translateY':
+            return obj.translate.split(',')[1];
+          case 'translateZ':
+            return obj.translate.split(',')[2];
+          default :
+            return null;
         }
       }
     } else if (name.indexOf('rotate') >= 0) {
       if ('rotate' in obj || 'rotate3d' in obj) {
         switch (name) {
-        case 'rotateX':
-          return obj.rotate.split(',')[0];
-        case 'rotateY':
-          return obj.rotate.split(',')[1];
-        case 'rotateZ':
-          return obj.rotate.split(',')[2];
-        default :
-          return null;
+          case 'rotateX':
+            return obj.rotate.split(',')[0];
+          case 'rotateY':
+            return obj.rotate.split(',')[1];
+          case 'rotateZ':
+            return obj.rotate.split(',')[2];
+          default :
+            return null;
         }
       }
     } else if (name.indexOf('scale') >= 0) {
       if ('scale' in obj) {
         switch (name) {
-        case 'scaleX':
-          return obj.scale.split(',')[0];
-        case 'scaleY':
-          return obj.scale.split(',')[1];
-        default :
-          return null;
+          case 'scaleX':
+            return obj.scale.split(',')[0];
+          case 'scaleY':
+            return obj.scale.split(',')[1];
+          default :
+            return null;
         }
       }
     }
@@ -188,14 +188,14 @@ const CSS = {
       const bArr = belongTransform.split('(');
       const dataArr = bArr[1].replace(')', '').split(',');
       switch (b) {
-      case 'translateX' || 'scaleX' || 'rotateX':
-        return dataArr[0];
-      case 'translateY' || 'scaleY' || 'rotateY':
-        return dataArr[1];
-      case 'translateZ' || 'rotateZ':
-        return dataArr[2];
-      default :
-        return null;
+        case 'translateX' || 'scaleX' || 'rotateX':
+          return dataArr[0];
+        case 'translateY' || 'scaleY' || 'rotateY':
+          return dataArr[1];
+        case 'translateZ' || 'rotateZ':
+          return dataArr[2];
+        default :
+          return null;
       }
     }
     return false;
@@ -256,17 +256,17 @@ const CSS = {
           addArr.push(changeSame);
         } else if (currentOnlyName in transformGroup && changeOnlyName.substring(0, changeOnlyName.length - 1).indexOf(currentOnlyName) >= 0) {
           switch (changeOnlyName) {
-          case 'translateX' || 'scaleX' || 'rotateX':
-            currentDataArr[0] = changeDataArr.join();
-            break;
-          case 'translateY' || 'scaleY' || 'rotateY':
-            currentDataArr[1] = changeDataArr.join();
-            break;
-          case 'translateZ' || 'rotateZ':
-            currentDataArr[2] = changeDataArr.join();
-            break;
-          default :
-            return null;
+            case 'translateX' || 'scaleX' || 'rotateX':
+              currentDataArr[0] = changeDataArr.join();
+              break;
+            case 'translateY' || 'scaleY' || 'rotateY':
+              currentDataArr[1] = changeDataArr.join();
+              break;
+            case 'translateZ' || 'rotateZ':
+              currentDataArr[2] = changeDataArr.join();
+              break;
+            default :
+              return null;
           }
           addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
         } else if (changeOnlyName in transformGroup && currentOnlyName.substring(0, currentOnlyName.length - 1).indexOf(changeOnlyName) >= 0) {
@@ -274,14 +274,14 @@ const CSS = {
         } else if (changeOnlyName in transformGroup && currentOnlyName in transformGroup && currentOnlyName.substring(0, currentOnlyName.length - 2) === changeOnlyName) {
           // 如果是3d时,且一个为2d时；
           switch (changeOnlyName) {
-          case 'translateX' || 'scaleX' || 'rotateX':
-            currentDataArr[0] = changeDataArr[0];
-            break;
-          case 'translateY' || 'scaleY' || 'rotateY':
-            currentDataArr[1] = changeDataArr[1];
-            break;
-          default :
-            return null;
+            case 'translateX' || 'scaleX' || 'rotateX':
+              currentDataArr[0] = changeDataArr[0];
+              break;
+            case 'translateY' || 'scaleY' || 'rotateY':
+              currentDataArr[1] = changeDataArr[1];
+              break;
+            default :
+              return null;
           }
           addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
         }

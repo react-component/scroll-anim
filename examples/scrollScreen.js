@@ -80,26 +80,24 @@ class Demo extends React.Component {
 
       <ScrollOverPack scrollName="page2" className="pack-page page2" style={{backgroundColor: '#174270'}} id="page3"
                       playScale={1}>
-        <TweenOne className="tween-one" vars={{opacity: 1}} key="0" scrollHideProps={{type: 'reverse'}}>只从上往下时播放</TweenOne>
-        <Animate key="1" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
-          <div>Animate示例示例</div>
+        <TweenOne className="tween-one" vars={{opacity: 1}} key="t" scrollHideProps={{type: 'reverse'}}>只从上往下时播放</TweenOne>
+        <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
+          <div className="demo2"></div>
         </Animate>
-        <TweenOne vars={{x: 200, opacity: 1}} style={{opacity: 0, width: 100}} key="2"
-                  scrollHideProps={{type: 'reverse'}}>
-          单元素用例
-        </TweenOne>
+        <TweenOne className="demo2" vars={{y: 0, opacity: 1}} key="1"
+                  style={{transform: 'translateY(100px)', opacity: 0}}
+                  scrollHideProps={{type: 'reverse'}}/>
       </ScrollOverPack>
 
       <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}} always={false}
                       id="page2" playScale={1}>
-        <TweenOne className="tween-one" vars={{opacity: 1}} key="t">只进入一次</TweenOne>
+        <TweenOne vars={{opacity: 1}} key="t" className="tween-one" style={{opacity: 0}} scrollHideProps={{type: 'reverse'}}>只进入一次</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
-          <div>Animate示例示例</div>
+          <div className="demo"></div>
         </Animate>
-        <TweenOne vars={{x: 200, opacity: 1}} style={{opacity: 0, width: 100}} key="1"
-                  scrollHideProps={{type: 'reverse'}}>
-          单元素用例
-        </TweenOne>
+        <TweenOne className="demo" vars={{y: 0, opacity: 1}} key="1"
+                  style={{transform: 'translateY(100px)', opacity: 0}}
+                  scrollHideProps={{type: 'reverse'}}/>
       </ScrollOverPack>
     </div>);
   }

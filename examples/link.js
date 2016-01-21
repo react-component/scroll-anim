@@ -1,5 +1,4 @@
 // use jsx to render html, do not modify simple.html
-
 import 'rc-scroll-anim/assets/index.less';
 import ScrollAnim from 'rc-scroll-anim';
 import React from 'react';
@@ -7,12 +6,13 @@ import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
+const _package = require('../package.json');
 
 const Link = ScrollAnim.Link;
 const Element = ScrollAnim.Element;
 const ScrollOverPack = ScrollAnim.OverPack;
 const EventListener = ScrollAnim.Event;
-// ScrollAnim.scrollScreen({loop: true});
+// ScrollAnim.scrollScreen({scrollInterval: 600});
 class Demo extends React.Component {
   constructor() {
     super(...arguments);
@@ -39,25 +39,28 @@ class Demo extends React.Component {
   render() {
     return (<div>
       <div className="nav">
+        <div className="logo">
+          <p>Ant Motion</p>
+        </div>
         <div className="nav-wap">
           <Link className="nav-list" location="page0" showHeightActive="300" ref="page0"
-                onFocus={this.onFocus.bind(this)}>Page0</Link>
-          <Link className="nav-list" location="page1" showHeightActive={[300, 500]}
-                onFocus={this.onFocus.bind(this)}>Page1</Link>
-          <Link className="nav-list" location="page2" showHeightActive={[500, 200]} toShowHeight
-                onFocus={this.onFocus.bind(this)}>Page2</Link>
-          <Link className="nav-list" location="page3" showHeightActive={[200, '10%']}
-                onFocus={this.onFocus.bind(this)}>Page3</Link>
-          <div ref="bar" className="nav-bar"></div>
+                onFocus={this.onFocus.bind(this)}>Example</Link>
+          <Link className="nav-list" location="page1"
+                onFocus={this.onFocus.bind(this)}>Example2</Link>
+          <Link className="nav-list" location="page2"
+                onFocus={this.onFocus.bind(this)}>Example3</Link>
+          <Link className="nav-list" location="page3"
+                onFocus={this.onFocus.bind(this)}>Example4</Link>
+          <div ref="bar" className="nav-bar"/>
         </div>
       </div>
       <Element className="pack-page page0" scrollName="page0">
         <QueueAnim>
           <div className="page-title" key="title">
-            <p>rc-scroll-anim@0.1.0</p>
+            <p>{_package.name}@{_package.version}</p>
           </div>
           <div className="page-description" key="c">
-            <p>A simple demo</p>
+            <p>The simple demo</p>
           </div>
         </QueueAnim>
       </Element>
@@ -67,34 +70,33 @@ class Demo extends React.Component {
         </TweenOne>
         <QueueAnim key="1" scrollHideProps={{child: null}}>
           <div key="0" className="demo"></div>
-          <div key="1" className="demo"></div>
+          <div key="1" className="demo" style={{backgroundColor: '#F38EAD'}}></div>
           <div key="2" className="demo"></div>
           <div key="3" className="demo"></div>
         </QueueAnim>
       </ScrollOverPack>
 
-      <ScrollOverPack scrollName="page2" className="pack-page page2" style={{backgroundColor: '#0097D0'}} always={false}
+      <ScrollOverPack scrollName="page2" className="pack-page page2" style={{backgroundColor: '#0098CE'}} always={false}
                       id="page2">
-        <div style={{width: '100%', textAlign: 'center', color: '#fff', fontSize: 32}}>只进入一次</div>
+        <div className="page2-title">只进入一次</div>
         <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
-          <div>Animate示例示例</div>
+          <div className="demo2"></div>
         </Animate>
-        <TweenOne vars={{x: 200, opacity: 1}} style={{opacity: 0, width: 100}} key="1"
-                  scrollHideProps={{type: 'reverse'}}>
-          单元素用例
-        </TweenOne>
+        <TweenOne className="demo2" vars={{y: 0, opacity: 1}} key="1"
+                  style={{transform: 'translateY(100px)', opacity: 0}}
+                  scrollHideProps={{type: 'reverse'}}/>
       </ScrollOverPack>
 
       <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}}
                       playScale={0.8} id="page3">
-        <div style={{width: '100%', textAlign: 'center', color: '#fff', fontSize: 32}}>在页面80％时进入</div>
+        <TweenOne vars={{opacity: 1}} style={{opacity: 0}} key="title" scrollHideProps={{type: 'reverse'}}
+                  className="page2-title">在页面80％时进入</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
-          <div>Animate示例示例</div>
+          <div className="demo"></div>
         </Animate>
-        <TweenOne vars={{x: 200, opacity: 1}} style={{opacity: 0, width: 100}} key="1"
-                  scrollHideProps={{type: 'reverse'}}>
-          单元素用例
-        </TweenOne>
+        <TweenOne className="demo" vars={{y: 0, opacity: 1}} key="1"
+                  style={{transform: 'translateY(100px)', opacity: 0}}
+                  scrollHideProps={{type: 'reverse'}}/>
       </ScrollOverPack>
     </div>);
   }

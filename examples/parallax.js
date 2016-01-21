@@ -39,13 +39,16 @@ class Demo extends React.Component {
 
   render() {
     return (<div>
-      <div className="pack-page">
-        <div>我是内容</div>
-        <div>我是内容</div>
-        <div>我是内容</div>
+      <div className="pack-page page0">
+        <div className="page-title">
+          <p>rc-scroll-anim@0.1.5</p>
+        </div>
+        <div className="page-description" key="c">
+          <p>The simple demo</p>
+        </div>
       </div>
       <div className="pack-page"
-           style={{backgroundColor: '#fff000', position: 'relative', overflow: 'hidden'}}>
+           style={{backgroundColor: '#174270', position: 'relative', overflow: 'hidden'}}>
         <ScrollParallax
           vars={[{translateX: '0px', opacity: 1, playScale: [0, 0.5], boxShadow: '2px 2px 2px #000'}, {marginTop: 400, playScale: [0, 0.3]}, {rotateY: 180, playScale: [0, 0.5]}]}
           style={{opacity: 0, transform: 'perspective(200px) translateX(-100px)', textAlign: 'center'}}>X到0后最Ｙ到400,Y用的是marginTop,所以改变了下面两个的offsetTop</ScrollParallax>
@@ -55,11 +58,15 @@ class Demo extends React.Component {
                         style={{opacity: 0, filter: 'blur(10px)', textAlign: 'center'}}>filter示例示例示例</ScrollParallax>
       </div>
       <div className="pack-page"
-           style={{backgroundColor: '#ff0000', position: 'relative', textAlign: 'center', fontSize: 36}}>
+           style={{backgroundColor: '#0097D0', position: 'relative', textAlign: 'center', fontSize: 36}}>
+        <div className="page2-title" >视差示例</div>
         <ScrollParallax vars={{translateY: 20, opacity: 1, ease: 'linear', playScale: [0, 1.5]}}
-                        style={{transform: 'translateY(320px) scale(.8)', color: '#fff', opacity: 0.5}}>视差示例示例示例</ScrollParallax>
+                        style={{transform: 'translateY(320px) scale(.8)', color: '#fff'}}>
+                        <img src="https://os.alipayobjects.com/rmsportal/CrVCkwvtTQQvQHL.png" style={{width: '100px'}} />
+        </ScrollParallax>
         <ScrollParallax vars={{translateY: -20, opacity: 1, ease: 'linear', playScale: [0, 1.2]}}
-                        style={{transform: 'translateY(320px) scale(.9)', color: '#fff', opacity: 0.7}}>视差示例示例示例</ScrollParallax>
+                        style={{transform: 'translateY(320px) scale(.9)', color: '#fff'}}><img src="https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png" style={{width: '100px'}} />
+        </ScrollParallax>
         <ScrollParallax vars={{translateY: -60, opacity: 1, ease: 'linear'}}
                         style={{transform: 'translateY(320px)', color: '#fff'}}>视差示例示例示例</ScrollParallax>
       </div>

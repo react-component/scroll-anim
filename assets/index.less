@@ -1,5 +1,14 @@
 @zero: 0;
 //all css
+html{
+  font-family:'PingFang SC';
+}
+body {
+  margin: 0;
+}
+body h1:first-child{
+    display: none;
+  }
 h1 {
   margin: 13px;
 }
@@ -8,7 +17,7 @@ p {
 }
 .pack-page {
   width: 100%;
-  height: 720px;
+  height: 1000px;
   background-color: #0098CE;
 }
 
@@ -75,7 +84,13 @@ p {
 }
 
 // link css
-
+.logo{
+  float:left;
+  height:58px;
+  font-size:26px;
+  line-height:56px;
+  padding-left:200px;
+}
 .nav {
   position: fixed;
   background: #0098CE;
@@ -86,6 +101,7 @@ p {
   top: 0;
   & .nav-wap{
     float: right;
+    padding-right:200px;
   }
   & .nav-list {
     width: 100px;
@@ -96,7 +112,6 @@ p {
     cursor: pointer;
     transition: background .45s;
     &:hover, &.active {
-      background: #0180AD;
     }
   }
   & .nav-bar {
@@ -110,14 +125,15 @@ p {
   }
 }
 .page0{
-  padding-top: 300px;
+  padding-top: 400px;
   margin: 0 auto;
   width: 100%;
   text-align: center;
+
 }
 .page1{
   background-color:#19436E;
-  height:720px;
+  height:1000px;
 }
 
 .tween-one{
@@ -125,23 +141,37 @@ p {
   opacity: 0;
   color:#fff;
   font-size:32px;
-  padding-top: 100px;
+  padding-top: 160px;
   text-align: center;
   padding-bottom: 50px;
+}
+.page2-title{
+  width:100%;
+  text-align:center;
+  color:#fff;
+  font-size:32px;
+  padding-top:160px;
+  padding-bottom:50px;
 }
 .demo{
   margin: 0 auto;
   width: 600px;
   height: 80px;
   background-color: #133252;
+  margin-bottom: 30px;
+  border-radius: 4px;
+}
+.demo2{
+  margin: 0 auto;
+  width: 600px;
+  height: 80px;
+  background-color: #E1FF9A;
   margin-top: 30px;
   border-radius: 4px;
 }
-
-
 .page-title{
   & p{
-    font-size: 50px;
+    font-size: 60px;
     color: #fff;
   }
 }
