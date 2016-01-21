@@ -61,9 +61,12 @@ class Demo extends React.Component {
            style={{backgroundColor: '#0097D0', position: 'relative', textAlign: 'center', fontSize: 36}}>
         <div className="page2-title" >视差示例</div>
         <ScrollParallax vars={{translateY: 20, opacity: 1, ease: 'linear', playScale: [0, 1.5]}}
-                        style={{transform: 'translateY(320px) scale(.8)', color: '#fff'}}><img src="https://os.alipayobjects.com/rmsportal/CrVCkwvtTQQvQHL.png" style={{width: "100px"}}/></ScrollParallax>
+                        style={{transform: 'translateY(320px) scale(.8)', color: '#fff'}}>
+                        <img src="https://os.alipayobjects.com/rmsportal/CrVCkwvtTQQvQHL.png" style={{width: '100px'}} />
+        </ScrollParallax>
         <ScrollParallax vars={{translateY: -20, opacity: 1, ease: 'linear', playScale: [0, 1.2]}}
-                        style={{transform: 'translateY(320px) scale(.9)', color: '#fff'}}><img src="https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png" style={{width: "100px"}}/></ScrollParallax>
+                        style={{transform: 'translateY(320px) scale(.9)', color: '#fff'}}><img src="https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png" style={{width: '100px'}} />
+        </ScrollParallax>
         <ScrollParallax vars={{translateY: -60, opacity: 1, ease: 'linear'}}
                         style={{transform: 'translateY(320px)', color: '#fff'}}>视差示例示例示例</ScrollParallax>
       </div>

@@ -1,5 +1,4 @@
 // use jsx to render html, do not modify simple.html
-
 import 'rc-scroll-anim/assets/index.less';
 import ScrollAnim from 'rc-scroll-anim';
 import React from 'react';
@@ -12,7 +11,7 @@ const Link = ScrollAnim.Link;
 const Element = ScrollAnim.Element;
 const ScrollOverPack = ScrollAnim.OverPack;
 const EventListener = ScrollAnim.Event;
-//ScrollAnim.scrollScreen({scrollInterval: 600});
+// ScrollAnim.scrollScreen({scrollInterval: 600});
 class Demo extends React.Component {
   constructor() {
     super(...arguments);
@@ -47,12 +46,11 @@ class Demo extends React.Component {
                 onFocus={this.onFocus.bind(this)}>Example</Link>
           <Link className="nav-list" location="page1"
                 onFocus={this.onFocus.bind(this)}>Example2</Link>
-          <Link className="nav-list" location="page2" 
+          <Link className="nav-list" location="page2"
                 onFocus={this.onFocus.bind(this)}>Example3</Link>
-          <Link className="nav-list" location="page3" 
+          <Link className="nav-list" location="page3"
                 onFocus={this.onFocus.bind(this)}>Example4</Link>
-
-          <div ref="bar" className="nav-bar"></div>
+          <div ref="bar" className="nav-bar"/>
         </div>
       </div>
       <Element className="pack-page page0" scrollName="page0">
