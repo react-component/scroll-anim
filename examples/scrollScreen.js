@@ -7,15 +7,20 @@ import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
+const _package = require('../package.json');
 
 const Link = ScrollAnim.Link;
 const Element = ScrollAnim.Element;
 const ScrollOverPack = ScrollAnim.OverPack;
 const EventListener = ScrollAnim.Event;
-// ScrollAnim.scrollScreen({loop: true});
+ScrollAnim.scrollScreen.init({loop: true});
 class Demo extends React.Component {
   constructor() {
     super(...arguments);
+    [
+      'barAnimate',
+      'onFocus',
+    ].forEach((method) => this[method] = this[method].bind(this));
   }
 
   componentDidMount() {
@@ -41,29 +46,29 @@ class Demo extends React.Component {
       <div className="nav">
         <div className="nav-wap">
           <Link className="nav-list" location="page0" showHeightActive="300" ref="page0"
-                onFocus={this.onFocus.bind(this)}>Page0</Link>
+                onFocus={this.onFocus}>Page0</Link>
           <Link className="nav-list" location="page1" showHeightActive={[300, 500]}
-                onFocus={this.onFocus.bind(this)}>Page1</Link>
+                onFocus={this.onFocus}>Page1</Link>
           <Link className="nav-list" location="page2" showHeightActive={[500, 200]} toShowHeight
-                onFocus={this.onFocus.bind(this)}>Page2</Link>
+                onFocus={this.onFocus}>Page2</Link>
           <Link className="nav-list" location="page3" showHeightActive={[200, '10%']}
-                onFocus={this.onFocus.bind(this)}>Page3</Link>
+                onFocus={this.onFocus}>Page3</Link>
           <div ref="bar" className="nav-bar"></div>
         </div>
       </div>
       <Element className="pack-page page0" scrollName="page0">
         <QueueAnim>
           <div className="page-title" key="title">
-            <p>rc-scroll-anim@0.1.0</p>
+            <p>{_package.name}@{_package.version}</p>
           </div>
           <div className="page-description" key="c">
-            <p>A simple demo</p>
+            <p>A scrollScreen demo</p>
           </div>
         </QueueAnim>
       </Element>
-      <ScrollOverPack scrollName="page1" className="page1">
+      <ScrollOverPack scrollName="page1" className="page1" playScale={1} replay>
         <TweenOne className="tween-one" key="0" vars={{opacity: 1}}
-                  scrollHideProps={{type: 'reverse'}}>默认进入与出场
+                  scrollHideProps={{type: 'reverse'}}>每次进入都启动播放
         </TweenOne>
         <QueueAnim key="1" scrollHideProps={{child: null}}>
           <div key="0" className="demo"></div>
@@ -73,21 +78,21 @@ class Demo extends React.Component {
         </QueueAnim>
       </ScrollOverPack>
 
-      <ScrollOverPack scrollName="page2" className="pack-page page2" style={{backgroundColor: '#0097D0'}} always={false}
-                      id="page2">
-        <div style={{width: '100%', textAlign: 'center', color: '#fff', fontSize: 32}}>只进入一次</div>
-        <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
+      <ScrollOverPack scrollName="page2" className="pack-page page2" style={{backgroundColor: '#174270'}} id="page3"
+                      playScale={1}>
+        <TweenOne className="tween-one" vars={{opacity: 1}} key="0" scrollHideProps={{type: 'reverse'}}>只从上往下时播放</TweenOne>
+        <Animate key="1" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
           <div>Animate示例示例</div>
         </Animate>
-        <TweenOne vars={{x: 200, opacity: 1}} style={{opacity: 0, width: 100}} key="1"
+        <TweenOne vars={{x: 200, opacity: 1}} style={{opacity: 0, width: 100}} key="2"
                   scrollHideProps={{type: 'reverse'}}>
           单元素用例
         </TweenOne>
       </ScrollOverPack>
 
-      <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}}
-                      playScale={0.8} id="page3">
-        <div style={{width: '100%', textAlign: 'center', color: '#fff', fontSize: 32}}>在页面80％时进入</div>
+      <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}} always={false}
+                      id="page2" playScale={1}>
+        <TweenOne className="tween-one" vars={{opacity: 1}} key="t">只进入一次</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
           <div>Animate示例示例</div>
         </Animate>

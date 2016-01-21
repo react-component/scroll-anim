@@ -13,8 +13,11 @@ export default{
   },
 
   unRegister(name) {
-    __mapped.__arr.splice(__mapped.__arr.indexOf(name), 1);
-    delete __mapped[name];
+    const index = __mapped.__arr.indexOf(name);
+    if (index >= 0) {
+      __mapped.__arr.splice(__mapped.__arr.indexOf(name), 1);
+      delete __mapped[name];
+    }
   },
 
   get(name) {

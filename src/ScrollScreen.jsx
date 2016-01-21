@@ -24,6 +24,7 @@ const ScrollScreen = {
     ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll'].forEach((method) => this[method] = this[method].bind(this));
     EventListener.addEventListener('wheel.scrollWheel', this.onWheel);
     // 刚进入时滚动条位置
+    // requestAnimationFrame(this.startScroll)
     setTimeout(this.startScroll);
   },
   startScroll() {
@@ -49,7 +50,7 @@ const ScrollScreen = {
       if (this.scrollTop > 0) {
         const endDom = mapped.get(mapped.getMapped().__arr[mapped.getMapped().__arr.length - 1]);
         const windowHeight = document.documentElement.clientHeight;
-        const tooNum = Math.floor((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
         this.num = mapped.getMapped().__arr.length + tooNum;
         this.currentNum = this.num;
       }
