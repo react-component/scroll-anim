@@ -89,7 +89,7 @@ class Demo extends React.Component {
 
       <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}}
                       playScale={0.8} id="page3">
-        <TweenOne vars={{opacity: 1}} style={{opacity: 0}} key='title' scrollHideProps={{type: 'reverse'}}
+        <TweenOne vars={{opacity: 1}} style={{opacity: 0}} key="title" scrollHideProps={{type: 'reverse'}}
                   className="page2-title">在页面80％时进入</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear scrollHideProps={{child: null}}>
           <div className="demo"></div>
