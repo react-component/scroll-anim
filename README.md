@@ -41,7 +41,9 @@ npm start
 
 ## Example
 
-http://localhost:8020/examples/
+http://localhost:8020/examples/ 
+
+http://ant.design/
 
 ## Feature
 
@@ -111,6 +113,7 @@ ScrollAnim.scrollScreen.unMount();
 | playScale | number         | `0.5`   | 开始播放的屏幕百分比, 0.5 为屏幕中间 |
 | always    | boolean        | `true`  | 到否重复播放，如为 false 将只进入一遍，不再触发出场效果 |
 | scrollName| string         | `null`  | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
+| replay    | boolean        | `false` | 每次显示当前时是否都要动画, `false` 为只下往上滚时才有动画; |
 
 #### 子级动画支持 `rc-queue-anim` `rc-animte` `rc-tween-one`
 
