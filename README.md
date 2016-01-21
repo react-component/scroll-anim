@@ -95,7 +95,8 @@ React.render(<div>
 ### scrollScreen示例
 
 ```js
-ScrollAnim.scrollScreen();
+ScrollAnim.scrollScreen.init();
+ScrollAnim.scrollScreen.unMount();
 ```
 
 ## API
@@ -159,8 +160,7 @@ ScrollAnim.scrollScreen();
 
 > 注: 如果元素不是以上组件时，需要定位到此元素上时，请用 `Element`
 
-### .scrollScreen(vars)
-
+### ScrollAnim.scrollScreen.init(vars)
 用处: 滚动一屏窗口;
 
 #### vars = { }
@@ -173,6 +173,9 @@ ScrollAnim.scrollScreen();
 | loop      | boolean        | false   | 前后相接循环  |
 | scrollInterval | number    | 1000    | 滚动事件间隔时间 |
 
+### ScrollAnim.scrollScreen.unMount()
+
+清除一屏滚动效果;
 
 ### Event 
 ```jsx
