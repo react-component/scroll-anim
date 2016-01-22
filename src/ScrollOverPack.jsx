@@ -17,7 +17,7 @@ function toArrayChildren(children) {
 class ScrollOverPack extends React.Component {
   constructor() {
     super(...arguments);
-    this.entered = false;
+    // this.entered = false;
     this.children = toArrayChildren(this.props.children);
     this.oneEnter = false;
     this.state = {
