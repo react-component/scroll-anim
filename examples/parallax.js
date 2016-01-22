@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(194);
+	module.exports = __webpack_require__(195);
 
 
 /***/ },
 
-/***/ 194:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	// use jsx to render html, do not modify simple.html
@@ -50,7 +50,7 @@ webpackJsonp([1],{
 	
 	    _get(Object.getPrototypeOf(Demo.prototype), 'constructor', this).apply(this, arguments);
 	    this.state = {
-	      css: { backgroundColor: '#123400', height: 900 },
+	      css: { backgroundColor: '#174270', height: 920 },
 	      cssNoPosition: true
 	    };
 	  }
@@ -85,68 +85,135 @@ webpackJsonp([1],{
 	        null,
 	        _react2['default'].createElement(
 	          'div',
-	          { className: 'pack-page' },
+	          { className: 'pack-page page0 ' },
 	          _react2['default'].createElement(
 	            'div',
-	            null,
-	            '我是内容'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            null,
-	            '我是内容'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            null,
-	            '我是内容'
+	            { className: 'home-title' },
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'page-title' },
+	              _react2['default'].createElement(
+	                'p',
+	                null,
+	                'rc-scroll-anim@0.1.5'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'page-description', key: 'c' },
+	              _react2['default'].createElement(
+	                'p',
+	                null,
+	                'The parallax demo'
+	              )
+	            )
 	          )
 	        ),
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'pack-page',
-	            style: { backgroundColor: '#fff000', position: 'relative', overflow: 'hidden' } },
+	            style: { backgroundColor: '#174270', position: 'relative', overflow: 'hidden', height: 1600 } },
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { opacity: 1 }, style: { opacity: 0, paddingTop: 60 },
+	              className: 'tween-one' },
+	            'transform 必需在 style 里设定初始值'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { opacity: 1 }, style: { opacity: 0, paddingTop: 0, fontSize: 24 },
+	              className: 'tween-one' },
+	            '默认显示位置[0 ,1]'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { scaleX: 1, scaleY: 1 }, style: { transform: 'scale(0)', color: '#fff' },
+	              className: 'demo parallax-shape' },
+	            'Scale'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { rotate: 360 }, style: { transform: 'rotate(0)' },
+	              className: 'demo2 parallax-shape' },
+	            'rotate'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { x: 0, opacity: 1 },
+	              style: { transform: 'translateX(-200px)', opacity: 0, backgroundColor: '#133252', color: '#fff' },
+	              className: 'demo2 parallax-shape' },
+	            'X'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { rotateY: 360 },
+	              style: { transform: 'perspective(100px) rotateY(0)', backgroundColor: '#0098CE' },
+	              className: 'demo2 parallax-shape' },
+	            'rotateY'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { opacity: 1 }, style: { opacity: 0, paddingTop: 60, fontSize: 24 },
+	              className: 'tween-one' },
+	            '自定义显示位置'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { filter: 'blur(0px)', playScale: [0.5, 0.8], opacity: 1 },
+	              style: { filter: 'blur(20px)', opacity: 0, color: '#fff' },
+	              className: 'demo parallax-shape' },
+	            'blur'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { color: '#fff000', backgroundColor: '#F38EAD', playScale: [0.3, 0.8] },
+	              style: { filter: 'blur(0px)', color: '#fff' },
+	              className: 'demo parallax-shape' },
+	            'color'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { opacity: 1 }, style: { opacity: 0, paddingTop: 60, fontSize: 24 },
+	              className: 'tween-one' },
+	            '多种样式时间轴动画'
+	          ),
 	          _react2['default'].createElement(
 	            ScrollParallax,
 	            {
-	              vars: [{ translateX: '0px', opacity: 1, playScale: [0, 0.5], boxShadow: '2px 2px 2px #000' }, { marginTop: 400, playScale: [0, 0.3] }, { rotateY: 180, playScale: [0, 0.5] }],
-	              style: { opacity: 0, transform: 'perspective(200px) translateX(-100px)', textAlign: 'center' } },
-	            'X到0后最Ｙ到400,Y用的是marginTop,所以改变了下面两个的offsetTop'
-	          ),
-	          _react2['default'].createElement(
-	            ScrollParallax,
-	            { vars: { scaleX: 1, scaleY: 1, opacity: 1, playScale: [0.5, 1] },
-	              style: { opacity: 0, transform: 'scale(0)', textAlign: 'center' } },
-	            'Scale示例示例示例'
-	          ),
-	          _react2['default'].createElement(
-	            ScrollParallax,
-	            { vars: { filter: 'blur(0px)', opacity: 1, playScale: [0.5, 1] },
-	              style: { opacity: 0, filter: 'blur(10px)', textAlign: 'center' } },
-	            'filter示例示例示例'
+	              vars: [{ opacity: 1, playScale: [0, 0.2] }, { filter: 'blur(0px)', backgroundColor: '#F38EAD', playScale: [0, 0.2] }, { translateX: -100, boxShadow: '5px 5px 5px #000', color: '#fff000', playScale: [0, 0.2] }, { translateX: 100, playScale: [0, 0.2] }, { translateX: 0, playScale: [0, 0.2] }],
+	              style: { filter: 'blur(10px)', transform: 'translateX(0px)', opacity: 0, color: '#fff' },
+	              className: 'demo parallax-shape' },
+	            'timeline'
 	          )
 	        ),
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'pack-page',
-	            style: { backgroundColor: '#ff0000', position: 'relative', textAlign: 'center', fontSize: 36 } },
+	            style: { backgroundColor: '#0097D0', position: 'relative', textAlign: 'center', fontSize: 36 } },
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'page2-title' },
+	            '视差示例'
+	          ),
+	          _react2['default'].createElement(
+	            ScrollParallax,
+	            { vars: { translateY: 120, opacity: 1, ease: 'linear', playScale: [0, 2] },
+	              style: { transform: 'translateY(420px) scale(.8)', color: '#fff' } },
+	            _react2['default'].createElement('img', { src: 'https://os.alipayobjects.com/rmsportal/CrVCkwvtTQQvQHL.png', style: { width: 100 } })
+	          ),
 	          _react2['default'].createElement(
 	            ScrollParallax,
 	            { vars: { translateY: 20, opacity: 1, ease: 'linear', playScale: [0, 1.5] },
-	              style: { transform: 'translateY(320px) scale(.8)', color: '#fff', opacity: 0.5 } },
-	            '视差示例示例示例'
+	              style: { transform: 'translateY(380px) scale(.9)', color: '#fff' } },
+	            _react2['default'].createElement('img', {
+	              src: 'https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png', style: { width: 150 } })
 	          ),
 	          _react2['default'].createElement(
 	            ScrollParallax,
-	            { vars: { translateY: -20, opacity: 1, ease: 'linear', playScale: [0, 1.2] },
-	              style: { transform: 'translateY(320px) scale(.9)', color: '#fff', opacity: 0.7 } },
-	            '视差示例示例示例'
-	          ),
-	          _react2['default'].createElement(
-	            ScrollParallax,
-	            { vars: { translateY: -60, opacity: 1, ease: 'linear' },
+	            { vars: { translateY: -100, opacity: 1, ease: 'linear', playScale: [0, 1] },
 	              style: { transform: 'translateY(320px)', color: '#fff' } },
-	            '视差示例示例示例'
+	            _react2['default'].createElement('img', {
+	              src: 'https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png', style: { width: 200 } })
 	          )
 	        ),
 	        _react2['default'].createElement(
@@ -156,13 +223,16 @@ webpackJsonp([1],{
 	            ScrollParallax,
 	            { className: 'pack-page',
 	              location: 'Scroll-Pack',
-	              vars: { backgroundColor: '#ddff00', playScale: [1, 2], onStart: this.setCss.bind(this), onComplete: this.onComplete.bind(this) },
+	              vars: { backgroundColor: '#0097D0', playScale: [1, 2], onStart: this.setCss.bind(this), onComplete: this.onComplete.bind(this) },
 	              style: this.state.css },
+	            _react2['default'].createElement(ScrollParallax, { vars: { translateX: '0%', playScale: [1, 2] },
+	              style: { transform: 'translateX(-100%)', backgroundColor: '#F38EAD', width: '100%', height: '100%', position: 'absolute' },
+	              location: 'Scroll-Pack' }),
 	            _react2['default'].createElement(
 	              ScrollParallax,
-	              { vars: [{ translateY: 0 }, { translateY: '500px' }],
+	              { vars: [{ translateY: 0 }, { translateY: '450px' }],
 	                location: 'Scroll-Pack',
-	                style: { transform: 'translateY(300px)', color: '#fff', fontSize: 36 } },
+	                style: { transform: 'translateY(300px)', color: '#fff', fontSize: 36, textAlign: 'center' } },
 	              '示例示例'
 	            )
 	          )

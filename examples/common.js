@@ -221,7 +221,7 @@
 	    _classCallCheck(this, ScrollOverPack);
 	
 	    _get(Object.getPrototypeOf(ScrollOverPack.prototype), 'constructor', this).apply(this, arguments);
-	    this.entered = false;
+	    // this.entered = false;
 	    this.children = toArrayChildren(this.props.children);
 	    this.oneEnter = false;
 	    this.state = {
@@ -322,10 +322,9 @@
 	              if ('child' in hideProps) {
 	                element = _react2['default'].cloneElement(item, item.props, null);
 	                return element;
-	              } else if ('type' in hideProps) {
-	                element = _react2['default'].cloneElement(item, hideProps);
-	                return element;
 	              }
+	              element = _react2['default'].cloneElement(item, hideProps);
+	              return element;
 	            }
 	            return null;
 	          });
@@ -1380,7 +1379,7 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
+	function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -1394,15 +1393,16 @@
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	      error = new Error(format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
+	      error.name = 'Invariant Violation';
 	    }
 	
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	};
+	}
 	
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
@@ -10829,8 +10829,8 @@
 	     */
 	    // autoCapitalize and autoCorrect are supported in Mobile Safari for
 	    // keyboard hints.
-	    autoCapitalize: null,
-	    autoCorrect: null,
+	    autoCapitalize: MUST_USE_ATTRIBUTE,
+	    autoCorrect: MUST_USE_ATTRIBUTE,
 	    // autoSave allows WebKit/Blink to persist values of input fields on page reloads
 	    autoSave: null,
 	    // color is for Safari mask-icon link
@@ -10861,9 +10861,7 @@
 	    httpEquiv: 'http-equiv'
 	  },
 	  DOMPropertyNames: {
-	    autoCapitalize: 'autocapitalize',
 	    autoComplete: 'autocomplete',
-	    autoCorrect: 'autocorrect',
 	    autoFocus: 'autofocus',
 	    autoPlay: 'autoplay',
 	    autoSave: 'autosave',
@@ -13942,7 +13940,7 @@
 	    var value = LinkedValueUtils.getValue(props);
 	
 	    if (value != null) {
-	      updateOptions(this, props, value);
+	      updateOptions(this, Boolean(props.multiple), value);
 	    }
 	  }
 	}
@@ -16977,11 +16975,14 @@
 	 * @typechecks
 	 */
 	
+	/* eslint-disable fb-www/typeof-undefined */
+	
 	/**
 	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
 	 * not safe to call document.activeElement if there is nothing focused.
 	 *
-	 * The activeElement will be null only if the document or document body is not yet defined.
+	 * The activeElement will be null only if the document or document body is not
+	 * yet defined.
 	 */
 	'use strict';
 	
@@ -16989,7 +16990,6 @@
 	  if (typeof document === 'undefined') {
 	    return null;
 	  }
-	
 	  try {
 	    return document.activeElement || document.body;
 	  } catch (e) {
@@ -18729,7 +18729,9 @@
 	  'setValueForProperty': 'update attribute',
 	  'setValueForAttribute': 'update attribute',
 	  'deleteValueForProperty': 'remove attribute',
-	  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
+	  'setValueForStyles': 'update styles',
+	  'replaceNodeWithMarkup': 'replace',
+	  'updateTextContent': 'set textContent'
 	};
 	
 	function getTotalTime(measurements) {
@@ -18921,18 +18923,23 @@
 	'use strict';
 	
 	var performance = __webpack_require__(150);
-	var curPerformance = performance;
+	
+	var performanceNow;
 	
 	/**
 	 * Detect if we can use `window.performance.now()` and gracefully fallback to
 	 * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
 	 * because of Facebook's testing infrastructure.
 	 */
-	if (!curPerformance || !curPerformance.now) {
-	  curPerformance = Date;
+	if (performance.now) {
+	  performanceNow = function () {
+	    return performance.now();
+	  };
+	} else {
+	  performanceNow = function () {
+	    return Date.now();
+	  };
 	}
-	
-	var performanceNow = curPerformance.now.bind(curPerformance);
 	
 	module.exports = performanceNow;
 
@@ -18981,7 +18988,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.3';
+	module.exports = '0.14.6';
 
 /***/ },
 /* 152 */
@@ -20265,7 +20272,7 @@
 	            parallaxData.data[p] = item[p];
 	          }
 	        }
-	        time += parallaxData.playScale[1];
+	        time += parallaxData.playScale[1] - parallaxData.playScale[0];
 	        _this4.defaultData[i] = parallaxData;
 	      };
 	      vars.forEach(varsForIn);
@@ -20280,7 +20287,8 @@
 	      start[i] = start[i] || {};
 	      start.end = start.end || {};
 	      if (!start.end['Bool' + i]) {
-	        Object.keys(item.data).forEach(function (key) {
+	        Object.keys(item.data).forEach(function (_key) {
+	          var key = _Css2['default'].getGsapType(_key);
 	          var cssName = _Css2['default'].isTransform(key);
 	          if (cssName === 'transform' || cssName === 'filter') {
 	            if (newStyle && newStyle[cssName]) {
@@ -20395,16 +20403,13 @@
 	            var isTransform = Object.keys(item.data).some(function (c) {
 	              return _Css2['default'].isTransform(c) === 'transform';
 	            }) && noPosition;
+	            var _transform = dom.style.transform;
 	            if (isTransform) {
 	              dom.style.transform = 'none';
 	            }
 	            var offsetTop = dom.getBoundingClientRect().top + scrollTop - (noPosition ? parseFloat(_this6.computedStyle.marginTop) : 0);
 	            if (isTransform) {
-	              Object.keys(_this6.state.style).forEach(function (key) {
-	                if (key === 'transform') {
-	                  dom.style[key] = _this6.state.style[key];
-	                }
-	              });
+	              dom.style.transform = _transform;
 	            }
 	
 	            var elementShowHeight = scrollTop - offsetTop + clientHeight;
@@ -20418,7 +20423,6 @@
 	            var progress = _progress;
 	            progress = progress >= 1 ? 1 : progress;
 	            progress = progress <= 0 ? 0 : progress;
-	
 	            // 缓动参数；
 	            var easeValue = _tweenFunctions2['default'][item.ease](progress, start, end, 1);
 	            // onStart 处理；
@@ -20466,6 +20470,14 @@
 	                newStyle[cssName] = _this6.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
 	              });
 	            }
+	            // 恢复到 start 后删除;
+	            if (_progress < 0) {
+	              delete _this6.parallaxStart[i];
+	              if (_this6.parallaxStart.end) {
+	                delete _this6.parallaxStart.end['Bool' + i];
+	              }
+	            }
+	
 	            // 到达
 	            if (progress >= 1) {
 	              item.end = true;
@@ -20483,6 +20495,7 @@
 	          })();
 	        }
 	      });
+	
 	      this.setState({
 	        style: newStyle
 	      });

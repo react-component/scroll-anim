@@ -1,3 +1,12 @@
+html {
+  font-family: 'PingFang SC';
+}
+body {
+  margin: 0;
+}
+body h1:first-child {
+  display: none;
+}
 h1 {
   margin: 13px;
 }
@@ -6,7 +15,7 @@ p {
 }
 .pack-page {
   width: 100%;
-  height: 720px;
+  height: 1000px;
   background-color: #0098CE;
 }
 .fade-enter,
@@ -97,6 +106,13 @@ p {
     opacity: 0;
   }
 }
+.logo {
+  float: left;
+  height: 58px;
+  font-size: 26px;
+  line-height: 56px;
+  padding-left: 200px;
+}
 .nav {
   position: fixed;
   background: #0098CE;
@@ -108,6 +124,7 @@ p {
 }
 .nav .nav-wap {
   float: right;
+  padding-right: 200px;
 }
 .nav .nav-list {
   width: 100px;
@@ -118,10 +135,6 @@ p {
   cursor: pointer;
   -webkit-transition: background .45s;
           transition: background .45s;
-}
-.nav .nav-list:hover,
-.nav .nav-list.active {
-  background: #0180AD;
 }
 .nav .nav-bar {
   width: 100px;
@@ -134,22 +147,34 @@ p {
           transition: left .3s;
 }
 .page0 {
-  padding-top: 300px;
   margin: 0 auto;
   width: 100%;
   text-align: center;
 }
 .page1 {
   background-color: #19436E;
-  height: 720px;
+  height: 1000px;
+}
+.home-title {
+  position: relative;
+  top: 50%;
+  margin-top: -65px;
 }
 .tween-one {
   width: 100%;
   opacity: 0;
   color: #fff;
   font-size: 32px;
-  padding-top: 100px;
+  padding-top: 160px;
   text-align: center;
+  padding-bottom: 50px;
+}
+.page2-title {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 32px;
+  padding-top: 160px;
   padding-bottom: 50px;
 }
 .demo {
@@ -157,11 +182,19 @@ p {
   width: 600px;
   height: 80px;
   background-color: #133252;
+  margin-bottom: 30px;
+  border-radius: 4px;
+}
+.demo2 {
+  margin: 0 auto;
+  width: 600px;
+  height: 80px;
+  background-color: #E1FF9A;
   margin-top: 30px;
   border-radius: 4px;
 }
 .page-title p {
-  font-size: 50px;
+  font-size: 60px;
   color: #fff;
 }
 .page-description {
@@ -170,6 +203,13 @@ p {
 .page-description p {
   font-size: 18px;
   color: #fff;
+}
+.parallax-shape {
+  line-height: 120px;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  font-size: 24px;
 }
 
 /*# sourceMappingURL=common.css.map*/

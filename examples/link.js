@@ -12,7 +12,6 @@ webpackJsonp([0],{
 /***/ function(module, exports, __webpack_require__) {
 
 	// use jsx to render html, do not modify simple.html
-	
 	'use strict';
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -51,11 +50,13 @@ webpackJsonp([0],{
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
+	var _package = __webpack_require__(194);
+	
 	var Link = _rcScrollAnim2['default'].Link;
 	var Element = _rcScrollAnim2['default'].Element;
 	var ScrollOverPack = _rcScrollAnim2['default'].OverPack;
 	var EventListener = _rcScrollAnim2['default'].Event;
-	// ScrollAnim.scrollScreen({loop: true});
+	// ScrollAnim.scrollScreen({scrollInterval: 600});
 	
 	var Demo = (function (_React$Component) {
 	  _inherits(Demo, _React$Component);
@@ -98,30 +99,39 @@ webpackJsonp([0],{
 	          { className: 'nav' },
 	          _react2['default'].createElement(
 	            'div',
+	            { className: 'logo' },
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'Ant Motion'
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'div',
 	            { className: 'nav-wap' },
 	            _react2['default'].createElement(
 	              Link,
 	              { className: 'nav-list', location: 'page0', showHeightActive: '300', ref: 'page0',
 	                onFocus: this.onFocus.bind(this) },
-	              'Page0'
+	              'Example'
 	            ),
 	            _react2['default'].createElement(
 	              Link,
-	              { className: 'nav-list', location: 'page1', showHeightActive: [300, 500],
+	              { className: 'nav-list', location: 'page1',
 	                onFocus: this.onFocus.bind(this) },
-	              'Page1'
+	              'Example2'
 	            ),
 	            _react2['default'].createElement(
 	              Link,
-	              { className: 'nav-list', location: 'page2', showHeightActive: [500, 200], toShowHeight: true,
+	              { className: 'nav-list', location: 'page2',
 	                onFocus: this.onFocus.bind(this) },
-	              'Page2'
+	              'Example3'
 	            ),
 	            _react2['default'].createElement(
 	              Link,
-	              { className: 'nav-list', location: 'page3', showHeightActive: [200, '10%'],
+	              { className: 'nav-list', location: 'page3',
 	                onFocus: this.onFocus.bind(this) },
-	              'Page3'
+	              'Example4'
 	            ),
 	            _react2['default'].createElement('div', { ref: 'bar', className: 'nav-bar' })
 	          )
@@ -131,14 +141,16 @@ webpackJsonp([0],{
 	          { className: 'pack-page page0', scrollName: 'page0' },
 	          _react2['default'].createElement(
 	            _rcQueueAnim2['default'],
-	            null,
+	            { className: 'home-title' },
 	            _react2['default'].createElement(
 	              'div',
 	              { className: 'page-title', key: 'title' },
 	              _react2['default'].createElement(
 	                'p',
 	                null,
-	                'rc-scroll-anim@0.1.0'
+	                _package.name,
+	                '@',
+	                _package.version
 	              )
 	            ),
 	            _react2['default'].createElement(
@@ -147,7 +159,7 @@ webpackJsonp([0],{
 	              _react2['default'].createElement(
 	                'p',
 	                null,
-	                'A simple demo'
+	                'The link demo'
 	              )
 	            )
 	          )
@@ -165,60 +177,47 @@ webpackJsonp([0],{
 	            _rcQueueAnim2['default'],
 	            { key: '1', scrollHideProps: { child: null } },
 	            _react2['default'].createElement('div', { key: '0', className: 'demo' }),
-	            _react2['default'].createElement('div', { key: '1', className: 'demo' }),
+	            _react2['default'].createElement('div', { key: '1', className: 'demo', style: { backgroundColor: '#F38EAD' } }),
 	            _react2['default'].createElement('div', { key: '2', className: 'demo' }),
 	            _react2['default'].createElement('div', { key: '3', className: 'demo' })
 	          )
 	        ),
 	        _react2['default'].createElement(
 	          ScrollOverPack,
-	          { scrollName: 'page2', className: 'pack-page page2', style: { backgroundColor: '#0097D0' }, always: false,
+	          { scrollName: 'page2', className: 'pack-page page2', style: { backgroundColor: '#0098CE' }, always: false,
 	            id: 'page2' },
 	          _react2['default'].createElement(
 	            'div',
-	            { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
+	            { className: 'page2-title' },
 	            '只进入一次'
 	          ),
 	          _react2['default'].createElement(
 	            _rcAnimate2['default'],
 	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
-	            _react2['default'].createElement(
-	              'div',
-	              null,
-	              'Animate示例示例'
-	            )
+	            _react2['default'].createElement('div', { className: 'demo2' })
 	          ),
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
-	              scrollHideProps: { type: 'reverse' } },
-	            '单元素用例'
-	          )
+	          _react2['default'].createElement(_rcTweenOne2['default'], { className: 'demo2', vars: { y: 0, opacity: 1 }, key: '1',
+	            style: { transform: 'translateY(100px)', opacity: 0 },
+	            scrollHideProps: { type: 'reverse' } })
 	        ),
 	        _react2['default'].createElement(
 	          ScrollOverPack,
 	          { scrollName: 'page3', className: 'pack-page page3', style: { backgroundColor: '#174270' },
 	            playScale: 0.8, id: 'page3' },
 	          _react2['default'].createElement(
-	            'div',
-	            { style: { width: '100%', textAlign: 'center', color: '#fff', fontSize: 32 } },
+	            _rcTweenOne2['default'],
+	            { vars: { opacity: 1 }, style: { opacity: 0 }, key: 'title', scrollHideProps: { type: 'reverse' },
+	              className: 'page2-title' },
 	            '在页面80％时进入'
 	          ),
 	          _react2['default'].createElement(
 	            _rcAnimate2['default'],
 	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
-	            _react2['default'].createElement(
-	              'div',
-	              null,
-	              'Animate示例示例'
-	            )
+	            _react2['default'].createElement('div', { className: 'demo' })
 	          ),
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { vars: { x: 200, opacity: 1 }, style: { opacity: 0, width: 100 }, key: '1',
-	              scrollHideProps: { type: 'reverse' } },
-	            '单元素用例'
-	          )
+	          _react2['default'].createElement(_rcTweenOne2['default'], { className: 'demo', vars: { y: 0, opacity: 1 }, key: '1',
+	            style: { transform: 'translateY(100px)', opacity: 0 },
+	            scrollHideProps: { type: 'reverse' } })
 	        )
 	      );
 	    }
@@ -6284,13 +6283,19 @@ webpackJsonp([0],{
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var _this2 = this;
 	
+	    this.nextProps = nextProps;
 	    var nextChildren = (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(nextProps));
 	    var props = this.props;
+	    // exclusive needs immediate response
+	    if (props.exclusive) {
+	      Object.keys(this.currentlyAnimatingKeys).forEach(function (key) {
+	        _this2.stop(key);
+	      });
+	    }
 	    var showProp = props.showProp;
 	    var currentlyAnimatingKeys = this.currentlyAnimatingKeys;
 	    // last props children if exclusive
-	    // exclusive needs immediate response
-	    var currentChildren = this.state.children;
+	    var currentChildren = props.exclusive ? (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(props)) : this.state.children;
 	    // in case destroy in showProp mode
 	    var newChildren = [];
 	    if (showProp) {
@@ -6363,15 +6368,7 @@ webpackJsonp([0],{
 	    });
 	  },
 	
-	  componentDidUpdate: function componentDidUpdate(prevProps) {
-	    var _this3 = this;
-	
-	    // exclusive needs immediate response
-	    if (this.props.exclusive && this.props !== prevProps) {
-	      Object.keys(this.currentlyAnimatingKeys).forEach(function (key) {
-	        _this3.stop(key);
-	      });
-	    }
+	  componentDidUpdate: function componentDidUpdate() {
 	    if (this.isMounted()) {
 	      var keysToEnter = this.keysToEnter;
 	      this.keysToEnter = [];
@@ -6400,6 +6397,10 @@ webpackJsonp([0],{
 	  handleDoneAdding: function handleDoneAdding(key, type) {
 	    var props = this.props;
 	    delete this.currentlyAnimatingKeys[key];
+	    // if update on exclusive mode, skip check
+	    if (props.exclusive && props !== this.nextProps) {
+	      return;
+	    }
 	    var currentChildren = (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(props));
 	    if (!this.isValidChildByKey(currentChildren, key)) {
 	      // exclusive will not need this
@@ -6430,6 +6431,10 @@ webpackJsonp([0],{
 	  handleDoneLeaving: function handleDoneLeaving(key) {
 	    var props = this.props;
 	    delete this.currentlyAnimatingKeys[key];
+	    // if update on exclusive mode, skip check
+	    if (props.exclusive && props !== this.nextProps) {
+	      return;
+	    }
 	    var currentChildren = (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(props));
 	    // in case state change is too fast
 	    if (this.isValidChildByKey(currentChildren, key)) {
@@ -6465,10 +6470,14 @@ webpackJsonp([0],{
 	
 	  render: function render() {
 	    var props = this.props;
+	    this.nextProps = props;
 	    var stateChildren = this.state.children;
 	    var children = null;
 	    if (stateChildren) {
 	      children = stateChildren.map(function (child) {
+	        if (child === null) {
+	          return child;
+	        }
 	        if (!child.key) {
 	          throw new Error('must set key for <rc-animate> children');
 	        }
@@ -7037,6 +7046,73 @@ webpackJsonp([0],{
 	};
 	exports["default"] = util;
 	module.exports = exports["default"];
+
+/***/ },
+
+/***/ 194:
+/***/ function(module, exports) {
+
+	module.exports = {
+		"name": "rc-scroll-anim",
+		"version": "0.1.8",
+		"description": "scroll-anim anim component for react",
+		"keywords": [
+			"react",
+			"react-component",
+			"react-scroll-anim",
+			"scroll-anim"
+		],
+		"homepage": "https://github.com/ant-motion/scroll-anim",
+		"author": "155259966@qq.com",
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/ant-motion/scroll-anim.git"
+		},
+		"bugs": {
+			"url": "https://github.com/ant-motion/scroll-anim/issues"
+		},
+		"files": [
+			"lib",
+			"assets/*.css"
+		],
+		"licenses": "MIT",
+		"main": "./lib/index",
+		"config": {
+			"port": 8020
+		},
+		"scripts": {
+			"build": "rc-tools run build",
+			"gh-pages": "rc-tools run gh-pages",
+			"start": "rc-server",
+			"pub": "rc-tools run pub",
+			"lint": "rc-tools run lint",
+			"karma": "rc-tools run karma",
+			"saucelabs": "rc-tools run saucelabs",
+			"browser-test": "rc-tools run browser-test",
+			"browser-test-cover": "rc-tools run browser-test-cover"
+		},
+		"devDependencies": {
+			"expect.js": "0.3.x",
+			"pre-commit": "1.x",
+			"rc-server": "3.x",
+			"rc-tools": "4.x",
+			"react": "0.14.x",
+			"react-addons-test-utils": "0.14.x",
+			"react-dom": "0.14.x",
+			"rc-util": "3.x",
+			"rc-queue-anim": "0.11.3",
+			"rc-tween-one": "0.1.8",
+			"rc-animate": "2.0.x"
+		},
+		"pre-commit": [
+			"lint"
+		],
+		"dependencies": {
+			"object-assign": "~4.0.1",
+			"tween-functions": "^1.0.1",
+			"raf": "^3.1.0"
+		}
+	};
 
 /***/ }
 
