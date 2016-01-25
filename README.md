@@ -63,13 +63,13 @@ var ScrollOverPack = ScrollAnim.OverPack;
 var React = require('react');
 // ScrollOverPack目前只支持rc-animate,rc-queue-anim,rc-tween-one;
 React.render(<ScrollOverPack>
-  <QueueAnim key='queueAnim' scrollHideProps={{child: null}}>
+  <QueueAnim key='queueAnim' hideProps={{child: null}}>
     <div key='a'>依次进入</div>
     <div key='b'>依次进入</div>
     <div key='b'>依次进入</div>
   </QueueAnim>
-  <TweenOne key='tweenOne' vars={{x:100}} scrollHideProps={{type: 'reverse'}}>单元素动画</TweenOne>
-  <Animate key='rc-animate' transitionName="fade" transitionAppear scrollHideProps={{child: null}}>rc-animate示例</Animate>
+  <TweenOne key='tweenOne' vars={{x:100}} hideProps={{type: 'reverse'}}>单元素动画</TweenOne>
+  <Animate key='rc-animate' transitionName="fade" transitionAppear hideProps={{child: null}}>rc-animate示例</Animate>
 </ScrollOverPack>, container);
 ```
 #### Parallax示例
@@ -117,8 +117,8 @@ ScrollAnim.scrollScreen.unMount();
 
 #### 子级动画支持 `rc-queue-anim` `rc-animte` `rc-tween-one`
 
-> children 为 `rc-queue-anim` `rc-animte` 或其它把children设为 null 就有动画的组件时: scrollHideProps={{child: null}}
-> children 为 `rc-tween-one` 或其它有倒放功能在出场时不想删掉元素的组件时: scrollHideProps={{type: 'reverse'}}
+> children 为 `rc-queue-anim` `rc-animte` 或其它把children设为 null 就有动画的组件时: hideProps={{child: null}}
+> children 为 `rc-tween-one` 或其它有倒放功能在出场时不想删掉元素的组件时: hideProps={{type: 'reverse'}}
 > 详细看 ScrollOverPack 示例
 
 ### Parallax
