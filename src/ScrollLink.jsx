@@ -7,7 +7,7 @@ import assign from 'object-assign';
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
-import {transformArguments} from './util';
+import {transformArguments, currentScrollTop} from './util';
 import mapped from './Mapped';
 
 function noop() {
@@ -50,7 +50,7 @@ class ScrollLink extends React.Component {
     const docRect = document.documentElement.getBoundingClientRect();
     const elementDom = mapped.get(this.props.location);
     const elementRect = elementDom.getBoundingClientRect();
-    this.scrollTop = window.pageYOffset;
+    this.scrollTop = currentScrollTop();
     const toTop = Math.round(elementRect.top) - Math.round(docRect.top);
     this.toTop = this.props.toShowHeight ? toTop - transformArguments(this.props.showHeightActive)[0] : toTop;
     this.initTime = Date.now();
@@ -86,7 +86,7 @@ class ScrollLink extends React.Component {
     }
     const elementRect = elementDom.getBoundingClientRect();
     const elementClientHeight = elementDom.clientHeight;
-    const scrollTop = window.pageYOffset;
+    const scrollTop = currentScrollTop();
     const top = Math.round(docRect.top) - Math.round(elementRect.top) + scrollTop;
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * elementClientHeight : parseFloat(showHeightActive[0]);

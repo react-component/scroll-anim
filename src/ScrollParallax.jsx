@@ -4,7 +4,7 @@ import assign from 'object-assign';
 import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Css from './Css';
-import {dataToArray, objectEqual} from './util';
+import {dataToArray, objectEqual, currentScrollTop} from './util';
 import mapped from './Mapped';
 
 const DEFAULT_EASING = 'easeInOutQuad';
@@ -60,7 +60,7 @@ class ScrollParallax extends React.Component {
       mapped.register(this.props.scrollName, this.dom);
     }
     this.computedStyle = document.defaultView.getComputedStyle(this.dom);
-    this.scrollTop = window.pageYOffset;
+    this.scrollTop = currentScrollTop();
 
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
@@ -218,8 +218,8 @@ class ScrollParallax extends React.Component {
   }
 
   scrollEventListener() {
-    const scrollTop = window.pageYOffset;
-    const clientHeight = document.documentElement.clientHeight;
+    const scrollTop = currentScrollTop();
+    const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     const newStyle = this.style;
     this.defaultData.forEach((item, i)=> {
       if (!item) {

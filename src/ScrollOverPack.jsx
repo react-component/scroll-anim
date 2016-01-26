@@ -2,6 +2,7 @@ import React, { createElement } from 'react';
 import ReactDom from 'react-dom';
 import EventListener from './EventDispatcher';
 import mapped from './Mapped';
+import {currentScrollTop} from './util';
 
 function noop() {
 }
@@ -17,7 +18,6 @@ function toArrayChildren(children) {
 class ScrollOverPack extends React.Component {
   constructor() {
     super(...arguments);
-    // this.entered = false;
     this.children = toArrayChildren(this.props.children);
     this.oneEnter = false;
     this.state = {
@@ -35,7 +35,6 @@ class ScrollOverPack extends React.Component {
     if (this.props.scrollName) {
       mapped.register(this.props.scrollName, this.dom);
     }
-    this.prevScrollTop = window.pageYOffset;
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = 'scroll.scrollEvent' + date + length;
@@ -49,33 +48,13 @@ class ScrollOverPack extends React.Component {
   }
 
   scrollEventListener(e) {
-    const clientHeight = document.documentElement.clientHeight;
-    const scrollTop = window.pageYOffset;// document.body.scrollTop || document.documentElement.scrollTop;
+    const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    const scrollTop = currentScrollTop();
     // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
     const domRect = this.dom.getBoundingClientRect();
     const offsetTop = domRect.top + scrollTop;
     const elementShowHeight = scrollTop - offsetTop + clientHeight;
     const playHeight = clientHeight * this.props.playScale;
-    // onPlay
-    // const scrollTopValue = scrollTop - this.prevScrollTop;
-    /*
-     * scrollTopValue: < 0 为滚动轴往上， > 0 时为往下;
-     * 当前显示: elementShowHeight, 开始播放点: playHeight;
-     * elementShowHeight < playHeight ----> scrollTopValue > 0 或 < 0 都设为false;
-     * elementShowHeight > playHeight ----> 往上时设为 false, 往下时不做处理;
-     * 往下滚时：
-     * 1. 当前显示大于开始播放时,
-     * 往上滚时：
-     * 1. 当前显示小于等于开始播放加时.
-     */
-    // if ((elementShowHeight >= playHeight && scrollTopValue < 0) || (elementShowHeight < playHeight && scrollTopValue > 0)) {
-    //  this.props.onPlay.only = false;
-    // }
-    // if (!this.props.onPlay.only && ((elementShowHeight >= playHeight && elementShowHeight <= playHeight + clientHeight && scrollTopValue > 0) || (elementShowHeight <= playHeight && scrollTopValue < 0))) {
-    //  console.log(this.props.scrollName, 111)
-    //  this.props.onPlay();
-    //  this.props.onPlay.only = true;
-    // }
     const replay = this.props.replay ? elementShowHeight >= playHeight && elementShowHeight <= clientHeight : elementShowHeight >= playHeight;
     if (replay) {
       if (!this.state.show) {
@@ -95,7 +74,6 @@ class ScrollOverPack extends React.Component {
     if (e) {
       this.props.scrollEvent(e);
     }
-    // this.prevScrollTop = scrollTop;
   }
 
   render() {
