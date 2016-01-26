@@ -136,7 +136,7 @@
 	
 	var _ScrollOverPack2 = _interopRequireDefault(_ScrollOverPack);
 	
-	var _ScrollParallax = __webpack_require__(166);
+	var _ScrollParallax = __webpack_require__(167);
 	
 	var _ScrollParallax2 = _interopRequireDefault(_ScrollParallax);
 	
@@ -202,6 +202,8 @@
 	
 	var _Mapped2 = _interopRequireDefault(_Mapped);
 	
+	var _util = __webpack_require__(166);
+	
 	function noop() {}
 	
 	function toArrayChildren(children) {
@@ -221,7 +223,6 @@
 	    _classCallCheck(this, ScrollOverPack);
 	
 	    _get(Object.getPrototypeOf(ScrollOverPack.prototype), 'constructor', this).apply(this, arguments);
-	    // this.entered = false;
 	    this.children = toArrayChildren(this.props.children);
 	    this.oneEnter = false;
 	    this.state = {
@@ -241,7 +242,6 @@
 	      if (this.props.scrollName) {
 	        _Mapped2['default'].register(this.props.scrollName, this.dom);
 	      }
-	      this.prevScrollTop = window.pageYOffset;
 	      var date = Date.now();
 	      var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
 	      this.eventType = 'scroll.scrollEvent' + date + length;
@@ -257,33 +257,13 @@
 	  }, {
 	    key: 'scrollEventListener',
 	    value: function scrollEventListener(e) {
-	      var clientHeight = document.documentElement.clientHeight;
-	      var scrollTop = window.pageYOffset; // document.body.scrollTop || document.documentElement.scrollTop;
+	      var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      var scrollTop = (0, _util.currentScrollTop)();
 	      // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
 	      var domRect = this.dom.getBoundingClientRect();
 	      var offsetTop = domRect.top + scrollTop;
 	      var elementShowHeight = scrollTop - offsetTop + clientHeight;
 	      var playHeight = clientHeight * this.props.playScale;
-	      // onPlay
-	      // const scrollTopValue = scrollTop - this.prevScrollTop;
-	      /*
-	       * scrollTopValue: < 0 为滚动轴往上， > 0 时为往下;
-	       * 当前显示: elementShowHeight, 开始播放点: playHeight;
-	       * elementShowHeight < playHeight ----> scrollTopValue > 0 或 < 0 都设为false;
-	       * elementShowHeight > playHeight ----> 往上时设为 false, 往下时不做处理;
-	       * 往下滚时：
-	       * 1. 当前显示大于开始播放时,
-	       * 往上滚时：
-	       * 1. 当前显示小于等于开始播放加时.
-	       */
-	      // if ((elementShowHeight >= playHeight && scrollTopValue < 0) || (elementShowHeight < playHeight && scrollTopValue > 0)) {
-	      //  this.props.onPlay.only = false;
-	      // }
-	      // if (!this.props.onPlay.only && ((elementShowHeight >= playHeight && elementShowHeight <= playHeight + clientHeight && scrollTopValue > 0) || (elementShowHeight <= playHeight && scrollTopValue < 0))) {
-	      //  console.log(this.props.scrollName, 111)
-	      //  this.props.onPlay();
-	      //  this.props.onPlay.only = true;
-	      // }
 	      var replay = this.props.replay ? elementShowHeight >= playHeight && elementShowHeight <= clientHeight : elementShowHeight >= playHeight;
 	      if (replay) {
 	        if (!this.state.show) {
@@ -303,7 +283,6 @@
 	      if (e) {
 	        this.props.scrollEvent(e);
 	      }
-	      // this.prevScrollTop = scrollTop;
 	    }
 	  }, {
 	    key: 'render',
@@ -317,7 +296,7 @@
 	        if (!this.state.show) {
 	          this.state.children = this.state.children.map(function (item) {
 	            var element = undefined;
-	            var hideProps = item.props.scrollHideProps;
+	            var hideProps = item.props.hideProps;
 	            if (hideProps) {
 	              if ('child' in hideProps) {
 	                element = _react2['default'].cloneElement(item, item.props, null);
@@ -20096,6 +20075,108 @@
 
 /***/ },
 /* 166 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports.dataToArray = dataToArray;
+	exports.transformArguments = transformArguments;
+	exports.objectEqual = objectEqual;
+	exports.currentScrollTop = currentScrollTop;
+	
+	function dataToArray(vars) {
+	  if (!vars && vars !== 0) {
+	    return [];
+	  }
+	  if (Array.isArray(vars)) {
+	    return vars;
+	  }
+	  return [vars];
+	}
+	
+	function transformArguments(arg) {
+	  if (Array.isArray(arg)) {
+	    if (arg.length === 2) {
+	      return arg;
+	    }
+	    return [arg.join(), arg.join()];
+	  }
+	  return [arg, arg];
+	}
+	
+	function objectEqual(obj1, obj2) {
+	  if (!obj1 || !obj2) {
+	    return false;
+	  }
+	  if (obj1 === obj2) {
+	    return true;
+	  }
+	  var equalBool = true;
+	  if (Array.isArray(obj1) && Array.isArray(obj2)) {
+	    for (var i = 0; i < obj1.length; i++) {
+	      var currentObj = obj1[i];
+	      var nextObj = obj2[i];
+	      for (var p in currentObj) {
+	        if (currentObj[p] !== nextObj[p]) {
+	          if (typeof currentObj[p] === 'object' && typeof nextObj[p] === 'object') {
+	            equalBool = objectEqual(currentObj[p], nextObj[p]);
+	          } else {
+	            equalBool = false;
+	            return false;
+	          }
+	        }
+	      }
+	    }
+	  }
+	
+	  Object.keys(obj1).forEach(function (key) {
+	    if (!(key in obj2)) {
+	      equalBool = false;
+	      return false;
+	    }
+	
+	    if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+	      equalBool = objectEqual(obj1[key], obj2[key]);
+	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
+	      if (obj1[key].name !== obj2[key].name) {
+	        equalBool = false;
+	      }
+	    } else if (obj1[key] !== obj2[key]) {
+	      equalBool = false;
+	    }
+	  });
+	
+	  Object.keys(obj2).forEach(function (key) {
+	    if (!(key in obj1)) {
+	      equalBool = false;
+	      return false;
+	    }
+	    if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
+	      equalBool = objectEqual(obj2[key], obj1[key]);
+	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
+	      if (obj1[key].name !== obj2[key].name) {
+	        equalBool = false;
+	      }
+	    } else if (obj2[key] !== obj1[key]) {
+	      equalBool = false;
+	    }
+	  });
+	
+	  return equalBool;
+	}
+	
+	function currentScrollTop() {
+	  var supportPageOffset = window.pageXOffset !== undefined;
+	  var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat';
+	  var isCSS1ScrollTop = isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+	  return supportPageOffset ? window.pageYOffset : isCSS1ScrollTop;
+	}
+
+/***/ },
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20122,7 +20203,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(167);
+	var _objectAssign = __webpack_require__(168);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
@@ -20130,15 +20211,15 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
-	var _tweenFunctions = __webpack_require__(168);
+	var _tweenFunctions = __webpack_require__(169);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
-	var _Css = __webpack_require__(169);
+	var _Css = __webpack_require__(170);
 	
 	var _Css2 = _interopRequireDefault(_Css);
 	
-	var _util = __webpack_require__(170);
+	var _util = __webpack_require__(166);
 	
 	var _Mapped = __webpack_require__(165);
 	
@@ -20206,7 +20287,7 @@
 	        _Mapped2['default'].register(this.props.scrollName, this.dom);
 	      }
 	      this.computedStyle = document.defaultView.getComputedStyle(this.dom);
-	      this.scrollTop = window.pageYOffset;
+	      this.scrollTop = (0, _util.currentScrollTop)();
 	
 	      var date = Date.now();
 	      var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
@@ -20381,8 +20462,8 @@
 	    value: function scrollEventListener() {
 	      var _this6 = this;
 	
-	      var scrollTop = window.pageYOffset;
-	      var clientHeight = document.documentElement.clientHeight;
+	      var scrollTop = (0, _util.currentScrollTop)();
+	      var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 	      var newStyle = this.style;
 	      this.defaultData.forEach(function (item, i) {
 	        if (!item) {
@@ -20551,7 +20632,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports) {
 
 	/* eslint-disable no-unused-vars */
@@ -20596,7 +20677,7 @@
 
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20851,7 +20932,7 @@
 
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21261,100 +21342,6 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 170 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports.dataToArray = dataToArray;
-	exports.transformArguments = transformArguments;
-	exports.objectEqual = objectEqual;
-	
-	function dataToArray(vars) {
-	  if (!vars && vars !== 0) {
-	    return [];
-	  }
-	  if (Array.isArray(vars)) {
-	    return vars;
-	  }
-	  return [vars];
-	}
-	
-	function transformArguments(arg) {
-	  if (Array.isArray(arg)) {
-	    if (arg.length === 2) {
-	      return arg;
-	    }
-	    return [arg.join(), arg.join()];
-	  }
-	  return [arg, arg];
-	}
-	
-	function objectEqual(obj1, obj2) {
-	  if (!obj1 || !obj2) {
-	    return false;
-	  }
-	  if (obj1 === obj2) {
-	    return true;
-	  }
-	  var equalBool = true;
-	  if (Array.isArray(obj1) && Array.isArray(obj2)) {
-	    for (var i = 0; i < obj1.length; i++) {
-	      var currentObj = obj1[i];
-	      var nextObj = obj2[i];
-	      for (var p in currentObj) {
-	        if (currentObj[p] !== nextObj[p]) {
-	          if (typeof currentObj[p] === 'object' && typeof nextObj[p] === 'object') {
-	            equalBool = objectEqual(currentObj[p], nextObj[p]);
-	          } else {
-	            equalBool = false;
-	            return false;
-	          }
-	        }
-	      }
-	    }
-	  }
-	
-	  Object.keys(obj1).forEach(function (key) {
-	    if (!(key in obj2)) {
-	      equalBool = false;
-	      return false;
-	    }
-	
-	    if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
-	      equalBool = objectEqual(obj1[key], obj2[key]);
-	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
-	      if (obj1[key].name !== obj2[key].name) {
-	        equalBool = false;
-	      }
-	    } else if (obj1[key] !== obj2[key]) {
-	      equalBool = false;
-	    }
-	  });
-	
-	  Object.keys(obj2).forEach(function (key) {
-	    if (!(key in obj1)) {
-	      equalBool = false;
-	      return false;
-	    }
-	    if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
-	      equalBool = objectEqual(obj2[key], obj1[key]);
-	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
-	      if (obj1[key].name !== obj2[key].name) {
-	        equalBool = false;
-	      }
-	    } else if (obj2[key] !== obj1[key]) {
-	      equalBool = false;
-	    }
-	  });
-	
-	  return equalBool;
-	}
-
-/***/ },
 /* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21385,11 +21372,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(167);
+	var _objectAssign = __webpack_require__(168);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _tweenFunctions = __webpack_require__(168);
+	var _tweenFunctions = __webpack_require__(169);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
@@ -21401,7 +21388,7 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
-	var _util = __webpack_require__(170);
+	var _util = __webpack_require__(166);
 	
 	var _Mapped = __webpack_require__(165);
 	
@@ -21455,7 +21442,7 @@
 	      var docRect = document.documentElement.getBoundingClientRect();
 	      var elementDom = _Mapped2['default'].get(this.props.location);
 	      var elementRect = elementDom.getBoundingClientRect();
-	      this.scrollTop = window.pageYOffset;
+	      this.scrollTop = (0, _util.currentScrollTop)();
 	      var toTop = Math.round(elementRect.top) - Math.round(docRect.top);
 	      this.toTop = this.props.toShowHeight ? toTop - (0, _util.transformArguments)(this.props.showHeightActive)[0] : toTop;
 	      this.initTime = Date.now();
@@ -21494,7 +21481,7 @@
 	      }
 	      var elementRect = elementDom.getBoundingClientRect();
 	      var elementClientHeight = elementDom.clientHeight;
-	      var scrollTop = window.pageYOffset;
+	      var scrollTop = (0, _util.currentScrollTop)();
 	      var top = Math.round(docRect.top) - Math.round(elementRect.top) + scrollTop;
 	      var showHeightActive = (0, _util.transformArguments)(this.props.showHeightActive);
 	      var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * elementClientHeight : parseFloat(showHeightActive[0]);
@@ -21538,7 +21525,8 @@
 	          _this3.onClick(e);
 	        }
 	      });
-	      props.className = props.className.indexOf(active) === -1 ? props.className + ' ' + active : props.className.replace(/active/ig, '').trim();
+	      var reg = new RegExp(active, 'ig');
+	      props.className = props.className.indexOf(active) === -1 ? props.className + ' ' + active : props.className.replace(reg, '').trim();
 	      return (0, _react.createElement)(this.props.component, props);
 	    }
 	  }]);
@@ -21781,7 +21769,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _tweenFunctions = __webpack_require__(168);
+	var _tweenFunctions = __webpack_require__(169);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	

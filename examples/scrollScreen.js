@@ -4491,11 +4491,11 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(167);
+	var _objectAssign = __webpack_require__(168);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _tweenFunctions = __webpack_require__(168);
+	var _tweenFunctions = __webpack_require__(169);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
@@ -6832,7 +6832,7 @@ webpackJsonp([2],{
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.1.8",
+		"version": "0.1.9",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
@@ -7053,12 +7053,12 @@ webpackJsonp([2],{
 	          _react2['default'].createElement(
 	            _rcTweenOne2['default'],
 	            { className: 'tween-one', key: '0', vars: { opacity: 1 },
-	              scrollHideProps: { type: 'reverse' } },
+	              hideProps: { type: 'reverse' } },
 	            '每次进入都启动播放'
 	          ),
 	          _react2['default'].createElement(
 	            _rcQueueAnim2['default'],
-	            { key: '1', scrollHideProps: { child: null } },
+	            { key: '1', hideProps: { child: null } },
 	            _react2['default'].createElement('div', { key: '0', className: 'demo' }),
 	            _react2['default'].createElement('div', { key: '1', className: 'demo' }),
 	            _react2['default'].createElement('div', { key: '2', className: 'demo' }),
@@ -7071,17 +7071,17 @@ webpackJsonp([2],{
 	            playScale: 1 },
 	          _react2['default'].createElement(
 	            _rcTweenOne2['default'],
-	            { className: 'tween-one', vars: { opacity: 1 }, key: 't', scrollHideProps: { type: 'reverse' } },
+	            { className: 'tween-one', vars: { opacity: 1 }, key: 't', hideProps: { type: 'reverse' } },
 	            '只从上往下时播放'
 	          ),
 	          _react2['default'].createElement(
 	            _rcAnimate2['default'],
-	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
+	            { key: '0', transitionName: 'fade', transitionAppear: true, hideProps: { child: null } },
 	            _react2['default'].createElement('div', { className: 'demo2' })
 	          ),
 	          _react2['default'].createElement(_rcTweenOne2['default'], { className: 'demo2', vars: { y: 0, opacity: 1 }, key: '1',
 	            style: { transform: 'translateY(100px)', opacity: 0 },
-	            scrollHideProps: { type: 'reverse' } })
+	            hideProps: { type: 'reverse' } })
 	        ),
 	        _react2['default'].createElement(
 	          ScrollOverPack,
@@ -7089,17 +7089,17 @@ webpackJsonp([2],{
 	            id: 'page2', playScale: 1 },
 	          _react2['default'].createElement(
 	            _rcTweenOne2['default'],
-	            { vars: { opacity: 1 }, key: 't', className: 'tween-one', style: { opacity: 0 }, scrollHideProps: { type: 'reverse' } },
+	            { vars: { opacity: 1 }, key: 't', className: 'tween-one', style: { opacity: 0 }, hideProps: { type: 'reverse' } },
 	            '只进入一次'
 	          ),
 	          _react2['default'].createElement(
 	            _rcAnimate2['default'],
-	            { key: '0', transitionName: 'fade', transitionAppear: true, scrollHideProps: { child: null } },
+	            { key: '0', transitionName: 'fade', transitionAppear: true, hideProps: { child: null } },
 	            _react2['default'].createElement('div', { className: 'demo' })
 	          ),
 	          _react2['default'].createElement(_rcTweenOne2['default'], { className: 'demo', vars: { y: 0, opacity: 1 }, key: '1',
 	            style: { transform: 'translateY(100px)', opacity: 0 },
-	            scrollHideProps: { type: 'reverse' } })
+	            hideProps: { type: 'reverse' } })
 	        )
 	      );
 	    }

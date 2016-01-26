@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.1.8 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@0.1.9 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.1.8</h1>
+  <h1>rc-scroll-anim@0.1.9</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -798,13 +798,13 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 <span class="hljs-comment">// ScrollOverPack目前只支持rc-animate,rc-queue-anim,rc-tween-one;</span>
 React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollOverPack</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'queueAnim'</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{child:</span> <span class="hljs-attribute">null</span>}}&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'queueAnim'</span> <span class="hljs-attribute">hideProps</span>=<span class="hljs-value">{{child:</span> <span class="hljs-attribute">null</span>}}&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'a'</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'b'</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'b'</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">TweenOne</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'tweenOne'</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{type:</span> '<span class="hljs-attribute">reverse</span>'}}&gt;</span>单元素动画<span class="hljs-tag">&lt;/<span class="hljs-title">TweenOne</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'rc-animate'</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"fade"</span> <span class="hljs-attribute">transitionAppear</span> <span class="hljs-attribute">scrollHideProps</span>=<span class="hljs-value">{{child:</span> <span class="hljs-attribute">null</span>}}&gt;</span>rc-animate示例<span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">TweenOne</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'tweenOne'</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span> <span class="hljs-attribute">hideProps</span>=<span class="hljs-value">{{type:</span> '<span class="hljs-attribute">reverse</span>'}}&gt;</span>单元素动画<span class="hljs-tag">&lt;/<span class="hljs-title">TweenOne</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'rc-animate'</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"fade"</span> <span class="hljs-attribute">transitionAppear</span> <span class="hljs-attribute">hideProps</span>=<span class="hljs-value">{{child:</span> <span class="hljs-attribute">null</span>}}&gt;</span>rc-animate示例<span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollOverPack</span>&gt;</span>, container);</span></code></pre></div><h4>Parallax示例<a id="user-content-parallax示例" name="parallax示例" class="anchor" aria-hidden="true" href="#parallax示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> ScrollParallax = ScrollAnim.Parallax;
 React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span> <span class="hljs-attribute">vars</span>=<span class="hljs-value">{{x:100}}</span>&gt;</span>Parallax示例<span class="hljs-tag">&lt;/<span class="hljs-title">ScrollPallax</span>&gt;</span>,container);</span></code></pre></div><h4>Link, Element示例<a id="user-content-link,-element示例" name="link,-element示例" class="anchor" aria-hidden="true" href="#link,-element示例"><span class="octicon octicon-link"></span></a></h4><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> Link = ScrollAnim.Link;
 <span class="hljs-keyword">var</span> Element = ScrollAnim.Element;
@@ -859,8 +859,8 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 </tbody>
 </table>
 <h4>子级动画支持 <code>rc-queue-anim</code> <code>rc-animte</code> <code>rc-tween-one</code><a id="user-content-子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" name="子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" class="anchor" aria-hidden="true" href="#子级动画支持-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>"><span class="octicon octicon-link"></span></a></h4><blockquote>
-<p>children 为 <code>rc-queue-anim</code> <code>rc-animte</code> 或其它把children设为 null 就有动画的组件时: scrollHideProps={{child: null}}
-children 为 <code>rc-tween-one</code> 或其它有倒放功能在出场时不想删掉元素的组件时: scrollHideProps={{type: &#39;reverse&#39;}}
+<p>children 为 <code>rc-queue-anim</code> <code>rc-animte</code> 或其它把children设为 null 就有动画的组件时: hideProps={{child: null}}
+children 为 <code>rc-tween-one</code> 或其它有倒放功能在出场时不想删掉元素的组件时: hideProps={{type: &#39;reverse&#39;}}
 详细看 ScrollOverPack 示例</p>
 </blockquote>
 <h3>Parallax<a id="user-content-parallax" name="parallax" class="anchor" aria-hidden="true" href="#parallax"><span class="octicon octicon-link"></span></a></h3><table>
