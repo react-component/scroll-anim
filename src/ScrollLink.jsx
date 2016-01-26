@@ -127,7 +127,8 @@ class ScrollLink extends React.Component {
         this.onClick(e);
       },
     });
-    props.className = props.className.indexOf(active) === -1 ? `${props.className} ${active}` : props.className.replace(/active/ig, '').trim();
+    const reg = new RegExp(active, 'ig');
+    props.className = props.className.indexOf(active) === -1 ? `${props.className} ${active}` : props.className.replace(reg, '').trim();
     return createElement(this.props.component, props);
   }
 }
