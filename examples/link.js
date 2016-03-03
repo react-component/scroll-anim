@@ -7062,14 +7062,14 @@ webpackJsonp([0],{
 			"react-scroll-anim",
 			"scroll-anim"
 		],
-		"homepage": "https://github.com/ant-motion/scroll-anim",
+		"homepage": "https://github.com/react-component/scroll-anim",
 		"author": "155259966@qq.com",
 		"repository": {
 			"type": "git",
-			"url": "https://github.com/ant-motion/scroll-anim.git"
+			"url": "https://github.com/react-component/scroll-anim.git"
 		},
 		"bugs": {
-			"url": "https://github.com/ant-motion/scroll-anim/issues"
+			"url": "https://github.com/react-component/scroll-anim/issues"
 		},
 		"files": [
 			"lib",
