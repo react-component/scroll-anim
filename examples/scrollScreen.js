@@ -91,12 +91,12 @@ class Demo extends React.Component {
 
       <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}} always={false}
                       id="page2" playScale={1}>
-        <TweenOne animation={{opacity: 1}} key="t" className="tween-one" style={{opacity: 0}} hideProps={{ reverse: true }}>只进入一次</TweenOne>
+        <TweenOne animation={{opacity: 1}} key="t" className="tween-one" style={{ opacity: 0 }} hideProps={{ reverse: true }}>只进入一次</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>
           <div className="demo"></div>
         </Animate>
-        <TweenOne className="demo" animation={{y: 0, opacity: 1}} key="1"
-                  style={{transform: 'translateY(100px)', opacity: 0}}
+        <TweenOne className="demo" animation={{ y: 0, opacity: 1 }} key="1"
+                  style={{ transform: 'translateY(100px)', opacity: 0 }}
                   hideProps={{ reverse: true }}/>
       </ScrollOverPack>
     </div>);
