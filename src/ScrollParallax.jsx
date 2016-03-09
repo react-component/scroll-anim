@@ -45,7 +45,7 @@ class ScrollParallax extends React.Component {
     this.scrollTop = 0;
     // 新增个记录props.style的；
     this.currentStyle = assign({}, this.props.style);
-    this.setDefaultData(this.props.vars || {});
+    this.setDefaultData(this.props.animation || {});
     this.state = {
       style: this.style,
     };
@@ -73,11 +73,11 @@ class ScrollParallax extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const equal = objectEqual(this.props.vars, nextProps.vars);
+    const equal = objectEqual(this.props.animation, nextProps.animation);
     if (!equal) {
       this.parallaxStart = {};
       this.defaultData = [];
-      this.setDefaultData(nextProps.vars || {});
+      this.setDefaultData(nextProps.animation || {});
     }
     const styleEqual = objectEqual(this.currentStyle, nextProps.style);
     if (!styleEqual) {
@@ -360,7 +360,7 @@ const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.P
 const childPropTypes = React.PropTypes.oneOfType([objectOrArray, React.PropTypes.string]);
 ScrollParallax.propTypes = {
   component: React.PropTypes.string,
-  vars: objectOrArray,
+  animation: objectOrArray,
   always: React.PropTypes.bool,
   location: React.PropTypes.string,
   children: childPropTypes,

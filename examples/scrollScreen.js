@@ -67,8 +67,8 @@ class Demo extends React.Component {
         </QueueAnim>
       </Element>
       <ScrollOverPack scrollName="page1" className="page1" playScale={1} replay>
-        <TweenOne className="tween-one" key="0" vars={{opacity: 1}}
-                  hideProps={{type: 'reverse'}}>每次进入都启动播放
+        <TweenOne className="tween-one" key="0" animation={{opacity: 1}}
+                  hideProps={{ reverse: true }}>每次进入都启动播放
         </TweenOne>
         <QueueAnim key="1" hideProps={{child: null}}>
           <div key="0" className="demo"></div>
@@ -80,24 +80,24 @@ class Demo extends React.Component {
 
       <ScrollOverPack scrollName="page2" className="pack-page page2" style={{backgroundColor: '#174270'}} id="page3"
                       playScale={1}>
-        <TweenOne className="tween-one" vars={{opacity: 1}} key="t" hideProps={{type: 'reverse'}}>只从上往下时播放</TweenOne>
+        <TweenOne className="tween-one" animation={{opacity: 1}} key="t" hideProps={{ reverse: true }}>只从上往下时播放</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>
           <div className="demo2"></div>
         </Animate>
-        <TweenOne className="demo2" vars={{y: 0, opacity: 1}} key="1"
+        <TweenOne className="demo2" animation={{y: 0, opacity: 1}} key="1"
                   style={{transform: 'translateY(100px)', opacity: 0}}
-                  hideProps={{type: 'reverse'}}/>
+                  hideProps={{ reverse: true }}/>
       </ScrollOverPack>
 
       <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}} always={false}
                       id="page2" playScale={1}>
-        <TweenOne vars={{opacity: 1}} key="t" className="tween-one" style={{opacity: 0}} hideProps={{type: 'reverse'}}>只进入一次</TweenOne>
+        <TweenOne animation={{opacity: 1}} key="t" className="tween-one" style={{opacity: 0}} hideProps={{ reverse: true }}>只进入一次</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>
           <div className="demo"></div>
         </Animate>
-        <TweenOne className="demo" vars={{y: 0, opacity: 1}} key="1"
+        <TweenOne className="demo" animation={{y: 0, opacity: 1}} key="1"
                   style={{transform: 'translateY(100px)', opacity: 0}}
-                  hideProps={{type: 'reverse'}}/>
+                  hideProps={{ reverse: true }}/>
       </ScrollOverPack>
     </div>);
   }

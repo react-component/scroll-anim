@@ -29,8 +29,8 @@ class Demo extends React.Component {
         </QueueAnim>
       </div>
       <ScrollOverPack scrollName="page1" className="page1">
-        <TweenOne className="tween-one" key="0" vars={{opacity: 1}}
-                  hideProps={{type: 'reverse'}}>默认进入与出场
+        <TweenOne className="tween-one" key="0" animation={{opacity: 1}}
+                  hideProps={{ reverse: true }}>默认进入与出场
         </TweenOne>
         <QueueAnim key="1" hideProps={{child: null}}>
           <div key="0" className="demo"></div>
@@ -46,21 +46,21 @@ class Demo extends React.Component {
         <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>
           <div className="demo2"></div>
         </Animate>
-        <TweenOne className="demo2" vars={{y: 0, opacity: 1}} key="1"
+        <TweenOne className="demo2" animation={{y: 0, opacity: 1}} key="1"
                   style={{transform: 'translateY(100px)', opacity: 0}}
-                  hideProps={{type: 'reverse'}}/>
+                  hideProps={{ reverse: true }}/>
       </ScrollOverPack>
 
       <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}}
                       playScale={0.8} id="page3">
-        <TweenOne vars={{opacity: 1}} style={{opacity: 0}} key="title" hideProps={{type: 'reverse'}}
+        <TweenOne animation={{opacity: 1}} style={{opacity: 0}} key="title" hideProps={{ reverse: true }}
                   className="page2-title">在页面80％时进入</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>
           <div className="demo"></div>
         </Animate>
-        <TweenOne className="demo" vars={{y: 0, opacity: 1}} key="1"
+        <TweenOne className="demo" animation={{y: 0, opacity: 1}} key="1"
                   style={{transform: 'translateY(100px)', opacity: 0}}
-                  hideProps={{type: 'reverse'}}/>
+                  hideProps={{ reverse: true }}/>
       </ScrollOverPack>
     </div>);
   }
