@@ -127,13 +127,13 @@ ScrollAnim.scrollScreen.unMount();
 ### Parallax
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| vars      | object / array | `null`  | 组件动效数据     |
+| animation      | object / array | `null`  | 组件动效数据     |
 | location  | string         | `null`  | 定位,`Element`的 name 值，必需是唯一的|
 | always    | boolean        | `true`  | 同上            |
 | scrollName| string         | `null`  | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
 | component | string         | `div`   | 同上            |
 
-#### vars = { }
+#### animation = { }
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | playScale | array          | `[0, 1]`| 播放的区域段，第一个数为开始时的窗口百分比，第二个为结束时的窗口百分比，当第一个数为0时，将从窗口底部开始播放，且第二个为1时将在窗口顶部结束动画;</br> 时间轴 timeline 时, 第一个将默认加上前面的播放时间, 如 `[{playScale: [0, 0.2]}, {playScale: [0, 0.8]}]]`, 后面的0.8值相当于1, 在屏幕顶部结束 |
@@ -142,7 +142,7 @@ ScrollAnim.scrollScreen.unMount();
 | onStart   | function       |    -    | 开始 (playScale[0]) 时回调 |
 | onComplete| function       |    -    | 到达 (playScale[1]) 时回调 |
 
-> vars = [{},{}] 时为timeline;
+> animation = [{},{}] 时为timeline;
 
 ### Link
 | name      | type           | default | description    |
