@@ -54,7 +54,7 @@ describe('rc-scroll-anim', function() {
     instance = createScrollParallax({
       style: {opacity: 0},
       component: 'i',
-      vars: {opacity: 1},
+      animation: {opacity: 1},
     });
     const windowHeight = document.documentElement.clientHeight;
     const docHeight = document.documentElement.getBoundingClientRect().height;
@@ -92,7 +92,7 @@ describe('rc-scroll-anim', function() {
     instance = createScrollParallax({
       style: {opacity: 0},
       component: 'i',
-      vars: {opacity: 1, playScale: [0.5, 1]},
+      animation: {opacity: 1, playScale: [0.5, 1]},
     });
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
     const windowHeight = document.documentElement.clientHeight;
@@ -123,7 +123,7 @@ describe('rc-scroll-anim', function() {
     instance = createScrollParallax({
       style: {opacity: 0},
       component: 'i',
-      vars: {opacity: 1},
+      animation: {opacity: 1},
       always: false,
     });
     const windowHeight = document.documentElement.clientHeight;

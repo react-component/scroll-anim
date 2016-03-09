@@ -23,7 +23,7 @@ describe('rc-scroll-anim', function() {
         return (<div>
           <div style={{height: 1000}}></div>
           <ScrollAnim.OverPack {...this.props} style={{height: 1000}}>
-            <TweenOne key="one" vars={{opacity: 1}} className="tween-one" style={{opacity: 0}} component="i" hideProps={{type: 'reverse'}}>demo</TweenOne>
+            <TweenOne key="one" animation={{opacity: 1}} className="tween-one" style={{opacity: 0}} component="i" hideProps={{ reverse: true }}>demo</TweenOne>
             <QueueAnim key="queueAnim" className="queue-anim" hideProps={{child: null}}>
               <p key="0">demo</p>
               <p key="1">demo</p>
