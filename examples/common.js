@@ -9602,6 +9602,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9635,8 +9636,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 	
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9647,7 +9646,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 	
@@ -13496,7 +13499,10 @@
 	      }
 	    });
 	
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+	
 	    return nativeProps;
 	  }
 	
@@ -18969,7 +18975,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.6';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 152 */
@@ -20270,7 +20276,7 @@
 	    this.scrollTop = 0;
 	    // 新增个记录props.style的；
 	    this.currentStyle = (0, _objectAssign2['default'])({}, this.props.style);
-	    this.setDefaultData(this.props.vars || {});
+	    this.setDefaultData(this.props.animation || {});
 	    this.state = {
 	      style: this.style
 	    };
@@ -20305,11 +20311,11 @@
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _this3 = this;
 	
-	      var equal = (0, _util.objectEqual)(this.props.vars, nextProps.vars);
+	      var equal = (0, _util.objectEqual)(this.props.animation, nextProps.animation);
 	      if (!equal) {
 	        this.parallaxStart = {};
 	        this.defaultData = [];
-	        this.setDefaultData(nextProps.vars || {});
+	        this.setDefaultData(nextProps.animation || {});
 	      }
 	      var styleEqual = (0, _util.objectEqual)(this.currentStyle, nextProps.style);
 	      if (!styleEqual) {
@@ -20616,7 +20622,7 @@
 	var childPropTypes = _react2['default'].PropTypes.oneOfType([objectOrArray, _react2['default'].PropTypes.string]);
 	ScrollParallax.propTypes = {
 	  component: _react2['default'].PropTypes.string,
-	  vars: objectOrArray,
+	  animation: objectOrArray,
 	  always: _react2['default'].PropTypes.bool,
 	  location: _react2['default'].PropTypes.string,
 	  children: childPropTypes,
@@ -21574,17 +21580,17 @@
 /* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var now = __webpack_require__(173)
-	  , global = typeof window === 'undefined' ? {} : window
+	/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(173)
+	  , root = typeof window === 'undefined' ? global : window
 	  , vendors = ['moz', 'webkit']
 	  , suffix = 'AnimationFrame'
-	  , raf = global['request' + suffix]
-	  , caf = global['cancel' + suffix] || global['cancelRequest' + suffix]
+	  , raf = root['request' + suffix]
+	  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
 	
-	for(var i = 0; i < vendors.length && !raf; i++) {
-	  raf = global[vendors[i] + 'Request' + suffix]
-	  caf = global[vendors[i] + 'Cancel' + suffix]
-	      || global[vendors[i] + 'CancelRequest' + suffix]
+	for(var i = 0; !raf && i < vendors.length; i++) {
+	  raf = root[vendors[i] + 'Request' + suffix]
+	  caf = root[vendors[i] + 'Cancel' + suffix]
+	      || root[vendors[i] + 'CancelRequest' + suffix]
 	}
 	
 	// Some versions of FF have rAF but not cAF
@@ -21637,12 +21643,17 @@
 	  // Wrap in a new function to prevent
 	  // `cancel` potentially being assigned
 	  // to the native rAF function
-	  return raf.call(global, fn)
+	  return raf.call(root, fn)
 	}
 	module.exports.cancel = function() {
-	  caf.apply(global, arguments)
+	  caf.apply(root, arguments)
 	}
-
+	module.exports.polyfill = function() {
+	  root.requestAnimationFrame = raf
+	  root.cancelAnimationFrame = caf
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 173 */
