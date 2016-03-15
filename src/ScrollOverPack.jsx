@@ -55,6 +55,7 @@ class ScrollOverPack extends React.Component {
     const offsetTop = domRect.top + scrollTop;
     const elementShowHeight = scrollTop - offsetTop + clientHeight;
     const playHeight = clientHeight * this.props.playScale;
+
     // 设置往上时的出场点...
     const leaveHeight = domRect.height > clientHeight ? clientHeight / 2 : domRect / 2;
     const replay = this.props.replay ? elementShowHeight >= playHeight && elementShowHeight <= clientHeight + leaveHeight : elementShowHeight >= playHeight;
