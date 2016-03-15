@@ -264,6 +264,7 @@
 	      var offsetTop = domRect.top + scrollTop;
 	      var elementShowHeight = scrollTop - offsetTop + clientHeight;
 	      var playHeight = clientHeight * this.props.playScale;
+	
 	      // 设置往上时的出场点...
 	      var leaveHeight = domRect.height > clientHeight ? clientHeight / 2 : domRect / 2;
 	      var replay = this.props.replay ? elementShowHeight >= playHeight && elementShowHeight <= clientHeight + leaveHeight : elementShowHeight >= playHeight;
