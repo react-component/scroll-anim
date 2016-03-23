@@ -219,7 +219,7 @@ class ScrollParallax extends React.Component {
 
   scrollEventListener() {
     const scrollTop = currentScrollTop();
-    const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    const clientHeight = this.props.docHeight || window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     const newStyle = this.style;
     this.defaultData.forEach((item, i)=> {
       if (!item) {
@@ -367,6 +367,7 @@ ScrollParallax.propTypes = {
   className: React.PropTypes.string,
   style: objectOrArray,
   scrollName: React.PropTypes.string,
+  docHeight: React.PropTypes.number,
 };
 
 ScrollParallax.defaultProps = {

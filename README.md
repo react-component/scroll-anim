@@ -118,6 +118,7 @@ ScrollAnim.scrollScreen.unMount();
 | playScale | number         | `0.5`   | percentage of screen to start play, screen center is 0.5 |
 | always    | boolean        | `true`  | back to top, enter replay，as `false` will only play it again, leave does not play |
 | scrollName| string         | `null`  | need to location the name，parallax the `location` or link the `location`, need to use |
+| docHeight | number         | `null`  | Manually set the document height |
 | replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
 
 #### children support animation:  `rc-queue-anim` `rc-animte` `rc-tween-one`
@@ -134,6 +135,7 @@ ScrollAnim.scrollScreen.unMount();
 | location  | string         | `null`  | location, `Element` the `scrollName`, only scroll name |
 | always    | boolean        | `true`  | -            |
 | scrollName| string         | `null`  | -            |
+| docHeight | number         | `null`  | Manually set the document height |
 | component | string         | `div`   | -            |
 
 #### animation = { }
