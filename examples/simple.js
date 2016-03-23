@@ -7028,7 +7028,7 @@ webpackJsonp([3],{
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.2.1",
+		"version": "0.2.2",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",

@@ -257,7 +257,7 @@
 	  }, {
 	    key: 'scrollEventListener',
 	    value: function scrollEventListener(e) {
-	      var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      var clientHeight = this.props.docHeight || window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 	      var scrollTop = (0, _util.currentScrollTop)();
 	      // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
 	      var domRect = this.dom.getBoundingClientRect();
@@ -266,7 +266,7 @@
 	      var playHeight = clientHeight * this.props.playScale;
 	
 	      // 设置往上时的出场点...
-	      var leaveHeight = domRect.height > clientHeight ? clientHeight / 2 : domRect / 2;
+	      var leaveHeight = domRect.height > clientHeight ? clientHeight / 2 : domRect.height / 2;
 	      var replay = this.props.replay ? elementShowHeight >= playHeight && elementShowHeight <= clientHeight + leaveHeight : elementShowHeight >= playHeight;
 	      if (replay) {
 	        if (!this.state.show) {
@@ -332,7 +332,8 @@
 	  className: _react2['default'].PropTypes.string,
 	  style: objectOrArray,
 	  scrollName: _react2['default'].PropTypes.string,
-	  replay: _react2['default'].PropTypes.bool
+	  replay: _react2['default'].PropTypes.bool,
+	  docHeight: _react2['default'].PropTypes.number
 	};
 	
 	ScrollOverPack.defaultProps = {
@@ -20472,7 +20473,7 @@
 	      var _this6 = this;
 	
 	      var scrollTop = (0, _util.currentScrollTop)();
-	      var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      var clientHeight = this.props.docHeight || window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 	      var newStyle = this.style;
 	      this.defaultData.forEach(function (item, i) {
 	        if (!item) {
@@ -20629,7 +20630,8 @@
 	  children: childPropTypes,
 	  className: _react2['default'].PropTypes.string,
 	  style: objectOrArray,
-	  scrollName: _react2['default'].PropTypes.string
+	  scrollName: _react2['default'].PropTypes.string,
+	  docHeight: _react2['default'].PropTypes.number
 	};
 	
 	ScrollParallax.defaultProps = {
