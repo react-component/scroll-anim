@@ -59,30 +59,32 @@ http://ant.design/
 
 ## Usage
 
-#### ScrollOverPack示例
+#### ScrollOverPack 
 ```js
 var ScrollAnim = require('rc-scroll-anim');
 var ScrollOverPack = ScrollAnim.OverPack;
 var React = require('react');
-// ScrollOverPack目前只支持rc-animate,rc-queue-anim,rc-tween-one;
+
+// ScrollOverPack support rc-animate,rc-queue-anim,rc-tween-one;
+
 React.render(<ScrollOverPack>
   <QueueAnim key='queueAnim' hideProps={{child: null}}>
-    <div key='a'>依次进入</div>
-    <div key='b'>依次进入</div>
-    <div key='b'>依次进入</div>
+    <div key='a'>enter</div>
+    <div key='b'>enter</div>
+    <div key='b'>enter</div>
   </QueueAnim>
-  <TweenOne key='tweenOne' vars={{x:100}} hideProps={{ reverse: true }}>单元素动画</TweenOne>
-  <Animate key='rc-animate' transitionName="fade" transitionAppear hideProps={{child: null}}>rc-animate示例</Animate>
+  <TweenOne key='tweenOne' vars={{x:100}} hideProps={{ reverse: true }}>one element</TweenOne>
+  <Animate key='rc-animate' transitionName="fade" transitionAppear hideProps={{child: null}}>rc-animate</Animate>
 </ScrollOverPack>, container);
 ```
-#### Parallax示例
+#### Parallax
 
 ```js
 var ScrollParallax = ScrollAnim.Parallax;
-React.render(<ScrollParallax vars={{x:100}}>Parallax示例</ScrollPallax>,container);
+React.render(<ScrollParallax vars={{x:100}}>Parallax</ScrollPallax>,container);
 ```
 
-#### Link, Element示例
+#### Link, Element
 
 ```js
 var Link = ScrollAnim.Link;
@@ -92,12 +94,12 @@ React.render(<div>
     <Link className="nav-list" location="page0">nav0</Link>
     <Link className="nav-list" location="page1">nav1</Link>
   </div>
-  <Element className="pack-page" scrollName="page0">示例</Element>
-  <Element className="pack-page" scrollName="page1">示例</Element>
+  <Element className="pack-page" scrollName="page0">demo</Element>
+  <Element className="pack-page" scrollName="page1">demo</Element>
 </div>,container);
 ```
 
-### scrollScreen示例
+### scrollScreen
 
 ```js
 ScrollAnim.scrollScreen.init();
@@ -112,78 +114,77 @@ ScrollAnim.scrollScreen.unMount();
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| component | string         | `div`   | 组件标签        |
-| playScale | number         | `0.5`   | 开始播放的屏幕百分比, 0.5 为屏幕中间 |
-| always    | boolean        | `true`  | 到否重复播放，如为 false 将只进入一遍，不再触发出场效果 |
-| scrollName| string         | `null`  | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
-| replay    | boolean        | `false` | 每次显示当前时是否都要动画, `false` 为只下往上滚时才有动画; |
+| component | string         | `div`   | component tag        |
+| playScale | number         | `0.5`   | percentage of screen to start play, screen center is 0.5 |
+| always    | boolean        | `true`  | back to top, enter replay，as `false` will only play it again, leave does not play |
+| scrollName| string         | `null`  | need to location the name，parallax the `location` or link the `location`, need to use |
+| replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
 
-#### 子级动画支持 `rc-queue-anim` `rc-animte` `rc-tween-one`
+#### children support animation:  `rc-queue-anim` `rc-animte` `rc-tween-one`
 
-> children 为 `rc-queue-anim` `rc-animte` 或其它把children设为 null 就有动画的组件时: hideProps={{child: null}}
+> children be `rc-queue-anim` `rc-animte` add on label: hideProps={{ child: null }}
 
-> children 为 `rc-tween-one` 或其它有倒放功能在出场时不想删掉元素的组件时: hideProps={{ reverse: true }}
+> children be `rc-tween-one` add on label: hideProps={{ reverse: true }}
 
-> 详细看 ScrollOverPack 示例
 
 ### Parallax
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| animation      | object / array | `null`  | 组件动效数据     |
-| location  | string         | `null`  | 定位,`Element`的 name 值，必需是唯一的|
-| always    | boolean        | `true`  | 同上            |
-| scrollName| string         | `null`  | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
-| component | string         | `div`   | 同上            |
+| animation      | object / array | `null`  | animation data     |
+| location  | string         | `null`  | location, `Element` the `scrollName`, only scroll name |
+| always    | boolean        | `true`  | -            |
+| scrollName| string         | `null`  | -            |
+| component | string         | `div`   | -            |
 
 #### animation = { }
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| playScale | array          | `[0, 1]`| 播放的区域段，第一个数为开始时的窗口百分比，第二个为结束时的窗口百分比，当第一个数为0时，将从窗口底部开始播放，且第二个为1时将在窗口顶部结束动画;</br> 时间轴 timeline 时, 第一个将默认加上前面的播放时间, 如 `[{playScale: [0, 0.2]}, {playScale: [0, 0.8]}]]`, 后面的0.8值相当于1, 在屏幕顶部结束 |
-| ease      | string         | `easeInOutQuad`| 动画的缓动 |
-| onUpdate  | function       |    -    | 更新时回调，传回带ease的百分比   ｜ 
-| onStart   | function       |    -    | 开始 (playScale[0]) 时回调 |
-| onComplete| function       |    -    | 到达 (playScale[1]) 时回调 |
+| playScale | array          | `[0, 1]`| play area, [start, end]<br/> timeline: `[{playScale: [0, 0.2]}, {playScale: [0, 0.8]}]]`, Second will increase by 0.2, The second end is 1  |
+| ease      | string         | `easeInOutQuad`| animation easing string |
+| onUpdate  | function       |    -    |  animate updates, callback: onUpdate(easeValue})   ｜ 
+| onStart   | function       |    -    |  animate start (playScale[0]) callback; |
+| onComplete| function       |    -    |  animate completed (playScale[1]) callback |
 
 > animation = [{},{}] 时为timeline;
 
 ### Link
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| location  | string         | `null`  | 必需; 指定元素到达顶部; `Element` 的 name 值, 元素必需是唯一的 |
-| duration  | number         | `450`   | 点击滚动动画的时间 |
-| ease      | string         | `easeInOutQuad` | 动画缓动 | 
-| active    | string         | `active`| 选中时的样式    |
-| showHeightActive| string / number / array | `0` | 如设定了值，在进入时距顶部还有指定值的时, `link` 标签被附于 `active` 值; 在出场时是还有指定值时, `link` 标签移除 `active` 值; 如果为Array时，第一个为进场，第二个为出场; |
-| toShowHeight | boolean     | false   | 点击时是否滚到 `showHeightActive` 上 |
-| onFocus   | func           | null    | 选中时回调，返回参数{target,to} |
-| onBlur    | func           | null    | 失去焦点时回调，返回参数同上 ｜
-| component | string         | `div`   | 同上            |
+| location  | string         | `null`  | need; Specifies the element to top; `Element` the `scrollName`  |
+| duration  | number         | `450`   | scroll animate duration |
+| ease      | string         | `easeInOutQuad` | animation easing string | 
+| active    | string         | `active`| selected className  |
+| showHeightActive| string / number / array | `0` | Distance from top be you value, tag add `active`, leave same; is array [enter, leave]; |
+| toShowHeight | boolean     | false   | scroll to `showHeightActive` |
+| onFocus   | func           | null    | check callback,onFocus({target,to}) |
+| onBlur    | func           | null    | blur callback ｜
+| component | string         | `div`   | -            |
 
 ### Element 
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| scrollName | string         | null    | 需要定位的名称，parallax的 location 或 link 的 location, 都需要以此元素做定位 |
-| component | string         | `div`   | 同上            |
+| scrollName | string         | null    | - |
+| component | string         | `div`   | -            |
 
-> 注: 如果元素不是以上组件时，需要定位到此元素上时，请用 `Element`
+> Note: if the element is not the above component, you need to location this element; please use the `Element`
 
 ### ScrollAnim.scrollScreen.init(vars)
-用处: 滚动一屏窗口;
+Use: scroll a screen window;
 
 #### vars = { }
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| duration  | number         | 450     | 滚动一段的时间   |
-| ease      | string         | `easeInOutQuad` | 动画缓动 |
-| docHeight | number         | null    | 如果设置了 body 或 html 的 height: 100% 时, 页面高度无法获取, 需要自已定义; 为 null 时用的是html的高度 |
-| loop      | boolean        | false   | 前后相接循环  |
-| scrollInterval | number    | 1000    | 滚动事件间隔时间 |
+| duration  | number         | 450     | scroll duration   |
+| ease      | string         | `easeInOutQuad` | easing |
+| docHeight | number         | null    | default to HTML height, when body or html the height: 100%, page height can not be obtained, need their own definition |
+| loop      | boolean        | false   | Before and after the phase cycle  |
+| scrollInterval | number    | 1000    | rolling interval time |
 
 ### ScrollAnim.scrollScreen.unMount()
 
-清除一屏滚动效果;
+Clear a screen scrolling effect;
 
 ### Event 
 ```jsx
