@@ -48,7 +48,7 @@ class ScrollOverPack extends React.Component {
   }
 
   scrollEventListener(e) {
-    const clientHeight = this.props.docHeight || window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     const scrollTop = currentScrollTop();
     // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
     const domRect = this.dom.getBoundingClientRect();
@@ -119,7 +119,6 @@ ScrollOverPack.propTypes = {
   style: objectOrArray,
   scrollName: React.PropTypes.string,
   replay: React.PropTypes.bool,
-  docHeight: React.PropTypes.number,
 };
 
 ScrollOverPack.defaultProps = {
