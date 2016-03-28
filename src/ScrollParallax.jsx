@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import assign from 'object-assign';
 import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
-import Css from './Css';
+import Css from 'style-utils';
 import {dataToArray, objectEqual, currentScrollTop} from './util';
 import mapped from './Mapped';
 
