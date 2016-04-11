@@ -87,15 +87,15 @@ class ScrollOverPack extends React.Component {
       this.oneEnter = true;
     } else {
       if (!this.state.show) {
-        this.state.children = this.state.children.map(item=> {
+        this.state.children = this.state.children.map(item => {
           let element;
           const hideProps = item.props.hideProps;
           if (hideProps) {
             if ('child' in hideProps) {
-              element = React.cloneElement(item, item.props, null);
+              element = React.cloneElement(item, {}, null);
               return element;
             }
-            element = React.cloneElement(item, hideProps);
+            element = React.cloneElement(item, { ...hideProps });
             return element;
           }
           return null;
