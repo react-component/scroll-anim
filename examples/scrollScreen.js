@@ -3,12 +3,12 @@ webpackJsonp([2],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(198);
+	module.exports = __webpack_require__(203);
 
 
 /***/ },
 
-/***/ 176:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
@@ -20,7 +20,7 @@ webpackJsonp([2],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _QueueAnim = __webpack_require__(177);
+	var _QueueAnim = __webpack_require__(183);
 	
 	var _QueueAnim2 = _interopRequireDefault(_QueueAnim);
 	
@@ -29,7 +29,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 177:
+/***/ 183:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {'use strict';
@@ -52,18 +52,89 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(163);
+	var _reactDom = __webpack_require__(37);
 	
-	var _utils = __webpack_require__(179);
+	var _utils = __webpack_require__(185);
 	
-	var _animTypes = __webpack_require__(180);
+	var _animTypes = __webpack_require__(186);
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
+	
+	var _ease = {
+	  easeInElastic: function easeInElastic(_p, o, t) {
+	    var p = _p;
+	    var _p1 = o >= 1 ? o : 1;
+	    var _p2 = (t || 1) / (o < 1 ? o : 1);
+	    var _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
+	    return -(_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2));
+	  },
+	  easeOutElastic: function easeOutElastic(p, o, t) {
+	    var _p1 = o >= 1 ? o : 1;
+	    var _p2 = (t || 1) / (o < 1 ? o : 1);
+	    var _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
+	    return _p1 * Math.pow(2, -10 * p) * Math.sin((p - _p3) * _p2) + 1;
+	  },
+	  easeInOutElastic: function easeInOutElastic(_p, o, t) {
+	    var p = _p;
+	    var _p1 = o >= 1 ? o : 1;
+	    var _p2 = (t || 1) / (o < 1 ? o : 1);
+	    var _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
+	    p *= 2;
+	    return p < 1 ? -0.5 * (_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2)) : _p1 * Math.pow(2, -10 * (p -= 1)) * Math.sin((p - _p3) * _p2) * 0.5 + 1;
+	  },
+	  easeInBounce: function easeInBounce(_p) {
+	    var p = _p;
+	    var __p = 1 - p;
+	    if (__p < 1 / 2.75) {
+	      return 1 - 7.5625 * p * p;
+	    } else if (p < 2 / 2.75) {
+	      return 1 - (7.5625 * (p -= 1.5 / 2.75) * p + 0.75);
+	    } else if (p < 2.5 / 2.75) {
+	      return 1 - (7.5625 * (p -= 2.25 / 2.75) * p + 0.9375);
+	    }
+	    return 1 - (7.5625 * (p -= 2.625 / 2.75) * p + 0.984375);
+	  },
+	  easeOutBounce: function easeOutBounce(_p) {
+	    var p = _p;
+	    if (p < 1 / 2.75) {
+	      return 7.5625 * p * p;
+	    } else if (p < 2 / 2.75) {
+	      return 7.5625 * (p -= 1.5 / 2.75) * p + 0.75;
+	    } else if (p < 2.5 / 2.75) {
+	      return 7.5625 * (p -= 2.25 / 2.75) * p + 0.9375;
+	    }
+	    return 7.5625 * (p -= 2.625 / 2.75) * p + 0.984375;
+	  },
+	  easeInOutBounce: function easeInOutBounce(_p) {
+	    var p = _p;
+	    var invert = p < 0.5;
+	    if (invert) {
+	      p = 1 - p * 2;
+	    } else {
+	      p = p * 2 - 1;
+	    }
+	    if (p < 1 / 2.75) {
+	      p = 7.5625 * p * p;
+	    } else if (p < 2 / 2.75) {
+	      p = 7.5625 * (p -= 1.5 / 2.75) * p + 0.75;
+	    } else if (p < 2.5 / 2.75) {
+	      p = 7.5625 * (p -= 2.25 / 2.75) * p + 0.9375;
+	    } else {
+	      p = 7.5625 * (p -= 2.625 / 2.75) * p + 0.984375;
+	    }
+	    return invert ? (1 - p) * 0.5 : p * 0.5 + 0.5;
+	  }
+	};
 	
 	var velocity = undefined;
 	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 	  // only load velocity on the client
-	  velocity = __webpack_require__(181);
+	  velocity = __webpack_require__(187);
+	  Object.keys(_ease).forEach(function (key) {
+	    if (velocity.Easings) {
+	      velocity.Easings[key] = _ease[key];
+	    }
+	  });
 	} else {
 	  // provide a velocity stub for the server
 	  velocity = function velocityServerDummy() {
@@ -309,10 +380,8 @@ webpackJsonp([2],{
 	
 	      elements.forEach(function (elem) {
 	        var animatingClassName = _this4.props.animatingClassName;
-	        if (elem.className.indexOf(animatingClassName[1]) >= 0) {
-	          elem.className = elem.className.replace(animatingClassName[1], '');
-	        }
-	        if (elem.className.indexOf(' ' + animatingClassName[0]) === -1) {
+	        elem.className = elem.className.replace(animatingClassName[1], '');
+	        if (elem.className.indexOf(animatingClassName[0]) === -1) {
 	          elem.className += ' ' + animatingClassName[0];
 	        }
 	      });
@@ -336,9 +405,7 @@ webpackJsonp([2],{
 	
 	      elements.forEach(function (elem) {
 	        var animatingClassName = _this6.props.animatingClassName;
-	        if (elem.className.indexOf(animatingClassName[0]) >= 0) {
-	          elem.className = elem.className.replace(animatingClassName[0], '');
-	        }
+	        elem.className = elem.className.replace(animatingClassName[0], '');
 	        if (elem.className.indexOf(animatingClassName[1]) === -1) {
 	          elem.className += ' ' + animatingClassName[1];
 	        }
@@ -399,12 +466,13 @@ webpackJsonp([2],{
 	var numberOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.array]);
 	var stringOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.array]);
 	var objectOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.object, _react2['default'].PropTypes.array]);
+	var funcOrString = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, _react2['default'].PropTypes.string]);
 	var funcOrStringOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, stringOrArray]);
 	var funcOrObjectOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, objectOrArray]);
 	var funcOrNumberOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, numberOrArray]);
 	
 	QueueAnim.propTypes = {
-	  component: _react2['default'].PropTypes.string,
+	  component: funcOrString,
 	  interval: numberOrArray,
 	  duration: funcOrNumberOrArray,
 	  delay: funcOrNumberOrArray,
@@ -429,14 +497,14 @@ webpackJsonp([2],{
 	
 	exports['default'] = QueueAnim;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184).setImmediate))
 
 /***/ },
 
-/***/ 178:
+/***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(9).nextTick;
+	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(8).nextTick;
 	var apply = Function.prototype.apply;
 	var slice = Array.prototype.slice;
 	var immediateIds = {};
@@ -512,11 +580,11 @@ webpackJsonp([2],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178).setImmediate, __webpack_require__(178).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184).setImmediate, __webpack_require__(184).clearImmediate))
 
 /***/ },
 
-/***/ 179:
+/***/ 185:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -622,7 +690,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 180:
+/***/ 186:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -671,7 +739,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 181:
+/***/ 187:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
@@ -4563,16 +4631,16 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 182:
+/***/ 188:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(183);
+	module.exports = __webpack_require__(189);
 
 /***/ },
 
-/***/ 183:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4595,21 +4663,21 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(163);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(168);
+	var _objectAssign = __webpack_require__(13);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _raf = __webpack_require__(172);
+	var _raf = __webpack_require__(178);
 	
 	var _raf2 = _interopRequireDefault(_raf);
 	
-	var _util = __webpack_require__(184);
+	var _util = __webpack_require__(190);
 	
-	var _TimeLine = __webpack_require__(185);
+	var _TimeLine = __webpack_require__(191);
 	
 	var _TimeLine2 = _interopRequireDefault(_TimeLine);
 	
@@ -4826,9 +4894,10 @@ webpackJsonp([2],{
 	
 	var objectOrArray = _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]);
 	var objectOrArrayOrString = _react.PropTypes.oneOfType([_react.PropTypes.string, objectOrArray]);
+	var stringOrFunc = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.func]);
 	
 	TweenOne.propTypes = {
-	  component: _react.PropTypes.string,
+	  component: stringOrFunc,
 	  animation: objectOrArray,
 	  children: objectOrArrayOrString,
 	  style: _react.PropTypes.object,
@@ -4848,7 +4917,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 184:
+/***/ 190:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4932,7 +5001,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 185:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -4946,15 +5015,19 @@ webpackJsonp([2],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _tweenFunctions = __webpack_require__(169);
+	var _objectAssign = __webpack_require__(13);
+	
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+	
+	var _tweenFunctions = __webpack_require__(175);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
-	var _Css = __webpack_require__(186);
+	var _styleUtils = __webpack_require__(176);
 	
-	var _Css2 = _interopRequireDefault(_Css);
+	var _styleUtils2 = _interopRequireDefault(_styleUtils);
 	
-	var _BezierPlugin = __webpack_require__(187);
+	var _BezierPlugin = __webpack_require__(192);
 	
 	var _BezierPlugin2 = _interopRequireDefault(_BezierPlugin);
 	
@@ -5011,8 +5084,8 @@ webpackJsonp([2],{
 	    tweenData.data = {};
 	    for (var _key in item) {
 	      if (!(_key in tweenData)) {
-	        var key = _Css2['default'].getGsapType(_key);
-	        var cssName = _Css2['default'].isTransform(key);
+	        var key = _styleUtils2['default'].getGsapType(_key);
+	        var cssName = _styleUtils2['default'].isTransform(key);
 	        _this.startData[cssName] = start[cssName];
 	        tweenData.data[_key] = item[_key];
 	      }
@@ -5033,69 +5106,81 @@ webpackJsonp([2],{
 	  });
 	  this.totalTime = repeatMax ? Number.MAX_VALUE : now;
 	  this.defaultData = data;
+	  // 初始 animData.tween, 功能: 解决当 type: 'from' 时出场延时会不归位;
+	  this.setAnimDataTween();
 	};
-	p.setAnimStartData = function (endData) {
+	p.setAnimDataTween = function () {
 	  var _this2 = this;
 	
+	  this.defaultData.forEach(function (item, i) {
+	    var _item = _this2.setAnimStartData(item, i);
+	    if (i === 0) {
+	      // 第一个先设置, 延时时归位...
+	      _this2.animData.start[0] = _item;
+	    }
+	    var easeVars = item.type === 'from' ? 1 : 0;
+	    _this2.setNewStyle(easeVars, _item, item.data, i);
+	  });
+	};
+	p.setAnimStartData = function (endData, i) {
+	  var _this3 = this;
+	
+	  var _endData = endData.data;
 	  var obj = {};
 	
 	  function setStyle(_obj, data, key) {
 	    var cssStyleArr = data.toString().split(' ');
-	    cssStyleArr.forEach(function (__item) {
-	      var _item = __item.replace(/[(|)]/ig, '$').split('$');
-	      _obj[_item[0]] = _item[1];
-	    });
-	    _obj[key] = _Css2['default'].mergeTransformName(cssStyleArr, key) || _obj[key] || 0;
+	    if (data) {
+	      cssStyleArr.forEach(function (__item) {
+	        var _item = __item.replace(/[(|)]/ig, '$').split('$');
+	        _obj[_item[0]] = _item[1];
+	      });
+	    }
+	    var num = key.indexOf('scale') >= 0 ? 1 : 0;
+	    _obj[key] = _styleUtils2['default'].mergeTransformName(cssStyleArr, key) || _obj[key] || num;
 	  }
 	
-	  Object.keys(endData).forEach(function (_key) {
-	    var key = _Css2['default'].getGsapType(_key);
-	    var cssName = _Css2['default'].isTransform(key);
-	    if (_this2.startData[cssName] === 'none' || _this2.startData[cssName] === 'auto') {
-	      _this2.startData[cssName] = '';
+	  Object.keys(_endData).forEach(function (_key) {
+	    var key = _styleUtils2['default'].getGsapType(_key);
+	    var cssName = _styleUtils2['default'].isTransform(key);
+	    var startData = _this3.animData.tween && _this3.animData.tween[cssName] ? _this3.animData.tween : _this3.startData;
+	    if (!startData[cssName] || startData[cssName] === 'none' || startData[cssName] === 'auto') {
+	      startData[cssName] = '';
 	    }
 	    if (cssName === 'transform' || cssName === 'filter') {
 	      if (cssName === 'transform') {
 	        // 设置了style
-	        if (_this2.animData.tween && _this2.animData.tween[cssName]) {
-	          setStyle(obj, _this2.animData.tween[cssName] || 0, key);
-	        } else {
-	          setStyle(obj, _this2.startData[cssName] || 0, key);
-	        }
+	        setStyle(obj, startData[cssName], key);
 	      } else {
 	        // 是filter时
-	        var cssStyleArr = undefined;
-	        if (_this2.animData.tween && _this2.animData.tween[cssName]) {
-	          cssStyleArr = (_this2.animData.tween[cssName] || '').split(' ');
-	          obj[key] = cssStyleArr.length ? cssStyleArr.join(' ') : 0;
-	        } else {
-	          cssStyleArr = (_this2.startData[cssName] || '').split(' ');
-	          obj[key] = cssStyleArr.length ? cssStyleArr.join(' ') : 0;
-	        }
+	        var cssStyleArr = (startData[cssName] || '').split(' ');
+	        obj[key] = cssStyleArr.length ? cssStyleArr.join(' ') : 0;
+	      }
+	    } else if (cssName === 'bezier') {
+	      var bezier = _this3.animData['bezier' + i] = new _BezierPlugin2['default'](startData.transform, _endData[_key]);
+	      obj.transform = bezier.set(0);
+	      if (endData.type === 'from') {
+	        obj.transform = bezier.set(1);
 	      }
 	    } else {
 	      // 不是以上两种情况时
-	      if (_this2.animData.tween && _this2.animData.tween[cssName]) {
-	        obj[key] = _this2.animData.tween[cssName];
-	      } else {
-	        obj[key] = _this2.startData[cssName] || 0;
-	      }
+	      obj[key] = startData[cssName] || 0;
 	    }
 	  });
 	  return obj;
 	};
-	p.setNewStyle = function (easeValue, endData, i) {
-	  var _this3 = this;
+	p.setNewStyle = function (easeValue, startData, endData, i) {
+	  var _this4 = this;
 	
-	  var start = this.animData.start[i];
+	  var start = startData;
 	  Object.keys(endData).forEach(function (_key) {
-	    var key = _Css2['default'].getGsapType(_key);
+	    var key = _styleUtils2['default'].getGsapType(_key);
 	    var endVars = endData[_key];
 	    var startVars = start[key];
 	    var differ = undefined;
 	    if (key.indexOf('color') >= 0 || key.indexOf('Color') >= 0) {
-	      startVars = _Css2['default'].parseColor(startVars);
-	      endVars = _Css2['default'].parseColor(endVars);
+	      startVars = _styleUtils2['default'].parseColor(startVars);
+	      endVars = _styleUtils2['default'].parseColor(endVars);
 	      startVars[3] = typeof startVars[3] !== 'number' ? 1 : startVars[3];
 	      endVars[3] = typeof endVars[3] !== 'number' ? 1 : endVars[3];
 	      differ = endVars.map(function (data, ii) {
@@ -5103,8 +5188,8 @@ webpackJsonp([2],{
 	      });
 	    } else if (key.indexOf('shadow') >= 0 || key.indexOf('Shadow') >= 0) {
 	      startVars = startVars === 'none' || !startVars ? '0 0 0 transparent' : startVars;
-	      startVars = _Css2['default'].parseShadow(startVars);
-	      endVars = _Css2['default'].parseShadow(endVars);
+	      startVars = _styleUtils2['default'].parseShadow(startVars);
+	      endVars = _styleUtils2['default'].parseShadow(endVars);
 	      differ = endVars.map(function (data, ii) {
 	        return (parseFloat(data) - parseFloat(startVars[ii])) * easeValue + parseFloat(startVars[ii]);
 	      });
@@ -5116,84 +5201,92 @@ webpackJsonp([2],{
 	        differ = startVars + endVars * easeValue;
 	      }
 	    }
-	    var cssName = _Css2['default'].isTransform(key);
-	    _this3.startData[cssName] = _this3.startData[cssName] === 'none' ? '' : _this3.startData[cssName];
+	    var cssName = _styleUtils2['default'].isTransform(key);
+	    _this4.startData[cssName] = _this4.startData[cssName] === 'none' || !_this4.startData[cssName] ? '' : _this4.startData[cssName];
 	    if (cssName === 'bezier') {
-	      var bezier = _this3.animData['bezier' + i] = _this3.animData['bezier' + i] || new _BezierPlugin2['default'](_this3.startData.transform, endData[_key]);
-	      _this3.startData.transform = _this3.startData.transform === 'none' ? '' : _this3.startData.transform;
-	      _this3.animData.tween.transform = _Css2['default'].mergeStyle(_this3.startData.transform, _this3.animData.tween.transform || '');
-	      _this3.animData.tween.transform = _Css2['default'].mergeStyle(_this3.animData.tween.transform, bezier.set(easeValue));
+	      var bezier = _this4.animData['bezier' + i];
+	      _this4.animData.tween.transform = _styleUtils2['default'].mergeStyle(_this4.startData.transform, _this4.animData.tween.transform || '');
+	      _this4.animData.tween.transform = _styleUtils2['default'].mergeStyle(_this4.animData.tween.transform, bezier.set(easeValue));
 	    } else if (cssName === 'filter') {
-	      _this3.animData.tween[cssName] = _Css2['default'].mergeStyle(_this3.startData[cssName] || '', _this3.animData.tween[cssName] || '');
-	      _this3.animData.tween[cssName] = _Css2['default'].mergeStyle(_this3.animData.tween[cssName], _Css2['default'].getFilterParam(start[_key], endData[_key], easeValue));
+	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.startData[cssName] || '', _this4.animData.tween[cssName] || '');
+	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.animData.tween[cssName], _styleUtils2['default'].getFilterParam(start[_key], endData[_key], easeValue));
 	    } else if (cssName === 'transform') {
-	      _this3.animData.tween[cssName] = _Css2['default'].mergeStyle(_this3.startData[cssName] || '', _this3.animData.tween[cssName] || '');
-	      _this3.animData.tween[cssName] = _Css2['default'].mergeStyle(_this3.animData.tween[cssName], _Css2['default'].getParam(key, endData[_key], differ));
+	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.startData[cssName] || '', _this4.animData.tween[cssName] || '');
+	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.animData.tween[cssName], _styleUtils2['default'].getParam(key, endData[_key], differ));
 	    } else {
-	      _this3.animData.tween[cssName] = _Css2['default'].getParam(key, endData[_key], differ);
+	      _this4.animData.tween[cssName] = _styleUtils2['default'].getParam(key, endData[_key], differ);
 	    }
 	  });
 	};
 	p.getStyle = function () {
-	  var _this4 = this;
+	  var _this5 = this;
 	
 	  this.defaultData.forEach(function (item, i) {
 	    var initTime = item.initTime;
 	    // 处理 yoyo 和 repeat; yoyo 是在时间轴上的, 并不是倒放
-	    var repeatNum = Math.ceil(_this4.progressTime / (item.duration + item.repeatDelay)) - 1;
-	    repeatNum = _this4.progressTime === 0 ? repeatNum + 1 : repeatNum;
+	    var repeatNum = Math.ceil(_this5.progressTime / (item.duration + item.repeatDelay)) - 1;
+	    repeatNum = _this5.progressTime === 0 ? repeatNum + 1 : repeatNum;
 	    if (item.repeat) {
 	      if (item.repeat || item.repeat <= repeatNum) {
 	        initTime = initTime + repeatNum * (item.duration + item.repeatDelay);
 	      }
 	    }
-	    var progressTime = _this4.progressTime - initTime;
+	    var progressTime = _this5.progressTime - initTime;
 	    // onRepeat 处理
-	    if (item.repeat && repeatNum > 0 && progressTime < _this4.oneSecond) {
+	    if (item.repeat && repeatNum > 0 && progressTime < _this5.oneSecond) {
 	      // 重新开始, 在第一秒触发时调用;
 	      item.onRepeat();
 	    }
 	    // 状态
 	    var mode = 'onUpdate';
 	    // 开始 onStart
-	    if (i === 0 && progressTime < 5 || i !== 0 && progressTime > 0 && progressTime < _this4.oneSecond) {
+	    if (i === 0 && progressTime < 5 || i !== 0 && progressTime > 0 && progressTime < _this5.oneSecond) {
 	      item.onStart();
 	      mode = 'onStart';
+	      _this5.animData.start = (0, _objectAssign2['default'])({}, _this5.animData.start, _this5.animData.tween);
 	    }
-	    if (progressTime > -_this4.oneSecond) {
+	    if (progressTime > -_this5.oneSecond) {
 	      // 设置 animData
-	      _this4.animData.start[i] = _this4.animData.start[i] || _this4.setAnimStartData(item.data);
+	      _this5.animData.start[i] = _this5.animData.start[i] || _this5.setAnimStartData(item);
 	    }
-	    if (progressTime > item.duration && !_this4.animData.start['bool' + i]) {
-	      _this4.setNewStyle(1, item.data, i);
-	      _this4.animData.start['bool' + i] = _this4.animData.start['bool' + i] || 1;
+	    if (progressTime > item.duration && !_this5.animData.start['bool' + i]) {
+	      _this5.setNewStyle(0, _this5.animData.start[i], item.data, i);
+	      _this5.animData.start['bool' + i] = _this5.animData.start['bool' + i] || 1;
 	    }
-	    if (progressTime > -_this4.oneSecond && progressTime < item.duration + _this4.oneSecond) {
-	      _this4.animData.start['bool' + i] = _this4.animData.start['bool' + i] || 1;
-	      progressTime = progressTime < 0 ? 0 : progressTime;
-	      progressTime = progressTime > item.duration ? item.duration : progressTime;
-	      var easeVars = _tweenFunctions2['default'][item.ease](progressTime, 0, 1, item.duration);
-	      if (item.yoyo && repeatNum % 2 || item.type === 'from') {
-	        easeVars = _tweenFunctions2['default'][item.ease](progressTime, 1, 0, item.duration);
-	      }
-	      // update 事件
-	      item.onUpdate(easeVars);
+	    if (progressTime > -_this5.oneSecond && progressTime < item.duration + _this5.oneSecond) {
+	      (function () {
+	        _this5.animData.start['bool' + i] = _this5.animData.start['bool' + i] || 1;
+	        progressTime = progressTime < 0 ? 0 : progressTime;
+	        progressTime = progressTime > item.duration ? item.duration : progressTime;
+	        var easeVars = _tweenFunctions2['default'][item.ease](progressTime, 0, 1, item.duration);
+	        if (item.yoyo && repeatNum % 2 || item.type === 'from') {
+	          easeVars = _tweenFunctions2['default'][item.ease](progressTime, 1, 0, item.duration);
+	        }
 	
-	      // 当前点生成样式;
-	      _this4.setNewStyle(easeVars, item.data, i);
-	      // complete 事件
-	      if (progressTime === item.duration) {
-	        item.onComplete();
-	        mode = 'onComplete';
-	      }
-	      // onChange
-	      _this4.onChange({
-	        moment: _this4.progressTime,
-	        item: item,
-	        tween: _this4.animData.tween,
-	        index: i,
-	        mode: mode
-	      });
+	        // 当前点生成样式;
+	        _this5.setNewStyle(easeVars, _this5.animData.start[i], item.data, i);
+	
+	        setTimeout(function () {
+	          // 加 setTimeout 是为了在 this.setState 之后调用;
+	          // complete 事件
+	          if (progressTime === item.duration) {
+	            item.onComplete();
+	            mode = 'onComplete';
+	          }
+	          if (mode === 'onUpdate') {
+	            // update 事件
+	            item.onUpdate(easeVars);
+	          }
+	          // onChange
+	          _this5.onChange({
+	            moment: _this5.progressTime,
+	            item: item,
+	            tween: _this5.animData.tween,
+	            index: i,
+	            mode: mode
+	          });
+	        });
+	      })();
 	    }
 	  });
 	};
@@ -5216,419 +5309,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 186:
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	var IE = (function () {
-	  if (document.documentMode) {
-	    return document.documentMode;
-	  }
-	  for (var i = 7; i > 4; i--) {
-	    var div = document.createElement('div');
-	    div.innerHTML = '<!--[if IE ' + i + ']><span class="is-ie"></span><![endif]-->';
-	    if (div.getElementsByClassName('is-ie').length) {
-	      div = null;
-	      return i;
-	    }
-	  }
-	  return undefined;
-	})();
-	
-	var colorLookup = {
-	  aqua: [0, 255, 255],
-	  lime: [0, 255, 0],
-	  silver: [192, 192, 192],
-	  black: [0, 0, 0],
-	  maroon: [128, 0, 0],
-	  teal: [0, 128, 128],
-	  blue: [0, 0, 255],
-	  navy: [0, 0, 128],
-	  white: [255, 255, 255],
-	  fuchsia: [255, 0, 255],
-	  olive: [128, 128, 0],
-	  yellow: [255, 255, 0],
-	  orange: [255, 165, 0],
-	  gray: [128, 128, 128],
-	  purple: [128, 0, 128],
-	  green: [0, 128, 0],
-	  red: [255, 0, 0],
-	  pink: [255, 192, 203],
-	  cyan: [0, 255, 255],
-	  transparent: [255, 255, 255, 0]
-	};
-	var _hue = function _hue(hh, m1, m2) {
-	  var h = hh > 1 ? hh - 1 : hh;
-	  h = hh < 0 ? hh + 1 : h;
-	  var a = h * 3 < 2 ? m1 + (m2 - m1) * (2 / 3 - h) * 6 : m1;
-	  var b = h < 0.5 ? m2 : a;
-	  var c = h * 6 < 1 ? m1 + (m2 - m1) * h * 6 : b;
-	  return c * 255 + 0.5 | 0;
-	};
-	
-	var CSS = {
-	  _lists: {
-	    transformsBase: ['translate', 'translateX', 'translateY', 'scale', 'scaleX', 'scaleY', 'skewX', 'skewY', 'rotateZ', 'rotate'],
-	    transforms3D: ['translate3d', 'translateZ', 'scaleZ', 'rotateX', 'rotateY', 'perspective']
-	  },
-	  transformGroup: { translate: 1, translate3d: 1, scale: 1, scale3d: 1, rotate: 1, rotate3d: 1 },
-	
-	  getGsapType: function getGsapType(_p) {
-	    var p = _p;
-	    p = p === 'x' ? 'translateX' : p;
-	    p = p === 'y' ? 'translateY' : p;
-	    p = p === 'z' ? 'translateZ' : p;
-	    p = p === 'r' ? 'rotate' : p;
-	    return p;
-	  },
-	
-	  parseShadow: function parseShadow(v) {
-	    var vArr = v.split(' ');
-	    var color = this.parseColor(vArr[3]);
-	    color[3] = typeof color[3] === 'number' ? color[3] : 1;
-	    vArr = vArr.splice(0, 3);
-	    return vArr.concat(color);
-	  },
-	
-	  parseColor: function parseColor(_v) {
-	    var a = undefined;
-	    var r = undefined;
-	    var g = undefined;
-	    var b = undefined;
-	    var h = undefined;
-	    var s = undefined;
-	    var l = undefined;
-	    var v = _v;
-	    var _numExp = /(?:\d|\-\d|\.\d|\-\.\d)+/g;
-	    if (!v) {
-	      a = colorLookup.black;
-	    } else if (typeof v === 'number') {
-	      a = [v >> 16, v >> 8 & 255, v & 255];
-	    } else {
-	      if (v.charAt(v.length - 1) === ',') {
-	        v = v.substr(0, v.length - 1);
-	      }
-	      if (colorLookup[v]) {
-	        a = colorLookup[v];
-	      } else if (v.charAt(0) === '#') {
-	        // is #FFF
-	        if (v.length === 4) {
-	          r = v.charAt(1);
-	          g = v.charAt(2);
-	          b = v.charAt(3);
-	          v = '#' + r + r + g + g + b + b;
-	        }
-	        v = parseInt(v.substr(1), 16);
-	        a = [v >> 16, v >> 8 & 255, v & 255];
-	      } else if (v.substr(0, 3) === 'hsl') {
-	        a = v.match(_numExp);
-	        h = Number(a[0]) % 360 / 360;
-	        s = Number(a[1]) / 100;
-	        l = Number(a[2]) / 100;
-	        g = l <= 0.5 ? l * (s + 1) : l + s - l * s;
-	        r = l * 2 - g;
-	        if (a.length > 3) {
-	          a[3] = Number(a[3]);
-	        }
-	        a[0] = _hue(h + 1 / 3, r, g);
-	        a[1] = _hue(h, r, g);
-	        a[2] = _hue(h - 1 / 3, r, g);
-	      } else {
-	        a = v.match(_numExp) || colorLookup.transparent;
-	      }
-	      a[0] = Number(a[0]);
-	      a[1] = Number(a[1]);
-	      a[2] = Number(a[2]);
-	
-	      if (a.length > 3) {
-	        a[3] = Number(a[3]);
-	      }
-	    }
-	    return a;
-	  },
-	
-	  getArrayToColor: function getArrayToColor(arr) {
-	    var color = 'rgba(';
-	    var _arr = arr.map(function (item, i) {
-	      if (i < 3) {
-	        return parseInt(item, 10);
-	      }
-	      return item;
-	    });
-	    return color + _arr.join(',') + ')';
-	  },
-	
-	  getTransformStart: function getTransformStart(name, obj) {
-	    if (name in obj) {
-	      return obj[name];
-	    }
-	    if (name.indexOf('translate') >= 0) {
-	      if ('translate' in obj || 'translate3d' in obj) {
-	        switch (name) {
-	          case 'translateX':
-	            return obj.translate.split(',')[0];
-	          case 'translateY':
-	            return obj.translate.split(',')[1];
-	          case 'translateZ':
-	            return obj.translate.split(',')[2];
-	          default:
-	            return null;
-	        }
-	      }
-	    } else if (name.indexOf('rotate') >= 0) {
-	      if ('rotate' in obj || 'rotate3d' in obj) {
-	        switch (name) {
-	          case 'rotateX':
-	            return obj.rotate.split(',')[0];
-	          case 'rotateY':
-	            return obj.rotate.split(',')[1];
-	          case 'rotateZ':
-	            return obj.rotate.split(',')[2];
-	          default:
-	            return null;
-	        }
-	      }
-	    } else if (name.indexOf('scale') >= 0) {
-	      if ('scale' in obj) {
-	        switch (name) {
-	          case 'scaleX':
-	            return obj.scale.split(',')[0];
-	          case 'scaleY':
-	            return obj.scale.split(',')[1];
-	          default:
-	            return null;
-	        }
-	      }
-	    }
-	    return false;
-	  },
-	  mergeTransformName: function mergeTransformName(a, b) {
-	    var belongTransform = this.findStyleByName(a, b);
-	    if (belongTransform) {
-	      var bArr = belongTransform.split('(');
-	      var dataArr = bArr[1].replace(')', '').split(',');
-	      switch (b) {
-	        case 'translateX' || 'scaleX' || 'rotateX':
-	          return dataArr[0];
-	        case 'translateY' || 'scaleY' || 'rotateY':
-	          return dataArr[1];
-	        case 'translateZ' || 'rotateZ':
-	          return dataArr[2];
-	        default:
-	          return null;
-	      }
-	    }
-	    return false;
-	  },
-	  findStyleByName: function findStyleByName(cssArray, name) {
-	    var _this = this;
-	
-	    var ret = null;
-	    if (cssArray) {
-	      cssArray.forEach(function (_cname) {
-	        if (ret) {
-	          return;
-	        }
-	        var cName = _cname.split('(')[0];
-	        var a = cName in _this.transformGroup && name.substring(0, name.length - 1).indexOf(cName) >= 0;
-	        var b = name in _this.transformGroup && cName.substring(0, cName.length - 1).indexOf(name) >= 0;
-	        var c = cName in _this.transformGroup && name in _this.transformGroup && (cName.substring(0, cName.length - 2) === name || name.substring(0, name.length - 2) === cName);
-	        if (cName === name || a || b || c) {
-	          ret = _cname;
-	        }
-	      });
-	    }
-	    return ret;
-	  },
-	
-	  mergeStyle: function mergeStyle(current, change) {
-	    var _this2 = this;
-	
-	    if (!current || current === '') {
-	      return change;
-	    }
-	    if (!change || change === '') {
-	      return current;
-	    }
-	    var addArr = [];
-	
-	    var _current = current.trim().split(' ');
-	    var _change = change.trim().split(' ');
-	
-	    // 如果变动的在旧的里没有，把变动的插回进去；
-	    _change.forEach(function (changeOnly) {
-	      var changeArr = changeOnly.split('(');
-	      var changeOnlyName = changeArr[0];
-	      var changeDataArr = changeArr[1].replace(')', '').split(',');
-	      var currentSame = _this2.findStyleByName(_current, changeOnlyName);
-	      if (!currentSame) {
-	        addArr.push(changeOnlyName + '(' + changeDataArr.join(',') + ')');
-	      }
-	    });
-	
-	    _current.forEach(function (currentOnly) {
-	      var currentArr = currentOnly.split('(');
-	      var currentOnlyName = currentArr[0];
-	      var currentDataArr = currentArr[1].replace(')', '').split(',');
-	      var changeSame = _this2.findStyleByName(_change, currentOnlyName);
-	      // 三种情况，ＸＹＺ时分析，空时组合前面的分析，
-	      if (changeSame) {
-	        var changeArr = changeSame.split('(');
-	        var changeOnlyName = changeArr[0];
-	        var changeDataArr = changeArr[1].replace(')', '').split(',');
-	        if (currentOnlyName === changeOnlyName) {
-	          addArr.push(changeSame);
-	        } else if (currentOnlyName in _this2.transformGroup && changeOnlyName.substring(0, changeOnlyName.length - 1).indexOf(currentOnlyName) >= 0) {
-	          switch (changeOnlyName) {
-	            case 'translateX' || 'scaleX' || 'rotateX':
-	              currentDataArr[0] = changeDataArr.join();
-	              break;
-	            case 'translateY' || 'scaleY' || 'rotateY':
-	              currentDataArr[1] = changeDataArr.join();
-	              break;
-	            case 'translateZ' || 'rotateZ':
-	              currentDataArr[2] = changeDataArr.join();
-	              break;
-	            default:
-	              return null;
-	          }
-	          addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
-	        } else if (changeOnlyName in _this2.transformGroup && currentOnlyName.substring(0, currentOnlyName.length - 1).indexOf(changeOnlyName) >= 0) {
-	          addArr.push(changeOnlyName + '(' + changeDataArr.join(',') + ')');
-	        } else if (changeOnlyName in _this2.transformGroup && currentOnlyName in _this2.transformGroup && currentOnlyName.substring(0, currentOnlyName.length - 2) === changeOnlyName) {
-	          // 如果是3d时,且一个为2d时；
-	          switch (changeOnlyName) {
-	            case 'translateX' || 'scaleX' || 'rotateX':
-	              currentDataArr[0] = changeDataArr[0];
-	              break;
-	            case 'translateY' || 'scaleY' || 'rotateY':
-	              currentDataArr[1] = changeDataArr[1];
-	              break;
-	            default:
-	              return null;
-	          }
-	          addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
-	        }
-	      } else {
-	        addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
-	      }
-	    });
-	
-	    if (!addArr.length) {
-	      addArr.push(current, change);
-	    }
-	    addArr.forEach(function (item, i) {
-	      if (item.indexOf('perspective') >= 0 && i) {
-	        addArr.splice(i, 1);
-	        addArr.unshift(item);
-	      }
-	    });
-	    return addArr.join(' ').trim();
-	  },
-	
-	  getValues: function getValues(p, d, u) {
-	    return p + '(' + d + u + ')';
-	  },
-	
-	  isTransform: function isTransform(p) {
-	    return this._lists.transformsBase.indexOf(p) >= 0 ? 'transform' : p;
-	  },
-	
-	  getShadowParam: function getShadowParam(v, d) {
-	    var color = [];
-	    for (var i = 3; i < d.length; i++) {
-	      color.push(d[i]);
-	    }
-	    color = this.getArrayToColor(color);
-	    var vArr = v.split(' ');
-	    var blur = [];
-	    // 获取单位
-	    vArr.forEach(function (item, ii) {
-	      if (ii < 3) {
-	        var unit = item.toString().replace(/[^a-z|%]/ig, '');
-	        blur.push(d[ii] + unit);
-	      }
-	    });
-	    return blur.join(' ') + ' ' + color;
-	  },
-	
-	  getParam: function getParam(p, v, dd) {
-	    var d = Array.isArray(dd) && dd.length === 1 ? dd[0] : dd;
-	    if (p.indexOf('color') >= 0 || p.indexOf('Color') >= 0) {
-	      return this.getArrayToColor(d);
-	    }
-	    var unit = '';
-	    var param = null;
-	    var invalid = true;
-	    if (p.indexOf('translate') >= 0 || p.indexOf('perspective') >= 0) {
-	      invalid = !/(%|px|em|rem|vw|vh|\d)$/i.test(v);
-	      unit = Number(v.toString().replace('=', '')).toString() !== 'NaN' ? 'px' : '';
-	      unit = unit || v.toString().replace(/[^a-z|%]/ig, '');
-	    } else if (p.indexOf('skew') >= 0 || p.indexOf('rotate') >= 0) {
-	      invalid = !/(deg|\d)$/i.test(v);
-	      unit = Number(v.toString().replace('=', '')).toString() !== 'NaN' ? 'deg' : '';
-	      unit = unit || v.toString().replace(/[^a-z|%]/ig, '');
-	    } else if (p.indexOf('scale') >= 0) {
-	      invalid = !/(\d)$/i.test(v);
-	    } else if (p.indexOf('Shadow') >= 0 || p.indexOf('shadow') >= 0) {
-	      return this.getShadowParam(v, d);
-	    }
-	    if (!invalid) {
-	      param = this.getValues(p, d, unit);
-	    } else {
-	      // unit = Number(v) !== NaN ? '' : v.toString().replace(/[^a-z|%]/ig, '');
-	      unit = Number(v.toString().replace('=', '')).toString() !== 'NaN' ? '' : v.toString().replace(/[^a-z|%]/ig, '');
-	      param = d + unit;
-	    }
-	    return param;
-	  },
-	  getFilterParam: function getFilterParam(current, change, data) {
-	    var _this3 = this;
-	
-	    var unit = undefined;
-	    var changeArr = change.split(' ');
-	    var currentArr = current.split(' ');
-	    changeArr = changeArr.map(function (changeOnly) {
-	      var changeOnlyArr = changeOnly.split('(');
-	      var changeOnlyName = changeOnlyArr[0];
-	      var changeDataArr = changeOnlyArr[1].replace(')', '').split(',');
-	      var currentSame = _this3.findStyleByName(currentArr, changeOnlyName);
-	      if (currentSame) {
-	        (function () {
-	          var currentDataArr = currentSame.split('(')[1].replace(')', '').split(',');
-	          changeDataArr = changeDataArr.map(function (dataOnly, i) {
-	            unit = dataOnly.toString().replace(/[^a-z|%]/ig, '');
-	            var currentDataOnly = currentDataArr[i];
-	            var currentUnit = currentDataOnly.toString().replace(/[^a-z|%]/ig, '');
-	            var dataOnlyNumber = parseFloat(dataOnly);
-	            var currentDataOnlyNumber = parseFloat(currentDataOnly);
-	            var differData = currentUnit !== unit ? dataOnlyNumber : dataOnlyNumber - currentDataOnlyNumber;
-	            var _data = differData * data + currentDataOnlyNumber + unit;
-	            return _data;
-	          });
-	        })();
-	      } else {
-	        changeDataArr = changeDataArr.map(function (dataOnly) {
-	          unit = dataOnly.toString().replace(/[^a-z|%]/ig, '');
-	          return parseFloat(dataOnly) * data + unit;
-	        });
-	      }
-	      return changeOnlyName + '(' + changeDataArr.join(',') + ')';
-	    });
-	    return changeArr.join(' ');
-	  }
-	};
-	CSS._lists.transformsBase = !(IE <= 9) ? CSS._lists.transformsBase.concat(CSS._lists.transforms3D) : CSS._lists.transformsBase;
-	exports['default'] = CSS;
-	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 187:
+/***/ 192:
 /***/ function(module, exports) {
 
 	/**
@@ -6145,17 +5826,17 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 188:
+/***/ 193:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(189);
+	module.exports = __webpack_require__(194);
 
 /***/ },
 
-/***/ 189:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6172,13 +5853,13 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(190);
+	var _ChildrenUtils = __webpack_require__(195);
 	
-	var _AnimateChild = __webpack_require__(191);
+	var _AnimateChild = __webpack_require__(196);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(195);
+	var _util = __webpack_require__(200);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -6486,7 +6167,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 190:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6605,7 +6286,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 191:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6620,15 +6301,15 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(163);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(192);
+	var _cssAnimation = __webpack_require__(197);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(195);
+	var _util = __webpack_require__(200);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -6709,13 +6390,13 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 192:
+/***/ 197:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Event = __webpack_require__(193);
-	var Css = __webpack_require__(194);
+	var Event = __webpack_require__(198);
+	var Css = __webpack_require__(199);
 	var isCssAnimationSupported = Event.endEvents.length !== 0;
 	
 	function getDuration(node, name) {
@@ -6868,7 +6549,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 193:
+/***/ 198:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6957,7 +6638,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 194:
+/***/ 199:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6989,7 +6670,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 195:
+/***/ 200:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7023,12 +6704,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 196:
+/***/ 201:
 /***/ function(module, exports) {
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.2.2",
+		"version": "0.2.3",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
@@ -7070,7 +6751,7 @@ webpackJsonp([2],{
 			"pre-commit": "1.x",
 			"rc-server": "3.x",
 			"rc-tools": "4.x",
-			"react": "0.14.x",
+			"react": "^15.0.0",
 			"react-addons-test-utils": "0.14.x",
 			"react-dom": "0.14.x",
 			"rc-queue-anim": "0.11.x",
@@ -7083,13 +6764,14 @@ webpackJsonp([2],{
 		"dependencies": {
 			"object-assign": "4.0.1",
 			"tween-functions": "1.0.1",
-			"raf": "3.1.0"
+			"raf": "3.1.0",
+			"style-utils": "~0.0.1"
 		}
 	};
 
 /***/ },
 
-/***/ 198:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	// use jsx to render html, do not modify simple.html
@@ -7116,23 +6798,23 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(163);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcQueueAnim = __webpack_require__(176);
+	var _rcQueueAnim = __webpack_require__(182);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _rcTweenOne = __webpack_require__(182);
+	var _rcTweenOne = __webpack_require__(188);
 	
 	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
 	
-	var _rcAnimate = __webpack_require__(188);
+	var _rcAnimate = __webpack_require__(193);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _package = __webpack_require__(196);
+	var _package = __webpack_require__(201);
 	
 	var Link = _rcScrollAnim2['default'].Link;
 	var Element = _rcScrollAnim2['default'].Element;

@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.2.2 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@0.2.3 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.2.2</h1>
+  <h1>rc-scroll-anim@0.2.3</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -854,16 +854,16 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>need to location the name，parallax the <code>location</code> or link the <code>location</code>, need to use</td>
 </tr>
 <tr>
-<td>docHeight</td>
-<td>number</td>
-<td><code>null</code></td>
-<td>Manually set the document height</td>
-</tr>
-<tr>
 <td>replay</td>
 <td>boolean</td>
 <td><code>false</code></td>
 <td>play every enter, do you want to animate each time you show the current, <code>false</code> only scroll to down play animate</td>
+</tr>
+<tr>
+<td>onChange</td>
+<td>func</td>
+<td><code>null</code></td>
+<td>callback({ mode, scrollName }), mode: <code>enter</code> <code>leave</code></td>
 </tr>
 </tbody>
 </table>
@@ -904,12 +904,6 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>string</td>
 <td><code>null</code></td>
 <td>-</td>
-</tr>
-<tr>
-<td>docHeight</td>
-<td>number</td>
-<td><code>null</code></td>
-<td>Manually set the document height</td>
 </tr>
 <tr>
 <td>component</td>
