@@ -42,6 +42,12 @@ class ScrollOverPack extends React.Component {
     EventListener.addEventListener(this.eventType, this.scrollEventListener);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      children: toArrayChildren(nextProps.children),
+    });
+  }
+
   componentWillUnmount() {
     mapped.unRegister(this.props.scrollName);
     EventListener.removeEventListener(this.eventType, this.scrollEventListener);
@@ -92,7 +98,7 @@ class ScrollOverPack extends React.Component {
       this.oneEnter = true;
     } else {
       if (!this.state.show) {
-        this.state.children = this.state.children.map(item => {
+        this.children = this.children.map(item => {
           let element;
           const hideProps = item.props.hideProps;
           if (hideProps) {
@@ -106,9 +112,9 @@ class ScrollOverPack extends React.Component {
           return null;
         });
       } else {
-        this.state.children = this.children;
+        this.children = this.state.children;
       }
-      childToRender = createElement(this.props.component, placeholderProps, this.state.children);
+      childToRender = createElement(this.props.component, placeholderProps, this.children);
     }
     return childToRender;
   }
