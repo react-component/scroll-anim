@@ -40,7 +40,7 @@ class Demo extends React.Component {
         </QueueAnim>
       </ScrollOverPack>
 
-      <ScrollOverPack scrollName="page2" className="pack-page page2" style={{backgroundColor: '#0098CE'}} always={false}
+      <ScrollOverPack scrollName="page2" scrollEvent={this.scrollEvent} className="pack-page page2" style={{backgroundColor: '#0098CE'}} always={false}
                       id="page2">
         <div className="page2-title">只进入一次</div>
         <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>

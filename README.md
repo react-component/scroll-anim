@@ -119,6 +119,7 @@ ScrollAnim.scrollScreen.unMount();
 | always    | boolean        | `true`  | back to top, enter replay，as `false` will only play it again, leave does not play |
 | scrollName| string         | `null`  | need to location the name，parallax the `location` or link the `location`, need to use |
 | replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
+| onChange  | func           | `null`  | callback({ mode, scrollName }), mode: `enter` `leave` |
 
 #### children support animation:  `rc-queue-anim` `rc-animte` `rc-tween-one`
 

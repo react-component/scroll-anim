@@ -59,11 +59,14 @@ class ScrollOverPack extends React.Component {
     // 设置往上时的出场点...
     const leaveHeight = domRect.height > clientHeight ? clientHeight / 2 : domRect.height / 2;
     const replay = this.props.replay ? elementShowHeight >= playHeight && elementShowHeight <= clientHeight + leaveHeight : elementShowHeight >= playHeight;
+    let mode = 'scroll';
     if (replay) {
       if (!this.state.show) {
         this.setState({
           show: true,
         });
+        mode = 'enter';
+        this.props.onChange({ mode: mode, scrollName: this.props.scrollName });
       }
       if (!this.props.always) {
         EventListener.removeEventListener(this.eventType, this.scrollEventListener);
@@ -72,10 +75,12 @@ class ScrollOverPack extends React.Component {
       this.setState({
         show: false,
       });
+      mode = 'leave';
+      this.props.onChange({ mode: mode, scrollName: this.props.scrollName });
     }
 
     if (e) {
-      this.props.scrollEvent(e);
+      this.props.scrollEvent({ mode: mode, scrollName: this.props.scrollName, e });
     }
   }
 
@@ -119,6 +124,7 @@ ScrollOverPack.propTypes = {
   style: objectOrArray,
   scrollName: React.PropTypes.string,
   replay: React.PropTypes.bool,
+  onChange: React.PropTypes.func,
 };
 
 ScrollOverPack.defaultProps = {
@@ -127,6 +133,7 @@ ScrollOverPack.defaultProps = {
   always: true,
   scrollEvent: noop,
   replay: false,
+  onChange: noop,
 };
 
 export default ScrollOverPack;
