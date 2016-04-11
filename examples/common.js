@@ -251,6 +251,13 @@
 	      _EventDispatcher2['default'].addEventListener(this.eventType, this.scrollEventListener);
 	    }
 	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({
+	        children: toArrayChildren(nextProps.children)
+	      });
+	    }
+	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      _Mapped2['default'].unRegister(this.props.scrollName);
@@ -304,7 +311,7 @@
 	        this.oneEnter = true;
 	      } else {
 	        if (!this.state.show) {
-	          this.state.children = this.state.children.map(function (item) {
+	          this.children = this.children.map(function (item) {
 	            var element = undefined;
 	            var hideProps = item.props.hideProps;
 	            if (hideProps) {
@@ -318,9 +325,9 @@
 	            return null;
 	          });
 	        } else {
-	          this.state.children = this.children;
+	          this.children = this.state.children;
 	        }
-	        childToRender = (0, _react.createElement)(this.props.component, placeholderProps, this.state.children);
+	        childToRender = (0, _react.createElement)(this.props.component, placeholderProps, this.children);
 	      }
 	      return childToRender;
 	    }

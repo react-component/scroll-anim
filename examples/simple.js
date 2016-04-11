@@ -6709,7 +6709,7 @@ webpackJsonp([3],{
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.2.3",
+		"version": "0.2.4",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
@@ -6880,11 +6880,14 @@ webpackJsonp([3],{
 	        ),
 	        _react2['default'].createElement(
 	          ScrollOverPack,
-	          { scrollName: 'page2', scrollEvent: this.scrollEvent, className: 'pack-page page2', style: { backgroundColor: '#0098CE' }, always: false,
+	          { scrollName: 'page2', scrollEvent: this.scrollEvent, className: 'pack-page page2',
+	            style: { backgroundColor: '#0098CE' }, always: false,
 	            id: 'page2' },
 	          _react2['default'].createElement(
-	            'div',
-	            { className: 'page2-title' },
+	            _rcTweenOne2['default'],
+	            { key: 'title', animation: { opacity: 0, type: 'from' },
+	              hideProps: { reverse: true }, className: 'page2-title'
+	            },
 	            '只进入一次'
 	          ),
 	          _react2['default'].createElement(
