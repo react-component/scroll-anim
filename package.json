@@ -1,6 +1,6 @@
 {
   "name": "rc-scroll-anim",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "scroll-anim anim component for react",
   "keywords": [
     "react",
@@ -43,8 +43,8 @@
     "rc-server": "3.x",
     "rc-tools": "4.x",
     "react": "^15.0.0",
-    "react-addons-test-utils": "0.14.x",
-    "react-dom": "0.14.x",
+    "react-addons-test-utils": "^15.0.0",
+    "react-dom": "^15.0.0",
     "rc-queue-anim": "0.11.x",
     "rc-tween-one": "0.2.x",
     "rc-animate": "2.0.x"
@@ -53,9 +53,9 @@
     "lint"
   ],
   "dependencies": {
-    "object-assign": "4.0.1",
-    "tween-functions": "1.0.1",
-    "raf": "3.1.0",
-    "style-utils": "~0.0.1"
+    "object-assign": "4.0.x",
+    "tween-functions": "1.0.x",
+    "raf": "3.1.x",
+    "style-utils": "0.0.x"
   }
 }
