@@ -108,6 +108,8 @@ ScrollAnim.scrollScreen.unMount();
 
 ## API
 
+<a href='http://motion.ant.design/#/component/scroll-anim' target='_blank'>中文文档</a>
+
 ### props
 
 ### OverPack
