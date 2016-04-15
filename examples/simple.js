@@ -27,7 +27,7 @@ class Demo extends React.Component {
           </div>
         </QueueAnim>
       </div>
-      <ScrollOverPack scrollName="page1" className="page1">
+      <ScrollOverPack scrollName="page1" className="page1" replay>
         <TweenOne className="tween-one" key="0" animation={{opacity: 1}}
           hideProps={{ reverse: true }}>默认进入与出场
         </TweenOne>

@@ -117,7 +117,7 @@ ScrollAnim.scrollScreen.unMount();
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | component | string         | `div`   | component tag        |
-| playScale | number         | `0.5`   | percentage of screen to start play, screen center is 0.5 |
+| playScale | number / array        | `0.5`   | percentage of screen to start play, screen center is 0.5, if replay is true : [bottomEnter, topLeave] |
 | always    | boolean        | `true`  | back to top, enter replay，as `false` will only play it again, leave does not play |
 | scrollName| string         | `null`  | need to location the name，parallax the `location` or link the `location`, need to use |
 | replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
