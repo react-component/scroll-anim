@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>parallax.js - example - rc-scroll-anim@0.2.4</title>
+  <title>parallax.js - example - rc-scroll-anim@0.2.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-scroll-anim@0.2.4</h1>
+    <h1>rc-scroll-anim@0.2.6</h1>
 
     <p>scroll-anim anim component for react</p>
   </div>
@@ -266,17 +266,17 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="parallax.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">// use jsx to render html, do not modify simple.html</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rc-scroll-anim/assets/index.css'</span>;
-<span class="hljs-keyword">import</span> ScrollAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-scroll-anim'</span>;
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+import <span class="hljs-string">'rc-scroll-anim/assets/index.css'</span>;
+import ScrollAnim from <span class="hljs-string">'rc-scroll-anim'</span>;
+import React from <span class="hljs-string">'react'</span>;
+import ReactDOM from <span class="hljs-string">'react-dom'</span>;
 
 <span class="hljs-keyword">const</span> ScrollParallax = ScrollAnim.Parallax;
 <span class="hljs-keyword">const</span> ScrollElement = ScrollAnim.Element;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+<span class="hljs-keyword">class</span> Demo extends React.Component {
   constructor() {
-    <span class="hljs-keyword">super</span>(...arguments);
+    super(...arguments);
     <span class="hljs-keyword">this</span>.state = {
       css: {backgroundColor: <span class="hljs-string">'#174270'</span>, height: <span class="hljs-number">920</span>},
       cssNoPosition: <span class="hljs-literal">true</span>,
@@ -375,11 +375,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollElement</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
   }
 }
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/scroll-anim">

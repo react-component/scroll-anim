@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>link.js - example - rc-scroll-anim@0.2.4</title>
+  <title>link.js - example - rc-scroll-anim@0.2.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-scroll-anim@0.2.4</h1>
+    <h1>rc-scroll-anim@0.2.6</h1>
 
     <p>scroll-anim anim component for react</p>
   </div>
@@ -265,13 +265,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="common.js?nowrap"></script>
   <script src="link.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">// use jsx to render html, do not modify simple.html</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rc-scroll-anim/assets/index.css'</span>;
-<span class="hljs-keyword">import</span> ScrollAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-scroll-anim'</span>;
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-<span class="hljs-keyword">import</span> QueueAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-queue-anim'</span>;
-<span class="hljs-keyword">import</span> TweenOne <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-tween-one'</span>;
-<span class="hljs-keyword">import</span> Animate <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-animate'</span>;
+import <span class="hljs-string">'rc-scroll-anim/assets/index.css'</span>;
+import ScrollAnim from <span class="hljs-string">'rc-scroll-anim'</span>;
+import React from <span class="hljs-string">'react'</span>;
+import ReactDOM from <span class="hljs-string">'react-dom'</span>;
+import QueueAnim from <span class="hljs-string">'rc-queue-anim'</span>;
+import TweenOne from <span class="hljs-string">'rc-tween-one'</span>;
+import Animate from <span class="hljs-string">'rc-animate'</span>;
 <span class="hljs-keyword">const</span> _package = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>);
 
 <span class="hljs-keyword">const</span> Link = ScrollAnim.Link;
@@ -279,9 +279,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">const</span> ScrollOverPack = ScrollAnim.OverPack;
 <span class="hljs-keyword">const</span> EventListener = ScrollAnim.Event;
 <span class="hljs-comment">// ScrollAnim.scrollScreen({scrollInterval: 600});</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+<span class="hljs-keyword">class</span> Demo extends React.Component {
   constructor() {
-    <span class="hljs-keyword">super</span>(...arguments);
+    super(...arguments);
   }
 
   componentDidMount() {
@@ -364,11 +364,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
                   <span class="hljs-attribute">style</span>=<span class="hljs-value">{{transform:</span> '<span class="hljs-attribute">translateY</span>(<span class="hljs-attribute">100px</span>)', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">0</span>}}
                   <span class="hljs-attribute">hideProps</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">reverse:</span> <span class="hljs-attribute">true</span> }}/&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollOverPack</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
   }
 }
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/scroll-anim">
