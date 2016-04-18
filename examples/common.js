@@ -275,7 +275,7 @@
 	      var playScale = (0, _util.transformArguments)(this.props.playScale);
 	      var playHeight = clientHeight * playScale[0];
 	
-	      var enter = elementShowHeight >= playHeight && elementShowHeight <= domRect.height + playHeight;
+	      var enter = elementShowHeight >= playHeight && elementShowHeight <= clientHeight + playHeight;
 	      var bottomLeave = elementShowHeight < playHeight;
 	      // 设置往上时的出场点...
 	      var leaveHeight = domRect.height > clientHeight ? clientHeight : domRect.height;
