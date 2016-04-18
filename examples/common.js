@@ -279,7 +279,7 @@
 	      var bottomLeave = elementShowHeight < playHeight;
 	      // 设置往上时的出场点...
 	      var leaveHeight = domRect.height > clientHeight ? clientHeight : domRect.height;
-	      var topLeave = elementShowHeight > clientHeight + leaveHeight * playScale[1];
+	      var topLeave = this.props.replay ? elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
 	      var mode = 'scroll';
 	      if (enter) {
 	        if (!this.state.show) {
