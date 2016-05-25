@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 
 const ScrollParallax = ScrollAnim.Parallax;
 const ScrollElement = ScrollAnim.Element;
+const _package = require('../package.json');
 
 class Demo extends React.Component {
   constructor() {
@@ -42,7 +43,7 @@ class Demo extends React.Component {
       <div className="pack-page page0 ">
         <div className="home-title">
           <div className="page-title">
-            <p>rc-scroll-anim@0.1.5</p>
+            <p>{_package.name}@{_package.version}</p>
           </div>
           <div className="page-description" key="c">
             <p>The parallax demo</p>
@@ -67,7 +68,7 @@ class Demo extends React.Component {
                         className="demo2 parallax-shape">rotateY</ScrollParallax>
         <ScrollParallax animation={{opacity: 1}} style={{opacity: 0, paddingTop: 60, fontSize: 24}}
                         className="tween-one">自定义显示位置</ScrollParallax>
-        <ScrollParallax animation={{filter: 'blur(0px)', playScale: [0.5, 0.8], opacity: 1}}
+        <ScrollParallax animation={{blur: '0px', playScale: [0.5, 0.8], opacity: 1}}
                         style={{filter: 'blur(20px)', opacity: 0, color: '#fff'}}
                         className="demo parallax-shape">blur</ScrollParallax>
         <ScrollParallax animation={{color: '#fff000', backgroundColor: '#F38EAD', playScale: [0.3, 0.8]}}
@@ -76,7 +77,7 @@ class Demo extends React.Component {
         <ScrollParallax animation={{opacity: 1}} style={{opacity: 0, paddingTop: 60, fontSize: 24}}
                         className="tween-one">多种样式时间轴动画</ScrollParallax>
         <ScrollParallax
-          animation={[{opacity: 1, playScale: [0, 0.2]}, {filter: 'blur(0px)', backgroundColor: '#F38EAD', playScale: [0, 0.2]}, {translateX: -100, boxShadow: '5px 5px 5px #000', color: '#fff000', playScale: [0, 0.2]}, {translateX: 100, playScale: [0, 0.2]}, {translateX: 0, playScale: [0, 0.2]}]}
+          animation={[{opacity: 1, playScale: [0, 0.2]}, {blur: '0px', backgroundColor: '#F38EAD', playScale: [0, 0.2]}, {translateX: -100, boxShadow: '5px 5px 5px #000', color: '#fff000', playScale: [0, 0.2]}, {translateX: 100, playScale: [0, 0.2]}, {translateX: 0, playScale: [0, 0.2]}]}
           style={{filter: 'blur(10px)', transform: 'translateX(0px)', opacity: 0, color: '#fff'}}
           className="demo parallax-shape">timeline</ScrollParallax>
       </div>
