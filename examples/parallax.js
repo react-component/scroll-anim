@@ -52,7 +52,7 @@ class Demo extends React.Component {
       </div>
       <div className="pack-page"
            style={{backgroundColor: '#174270', position: 'relative', overflow: 'hidden', height: 1600}}>
-        <ScrollParallax animation={{opacity: 1}} style={{opacity: 0, paddingTop: 60}}
+        <ScrollParallax animation={{opacity: 1}} always={false} style={{opacity: 0, paddingTop: 60}}
                         className="tween-one">transform 必需在 style 里设定初始值</ScrollParallax>
         <ScrollParallax animation={{opacity: 1}} style={{opacity: 0, paddingTop: 0, fontSize: 24}}
                         className="tween-one">默认显示位置[0 ,1]</ScrollParallax>
