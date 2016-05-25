@@ -65,55 +65,59 @@ describe('rc-scroll-anim', function() {
     instance = createScrollOverPack({
       always: false,
     });
-    window.scrollTo(0, 1000);
-    let child;
-    setTimeout(()=> {
-      window.scrollTo(0, 0);
+    setTimeout(()=>{
+      window.scrollTo(0, 1000);
+      let child;
       setTimeout(()=> {
-        console.log('window.pageYOffset:', window.pageYOffset);
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-        console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
-        expect(getFloat(child[0].style.opacity)).to.be(1);
-        child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-        console.log('always = false -> QueueAnim end child length:', child.length);
-        expect(child.length).to.be(2);
-        done();
-      }, 30);
-    }, 930);
+        window.scrollTo(0, 0);
+        setTimeout(()=> {
+          console.log('window.pageYOffset:', window.pageYOffset);
+          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+          console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
+          expect(getFloat(child[0].style.opacity)).to.be(1);
+          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
+          console.log('always = false -> QueueAnim end child length:', child.length);
+          expect(child.length).to.be(2);
+          done();
+        }, 30);
+      }, 930);
+    }, 30);
   });
 
   it('overPack enter leave', function(done) {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
-    window.scrollTo(0, 1000);
-    let child;
-    setTimeout(()=> {
-      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-      console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
-      expect(getFloat(child[0].style.opacity)).to.above(0);
-      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-      console.log('enter -> QueueAnim start child length:', child.length);
-      expect(child.length).to.above(0);
+    setTimeout(() =>{
+      window.scrollTo(0, 1000);
+      let child;
       setTimeout(()=> {
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-        console.log('enter -> TweenOne end opacity:', child[0].style.opacity);
-        expect(getFloat(child[0].style.opacity)).to.be(1);
-      }, 500);
-      setTimeout(()=> {
+        console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
+        expect(getFloat(child[0].style.opacity)).to.above(0);
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-        console.log('enter -> QueueAnim end child length:', child.length);
-        expect(child.length).to.be(2);
-        window.scrollTo(0, 0);
+        console.log('enter -> QueueAnim start child length:', child.length);
+        expect(child.length).to.above(0);
         setTimeout(()=> {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-          console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
-          expect(getFloat(child[0].style.opacity)).to.below(1);
+          console.log('enter -> TweenOne end opacity:', child[0].style.opacity);
+          expect(getFloat(child[0].style.opacity)).to.be(1);
+        }, 500);
+        setTimeout(()=> {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-          console.log('leave -> QueueAnim end child length:', child.length);
-          expect(child.length).to.be(0);
-          done();
-        }, 1000);
-      }, 600);
+          console.log('enter -> QueueAnim end child length:', child.length);
+          expect(child.length).to.be(2);
+          window.scrollTo(0, 0);
+          setTimeout(()=> {
+            child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+            console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
+            expect(getFloat(child[0].style.opacity)).to.below(1);
+            child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
+            console.log('leave -> QueueAnim end child length:', child.length);
+            expect(child.length).to.be(0);
+            done();
+          }, 1000);
+        }, 600);
+      }, 30);
     }, 30);
   });
 });
