@@ -38,19 +38,19 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcQueueAnim = __webpack_require__(182);
+	var _rcQueueAnim = __webpack_require__(189);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _rcTweenOne = __webpack_require__(188);
+	var _rcTweenOne = __webpack_require__(195);
 	
 	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
 	
-	var _rcAnimate = __webpack_require__(193);
+	var _rcAnimate = __webpack_require__(199);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _package = __webpack_require__(202);
+	var _package = __webpack_require__(208);
 	
 	var Link = _rcScrollAnim2['default'].Link;
 	var Element = _rcScrollAnim2['default'].Element;
@@ -230,7 +230,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 182:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
@@ -242,7 +242,7 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _QueueAnim = __webpack_require__(183);
+	var _QueueAnim = __webpack_require__(190);
 	
 	var _QueueAnim2 = _interopRequireDefault(_QueueAnim);
 	
@@ -251,7 +251,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 183:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {'use strict';
@@ -276,9 +276,9 @@ webpackJsonp([0],{
 	
 	var _reactDom = __webpack_require__(37);
 	
-	var _utils = __webpack_require__(185);
+	var _utils = __webpack_require__(192);
 	
-	var _animTypes = __webpack_require__(186);
+	var _animTypes = __webpack_require__(193);
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
 	
@@ -351,7 +351,7 @@ webpackJsonp([0],{
 	var velocity = undefined;
 	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 	  // only load velocity on the client
-	  velocity = __webpack_require__(187);
+	  velocity = __webpack_require__(194);
 	  Object.keys(_ease).forEach(function (key) {
 	    if (velocity.Easings) {
 	      velocity.Easings[key] = _ease[key];
@@ -719,11 +719,11 @@ webpackJsonp([0],{
 	
 	exports['default'] = QueueAnim;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(191).setImmediate))
 
 /***/ },
 
-/***/ 184:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(8).nextTick;
@@ -802,11 +802,11 @@ webpackJsonp([0],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184).setImmediate, __webpack_require__(184).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(191).setImmediate, __webpack_require__(191).clearImmediate))
 
 /***/ },
 
-/***/ 185:
+/***/ 192:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -912,7 +912,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 186:
+/***/ 193:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -961,7 +961,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 187:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
@@ -4853,16 +4853,18 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 188:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(189);
+	var TweenOne = __webpack_require__(196);
+	TweenOne.TweenOneGroup = __webpack_require__(198);
+	module.exports = TweenOne;
 
 /***/ },
 
-/***/ 189:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4889,38 +4891,27 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(9);
+	var _objectAssign = __webpack_require__(177);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _raf = __webpack_require__(178);
+	var _util = __webpack_require__(197);
 	
-	var _raf2 = _interopRequireDefault(_raf);
+	var _styleUtils = __webpack_require__(179);
 	
-	var _util = __webpack_require__(190);
-	
-	var _TimeLine = __webpack_require__(191);
+	var _TimeLine = __webpack_require__(176);
 	
 	var _TimeLine2 = _interopRequireDefault(_TimeLine);
 	
+	var _ticker = __webpack_require__(181);
+	
+	var _ticker2 = _interopRequireDefault(_ticker);
+	
 	function noop() {}
 	
-	var hidden = undefined;
-	var visibilityChange = undefined;
-	if (typeof document.hidden !== 'undefined') {
-	  // Opera 12.10 and Firefox 18 and later support
-	  hidden = 'hidden';
-	  visibilityChange = 'visibilitychange';
-	} else if (typeof document.mozHidden !== 'undefined') {
-	  hidden = 'mozHidden';
-	  visibilityChange = 'mozvisibilitychange';
-	} else if (typeof document.msHidden !== 'undefined') {
-	  hidden = 'msHidden';
-	  visibilityChange = 'msvisibilitychange';
-	} else if (typeof document.webkitHidden !== 'undefined') {
-	  hidden = 'webkitHidden';
-	  visibilityChange = 'webkitvisibilitychange';
-	}
+	var perFrame = Math.round(1000 / 60);
+	
+	var tickerIdNum = 0;
 	
 	var TweenOne = (function (_Component) {
 	  _inherits(TweenOne, _Component);
@@ -4932,16 +4923,13 @@ webpackJsonp([0],{
 	
 	    _get(Object.getPrototypeOf(TweenOne.prototype), 'constructor', this).apply(this, arguments);
 	    this.rafID = -1;
-	    // 加这个是防 setState 后 this.props.style 和 nextProps.style 是全等的情况, 走马灯里或滚动组件 React.cloneElement(item, showProps) 情况;
-	    this.propsStyle = this.props.style ? (0, _objectAssign2['default'])({}, this.props.style) : this.props.style;
-	    this.startStyle = this.props.style || {};
-	    this.startAnimation = this.props.animation ? (0, _objectAssign2['default'])({}, this.props.animation) : this.props.animation;
-	    this.startMoment = this.props.moment;
 	    this.moment = this.props.moment || 0;
 	    this.state = {
-	      style: this.props.style || {}
+	      startMoment: this.props.moment,
+	      startFrame: _ticker2['default'].frame,
+	      paused: this.props.paused
 	    };
-	    ['raf', 'handleVisibilityChange', 'setCurrentDate', 'frame', 'start', 'play', 'restart'].forEach(function (method) {
+	    ['raf', 'frame', 'start', 'play', 'restart'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
 	  }
@@ -4949,155 +4937,139 @@ webpackJsonp([0],{
 	  _createClass(TweenOne, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var dom = _reactDom2['default'].findDOMNode(this);
-	      this.computedStyle = (0, _objectAssign2['default'])({}, document.defaultView.getComputedStyle(dom));
+	      this.dom = _reactDom2['default'].findDOMNode(this);
 	      this.start(this.props);
-	      document.addEventListener(visibilityChange, this.handleVisibilityChange, false);
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
+	      var _this2 = this;
+	
 	      var newStyle = nextProps.style;
-	      var styleEqual = (0, _util.objectEqual)(this.propsStyle, newStyle);
+	      var styleEqual = (0, _util.objectEqual)(this.props.style, newStyle);
 	      // 如果在动画时,改变了 style 将改变 timeLine 的初始值;
 	      if (!styleEqual) {
-	        // 重置开始的样式;
-	        this.startStyle = (0, _objectAssign2['default'])({}, this.startStyle, this.timeLine.animData.tween, newStyle);
-	        this.propsStyle = newStyle;
 	        if (this.rafID !== -1) {
-	          // 重置数据;
-	          this.timeLine.resetAnimData();
-	          // 合并当前在做动画的样式
-	          this.timeLine.setDefaultData(this.startStyle, (0, _util.dataToArray)(nextProps.animation));
-	        } else {
-	          this.state.style = (0, _objectAssign2['default'])({}, this.state.style, this.startStyle);
+	          this.start(nextProps);
 	        }
 	      }
 	
 	      // 跳帧事件 moment;
 	      var newMoment = nextProps.moment;
-	      if (typeof newMoment === 'number') {
-	        this.startMoment = newMoment;
-	        if (nextProps.paused) {
-	          this.oneMoment = true;
-	          this.timeLine = new _TimeLine2['default']((0, _objectAssign2['default'])({}, this.computedStyle, this.startStyle), (0, _util.dataToArray)(nextProps.animation));
-	          var style = (0, _objectAssign2['default'])({}, this.startStyle, this.timeLine.frame(nextProps.moment));
-	          this.setState({ style: style });
-	        } else {
-	          this.state.style = {};
-	          this.start(nextProps);
-	        }
+	      if (typeof newMoment === 'number' && newMoment !== this.moment) {
+	        this.setState({
+	          startMoment: newMoment,
+	          startFrame: _ticker2['default'].frame
+	        }, function () {
+	          if (_this2.rafID === -1 && !nextProps.paused) {
+	            (function () {
+	              _this2.timeLine.resetAnimData();
+	              var style = nextProps.style;
+	              _this2.dom.setAttribute('style', '');
+	              Object.keys(style).forEach(function (key) {
+	                _this2.dom.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
+	              });
+	              _this2.play();
+	            })();
+	          } else {
+	            _this2.raf();
+	          }
+	        });
 	      }
 	      // 动画处理
 	      var newAnimation = nextProps.animation;
-	      var equal = (0, _util.objectEqual)(this.startAnimation, newAnimation);
+	      var currentAnimation = this.props.animation;
+	      var equal = (0, _util.objectEqual)(currentAnimation, newAnimation);
 	      if (!equal) {
-	        // 如果样式不相等, 那么用新样式做为开始样式;
-	        if (!styleEqual) {
-	          this.startStyle = (0, _objectAssign2['default'])({}, this.startStyle, this.timeLine.animData.tween, newStyle);
-	        } else {
-	          this.startStyle = (0, _objectAssign2['default'])({}, this.startStyle, this.timeLine.animData.tween);
-	        }
-	        this.startAnimation = newAnimation;
-	        this.start(nextProps);
+	        this.setState({
+	          startFrame: _ticker2['default'].frame
+	        }, function () {
+	          _this2.start(nextProps);
+	        });
 	      }
 	      // 暂停倒放
 	      if (this.props.paused !== nextProps.paused || this.props.reverse !== nextProps.reverse) {
-	        this.restart();
+	        if (nextProps.paused) {
+	          this.cancelRequestAnimationFrame();
+	        } else {
+	          if (nextProps.reverse && nextProps.reverseDelay) {
+	            _ticker2['default'].timeout(this.restart, nextProps.reverseDelay);
+	          } else {
+	            this.restart();
+	          }
+	        }
 	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      this.cancelRequestAnimationFram();
-	    }
-	  }, {
-	    key: 'setCurrentDate',
-	    value: function setCurrentDate() {
-	      this.currentNow = Date.now();
+	      this.cancelRequestAnimationFrame();
 	    }
 	  }, {
 	    key: 'restart',
 	    value: function restart() {
-	      this.startMoment = this.timeLine.progressTime;
-	      this.setCurrentDate();
-	      this.play();
+	      var _this3 = this;
+	
+	      this.setState({
+	        startMoment: this.timeLine.progressTime,
+	        startFrame: _ticker2['default'].frame
+	      }, function () {
+	        _this3.play();
+	      });
 	    }
 	  }, {
 	    key: 'start',
 	    value: function start(props) {
-	      this.timeLine = new _TimeLine2['default']((0, _objectAssign2['default'])({}, this.computedStyle, this.startStyle), (0, _util.dataToArray)(props.animation));
-	      if (this.timeLine.defaultData.length && props.animation) {
+	      if (props.animation && Object.keys(props.animation).length) {
+	        this.timeLine = new _TimeLine2['default'](this.dom, (0, _util.dataToArray)(props.animation));
 	        // 开始动画
-	        this.setCurrentDate();
 	        this.play();
 	      }
 	    }
 	  }, {
 	    key: 'play',
 	    value: function play() {
-	      this.cancelRequestAnimationFram();
-	      this.rafID = (0, _raf2['default'])(this.raf);
-	    }
-	  }, {
-	    key: 'handleVisibilityChange',
-	    value: function handleVisibilityChange() {
-	      // 不在当前窗口时
-	      if (document[hidden] && this.rafID !== -1) {
-	        this.startMoment = this.timeLine.progressTime;
-	        this.cancelRequestAnimationFram();
-	        this.rafHide = true;
-	      } else if (this.rafID === -1 && this.rafHide) {
-	        this.setCurrentDate();
-	        this.rafID = (0, _raf2['default'])(this.raf);
-	        this.rafHide = false;
-	      }
+	      this.cancelRequestAnimationFrame();
+	      this.rafID = 'tween' + Date.now() + '-' + tickerIdNum;
+	      this.raf();
+	      _ticker2['default'].wake(this.rafID, this.raf);
+	      tickerIdNum++;
 	    }
 	  }, {
 	    key: 'frame',
 	    value: function frame() {
-	      var now = Date.now() + (this.startMoment || 0);
-	      var moment = now - this.currentNow;
+	      var moment = (_ticker2['default'].frame - this.state.startFrame) * perFrame + (this.state.startMoment || 0);
 	      if (this.props.reverse) {
-	        moment = (this.startMoment || 0) - Date.now() + this.currentNow;
+	        moment = (this.state.startMoment || 0) - (_ticker2['default'].frame - this.state.startFrame) * perFrame;
 	      }
 	      moment = moment > this.timeLine.totalTime ? this.timeLine.totalTime : moment;
 	      moment = moment <= 0 ? 0 : moment;
+	      if (moment < this.moment) {
+	        this.timeLine.resetDefaultStyle();
+	      }
 	      this.moment = moment;
-	      this.timeLine.onChange = this.props.onChange.bind(this);
-	      var style = (0, _objectAssign2['default'])({}, this.startStyle, this.timeLine.frame(moment));
-	      this.setState({
-	        style: style
-	      });
+	      this.timeLine.onChange = this.props.onChange;
+	      this.timeLine.frame(moment);
 	    }
 	  }, {
 	    key: 'raf',
 	    value: function raf() {
-	      if (this.rafID === -1 || this.props.paused) {
-	        this.rafID = -1;
-	        return;
-	      }
 	      this.frame();
 	      if (this.moment >= this.timeLine.totalTime && !this.props.reverse || this.props.paused || this.props.reverse && this.moment === 0) {
-	        this.cancelRequestAnimationFram();
-	      } else {
-	        this.rafID = (0, _raf2['default'])(this.raf);
+	        return this.cancelRequestAnimationFrame();
 	      }
 	    }
 	  }, {
-	    key: 'cancelRequestAnimationFram',
-	    value: function cancelRequestAnimationFram() {
-	      _raf2['default'].cancel(this.rafID);
+	    key: 'cancelRequestAnimationFrame',
+	    value: function cancelRequestAnimationFrame() {
+	      _ticker2['default'].clear(this.rafID);
 	      this.rafID = -1;
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var props = (0, _objectAssign2['default'])({}, this.props);
-	      props.style = (0, _objectAssign2['default'])({}, this.state.style);
-	      if (this.oneMoment) {
-	        this.oneMoment = false;
-	      }
+	      props.style = (0, _objectAssign2['default'])({}, this.props.style);
 	      for (var p in props.style) {
 	        if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {
 	          // ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix=> style[`${prefix}Filter`] = style[p]);
@@ -5115,40 +5087,60 @@ webpackJsonp([0],{
 	})(_react.Component);
 	
 	var objectOrArray = _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]);
-	var objectOrArrayOrString = _react.PropTypes.oneOfType([_react.PropTypes.string, objectOrArray]);
-	var stringOrFunc = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.func]);
 	
 	TweenOne.propTypes = {
-	  component: stringOrFunc,
+	  component: _react.PropTypes.any,
 	  animation: objectOrArray,
-	  children: objectOrArrayOrString,
+	  children: _react.PropTypes.any,
 	  style: _react.PropTypes.object,
 	  paused: _react.PropTypes.bool,
 	  reverse: _react.PropTypes.bool,
+	  reverseDelay: _react.PropTypes.number,
 	  moment: _react.PropTypes.number,
+	  attr: _react.PropTypes.string,
 	  onChange: _react.PropTypes.func
 	};
 	
 	TweenOne.defaultProps = {
 	  component: 'div',
+	  reverseDelay: 0,
+	  attr: 'style',
 	  onChange: noop
 	};
-	
 	exports['default'] = TweenOne;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 190:
-/***/ function(module, exports) {
+/***/ 197:
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+	exports.toArrayChildren = toArrayChildren;
 	exports.dataToArray = dataToArray;
 	exports.objectEqual = objectEqual;
+	exports.findChildInChildrenByKey = findChildInChildrenByKey;
+	exports.mergeChildren = mergeChildren;
+	exports.transformArguments = transformArguments;
+	exports.getChildrenFromProps = getChildrenFromProps;
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(6);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function toArrayChildren(children) {
+	  var ret = [];
+	  _react2['default'].Children.forEach(children, function (c) {
+	    ret.push(c);
+	  });
+	  return ret;
+	}
 	
 	function dataToArray(vars) {
 	  if (!vars && vars !== 0) {
@@ -5220,845 +5212,286 @@ webpackJsonp([0],{
 	
 	  return equalBool;
 	}
+	
+	function findChildInChildrenByKey(children, key) {
+	  var ret = null;
+	  if (children) {
+	    children.forEach(function (c) {
+	      if (ret || !c) {
+	        return;
+	      }
+	      if (c.key === key) {
+	        ret = c;
+	      }
+	    });
+	  }
+	  return ret;
+	}
+	
+	function mergeChildren(prev, next) {
+	  var ret = [];
+	  // For each key of `next`, the list of keys to insert before that key in
+	  // the combined list
+	  var nextChildrenPending = {};
+	  var pendingChildren = [];
+	  prev.forEach(function (c) {
+	    if (!c) {
+	      return;
+	    }
+	    if (findChildInChildrenByKey(next, c.key)) {
+	      if (pendingChildren.length) {
+	        nextChildrenPending[c.key] = pendingChildren;
+	        pendingChildren = [];
+	      }
+	    } else if (c.key) {
+	      pendingChildren.push(c);
+	    }
+	  });
+	
+	  next.forEach(function (c) {
+	    if (!c) {
+	      return;
+	    }
+	    if (nextChildrenPending.hasOwnProperty(c.key)) {
+	      ret = ret.concat(nextChildrenPending[c.key]);
+	    }
+	    ret.push(c);
+	  });
+	
+	  // 保持原有的顺序
+	  pendingChildren.forEach(function (c) {
+	    var originIndex = prev.indexOf(c);
+	    if (originIndex >= 0) {
+	      ret.splice(originIndex, 0, c);
+	    }
+	  });
+	
+	  return ret;
+	}
+	
+	function transformArguments(arg, key, i) {
+	  var result = undefined;
+	  if (typeof arg === 'function') {
+	    result = arg({
+	      key: key,
+	      index: i
+	    });
+	  } else {
+	    result = arg;
+	  }
+	  return result;
+	}
+	
+	function getChildrenFromProps(props) {
+	  return props && props.children;
+	}
 
 /***/ },
 
-/***/ 191:
+/***/ 198:
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Created by jljsj on 16/1/27.
-	 */
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _objectAssign = __webpack_require__(9);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _tweenFunctions = __webpack_require__(175);
+	var _react = __webpack_require__(6);
 	
-	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
+	var _react2 = _interopRequireDefault(_react);
 	
-	var _styleUtils = __webpack_require__(176);
+	var _TweenOne = __webpack_require__(196);
 	
-	var _styleUtils2 = _interopRequireDefault(_styleUtils);
+	var _TweenOne2 = _interopRequireDefault(_TweenOne);
 	
-	var _BezierPlugin = __webpack_require__(192);
+	var _util = __webpack_require__(197);
 	
-	var _BezierPlugin2 = _interopRequireDefault(_BezierPlugin);
-	
-	var DEFAULT_EASING = 'easeInOutQuad';
-	var DEFAULT_DURATION = 450;
-	var DEFAULT_DELAY = 0;
 	function noop() {}
-	// 设置默认数据
-	function defaultData(vars, now) {
-	  return {
-	    duration: vars.duration || vars.duration === 0 ? vars.duration : DEFAULT_DURATION,
-	    delay: vars.delay || DEFAULT_DELAY,
-	    ease: vars.ease || DEFAULT_EASING,
-	    onUpdate: vars.onUpdate || noop,
-	    onComplete: vars.onComplete || noop,
-	    onStart: vars.onStart || noop,
-	    onRepeat: vars.onRepeat || noop,
-	    repeat: vars.repeat || 0,
-	    repeatDelay: vars.repeatDelay || 0,
-	    yoyo: vars.yoyo || false,
-	    type: vars.type || 'to',
-	    initTime: now
-	  };
-	}
-	var timeLine = function timeLine(startData, toData) {
-	  // 记录总时间;
-	  this.totalTime = 0;
-	  // 记录当前时间;
-	  this.progressTime = 0;
-	  // 记录时间轴数据;
-	  this.defaultData = [];
-	  // 默认状态数据;
-	  this.startData = {};
-	  // 动画样式;
-	  this.animData = {
-	    start: {},
-	    tween: {}
-	  };
-	  // 1秒时间;
-	  this.oneSecond = 1000 / 60;
-	  // 设置默认动画数据;
-	  this.setDefaultData(startData, toData);
-	};
-	var p = timeLine.prototype;
 	
-	p.setDefaultData = function (start, vars) {
-	  var _this = this;
+	var TweenOneGroup = (function (_Component) {
+	  _inherits(TweenOneGroup, _Component);
 	
-	  var now = 0;
-	  var repeatMax = false;
-	  var data = vars.map(function (item) {
-	    now += item.delay || 0; // 加上延时，在没有播放过时；
-	    var tweenData = defaultData(item, now);
-	    tweenData.data = {};
-	    for (var _key in item) {
-	      if (!(_key in tweenData)) {
-	        var key = _styleUtils2['default'].getGsapType(_key);
-	        var cssName = _styleUtils2['default'].isTransform(key);
-	        _this.startData[cssName] = start[cssName];
-	        tweenData.data[_key] = item[_key];
-	      }
-	    }
-	    if (tweenData.yoyo && !tweenData.repeat) {
-	      console.warn('Warning: yoyo must be used together with repeat;');
-	    }
-	    if (tweenData.repeat === -1) {
-	      repeatMax = true;
-	    }
-	    if (tweenData.delay < -tweenData.duration) {
-	      // 如果延时小于 负时间时,,不加,再减回延时;
-	      now -= tweenData.delay;
-	    } else {
-	      now += tweenData.duration * (tweenData.repeat + 1) + tweenData.repeatDelay * tweenData.repeat;
-	    }
-	    return tweenData;
-	  });
-	  this.totalTime = repeatMax ? Number.MAX_VALUE : now;
-	  this.defaultData = data;
-	  // 初始 animData.tween, 功能: 解决当 type: 'from' 时出场延时会不归位;
-	  this.setAnimDataTween();
-	};
-	p.setAnimDataTween = function () {
-	  var _this2 = this;
-	
-	  this.defaultData.forEach(function (item, i) {
-	    var _item = _this2.setAnimStartData(item, i);
-	    if (i === 0) {
-	      // 第一个先设置, 延时时归位...
-	      _this2.animData.start[0] = _item;
-	    }
-	    var easeVars = item.type === 'from' ? 1 : 0;
-	    _this2.setNewStyle(easeVars, _item, item.data, i);
-	  });
-	};
-	p.setAnimStartData = function (endData, i) {
-	  var _this3 = this;
-	
-	  var _endData = endData.data;
-	  var obj = {};
-	
-	  function setStyle(_obj, data, key) {
-	    var cssStyleArr = data.toString().split(' ');
-	    if (data) {
-	      cssStyleArr.forEach(function (__item) {
-	        var _item = __item.replace(/[(|)]/ig, '$').split('$');
-	        _obj[_item[0]] = _item[1];
-	      });
-	    }
-	    var num = key.indexOf('scale') >= 0 ? 1 : 0;
-	    _obj[key] = _styleUtils2['default'].mergeTransformName(cssStyleArr, key) || _obj[key] || num;
-	  }
-	
-	  Object.keys(_endData).forEach(function (_key) {
-	    var key = _styleUtils2['default'].getGsapType(_key);
-	    var cssName = _styleUtils2['default'].isTransform(key);
-	    var startData = _this3.animData.tween && _this3.animData.tween[cssName] ? _this3.animData.tween : _this3.startData;
-	    if (!startData[cssName] || startData[cssName] === 'none' || startData[cssName] === 'auto') {
-	      startData[cssName] = '';
-	    }
-	    if (cssName === 'transform' || cssName === 'filter') {
-	      if (cssName === 'transform') {
-	        // 设置了style
-	        setStyle(obj, startData[cssName], key);
-	      } else {
-	        // 是filter时
-	        var cssStyleArr = (startData[cssName] || '').split(' ');
-	        obj[key] = cssStyleArr.length ? cssStyleArr.join(' ') : 0;
-	      }
-	    } else if (cssName === 'bezier') {
-	      var bezier = _this3.animData['bezier' + i] = new _BezierPlugin2['default'](startData.transform, _endData[_key]);
-	      obj.transform = bezier.set(0);
-	      if (endData.type === 'from') {
-	        obj.transform = bezier.set(1);
-	      }
-	    } else {
-	      // 不是以上两种情况时
-	      obj[key] = startData[cssName] || 0;
-	    }
-	  });
-	  return obj;
-	};
-	p.setNewStyle = function (easeValue, startData, endData, i) {
-	  var _this4 = this;
-	
-	  var start = startData;
-	  Object.keys(endData).forEach(function (_key) {
-	    var key = _styleUtils2['default'].getGsapType(_key);
-	    var endVars = endData[_key];
-	    var startVars = start[key];
-	    var differ = undefined;
-	    if (key.indexOf('color') >= 0 || key.indexOf('Color') >= 0) {
-	      startVars = _styleUtils2['default'].parseColor(startVars);
-	      endVars = _styleUtils2['default'].parseColor(endVars);
-	      startVars[3] = typeof startVars[3] !== 'number' ? 1 : startVars[3];
-	      endVars[3] = typeof endVars[3] !== 'number' ? 1 : endVars[3];
-	      differ = endVars.map(function (data, ii) {
-	        return (data - startVars[ii]) * easeValue + startVars[ii];
-	      });
-	    } else if (key.indexOf('shadow') >= 0 || key.indexOf('Shadow') >= 0) {
-	      startVars = startVars === 'none' || !startVars ? '0 0 0 transparent' : startVars;
-	      startVars = _styleUtils2['default'].parseShadow(startVars);
-	      endVars = _styleUtils2['default'].parseShadow(endVars);
-	      differ = endVars.map(function (data, ii) {
-	        return (parseFloat(data) - parseFloat(startVars[ii])) * easeValue + parseFloat(startVars[ii]);
-	      });
-	    } else {
-	      endVars = parseFloat(endVars.toString().replace(/[^0-9|.|-]/ig, ''));
-	      startVars = parseFloat((startVars || 0).toString().replace(/[^0-9|.|-]/ig, ''));
-	      differ = (endVars - startVars) * easeValue + startVars;
-	      if (typeof endData[_key] === 'string' && endData[_key].charAt(1) === '=') {
-	        differ = startVars + endVars * easeValue;
-	      }
-	    }
-	    var cssName = _styleUtils2['default'].isTransform(key);
-	    _this4.startData[cssName] = _this4.startData[cssName] === 'none' || !_this4.startData[cssName] ? '' : _this4.startData[cssName];
-	    if (cssName === 'bezier') {
-	      var bezier = _this4.animData['bezier' + i];
-	      _this4.animData.tween.transform = _styleUtils2['default'].mergeStyle(_this4.startData.transform, _this4.animData.tween.transform || '');
-	      _this4.animData.tween.transform = _styleUtils2['default'].mergeStyle(_this4.animData.tween.transform, bezier.set(easeValue));
-	    } else if (cssName === 'filter') {
-	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.startData[cssName] || '', _this4.animData.tween[cssName] || '');
-	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.animData.tween[cssName], _styleUtils2['default'].getFilterParam(start[_key], endData[_key], easeValue));
-	    } else if (cssName === 'transform') {
-	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.startData[cssName] || '', _this4.animData.tween[cssName] || '');
-	      _this4.animData.tween[cssName] = _styleUtils2['default'].mergeStyle(_this4.animData.tween[cssName], _styleUtils2['default'].getParam(key, endData[_key], differ));
-	    } else {
-	      _this4.animData.tween[cssName] = _styleUtils2['default'].getParam(key, endData[_key], differ);
-	    }
-	  });
-	};
-	p.getStyle = function () {
-	  var _this5 = this;
-	
-	  this.defaultData.forEach(function (item, i) {
-	    var initTime = item.initTime;
-	    // 处理 yoyo 和 repeat; yoyo 是在时间轴上的, 并不是倒放
-	    var repeatNum = Math.ceil(_this5.progressTime / (item.duration + item.repeatDelay)) - 1;
-	    repeatNum = _this5.progressTime === 0 ? repeatNum + 1 : repeatNum;
-	    if (item.repeat) {
-	      if (item.repeat || item.repeat <= repeatNum) {
-	        initTime = initTime + repeatNum * (item.duration + item.repeatDelay);
-	      }
-	    }
-	    var progressTime = _this5.progressTime - initTime;
-	    // onRepeat 处理
-	    if (item.repeat && repeatNum > 0 && progressTime < _this5.oneSecond) {
-	      // 重新开始, 在第一秒触发时调用;
-	      item.onRepeat();
-	    }
-	    // 状态
-	    var mode = 'onUpdate';
-	    // 开始 onStart
-	    if (i === 0 && progressTime < 5 || i !== 0 && progressTime > 0 && progressTime < _this5.oneSecond) {
-	      item.onStart();
-	      mode = 'onStart';
-	      _this5.animData.start = (0, _objectAssign2['default'])({}, _this5.animData.start, _this5.animData.tween);
-	    }
-	    if (progressTime > -_this5.oneSecond) {
-	      // 设置 animData
-	      _this5.animData.start[i] = _this5.animData.start[i] || _this5.setAnimStartData(item);
-	    }
-	    if (progressTime > item.duration && !_this5.animData.start['bool' + i]) {
-	      _this5.setNewStyle(0, _this5.animData.start[i], item.data, i);
-	      _this5.animData.start['bool' + i] = _this5.animData.start['bool' + i] || 1;
-	    }
-	    if (progressTime > -_this5.oneSecond && progressTime < item.duration + _this5.oneSecond) {
-	      (function () {
-	        _this5.animData.start['bool' + i] = _this5.animData.start['bool' + i] || 1;
-	        progressTime = progressTime < 0 ? 0 : progressTime;
-	        progressTime = progressTime > item.duration ? item.duration : progressTime;
-	        var easeVars = _tweenFunctions2['default'][item.ease](progressTime, 0, 1, item.duration);
-	        if (item.yoyo && repeatNum % 2 || item.type === 'from') {
-	          easeVars = _tweenFunctions2['default'][item.ease](progressTime, 1, 0, item.duration);
-	        }
-	
-	        // 当前点生成样式;
-	        _this5.setNewStyle(easeVars, _this5.animData.start[i], item.data, i);
-	
-	        setTimeout(function () {
-	          // 加 setTimeout 是为了在 this.setState 之后调用;
-	          // complete 事件
-	          if (progressTime === item.duration) {
-	            item.onComplete();
-	            mode = 'onComplete';
-	          }
-	          if (mode === 'onUpdate') {
-	            // update 事件
-	            item.onUpdate(easeVars);
-	          }
-	          // onChange
-	          _this5.onChange({
-	            moment: _this5.progressTime,
-	            item: item,
-	            tween: _this5.animData.tween,
-	            index: i,
-	            mode: mode
-	          });
-	        });
-	      })();
-	    }
-	  });
-	};
-	// 播放帧
-	p.frame = function (moment) {
-	  this.progressTime = moment;
-	  this.getStyle();
-	  return this.animData.tween;
-	};
-	p.resetAnimData = function () {
-	  this.animData = {
-	    start: {},
-	    tween: {}
-	  };
-	};
-	
-	p.onChange = noop;
-	exports['default'] = timeLine;
-	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 192:
-/***/ function(module, exports) {
-
-	/**
-	 * Created by jljsj on 15/12/22.
-	 * The algorithm is GSAP BezierPlugin VERSION: beta 1.3.4
-	 */
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	var _RAD2DEG = 180 / Math.PI;
-	var _r1 = [];
-	var _r2 = [];
-	var _r3 = [];
-	var _corProps = {};
-	// const _correlate = ',x,y,z,left,top,right,bottom,marginTop,marginLeft,marginRight,marginBottom,paddingLeft,paddingTop,paddingRight,paddingBottom,backgroundPosition,backgroundPosition_y,';
-	function createMatrix(style) {
-	  return window.WebKitCSSMatrix && new window.WebKitCSSMatrix(style) || window.MozCSSMatrix && new window.MozCSSMatrix(style) || window.MsCSSMatrix && new window.MsCSSMatrix(style) || window.OCSSMatrix && new window.OCSSMatrix(style) || window.CSSMatrix && new window.CSSMatrix(style) || {};
-	}
-	
-	var GsapBezier = {
-	  Segment: function Segment(a, b, c, d) {
-	    this.a = a;
-	    this.b = b;
-	    this.c = c;
-	    this.d = d;
-	    this.da = d - a;
-	    this.ca = c - a;
-	    this.ba = b - a;
-	  },
-	  cubicToQuadratic: function cubicToQuadratic(a, b, c, d) {
-	    var q1 = { a: a };
-	    var q2 = {};
-	    var q3 = {};
-	    var q4 = { c: d };
-	    var mab = (a + b) / 2;
-	    var mbc = (b + c) / 2;
-	    var mcd = (c + d) / 2;
-	    var mabc = (mab + mbc) / 2;
-	    var mbcd = (mbc + mcd) / 2;
-	    var m8 = (mbcd - mabc) / 8;
-	    q1.b = mab + (a - mab) / 4;
-	    q2.b = mabc + m8;
-	    q1.c = q2.a = (q1.b + q2.b) / 2;
-	    q2.c = q3.a = (mabc + mbcd) / 2;
-	    q3.b = mbcd - m8;
-	    q4.b = mcd + (d - mcd) / 4;
-	    q3.c = q4.a = (q3.b + q4.b) / 2;
-	    return [q1, q2, q3, q4];
-	  },
-	  calculateControlPoints: function calculateControlPoints(a, curviness, quad, basic, correlate) {
-	    var l = a.length - 1;
-	    var i = undefined;
-	    var ii = 0;
-	    var p1 = undefined;
-	    var p2 = undefined;
-	    var p3 = undefined;
-	    var seg = undefined;
-	    var m1 = undefined;
-	    var m2 = undefined;
-	    var mm = undefined;
-	    var cp2 = undefined;
-	    var qb = undefined;
-	    var r1 = undefined;
-	    var r2 = undefined;
-	    var tl = undefined;
-	    var cp1 = a[0].a;
-	    for (i = 0; i < l; i++) {
-	      seg = a[ii];
-	      p1 = seg.a;
-	      p2 = seg.d;
-	      p3 = a[ii + 1].d;
-	
-	      if (correlate) {
-	        r1 = _r1[i];
-	        r2 = _r2[i];
-	        tl = (r2 + r1) * curviness * 0.25 / (basic ? 0.5 : _r3[i] || 0.5);
-	        var _aa = r1 !== 0 ? tl / r1 : 0;
-	        var _a = basic ? curviness * 0.5 : _aa;
-	        m1 = p2 - (p2 - p1) * _a;
-	        var bb = r2 !== 0 ? tl / r2 : 0;
-	        var b = basic ? curviness * 0.5 : bb;
-	        m2 = p2 + (p3 - p2) * b;
-	        mm = p2 - (m1 + ((m2 - m1) * (r1 * 3 / (r1 + r2) + 0.5) / 4 || 0));
-	      } else {
-	        m1 = p2 - (p2 - p1) * curviness * 0.5;
-	        m2 = p2 + (p3 - p2) * curviness * 0.5;
-	        mm = p2 - (m1 + m2) / 2;
-	      }
-	      m1 += mm;
-	      m2 += mm;
-	
-	      seg.c = cp2 = m1;
-	      if (i !== 0) {
-	        seg.b = cp1;
-	      } else {
-	        seg.b = cp1 = seg.a + (seg.c - seg.a) * 0.6;
-	      }
-	
-	      seg.da = p2 - p1;
-	      seg.ca = cp2 - p1;
-	      seg.ba = cp1 - p1;
-	
-	      if (quad) {
-	        qb = this.cubicToQuadratic(p1, cp1, cp2, p2);
-	        a.splice(ii, 1, qb[0], qb[1], qb[2], qb[3]);
-	        ii += 4;
-	      } else {
-	        ii++;
-	      }
-	
-	      cp1 = m2;
-	    }
-	    seg = a[ii];
-	    seg.b = cp1;
-	    seg.c = cp1 + (seg.d - cp1) * 0.4;
-	    seg.da = seg.d - seg.a;
-	    seg.ca = seg.c - seg.a;
-	    seg.ba = cp1 - seg.a;
-	    if (quad) {
-	      qb = this.cubicToQuadratic(seg.a, cp1, seg.c, seg.d);
-	      a.splice(ii, 1, qb[0], qb[1], qb[2], qb[3]);
-	    }
-	  },
-	  parseAnchors: function parseAnchors(_values, p, correlate, prepend) {
-	    var a = [];
-	    var l = undefined;
-	    var i = undefined;
-	    var p1 = undefined;
-	    var p2 = undefined;
-	    var p3 = undefined;
-	    var tmp = undefined;
-	    var values = _values;
-	    if (prepend) {
-	      values = [prepend].concat(values);
-	      i = values.length;
-	      while (--i > -1) {
-	        tmp = values[i][p];
-	        if (typeof tmp === 'string' && tmp.charAt(1) === '=') {
-	          values[i][p] = prepend[p] + Number(tmp.charAt(0) + tmp.substr(2));
-	        }
-	      }
-	    }
-	    l = values.length - 2;
-	    if (l < 0) {
-	      a[0] = new this.Segment(values[0][p], 0, 0, values[l < -1 ? 0 : 1][p]);
-	      return a;
-	    }
-	    for (i = 0; i < l; i++) {
-	      p1 = values[i][p];
-	      p2 = values[i + 1][p];
-	      a[i] = new this.Segment(p1, 0, 0, p2);
-	      if (correlate) {
-	        p3 = values[i + 2][p];
-	        _r1[i] = (_r1[i] || 0) + (p2 - p1) * (p2 - p1);
-	        _r2[i] = (_r2[i] || 0) + (p3 - p2) * (p3 - p2);
-	      }
-	    }
-	    a[i] = new this.Segment(values[i][p], 0, 0, values[i + 1][p]);
-	    return a;
-	  },
-	  bezierThrough: function bezierThrough(_values, _curviness, quadratic, basic, _correlate, _prepend) {
-	    var values = _values;
-	    var curviness = _curviness;
-	    var correlate = _correlate;
-	    var prepend = _prepend;
-	    var obj = {};
-	    var props = [];
-	    var first = prepend || values[0];
-	    var i = undefined;
-	    var p = undefined;
-	    var a = undefined;
-	    var j = undefined;
-	    var r = undefined;
-	    var l = undefined;
-	    var seamless = undefined;
-	    var last = undefined;
-	    correlate = typeof correlate === 'string' ? ',' + correlate + ',' : _correlate;
-	    if (curviness === null) {
-	      curviness = 1;
-	    }
-	    Object.keys(values[0]).forEach(function (key) {
-	      props.push(key);
-	    });
-	    if (values.length > 1) {
-	      last = values[values.length - 1];
-	      seamless = true;
-	      i = props.length;
-	      while (--i > -1) {
-	        p = props[i];
-	        if (Math.abs(first[p] - last[p]) > 0.05) {
-	          seamless = false;
-	          break;
-	        }
-	      }
-	      if (seamless) {
-	        values = values.concat();
-	        if (prepend) {
-	          values.unshift(prepend);
-	        }
-	        values.push(values[1]);
-	        prepend = values[values.length - 3];
-	      }
-	    }
-	    _r1.length = _r2.length = _r3.length = 0;
-	    i = props.length;
-	    while (--i > -1) {
-	      p = props[i];
-	      _corProps[p] = correlate.indexOf(',' + p + ',') !== -1;
-	      obj[p] = this.parseAnchors(values, p, _corProps[p], prepend);
-	    }
-	    i = _r1.length;
-	    while (--i > -1) {
-	      _r1[i] = Math.sqrt(_r1[i]);
-	      _r2[i] = Math.sqrt(_r2[i]);
-	    }
-	    if (!basic) {
-	      i = props.length;
-	      while (--i > -1) {
-	        if (_corProps[p]) {
-	          a = obj[props[i]];
-	          l = a.length - 1;
-	          for (j = 0; j < l; j++) {
-	            r = a[j + 1].da / _r2[j] + a[j].da / _r1[j];
-	            _r3[j] = (_r3[j] || 0) + r * r;
-	          }
-	        }
-	      }
-	      i = _r3.length;
-	      while (--i > -1) {
-	        _r3[i] = Math.sqrt(_r3[i]);
-	      }
-	    }
-	    i = props.length;
-	    j = quadratic ? 4 : 1;
-	    while (--i > -1) {
-	      p = props[i];
-	      a = obj[p];
-	      this.calculateControlPoints(a, curviness, quadratic, basic, _corProps[p]);
-	      if (seamless) {
-	        a.splice(0, j);
-	        a.splice(a.length - j, j);
-	      }
-	    }
-	    return obj;
-	  },
-	  parseBezierData: function parseBezierData(data) {
-	    var values = data.vars.concat();
-	    var type = data.type;
-	    var prepend = data.startPoint;
-	
-	    var obj = {};
-	    var inc = type === 'cubic' ? 3 : 2;
-	    var soft = type === 'soft';
-	    var a = undefined;
-	    var b = undefined;
-	    var c = undefined;
-	    var d = undefined;
-	    var cur = undefined;
-	    var l = undefined;
-	    var p = undefined;
-	    var cnt = undefined;
-	    var tmp = undefined;
-	    if (soft) {
-	      values.splice(0, 0, prepend);
-	    }
-	
-	    if (type === 'cubic' && values.length > 3) {
-	      return console.error('Type cubic, the array length is 3');
-	    }
-	
-	    if (values === null || values.length < inc + 1) {
-	      return console.error('invalid Bezier data');
-	    }
-	    for (var i = 1; i >= 0; i--) {
-	      p = i ? 'x' : 'y';
-	      obj[p] = cur = [];
-	      cnt = 0;
-	      for (var j = 0; j < values.length; j++) {
-	        tmp = values[j][p];
-	        var _a = typeof tmp === 'string' && tmp.charAt(1) === '=' ? prepend[p] + Number(tmp.charAt(0) + tmp.substr(2)) : Number(tmp);
-	        a = prepend === null ? values[j][p] : _a;
-	        if (soft && j > 1 && j < values.length - 1) {
-	          cur[cnt++] = (a + cur[cnt - 2]) / 2;
-	        }
-	        cur[cnt++] = a;
-	      }
-	      l = cnt - inc + 1;
-	      cnt = 0;
-	      for (var jj = 0; jj < l; jj += inc) {
-	        a = cur[jj];
-	        b = cur[jj + 1];
-	        c = cur[jj + 2];
-	        d = inc === 2 ? 0 : cur[jj + 3];
-	        cur[cnt++] = tmp = inc === 3 ? new this.Segment(a, b, c, d) : new this.Segment(a, (2 * b + a) / 3, (2 * b + c) / 3, c);
-	      }
-	      cur.length = cnt;
-	    }
-	    return obj;
-	  },
-	  addCubicLengths: function addCubicLengths(a, steps, resolution) {
-	    var inc = 1 / resolution;
-	    var j = a.length;
-	    var d = undefined;
-	    var d1 = undefined;
-	    var s = undefined;
-	    var da = undefined;
-	    var ca = undefined;
-	    var ba = undefined;
-	    var p = undefined;
-	    var i = undefined;
-	    var inv = undefined;
-	    var bez = undefined;
-	    var index = undefined;
-	    while (--j > -1) {
-	      bez = a[j];
-	      s = bez.a;
-	      da = bez.d - s;
-	      ca = bez.c - s;
-	      ba = bez.b - s;
-	      d = d1 = 0;
-	      for (i = 1; i <= resolution; i++) {
-	        p = inc * i;
-	        inv = 1 - p;
-	        d = d1 - (d1 = (p * p * da + 3 * inv * (p * ca + inv * ba)) * p);
-	        index = j * resolution + i - 1;
-	        steps[index] = (steps[index] || 0) + d * d;
-	      }
-	    }
-	  },
-	  parseLengthData: function parseLengthData(obj, _resolution) {
+	  function TweenOneGroup() {
 	    var _this = this;
 	
-	    var resolution = _resolution || 6;
-	    var a = [];
-	    var lengths = [];
-	    var threshold = resolution - 1;
-	    var segments = [];
-	    var d = 0;
-	    var total = 0;
-	    var curLS = [];
-	    Object.keys(obj).forEach(function (key) {
-	      _this.addCubicLengths(obj[key], a, resolution);
-	    });
-	    a.forEach(function (c, i) {
-	      d += Math.sqrt(c);
-	      var index = i % resolution;
-	      curLS[index] = d;
-	      if (index === threshold) {
-	        total += d;
-	        index = i / resolution >> 0;
-	        segments[index] = curLS;
-	        lengths[index] = total;
-	        d = 0;
-	        curLS = [];
-	      }
-	    });
-	    return { length: total, lengths: lengths, segments: segments };
-	  }
-	};
+	    _classCallCheck(this, TweenOneGroup);
 	
-	function Bezier(transform, obj) {
-	  this.defaultData = this.getDefaultData(obj);
-	  var matrix = createMatrix(transform || '');
-	  // this.startRotate = parseFloat((-Math.atan2(matrix.m21, matrix.m11) * _RAD2DEG).toFixed(2));
-	  this.defaultData.startPoint = { x: matrix.e, y: matrix.f };
-	  this.init();
-	}
-	Bezier.prototype = {
-	  getDefaultData: function getDefaultData(obj) {
-	    return {
-	      type: obj.type || 'soft',
-	      autoRotate: obj.autoRotate || false,
-	      vars: obj.vars || {},
-	      startPoint: null
+	    _get(Object.getPrototypeOf(TweenOneGroup.prototype), 'constructor', this).apply(this, arguments);
+	    this.keysToEnter = [];
+	    this.keysToLeave = [];
+	    this.onEnterBool = false;
+	    // 第一进入，appear 为 true 时默认用 enter 或 tween-one 上的效果
+	    var children = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(this.props));
+	    children.forEach(function (child) {
+	      if (!child || !child.key) {
+	        return;
+	      }
+	      _this.keysToEnter.push(child.key);
+	    });
+	    this.originalChildren = children;
+	    this.state = {
+	      children: children
 	    };
-	  },
-	  init: function init() {
-	    var vars = this.defaultData;
-	    var autoRotate = vars.autoRotate;
-	    this._timeRes = vars.timeResolution === null ? 6 : parseInt(vars.timeResolution, 10);
-	    var a = autoRotate === true ? 0 : Number(autoRotate);
-	    var b = autoRotate instanceof Array ? autoRotate : [['x', 'y', 'rotation', a || 0]];
-	    this._autoRotate = autoRotate ? b : null;
-	    this._beziers = vars.type !== 'cubic' && vars.type !== 'quadratic' && vars.type !== 'soft' ? GsapBezier.bezierThrough(vars.vars, isNaN(vars.curviness) ? 1 : vars.curviness, false, vars.type === 'thruBasic', vars.correlate, vars.startPoint) : GsapBezier.parseBezierData(vars);
-	    this._segCount = this._beziers.x.length;
-	    if (this._timeRes) {
-	      var ld = GsapBezier.parseLengthData(this._beziers, this._timeRes);
-	      this._length = ld.length;
-	      this._lengths = ld.lengths;
-	      this._segments = ld.segments;
-	      this._l1 = this._li = this._s1 = this._si = 0;
-	      this._l2 = this._lengths[0];
-	      this._curSeg = this._segments[0];
-	      this._s2 = this._curSeg[0];
-	      this._prec = 1 / this._curSeg.length;
-	    }
-	  },
-	  set: function set(v) {
-	    var segments = this._segCount;
-	    var XYobj = {};
-	    var curIndex = undefined;
-	    var inv = undefined;
-	    var i = undefined;
-	    var p = undefined;
-	    var b = undefined;
-	    var t = undefined;
-	    var val = undefined;
-	    var lengths = undefined;
-	    var curSeg = undefined;
-	    var value = undefined;
-	    var rotate = undefined;
-	    if (!this._timeRes) {
-	      var _cur = v >= 1 ? segments - 1 : segments * v >> 0;
-	      curIndex = v < 0 ? 0 : _cur;
-	      t = (v - curIndex * (1 / segments)) * segments;
-	    } else {
-	      lengths = this._lengths;
-	      curSeg = this._curSeg;
-	      value = v * this._length;
-	      i = this._li;
-	      if (value > this._l2 && i < segments) {
-	        this._l2 = lengths[++i];
-	        this._l1 = lengths[i - 1];
-	        this._li = i;
-	        this._curSeg = curSeg = this._segments[i];
-	        this._s2 = curSeg[this._s1 = this._si = 0];
-	      } else if (value < this._l1 && i > 0) {
-	        this._l1 = lengths[--i];
-	        if (i === 0 && value < this._l1) {
-	          this._l1 = 0;
-	        } else {
-	          i++;
-	        }
-	        this._l2 = lengths[i];
-	        this._li = i;
-	        this._curSeg = curSeg = this._segments[i];
-	        this._s1 = curSeg[(this._si = curSeg.length - 1) - 1] || 0;
-	        this._s2 = curSeg[this._si];
-	      }
-	      curIndex = i;
-	      value -= this._l1;
-	      i = this._si;
-	      if (value > this._s2 && i < curSeg.length - 1) {
-	        this._s2 = curSeg[++i];
-	        this._s1 = curSeg[i - 1];
-	        this._si = i;
-	      } else if (value < this._s1 && i > 0) {
-	        this._s1 = curSeg[--i];
-	        if (i === 0 && value < this._s1) {
-	          this._s1 = 0;
-	        } else {
-	          i++;
-	        }
-	        this._s2 = curSeg[i];
-	        this._si = i;
-	      }
-	      t = (i + (value - this._s1) / (this._s2 - this._s1)) * this._prec;
-	    }
-	    inv = 1 - t;
-	    for (i = 1; i >= 0; i--) {
-	      p = i ? 'x' : 'y';
-	      b = this._beziers[p][curIndex];
-	      val = (t * t * b.da + 3 * inv * (t * b.ca + inv * b.ba)) * t + b.a;
-	      XYobj[p] = val;
-	    }
-	    if (this._autoRotate) {
-	      var ar = this._autoRotate;
-	      var b2 = undefined;
-	      var x1 = undefined;
-	      var y1 = undefined;
-	      var x2 = undefined;
-	      var y2 = undefined;
-	      var add = undefined;
-	      var conv = undefined;
-	      i = ar.length;
-	      while (--i > -1) {
-	        p = ar[i][2];
-	        add = ar[i][3] || 0;
-	        conv = ar[i][4] === true ? 1 : _RAD2DEG;
-	        b = this._beziers[ar[i][0]];
-	        b2 = this._beziers[ar[i][1]];
-	
-	        if (b && b2) {
-	          b = b[curIndex];
-	          b2 = b2[curIndex];
-	
-	          x1 = b.a + (b.b - b.a) * t;
-	          x2 = b.b + (b.c - b.b) * t;
-	          x1 += (x2 - x1) * t;
-	          x2 += (b.c + (b.d - b.c) * t - x2) * t;
-	
-	          y1 = b2.a + (b2.b - b2.a) * t;
-	          y2 = b2.b + (b2.c - b2.b) * t;
-	          y1 += (y2 - y1) * t;
-	          y2 += (b2.c + (b2.d - b2.c) * t - y2) * t;
-	          var _r = Math.atan2(y2 - y1, x2 - x1) * conv;
-	          rotate = _r + add;
-	        }
-	      }
-	    }
-	    return rotate ? 'translate(' + XYobj.x + 'px,' + XYobj.y + 'px) rotate(' + rotate + 'deg)' : 'translate(' + XYobj.x + 'px,' + XYobj.y + 'px)';
+	    ['getChildrenToRender', 'getCoverAnimation', 'onChange'].forEach(function (method) {
+	      return _this[method] = _this[method].bind(_this);
+	    });
 	  }
-	};
-	Bezier.bezierThrough = GsapBezier.bezierThrough;
-	Bezier.cubicToQuadratic = GsapBezier.cubicToQuadratic;
-	Bezier.quadraticToCubic = function (a, b, c) {
-	  return new GsapBezier.Segment(a, (2 * b + a) / 3, (2 * b + c) / 3, c);
+	
+	  _createClass(TweenOneGroup, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.onEnterBool = true;
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var _this2 = this;
+	
+	      var nextChildren = (0, _util.toArrayChildren)(nextProps.children);
+	      var currentChildren = this.originalChildren;
+	      var newChildren = (0, _util.mergeChildren)(currentChildren, nextChildren);
+	
+	      this.keysToEnter = [];
+	      this.keysToLeave = [];
+	      nextChildren.forEach(function (c) {
+	        if (!c) {
+	          return;
+	        }
+	        var key = c.key;
+	        var hasPrev = (0, _util.findChildInChildrenByKey)(currentChildren, key);
+	        if (!hasPrev && key) {
+	          _this2.keysToEnter.push(key);
+	        }
+	      });
+	
+	      currentChildren.forEach(function (c) {
+	        if (!c) {
+	          return;
+	        }
+	        var key = c.key;
+	        var hasNext = (0, _util.findChildInChildrenByKey)(nextChildren, key);
+	        if (!hasNext && key) {
+	          _this2.keysToLeave.push(key);
+	        }
+	      });
+	      this.setState({
+	        children: newChildren
+	      });
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this.originalChildren = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(this.props));
+	    }
+	  }, {
+	    key: 'onChange',
+	    value: function onChange(animation, key, type, obj) {
+	      var length = (0, _util.dataToArray)(animation).length;
+	      if (obj.index === length - 1 && obj.mode === 'onComplete') {
+	        if (type === 'leave') {
+	          var children = this.state.children.filter(function (child) {
+	            return child.key !== key;
+	          });
+	          this.setState({
+	            children: children
+	          });
+	        }
+	        var _obj = { key: key, type: type };
+	        this.props.onEnd(_obj);
+	      }
+	    }
+	  }, {
+	    key: 'getCoverAnimation',
+	    value: function getCoverAnimation(child, i, type) {
+	      var animation = type === 'leave' ? this.props.leave : this.props.enter;
+	      var onChange = this.onChange.bind(this, animation, child.key, type);
+	      return _react2['default'].createElement(_TweenOne2['default'], _extends({}, child.props, {
+	        key: child.key,
+	        component: child.type,
+	        animation: (0, _util.transformArguments)(animation, child.key, i),
+	        onChange: onChange
+	      }));
+	    }
+	  }, {
+	    key: 'getChildrenToRender',
+	    value: function getChildrenToRender(children) {
+	      var _this3 = this;
+	
+	      return children.map(function (child, i) {
+	        if (!child || !child.key) {
+	          return child;
+	        }
+	        var key = child.key;
+	        if (_this3.keysToLeave.indexOf(key) >= 0) {
+	          return _this3.getCoverAnimation(child, i, 'leave');
+	        }
+	        var appear = (0, _util.transformArguments)(_this3.props.appear, key, i);
+	        if (appear || _this3.onEnterBool) {
+	          return _this3.getCoverAnimation(child, i, 'enter');
+	        }
+	        return child.type === _TweenOne2['default'] ? (0, _react.createElement)(child.props.component, _extends({}, child.props, { key: child.key })) : child;
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var childrenToRender = this.getChildrenToRender(this.state.children);
+	      return (0, _react.createElement)(this.props.component, this.props, childrenToRender);
+	    }
+	  }]);
+	
+	  return TweenOneGroup;
+	})(_react.Component);
+	
+	var objectOrArray = _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]);
+	var objectOrArrayOrFunc = _react.PropTypes.oneOfType([objectOrArray, _react.PropTypes.func]);
+	
+	TweenOneGroup.propTypes = {
+	  component: _react.PropTypes.any,
+	  children: _react.PropTypes.any,
+	  style: _react.PropTypes.object,
+	  appear: _react.PropTypes.bool,
+	  enter: objectOrArrayOrFunc,
+	  leave: objectOrArrayOrFunc,
+	  onEnd: _react.PropTypes.func
 	};
 	
-	exports['default'] = Bezier;
+	TweenOneGroup.defaultProps = {
+	  component: 'div',
+	  appear: true,
+	  enter: { x: 50, opacity: 0, type: 'from' },
+	  leave: { x: -50, opacity: 0 },
+	  onEnd: noop
+	};
+	exports['default'] = TweenOneGroup;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 193:
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(194);
+	module.exports = __webpack_require__(200);
 
 /***/ },
 
-/***/ 194:
+/***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6075,13 +5508,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(195);
+	var _ChildrenUtils = __webpack_require__(201);
 	
-	var _AnimateChild = __webpack_require__(196);
+	var _AnimateChild = __webpack_require__(202);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(201);
+	var _util = __webpack_require__(207);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -6389,7 +5822,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 195:
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6508,7 +5941,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 196:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6527,11 +5960,11 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(197);
+	var _cssAnimation = __webpack_require__(203);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(201);
+	var _util = __webpack_require__(207);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -6612,7 +6045,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 197:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6621,11 +6054,11 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(198);
+	var _Event = __webpack_require__(204);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(199);
+	var _componentClasses = __webpack_require__(205);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -6803,7 +6236,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 198:
+/***/ 204:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6897,7 +6330,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 199:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6905,9 +6338,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(200);
+	  var index = __webpack_require__(206);
 	} catch (err) {
-	  var index = __webpack_require__(200);
+	  var index = __webpack_require__(206);
 	}
 	
 	/**
@@ -7095,7 +6528,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 200:
+/***/ 206:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -7108,7 +6541,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 201:
+/***/ 207:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7139,73 +6572,6 @@ webpackJsonp([0],{
 	};
 	exports["default"] = util;
 	module.exports = exports["default"];
-
-/***/ },
-
-/***/ 202:
-/***/ function(module, exports) {
-
-	module.exports = {
-		"name": "rc-scroll-anim",
-		"version": "0.2.8",
-		"description": "scroll-anim anim component for react",
-		"keywords": [
-			"react",
-			"react-component",
-			"react-scroll-anim",
-			"scroll-anim"
-		],
-		"homepage": "https://github.com/react-component/scroll-anim",
-		"author": "155259966@qq.com",
-		"repository": {
-			"type": "git",
-			"url": "https://github.com/react-component/scroll-anim.git"
-		},
-		"bugs": {
-			"url": "https://github.com/react-component/scroll-anim/issues"
-		},
-		"files": [
-			"lib",
-			"assets/*.css"
-		],
-		"licenses": "MIT",
-		"main": "./lib/index",
-		"config": {
-			"port": 8020
-		},
-		"scripts": {
-			"build": "rc-tools run build",
-			"gh-pages": "rc-tools run gh-pages",
-			"start": "rc-server",
-			"pub": "rc-tools run pub",
-			"lint": "rc-tools run lint",
-			"karma": "rc-tools run karma",
-			"saucelabs": "rc-tools run saucelabs",
-			"browser-test": "rc-tools run browser-test",
-			"browser-test-cover": "rc-tools run browser-test-cover"
-		},
-		"devDependencies": {
-			"expect.js": "0.3.x",
-			"pre-commit": "1.x",
-			"rc-server": "3.x",
-			"rc-tools": "4.x",
-			"react": "^15.0.0",
-			"react-addons-test-utils": "^15.0.0",
-			"react-dom": "^15.0.0",
-			"rc-queue-anim": "0.11.x",
-			"rc-tween-one": "0.2.x",
-			"rc-animate": "2.0.x"
-		},
-		"pre-commit": [
-			"lint"
-		],
-		"dependencies": {
-			"object-assign": "4.0.x",
-			"tween-functions": "1.0.x",
-			"raf": "3.1.x",
-			"style-utils": "0.0.x"
-		}
-	};
 
 /***/ }
 

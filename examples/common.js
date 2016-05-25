@@ -140,11 +140,11 @@
 	
 	var _ScrollParallax2 = _interopRequireDefault(_ScrollParallax);
 	
-	var _ScrollLink = __webpack_require__(177);
+	var _ScrollLink = __webpack_require__(184);
 	
 	var _ScrollLink2 = _interopRequireDefault(_ScrollLink);
 	
-	var _ScrollElement = __webpack_require__(180);
+	var _ScrollElement = __webpack_require__(187);
 	
 	var _ScrollElement2 = _interopRequireDefault(_ScrollElement);
 	
@@ -152,7 +152,7 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
-	var _ScrollScreen = __webpack_require__(181);
+	var _ScrollScreen = __webpack_require__(188);
 	
 	var _ScrollScreen2 = _interopRequireDefault(_ScrollScreen);
 	
@@ -20604,9 +20604,13 @@
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
-	var _styleUtils = __webpack_require__(176);
+	var _rcTweenOneLibTimeLine = __webpack_require__(176);
 	
-	var _styleUtils2 = _interopRequireDefault(_styleUtils);
+	var _rcTweenOneLibTimeLine2 = _interopRequireDefault(_rcTweenOneLibTimeLine);
+	
+	var _rcTweenOneLibTicker = __webpack_require__(181);
+	
+	var _rcTweenOneLibTicker2 = _interopRequireDefault(_rcTweenOneLibTicker);
 	
 	var _util = __webpack_require__(173);
 	
@@ -20614,7 +20618,7 @@
 	
 	var _Mapped2 = _interopRequireDefault(_Mapped);
 	
-	var DEFAULT_EASING = 'easeInOutQuad';
+	var tickerId = 0;
 	
 	function noop() {}
 	
@@ -20630,18 +20634,6 @@
 	  return [0, 1];
 	}
 	
-	// 设置默认数据
-	function defaultData(vars, initScale) {
-	  return {
-	    ease: vars.ease || DEFAULT_EASING,
-	    playScale: playScaleToArray(vars.playScale), // 开始播放与结束的比例，数组形式，[0,1],0为开始阶段，1为结束，屏幕的百分比
-	    initScale: initScale, // 启动的百分比
-	    onUpdate: vars.onUpdate || noop,
-	    onStart: vars.onStart || noop,
-	    onComplete: vars.onComplete || noop
-	  };
-	}
-	
 	var ScrollParallax = (function (_React$Component) {
 	  _inherits(ScrollParallax, _React$Component);
 	
@@ -20651,16 +20643,10 @@
 	    _classCallCheck(this, ScrollParallax);
 	
 	    _get(Object.getPrototypeOf(ScrollParallax.prototype), 'constructor', this).apply(this, arguments);
-	    this.style = this.props.style || {};
-	    this.defaultData = [];
-	    this.parallaxStart = {};
 	    this.scrollTop = 0;
-	    // 新增个记录props.style的；
-	    this.currentStyle = (0, _objectAssign2['default'])({}, this.props.style);
-	    this.setDefaultData(this.props.animation || {});
-	    this.state = {
-	      style: this.style
-	    };
+	    this.defaultTweenData = [];
+	    this.defaultData = [];
+	    this.state = {};
 	    ['scrollEventListener'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
@@ -20675,49 +20661,28 @@
 	      if (this.props.scrollName) {
 	        _Mapped2['default'].register(this.props.scrollName, this.dom);
 	      }
-	      this.computedStyle = document.defaultView.getComputedStyle(this.dom);
 	      this.scrollTop = (0, _util.currentScrollTop)();
+	      this.clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      this.setDefaultData(this.props.animation || {});
 	
-	      var date = Date.now();
-	      var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
-	      this.eventType = 'scroll.scrollEvent' + date + length;
-	      _EventDispatcher2['default'].addEventListener(this.eventType, this.scrollEventListener);
 	      // 第一次进入;
 	      setTimeout(function () {
+	        _this2.timeline = new _rcTweenOneLibTimeLine2['default'](_this2.dom, _this2.defaultTweenData);
 	        _this2.scrollEventListener();
+	        var date = Date.now();
+	        var length = _EventDispatcher2['default']._listeners.scroll ? _EventDispatcher2['default']._listeners.scroll.length : 0;
+	        _this2.eventType = 'scroll.scrollEvent' + date + length;
+	        _EventDispatcher2['default'].addEventListener(_this2.eventType, _this2.scrollEventListener);
 	      });
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var _this3 = this;
-	
 	      var equal = (0, _util.objectEqual)(this.props.animation, nextProps.animation);
 	      if (!equal) {
-	        this.parallaxStart = {};
-	        this.defaultData = [];
 	        this.setDefaultData(nextProps.animation || {});
-	      }
-	      var styleEqual = (0, _util.objectEqual)(this.currentStyle, nextProps.style);
-	      if (!styleEqual) {
-	        this.currentStyle = (0, _objectAssign2['default'])({}, nextProps.style);
-	        if (!this.defaultData.every(function (c) {
-	          return c.end;
-	        })) {
-	          // 为留住已做的动画样式
-	          this.style = (0, _objectAssign2['default'])({}, this.style, nextProps.style);
-	          if (this.parallaxStart.end) {
-	            Object.keys(this.parallaxStart.end).forEach(function (key) {
-	              if (key.indexOf('Bool') >= 0) {
-	                _this3.parallaxStart.end[key] = false;
-	              }
-	            });
-	          }
-	        } else {
-	          this.setState({
-	            style: nextProps.style
-	          });
-	        }
+	        this.timeline.resetAnimData();
+	        this.timeline.setDefaultData(this.defaultTweenData);
 	      }
 	    }
 	  }, {
@@ -20729,250 +20694,82 @@
 	  }, {
 	    key: 'setDefaultData',
 	    value: function setDefaultData(_vars) {
-	      var _this4 = this;
+	      var _this3 = this;
 	
 	      var vars = (0, _util.dataToArray)(_vars);
-	      var time = 0;
 	      var varsForIn = function varsForIn(item, i) {
-	        time += playScaleToArray(item.playScale)[0] || 0;
-	        var parallaxData = defaultData(item, time);
-	        parallaxData.data = {};
-	        for (var p in item) {
-	          if (!(p in parallaxData)) {
-	            parallaxData.data[p] = item[p];
-	          }
-	        }
-	        time += parallaxData.playScale[1] - parallaxData.playScale[0];
-	        _this4.defaultData[i] = parallaxData;
+	        var playScale = playScaleToArray(item.playScale).map(function (data) {
+	          return data * _this3.clientHeight;
+	        });
+	        var __item = (0, _objectAssign2['default'])({}, item);
+	        delete __item.playScale;
+	        var _item = (0, _objectAssign2['default'])({}, item);
+	        delete _item.playScale;
+	        _item.delay = __item.delay = playScale[0];
+	        _item.duration = __item.duration = playScale[1] - playScale[0];
+	        _item.onStart = null;
+	        _item.onUpdate = null;
+	        _item.onComplete = null;
+	        _item.onRepeat = null;
+	        __item.onStart = __item.onStart || noop;
+	        __item.onComplete = __item.onComplete || noop;
+	        _this3.defaultTweenData[i] = _item;
+	        _this3.defaultData[i] = __item;
 	      };
 	      vars.forEach(varsForIn);
 	    }
 	  }, {
-	    key: 'getParallaxStart',
-	    value: function getParallaxStart(item, i) {
-	      var _this5 = this;
-	
-	      var start = this.parallaxStart || {};
-	      var newStyle = this.style;
-	      start[i] = start[i] || {};
-	      start.end = start.end || {};
-	      if (!start.end['Bool' + i]) {
-	        Object.keys(item.data).forEach(function (_key) {
-	          var key = _styleUtils2['default'].getGsapType(_key);
-	          var cssName = _styleUtils2['default'].isTransform(key);
-	          if (cssName === 'transform' || cssName === 'filter') {
-	            if (newStyle && newStyle[cssName]) {
-	              var cssStyleArr = newStyle[cssName].split(' ');
-	              if (cssName === 'transform') {
-	                for (var ii = 0; ii < cssStyleArr.length; ii++) {
-	                  var _item = cssStyleArr[ii].replace(/[(|)]/ig, '$').split('$');
-	                  start[i][_item[0]] = _item[1];
-	                }
-	                start[i][key] = _styleUtils2['default'].mergeTransformName(cssStyleArr, key) || start[i][key] || 0;
-	              } else {
-	                start[i][key] = cssStyleArr.length ? cssStyleArr.join(' ') : 0;
-	              }
-	            } else {
-	              if (cssName === 'transform') {
-	                start[i][key] = 0;
-	              } else {
-	                start[i][key] = _styleUtils2['default'].getFilterParam('', item.tween[key], 0);
-	              }
-	            }
-	          } else {
-	            start[i][key] = newStyle[cssName] || _this5.computedStyle[key] || 0;
-	          }
-	        });
-	        start.end['Bool' + i] = true;
-	      }
-	      return start;
-	    }
-	  }, {
-	    key: 'getNewStyle',
-	    value: function getNewStyle(newStyle, easeValue, i, p, _value, cssName) {
-	      if (cssName === 'transform') {
-	        this.parallaxStart.end[p] = _styleUtils2['default'].getParam(p, _value, easeValue);
-	        var cTransform = newStyle.transform;
-	        var str = '';
-	        if (cTransform) {
-	          cTransform.split(' ').forEach(function (_str) {
-	            if (_str.indexOf('perspective') >= 0) {
-	              str = _str;
-	            }
-	          });
-	        }
-	        for (var _p in newStyle) {
-	          if (_styleUtils2['default'].isTransform(_p) === 'transform') {
-	            str = _styleUtils2['default'].mergeStyle(newStyle.transform, str);
-	          }
-	        }
-	        for (var _p in this.parallaxStart.end) {
-	          if (_styleUtils2['default'].isTransform(_p) === 'transform') {
-	            str = _styleUtils2['default'].mergeStyle(str, this.parallaxStart.end[_p]);
-	          }
-	        }
-	        return str;
-	      } else if (cssName === 'filter') {
-	        return _styleUtils2['default'].mergeStyle(newStyle[cssName] || '', _styleUtils2['default'].getFilterParam(this.parallaxStart[i][p], _value, easeValue));
-	      }
-	      return _styleUtils2['default'].getParam(p, _value, easeValue);
-	    }
-	  }, {
-	    key: 'mergeDataToEase',
-	    value: function mergeDataToEase(easeValue, _value, parallaxStart, cssName) {
-	      var endData = undefined;
-	      var startData = undefined;
-	      // 转成Array为阴影与颜色
-	      var start = parallaxStart;
-	      endData = (0, _util.dataToArray)(parseFloat(_value));
-	      startData = (0, _util.dataToArray)(parseFloat(start === 'auto' || start === 'none' ? 0 : start));
-	      if (typeof _value === 'string' && _value.charAt(1) === '=') {
-	        endData = (0, _util.dataToArray)(parseFloat(start) + parseFloat(_value.charAt(0) + 1) * parseFloat(_value.substr(2)));
-	      }
-	      if (cssName.indexOf('color') >= 0 || cssName.indexOf('Color') >= 0) {
-	        endData = _styleUtils2['default'].parseColor(_value);
-	        endData[3] = endData[3] || 1;
-	        startData = _styleUtils2['default'].parseColor(start);
-	        startData[3] = startData[3] || 1;
-	      } else if (cssName.indexOf('shadow') >= 0 || cssName.indexOf('Shadow') >= 0) {
-	        start = start === 'none' ? '0 0 0 transparent' : start;
-	        startData = _styleUtils2['default'].parseShadow(start);
-	        endData = _styleUtils2['default'].parseShadow(_value);
-	      } else if (cssName === 'filter') {
-	        return easeValue;
-	      }
-	      return endData.map(function (data, ii) {
-	        var startD = startData[ii];
-	        return (parseFloat(data) - parseFloat(startD)) * easeValue + parseFloat(startD);
-	      });
-	    }
-	  }, {
 	    key: 'scrollEventListener',
 	    value: function scrollEventListener() {
-	      var _this6 = this;
+	      var _this4 = this;
 	
 	      var scrollTop = (0, _util.currentScrollTop)();
-	      var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	      var newStyle = this.style;
-	      this.defaultData.forEach(function (item, i) {
-	        if (!item) {
-	          return;
+	      this.clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      var dom = this.props.location ? _Mapped2['default'].get(this.props.location) : this.dom;
+	      if (!dom) {
+	        throw new Error('"location" is null');
+	      }
+	      var offsetTop = dom.getBoundingClientRect().top + scrollTop;
+	      var elementShowHeight = scrollTop - offsetTop + this.clientHeight;
+	      var currentShow = this.scrollTop - offsetTop + this.clientHeight;
+	      var scrollTopValue = scrollTop - this.scrollTop;
+	      this.defaultData.forEach(function (item) {
+	        if (scrollTopValue > 0 && elementShowHeight < item.delay || scrollTopValue < 0 && elementShowHeight > item.delay) {
+	          item.onStart.only = false;
 	        }
-	        if (item.data) {
-	          (function () {
-	            var playHeight = clientHeight * item.initScale;
-	
-	            // position定位；
-	            var dom = _this6.props.location ? _Mapped2['default'].get(_this6.props.location) : _this6.dom;
-	            if (!dom) {
-	              throw new Error('"location" is null');
-	            }
-	            var noPosition = dom === _this6.dom;
-	            // 屏幕缩放时的响应，所以放回这里，offsetTop 与 marginTop 有关联，所以减掉；
-	            // rotateY 或 rotateＸ 时对 getBoundingClientRect 受到影响。所以把 dom 的 transform 设为 none 后再取 getBoundingClientRect 的 top 值
-	            var isTransform = Object.keys(item.data).some(function (c) {
-	              return _styleUtils2['default'].isTransform(c) === 'transform';
-	            }) && noPosition;
-	            var _transform = dom.style.transform;
-	            if (isTransform) {
-	              dom.style.transform = 'none';
-	            }
-	            var offsetTop = dom.getBoundingClientRect().top + scrollTop - (noPosition ? parseFloat(_this6.computedStyle.marginTop) : 0);
-	            if (isTransform) {
-	              dom.style.transform = _transform;
-	            }
-	
-	            var elementShowHeight = scrollTop - offsetTop + clientHeight;
-	            var currentElementShowHeight = _this6.scrollTop - offsetTop + clientHeight;
-	            // start与end;
-	            var start = 0;
-	            var end = 1;
-	            // 百分比；
-	            var factClientHeight = clientHeight * (item.playScale[1] - item.playScale[0]);
-	            var _progress = (elementShowHeight - playHeight) / factClientHeight;
-	            var progress = _progress;
-	            progress = progress >= 1 ? 1 : progress;
-	            progress = progress <= 0 ? 0 : progress;
-	            // 缓动参数；
-	            var easeValue = _tweenFunctions2['default'][item.ease](progress, start, end, 1);
-	            // onStart 处理；
-	            var currentProgress = (currentElementShowHeight - playHeight) / factClientHeight;
-	            var scrollTopValue = scrollTop - _this6.scrollTop;
-	            /*
-	             * scrollTopValue: < 0 为滚动轴往上， > 0 时为往下;
-	             * _progress < 0 ----> scrollTopValue > 0 或 < 0 都设为false;
-	             * _progress > 0 ----> 往上时设为false, 往下时不做处理;
-	             */
-	            if (_progress <= 0 && scrollTopValue > 0 || _progress >= 0 && scrollTopValue < 0) {
-	              item.onStart.only = false;
-	            }
-	            /*
-	             * 百分比: _progress, 当前百分比: currentProgress;
-	             * 往下滚时：
-	             * 1. 当前百分比小于 0 时, 开始滚动时设定 start.only, 开始时，百分分大于等于 0 时调用 onStart;
-	             * 2. 当前百分比大于 0 时, 不做处理；
-	             * 往上滚时：
-	             * 1. 当前百分比小于 0 时, 不做处理；
-	             * 2. 当前百分比大于 0 时, 开始滚动时设定 start.only, 回到顶部, 百分比小于等于 0 时调用onStart;
-	             */
-	            if (!item.onStart.only && (currentProgress <= 0 && scrollTopValue > 0 && _progress >= 0 || currentProgress >= 0 && scrollTopValue < 0 && _progress <= 0)) {
-	              item.onStart();
-	              item.onStart.only = true;
-	            }
-	            // onUpdate 处理
-	            if (_progress >= 0) {
-	              if (_progress <= 1) {
-	                item.onUpdate(easeValue);
-	              }
-	              // 开始样式设定
-	              _this6.parallaxStart = _this6.getParallaxStart(item, i);
-	            }
-	            // 结合
-	            if (_this6.parallaxStart[i]) {
-	              Object.keys(item.data).forEach(function (_p) {
-	                var _value = item.data[_p];
-	                var p = _styleUtils2['default'].getGsapType(_p);
-	                var cssName = _styleUtils2['default'].isTransform(p);
-	
-	                // 把缓动合并把数据里；
-	                var easeValueMergeData = _this6.mergeDataToEase(easeValue, _value, _this6.parallaxStart[i][p], cssName);
-	                // 生成样式；
-	                newStyle[cssName] = _this6.getNewStyle(newStyle, easeValueMergeData, i, p, _value, cssName);
-	              });
-	            }
-	            // 恢复到 start 后删除;
-	            if (_progress < 0) {
-	              delete _this6.parallaxStart[i];
-	              if (_this6.parallaxStart.end) {
-	                delete _this6.parallaxStart.end['Bool' + i];
-	              }
-	            }
-	
-	            // 到达
-	            if (progress >= 1) {
-	              item.end = true;
-	            } else {
-	              item.end = false;
-	            }
-	            // 同onStart; 数值改为1
-	            if (_progress < 1 && scrollTopValue > 0 || _progress > 1 && scrollTopValue < 0) {
-	              item.onComplete.only = false;
-	            }
-	            if (!item.onComplete.only && (currentProgress < 1 && scrollTopValue > 0 && _progress > 1 || currentProgress > 1 && scrollTopValue < 0 && _progress < 1)) {
-	              item.onComplete();
-	              item.onComplete.only = true;
-	            }
-	          })();
+	        if ((elementShowHeight >= item.delay && currentShow <= item.delay && scrollTopValue > 0 || elementShowHeight <= item.delay && currentShow >= item.delay && scrollTopValue < 0) && !item.onStart.only) {
+	          item.onStart.only = true;
+	          item.onStart();
+	        }
+	        var time = item.delay + item.duration;
+	        if (scrollTopValue > 0 && elementShowHeight < time || scrollTopValue < 0 && elementShowHeight > time) {
+	          item.onComplete.only = false;
+	        }
+	        if (!item.onComplete.only && (elementShowHeight >= time && currentShow <= time && scrollTopValue > 0 || elementShowHeight <= time && currentShow >= time && scrollTopValue < 0)) {
+	          item.onComplete();
+	          item.onComplete.only = true;
+	        }
+	      });
+	      _rcTweenOneLibTicker2['default'].clear(this.tickerId);
+	      this.tickerId = 'scrollParallax' + Date.now() + '-' + tickerId;
+	      tickerId++;
+	      if (tickerId >= Number.MAX_VALUE) {
+	        tickerId = 0;
+	      }
+	      var startFrame = _rcTweenOneLibTicker2['default'].frame;
+	      _rcTweenOneLibTicker2['default'].wake(this.tickerId, function () {
+	        var moment = (_rcTweenOneLibTicker2['default'].frame - startFrame) * _rcTweenOneLibTicker2['default'].perFrame;
+	        var ratio = _tweenFunctions2['default'].easeOutQuad(moment, 0.08, 1, 300);
+	        _this4.timeline.frame(currentShow + ratio * (elementShowHeight - currentShow));
+	        if (moment >= 300) {
+	          _rcTweenOneLibTicker2['default'].clear(_this4.tickerId);
 	        }
 	      });
 	
-	      this.setState({
-	        style: newStyle
-	      });
 	      this.scrollTop = scrollTop;
 	      // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
 	      if (this.defaultData.every(function (c) {
-	        return c.end;
+	        return c.onComplete.only;
 	      }) && !this.props.always) {
 	        _EventDispatcher2['default'].removeEventListener(this.eventType, this.scrollEventListener);
 	      }
@@ -20980,7 +20777,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var style = (0, _objectAssign2['default'])({}, this.state.style);
+	      var props = (0, _objectAssign2['default'])({}, this.props);
+	      var style = (0, _objectAssign2['default'])({}, props.style);
 	      for (var p in style) {
 	        if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {
 	          // ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix=> style[`${prefix}Filter`] = style[p]);
@@ -20990,7 +20788,6 @@
 	          }
 	        }
 	      }
-	      var props = (0, _objectAssign2['default'])({}, this.props);
 	      props.style = style;
 	      return _react2['default'].createElement(this.props.component, props);
 	    }
@@ -21283,13 +21080,902 @@
 
 /***/ },
 /* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by jljsj on 16/1/27.
+	 */
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _objectAssign = __webpack_require__(177);
+	
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+	
+	var _tweenFunctions = __webpack_require__(178);
+	
+	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
+	
+	var _styleUtils = __webpack_require__(179);
+	
+	var _styleUtils2 = _interopRequireDefault(_styleUtils);
+	
+	var _BezierPlugin = __webpack_require__(180);
+	
+	var _BezierPlugin2 = _interopRequireDefault(_BezierPlugin);
+	
+	var DEFAULT_EASING = 'easeInOutQuad';
+	var DEFAULT_DURATION = 450;
+	var DEFAULT_DELAY = 0;
+	function noop() {}
+	// 设置默认数据
+	function defaultData(vars, now) {
+	  return {
+	    duration: vars.duration || vars.duration === 0 ? vars.duration : DEFAULT_DURATION,
+	    delay: vars.delay || DEFAULT_DELAY,
+	    ease: vars.ease || DEFAULT_EASING,
+	    onUpdate: vars.onUpdate || noop,
+	    onComplete: vars.onComplete || noop,
+	    onStart: vars.onStart || noop,
+	    onRepeat: vars.onRepeat || noop,
+	    repeat: vars.repeat || 0,
+	    repeatDelay: vars.repeatDelay || 0,
+	    yoyo: vars.yoyo || false,
+	    type: vars.type || 'to',
+	    initTime: now
+	  };
+	}
+	
+	var timeLine = function timeLine(target, toData) {
+	  this.target = target;
+	  // 记录总时间;
+	  this.totalTime = 0;
+	  // 记录当前时间;
+	  this.progressTime = 0;
+	  // 记录时间轴数据;
+	  this.defaultData = [];
+	  // 每个的开始数据；
+	  this.start = {};
+	  // 开始默认的数据；
+	  this.startDefaultData = this.target.getAttribute('style');
+	  // 动画过程
+	  this.tween = {};
+	  // 每帧的时间;
+	  this.perFrame = Math.round(1000 / 60);
+	  // 设置默认动画数据;
+	  this.setDefaultData(toData);
+	};
+	var p = timeLine.prototype;
+	
+	p.getComputedStyle = function () {
+	  return document.defaultView ? document.defaultView.getComputedStyle(this.target) : {};
+	};
+	
+	p.getTweenData = function (_key, vars) {
+	  var data = {
+	    data: {},
+	    dataType: {},
+	    dataUnit: {},
+	    dataCount: {}
+	  };
+	  var key = (0, _styleUtils.getGsapType)(_key);
+	  if (key.indexOf('color') >= 0 || key.indexOf('Color') >= 0) {
+	    data.data[key] = (0, _styleUtils.parseColor)(vars);
+	    data.dataType[key] = 'color';
+	  } else if (key.indexOf('shadow') >= 0 || key.indexOf('Shadow') >= 0) {
+	    data.data[key] = (0, _styleUtils.parseShadow)(vars);
+	    data.dataType[key] = 'shadow';
+	  } else if (key === 'bezier') {
+	    data.data[key] = vars;
+	  } else if (key === 'scale') {
+	    data.data.scaleX = vars;
+	    data.data.scaleY = vars;
+	    data.dataType.scaleX = data.dataType.scaleY = 'other';
+	  } else {
+	    data.data[key] = vars;
+	    data.dataType[key] = 'other';
+	  }
+	  if (key !== 'bezier') {
+	    if (Array.isArray(data.data[key])) {
+	      data.dataUnit[key] = data.data[key].map(function (_item) {
+	        return _item.toString().replace(/[^a-z|%]/g, '');
+	      });
+	      data.dataCount[key] = data.data[key].map(function (_item) {
+	        return _item.toString().replace(/[^+|=|-]/g, '');
+	      });
+	      data.data[key] = data.data[key].map(function (_item) {
+	        return parseFloat(_item);
+	      });
+	    } else if (key === 'scale') {
+	      data.dataUnit.scaleX = data.data.scaleX.toString().replace(/[^a-z|%]/g, '');
+	      data.dataCount.scaleX = data.data.scaleX.toString().replace(/[^+|=|-]/g, '');
+	      data.data.scaleX = parseFloat(data.data.scaleX);
+	      data.dataUnit.scaleY = data.data.scaleY.toString().replace(/[^a-z|%]/g, '');
+	      data.dataCount.scaleY = data.data.scaleY.toString().replace(/[^+|=|-]/g, '');
+	      data.data.scaleY = parseFloat(data.data.scaleY);
+	    } else {
+	      data.dataUnit[key] = data.data[key].toString().replace(/[^a-z|%]/g, '');
+	      data.dataCount[key] = data.data[key].toString().replace(/[^+|=|-]/g, '');
+	      data.data[key] = parseFloat(data.data[key].toString().replace(/[a-z|%|=]/g, ''));
+	    }
+	  }
+	  return data;
+	};
+	p.setDefaultData = function (vars) {
+	  var _this = this;
+	
+	  var now = 0;
+	  var repeatMax = false;
+	  var data = vars.map(function (item) {
+	    now += item.delay || 0; // 加上延时，在没有播放过时；
+	    var tweenData = defaultData(item, now);
+	    tweenData.vars = {};
+	    tweenData.varsType = {};
+	    tweenData.varsUnit = {};
+	    tweenData.varsCount = {};
+	    Object.keys(item).forEach(function (_key) {
+	      if (!(_key in tweenData)) {
+	        var _data = _this.getTweenData(_key, item[_key]);
+	        var key = (0, _styleUtils.getGsapType)(_key);
+	        if (!(_key in _this.target) || _styleUtils2['default'].filter.indexOf(key) >= 0) {
+	          tweenData.vars.css = tweenData.vars.css || {};
+	          if (key === 'scale') {
+	            tweenData.vars.css.scaleX = _data.data.scaleX;
+	            tweenData.vars.css.scaleY = _data.data.scaleY;
+	          } else {
+	            tweenData.vars.css[key] = _data.data[key];
+	          }
+	        } else {
+	          tweenData.vars[key] = _data.data[key];
+	        }
+	        if (key === 'scale') {
+	          tweenData.varsType.scaleX = _data.dataType.scaleX;
+	          tweenData.varsUnit.scaleX = _data.dataUnit.scaleX;
+	          tweenData.varsCount.scaleX = _data.dataCount.scaleX;
+	          tweenData.varsType.scaleY = _data.dataType.scaleY;
+	          tweenData.varsUnit.scaleY = _data.dataUnit.scaleY;
+	          tweenData.varsCount.scaleY = _data.dataCount.scaleY;
+	          return;
+	        }
+	        tweenData.varsType[key] = _data.dataType[key];
+	        tweenData.varsUnit[key] = _data.dataUnit[key];
+	        tweenData.varsCount[key] = _data.dataCount[key];
+	      }
+	    });
+	    if (tweenData.yoyo && !tweenData.repeat) {
+	      console.warn('Warning: yoyo must be used together with repeat;');
+	    }
+	    if (tweenData.repeat === -1) {
+	      repeatMax = true;
+	    }
+	    if (tweenData.delay < -tweenData.duration) {
+	      // 如果延时小于 负时间时,,不加,再减回延时;
+	      now -= tweenData.delay;
+	    } else {
+	      now += tweenData.duration * (tweenData.repeat + 1) + tweenData.repeatDelay * tweenData.repeat;
+	    }
+	    tweenData.mode = '';
+	    return tweenData;
+	  });
+	  this.totalTime = repeatMax ? Number.MAX_VALUE : now;
+	  this.defaultData = data;
+	};
+	p.convertToMarks = function (style, num, unit) {
+	  var horiz = /(?:Left|Right|Width)/i.test(style);
+	  var t = style.indexOf('border') !== -1 ? this.target : this.target.parentNode || document.body;
+	  var pix = undefined;
+	  if (unit === '%') {
+	    pix = parseFloat(num) * 100 / (horiz ? t.clientWidth : t.clientHeight);
+	  } else {
+	    // em rem
+	    pix = parseFloat(num) / 16;
+	  }
+	  return pix;
+	};
+	p.convertToMarksArray = function (unit, data, i) {
+	  var startUnit = data.toString().replace(/[^a-z|%]/g, '');
+	  var endUnit = unit[i];
+	  if (startUnit === endUnit) {
+	    return parseFloat(data);
+	  }
+	  return this.convertToMarks('shadow', data, endUnit);
+	};
+	p.getAnimStartCssData = function (vars, i) {
+	  var _this2 = this;
+	
+	  var computedStyle = this.getComputedStyle();
+	  var style = {};
+	  Object.keys(vars).forEach(function (_key) {
+	    var key = (0, _styleUtils.getGsapType)(_key);
+	    var cssName = (0, _styleUtils.isConvert)(key);
+	    var startData = computedStyle[cssName];
+	    if (!startData || startData === 'none' || startData === 'auto') {
+	      startData = '';
+	    }
+	    var transform = undefined;
+	    var endUnit = undefined;
+	    var startUnit = undefined;
+	    if (cssName === 'transform') {
+	      _this2.transform = (0, _styleUtils.checkStyleName)('transform');
+	      startData = computedStyle[_this2.transform];
+	      transform = (0, _styleUtils.getTransform)(startData);
+	      style.transform = transform;
+	    } else if (cssName === 'bezier') {
+	      _this2.transform = (0, _styleUtils.checkStyleName)('transform');
+	      startData = computedStyle[_this2.transform];
+	      var bezier = style.bezier = new _BezierPlugin2['default'](startData === 'none' ? '' : startData, vars.bezier);
+	      transform = vars.type === 'from' ? bezier.set(1) : bezier.set(0);
+	      transform = (0, _styleUtils.getTransform)(transform);
+	    } else if (cssName === 'filter') {
+	      _this2.filterName = (0, _styleUtils.checkStyleName)('filter');
+	      startData = computedStyle[_this2.filterName];
+	      _this2.filterObject = (0, _objectAssign2['default'])(_this2.filterObject || {}, (0, _styleUtils.splitFilterToObject)(startData));
+	      startData = _this2.filterObject[_key] || 0;
+	      startUnit = startData.toString().replace(/[^a-z|%]/g, '');
+	      endUnit = _this2.defaultData[i].varsUnit[_key];
+	      if (endUnit !== startUnit) {
+	        startData = _this2.convertToMarks(_key, startData, endUnit);
+	      }
+	      style[_key] = parseFloat(startData);
+	    } else if (key.indexOf('color') >= 0 || key.indexOf('Color') >= 0) {
+	      style[cssName] = (0, _styleUtils.parseColor)(startData);
+	    } else if (key.indexOf('shadow') >= 0 || key.indexOf('Shadow') >= 0) {
+	      startData = (0, _styleUtils.parseShadow)(startData);
+	      endUnit = _this2.defaultData[i].varsUnit[_key];
+	      startData = startData.map(_this2.convertToMarksArray.bind(_this2, endUnit));
+	      style[cssName] = startData;
+	    } else {
+	      // 计算单位， em rem % px;
+	      endUnit = _this2.defaultData[i].varsUnit[cssName];
+	      startUnit = startData.toString().replace(/[^a-z|%]/g, '');
+	      if (endUnit && (endUnit !== startUnit || endUnit !== 'px')) {
+	        startData = _this2.convertToMarks(cssName, startData, endUnit);
+	      }
+	      style[cssName] = parseFloat(startData || 0);
+	    }
+	  });
+	  return style;
+	};
+	p.getAnimStartData = function (item, i) {
+	  var _this3 = this;
+	
+	  var start = {};
+	  Object.keys(item).forEach(function (_key) {
+	    if (_key === 'css') {
+	      start[_key] = _this3.getAnimStartCssData(item[_key], i);
+	      return;
+	    }
+	    start[_key] = _this3.target[_key] || 0;
+	  });
+	  return start;
+	};
+	p.setAnimData = function (data) {
+	  var _this4 = this;
+	
+	  var style = this.target.style;
+	  Object.keys(data).forEach(function (key) {
+	    if (key === 'css') {
+	      var _ret = (function () {
+	        var _data = data[key];
+	        Object.keys(_data).forEach(function (_key) {
+	          if (_key === 'transform') {
+	            var t = _data[_key];
+	            var perspective = t.perspective;
+	            var angle = t.rotate;
+	            var rotateX = t.rotateX;
+	            var rotateY = t.rotateY;
+	            var sx = t.scaleX;
+	            var sy = t.scaleY;
+	            var sz = t.scaleZ;
+	            var skx = t.skewX;
+	            var sky = t.skewY;
+	            var translateX = t.translateX;
+	            var translateY = t.translateY;
+	            var translateZ = t.translateZ;
+	            var xPercent = t.xPercent || 0;
+	            var yPercent = t.yPercent || 0;
+	            var percent = '' + (xPercent || yPercent ? 'translate(' + xPercent + ',' + yPercent + ')' : '');
+	            var sk = skx || sky ? 'skew(' + skx + 'deg,' + sky + 'deg)' : '';
+	            var an = angle ? 'rotate(' + angle + 'deg)' : '';
+	            var ss = undefined;
+	            if (!perspective && !rotateX && !rotateY && !translateZ && sz === 1) {
+	              var matrix = '1,0,0,1,' + translateX + ',' + translateY;
+	              ss = sx !== 1 || sy !== 1 ? 'scale(' + sx + ',' + sy + ')' : '';
+	              // IE 9 没 3d;
+	              style[_this4.transform] = (percent + ' matrix(' + matrix + ') ' + an + ' ' + ss + ' ' + sk).trim();
+	              return;
+	            }
+	            ss = sx !== 1 || sy !== 1 || sz !== 1 ? 'scale3d(' + sx + ',' + sy + ',' + sz + ')' : '';
+	            var rX = rotateX ? 'rotateX(' + rotateX + 'deg)' : '';
+	            var rY = rotateY ? 'rotateY(' + rotateY + 'deg)' : '';
+	            var per = perspective ? 'perspective(' + perspective + 'px)' : '';
+	            style[_this4.transform] = (per + ' ' + percent + ' translate3d(' + translateX + 'px,' + translateY + 'px,' + translateZ + 'px) ' + ss + ' ' + an + ' ' + rX + ' ' + rY + ' ' + sk).trim();
+	            return;
+	          } else if (_styleUtils2['default'].filter.indexOf(_key) >= 0) {
+	            _this4.filterObject[_key] = _data[_key];
+	            var filterStyle = '';
+	            Object.keys(_this4.filterObject).forEach(function (filterKey) {
+	              filterStyle += ' ' + filterKey + '(' + _this4.filterObject[filterKey] + ')';
+	            });
+	            style[_this4.filterName] = filterStyle.trim();
+	            return;
+	          }
+	          style[_key] = data[key][_key];
+	        });
+	        return {
+	          v: undefined
+	        };
+	      })();
+	
+	      if (typeof _ret === 'object') return _ret.v;
+	    }
+	    _this4.target[key] = data[key];
+	  });
+	};
+	
+	p.setArrayRatio = function (ratio, start, vars, unit, type) {
+	  var _vars = vars.map(function (endData, i) {
+	    var startData = start[i] || 0;
+	    return (endData - startData) * ratio + startData + unit[i];
+	  });
+	  if (type === 'color') {
+	    return (0, _styleUtils.getColor)(_vars);
+	  } else if (type === 'shadow') {
+	    var s = _vars.slice(0, 3);
+	    var c = _vars.slice(3, _vars.length);
+	    var color = (0, _styleUtils.getColor)(c);
+	    return s.join(' ') + ' ' + color;
+	  }
+	  return _vars;
+	};
+	
+	p.setStyleRatio = function (ratio, start, vars, unit, count, type) {
+	  var _this5 = this;
+	
+	  var style = {};
+	  if (start.transform) {
+	    style.transform = (0, _objectAssign2['default'])({}, start.transform, this.tween.css ? this.tween.css.transform : {});
+	  }
+	  Object.keys(vars).forEach(function (key) {
+	    var _isTransform = (0, _styleUtils.isTransform)(key) === 'transform';
+	    var startVars = _isTransform ? start.transform[key] : start[key];
+	    var endVars = vars[key];
+	    var _unit = unit[key] ? unit[key] : 0;
+	    var _count = count[key];
+	    if (_isTransform) {
+	      if (_unit === '%' || _unit === 'em' || _unit === 'rem') {
+	        // translateX translateY => %
+	        var pName = undefined;
+	        var data = undefined;
+	        if (key === 'translateX') {
+	          data = start.transform.translateX;
+	          pName = 'xPercent';
+	        } else {
+	          data = start.transform.translateY;
+	          pName = 'yPercent';
+	        }
+	        if (_count.charAt(1) !== '=') {
+	          style.transform[key] = data - data * ratio;
+	        }
+	        style.transform[pName] = endVars * ratio + _unit;
+	      } else {
+	        if (_count.charAt(1) === '=') {
+	          style.transform[key] = startVars + endVars * ratio;
+	          return;
+	        }
+	        style.transform[key] = (endVars - startVars) * ratio + startVars;
+	      }
+	      return;
+	    } else if (key === 'bezier') {
+	      var bezier = start[key];
+	      style.transform = (0, _styleUtils.getTransform)(bezier.set(ratio));
+	      return;
+	    } else if (Array.isArray(endVars)) {
+	      var _type = type[key];
+	      style[key] = _this5.setArrayRatio(ratio, startVars, endVars, _unit, _type);
+	      return;
+	    }
+	    var styleUnit = (0, _styleUtils.stylesToCss)(key, 0);
+	    styleUnit = typeof styleUnit === 'number' ? '' : styleUnit.replace(/[^a-z|%]/g, '');
+	    _unit = _unit || (_styleUtils2['default'].filter.indexOf(key) >= 0 ? '' : styleUnit);
+	    if (_count.charAt(1) === '=') {
+	      style[key] = startVars + endVars * ratio + _unit;
+	      return;
+	    }
+	    style[key] = (endVars - startVars) * ratio + startVars + _unit;
+	  });
+	  return style;
+	};
+	
+	p.setRatioData = function (ratio, endData, i) {
+	  var _this6 = this;
+	
+	  Object.keys(endData).forEach(function (_key) {
+	    var key = (0, _styleUtils.getGsapType)(_key);
+	    var endVars = endData[_key];
+	    var startVars = _this6.start[i][key];
+	    var unit = _this6.defaultData[i].varsUnit;
+	    var count = _this6.defaultData[i].varsCount;
+	    var type = _this6.defaultData[i].varsType;
+	    if (typeof endVars === 'object' && _key === 'css') {
+	      _this6.tween.css = (0, _objectAssign2['default'])({}, _this6.tween.css, _this6.setStyleRatio(ratio, startVars, endVars, unit, count, type));
+	    } else if (Array.isArray(endVars)) {
+	      _this6.tween[key] = _this6.setArrayRatio(ratio, startVars, endVars, unit[key]);
+	    } else {
+	      _this6.tween[key] = count[key].charAt(1) === '=' ? startVars + endVars * ratio : (endVars - startVars) * ratio + startVars;
+	    }
+	  });
+	};
+	
+	p.setRatio = function (ratio, endData, i) {
+	  this.setRatioData(ratio, endData.vars, i);
+	  this.setAnimData(this.tween);
+	};
+	p.render = function () {
+	  var _this7 = this;
+	
+	  this.defaultData.forEach(function (item, i) {
+	    var initTime = item.initTime;
+	    // 处理 yoyo 和 repeat; yoyo 是在时间轴上的, 并不是倒放
+	    var repeatNum = Math.ceil((_this7.progressTime - initTime) / (item.duration + item.repeatDelay)) - 1;
+	    repeatNum = repeatNum < 0 ? 0 : repeatNum;
+	    repeatNum = _this7.progressTime === 0 ? repeatNum + 1 : repeatNum;
+	    if (item.repeat) {
+	      if (item.repeat || item.repeat <= repeatNum) {
+	        initTime = initTime + repeatNum * (item.duration + item.repeatDelay);
+	      }
+	    }
+	    var progressTime = _this7.progressTime - initTime;
+	    // 设置 start
+	    var delay = item.delay >= 0 ? item.delay : -item.delay;
+	    var fromDelay = item.type === 'from' ? delay : 0;
+	    if (progressTime + fromDelay >= 0 && !_this7.start[i]) {
+	      _this7.start[i] = _this7.getAnimStartData(item.vars, i);
+	    }
+	    // onRepeat 处理
+	    if (item.repeat && repeatNum > 0 && progressTime + fromDelay >= 0 && progressTime < _this7.perFrame) {
+	      // 重新开始, 在第一秒触发时调用;
+	      item.onRepeat();
+	    }
+	    if (progressTime + fromDelay >= 0 && progressTime < _this7.perFrame && repeatNum <= 0) {
+	      item.mode = 'onStart';
+	      _this7.setRatio(item.type === 'from' ? 1 : 0, item, i);
+	      item.onStart();
+	    } else if (progressTime >= item.duration && item.mode !== 'onComplete') {
+	      _this7.setRatio(item.type === 'from' || repeatNum % 2 && item.yoyo ? 0 : 1, item, i);
+	      if (item.mode !== 'reset') {
+	        item.onComplete();
+	      }
+	      item.mode = 'onComplete';
+	    } else if (progressTime >= 0 && progressTime < item.duration) {
+	      item.mode = 'onUpdate';
+	      progressTime = progressTime < 0 ? 0 : progressTime;
+	      progressTime = progressTime > item.duration ? item.duration : progressTime;
+	      var ratio = _tweenFunctions2['default'][item.ease](progressTime, 0, 1, item.duration);
+	      if (item.yoyo && repeatNum % 2 || item.type === 'from') {
+	        ratio = _tweenFunctions2['default'][item.ease](progressTime, 1, 0, item.duration);
+	      }
+	      _this7.setRatio(ratio, item, i);
+	      item.onUpdate(ratio);
+	    }
+	    if (progressTime >= 0 && progressTime < item.duration + _this7.perFrame) {
+	      _this7.onChange({
+	        moment: _this7.progressTime,
+	        item: item,
+	        tween: _this7.tween,
+	        index: i,
+	        mode: item.mode
+	      });
+	    }
+	  });
+	};
+	// 播放帧
+	p.frame = function (moment) {
+	  this.progressTime = moment;
+	  this.render();
+	};
+	p.resetAnimData = function () {
+	  this.tween = {};
+	  this.start = {};
+	};
+	
+	p.resetDefaultStyle = function () {
+	  this.tween = {};
+	  this.defaultData = this.defaultData.map(function (item) {
+	    item.mode = 'reset';
+	    return item;
+	  });
+	  this.target.setAttribute('style', this.startDefaultData);
+	};
+	
+	p.onChange = noop;
+	exports['default'] = timeLine;
+	module.exports = exports['default'];
+
+/***/ },
+/* 177 */
 /***/ function(module, exports) {
+
+	'use strict';
+	/* eslint-disable no-unused-vars */
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+	
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+	
+		return Object(val);
+	}
+	
+	function shouldUseNative() {
+		try {
+			if (!Object.assign) {
+				return false;
+			}
+	
+			// Detect buggy property enumeration order in older V8 versions.
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+			var test1 = new String('abc');  // eslint-disable-line
+			test1[5] = 'de';
+			if (Object.getOwnPropertyNames(test1)[0] === '5') {
+				return false;
+			}
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test2 = {};
+			for (var i = 0; i < 10; i++) {
+				test2['_' + String.fromCharCode(i)] = i;
+			}
+			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+				return test2[n];
+			});
+			if (order2.join('') !== '0123456789') {
+				return false;
+			}
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test3 = {};
+			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+				test3[letter] = letter;
+			});
+			if (Object.keys(Object.assign({}, test3)).join('') !==
+					'abcdefghijklmnopqrst') {
+				return false;
+			}
+	
+			return true;
+		} catch (e) {
+			// We don't expect any of the above to throw, but better to be safe.
+			return false;
+		}
+	}
+	
+	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+	
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+	
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+	
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+	
+		return to;
+	};
+
+
+/***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	// t: current time, b: beginning value, _c: final value, d: total duration
+	var tweenFunctions = {
+	  linear: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * t / d + b;
+	  },
+	  easeInQuad: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * (t /= d) * t + b;
+	  },
+	  easeOutQuad: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return -c * (t /= d) * (t - 2) + b;
+	  },
+	  easeInOutQuad: function(t, b, _c, d) {
+	    var c = _c - b;
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t + b;
+	    } else {
+	      return -c / 2 * ((--t) * (t - 2) - 1) + b;
+	    }
+	  },
+	  easeInCubic: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * (t /= d) * t * t + b;
+	  },
+	  easeOutCubic: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * ((t = t / d - 1) * t * t + 1) + b;
+	  },
+	  easeInOutCubic: function(t, b, _c, d) {
+	    var c = _c - b;
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t * t + b;
+	    } else {
+	      return c / 2 * ((t -= 2) * t * t + 2) + b;
+	    }
+	  },
+	  easeInQuart: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * (t /= d) * t * t * t + b;
+	  },
+	  easeOutQuart: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+	  },
+	  easeInOutQuart: function(t, b, _c, d) {
+	    var c = _c - b;
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t * t * t + b;
+	    } else {
+	      return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+	    }
+	  },
+	  easeInQuint: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * (t /= d) * t * t * t * t + b;
+	  },
+	  easeOutQuint: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+	  },
+	  easeInOutQuint: function(t, b, _c, d) {
+	    var c = _c - b;
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t * t * t * t + b;
+	    } else {
+	      return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+	    }
+	  },
+	  easeInSine: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+	  },
+	  easeOutSine: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * Math.sin(t / d * (Math.PI / 2)) + b;
+	  },
+	  easeInOutSine: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+	  },
+	  easeInExpo: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
+	  },
+	  easeOutExpo: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+	  },
+	  easeInOutExpo: function(t, b, _c, d) {
+	    var c = _c - b;
+	    if (t === 0) {
+	      return b;
+	    }
+	    if (t === d) {
+	      return b + c;
+	    }
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+	    } else {
+	      return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+	    }
+	  },
+	  easeInCirc: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+	  },
+	  easeOutCirc: function(t, b, _c, d) {
+	    var c = _c - b;
+	    return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+	  },
+	  easeInOutCirc: function(t, b, _c, d) {
+	    var c = _c - b;
+	    if ((t /= d / 2) < 1) {
+	      return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+	    } else {
+	      return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+	    }
+	  },
+	  easeInElastic: function(t, b, _c, d) {
+	    var c = _c - b;
+	    var a, p, s;
+	    s = 1.70158;
+	    p = 0;
+	    a = c;
+	    if (t === 0) {
+	      return b;
+	    } else if ((t /= d) === 1) {
+	      return b + c;
+	    }
+	    if (!p) {
+	      p = d * 0.3;
+	    }
+	    if (a < Math.abs(c)) {
+	      a = c;
+	      s = p / 4;
+	    } else {
+	      s = p / (2 * Math.PI) * Math.asin(c / a);
+	    }
+	    return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+	  },
+	  easeOutElastic: function(t, b, _c, d) {
+	    var c = _c - b;
+	    var a, p, s;
+	    s = 1.70158;
+	    p = 0;
+	    a = c;
+	    if (t === 0) {
+	      return b;
+	    } else if ((t /= d) === 1) {
+	      return b + c;
+	    }
+	    if (!p) {
+	      p = d * 0.3;
+	    }
+	    if (a < Math.abs(c)) {
+	      a = c;
+	      s = p / 4;
+	    } else {
+	      s = p / (2 * Math.PI) * Math.asin(c / a);
+	    }
+	    return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+	  },
+	  easeInOutElastic: function(t, b, _c, d) {
+	    var c = _c - b;
+	    var a, p, s;
+	    s = 1.70158;
+	    p = 0;
+	    a = c;
+	    if (t === 0) {
+	      return b;
+	    } else if ((t /= d / 2) === 2) {
+	      return b + c;
+	    }
+	    if (!p) {
+	      p = d * (0.3 * 1.5);
+	    }
+	    if (a < Math.abs(c)) {
+	      a = c;
+	      s = p / 4;
+	    } else {
+	      s = p / (2 * Math.PI) * Math.asin(c / a);
+	    }
+	    if (t < 1) {
+	      return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+	    } else {
+	      return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * 0.5 + c + b;
+	    }
+	  },
+	  easeInBack: function(t, b, _c, d, s) {
+	    var c = _c - b;
+	    if (s === void 0) {
+	      s = 1.70158;
+	    }
+	    return c * (t /= d) * t * ((s + 1) * t - s) + b;
+	  },
+	  easeOutBack: function(t, b, _c, d, s) {
+	    var c = _c - b;
+	    if (s === void 0) {
+	      s = 1.70158;
+	    }
+	    return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+	  },
+	  easeInOutBack: function(t, b, _c, d, s) {
+	    var c = _c - b;
+	    if (s === void 0) {
+	      s = 1.70158;
+	    }
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+	    } else {
+	      return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+	    }
+	  },
+	  easeInBounce: function(t, b, _c, d) {
+	    var c = _c - b;
+	    var v;
+	    v = tweenFunctions.easeOutBounce(d - t, 0, c, d);
+	    return c - v + b;
+	  },
+	  easeOutBounce: function(t, b, _c, d) {
+	    var c = _c - b;
+	    if ((t /= d) < 1 / 2.75) {
+	      return c * (7.5625 * t * t) + b;
+	    } else if (t < 2 / 2.75) {
+	      return c * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75) + b;
+	    } else if (t < 2.5 / 2.75) {
+	      return c * (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375) + b;
+	    } else {
+	      return c * (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375) + b;
+	    }
+	  },
+	  easeInOutBounce: function(t, b, _c, d) {
+	    var c = _c - b;
+	    var v;
+	    if (t < d / 2) {
+	      v = tweenFunctions.easeInBounce(t * 2, 0, c, d);
+	      return v * 0.5 + b;
+	    } else {
+	      v = tweenFunctions.easeOutBounce(t * 2 - d, 0, c, d);
+	      return v * 0.5 + c * 0.5 + b;
+	    }
+	  }
+	};
+	
+	module.exports = tweenFunctions;
+
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.createMatrix = createMatrix;
+	exports.checkStyleName = checkStyleName;
+	exports.getGsapType = getGsapType;
+	exports.parseColor = parseColor;
+	exports.parseShadow = parseShadow;
+	exports.getColor = getColor;
+	exports.isTransform = isTransform;
+	exports.isConvert = isConvert;
+	exports.splitFilterToObject = splitFilterToObject;
+	exports.getMatrix = getMatrix;
+	exports.getTransform = getTransform;
+	exports.stylesToCss = stylesToCss;
+	exports.getUnit = getUnit;
+	exports.getValues = getValues;
+	exports.findStyleByName = findStyleByName;
+	exports.mergeStyle = mergeStyle;
+	
+	var _CSSProperty = __webpack_require__(94);
+	
+	var _CSSProperty2 = _interopRequireDefault(_CSSProperty);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var isUnitlessNumber = _CSSProperty2.default.isUnitlessNumber;
+	var unquotedContentValueRegex = /^(normal|none|(\b(url\([^)]*\)|chapter_counter|attr\([^)]*\)|(no-)?(open|close)-quote|inherit)((\b\s*)|$|\s+))+)$/;
+	
 	var IE = function () {
 	  if (document.documentMode) {
 	    return document.documentMode;
@@ -21335,366 +22021,1071 @@
 	  var c = h * 6 < 1 ? m1 + (m2 - m1) * h * 6 : b;
 	  return c * 255 + 0.5 | 0;
 	};
+	var DEG2RAD = Math.PI / 180;
+	var RAD2DEG = 180 / Math.PI;
 	
-	var CSS = {
+	var cssList = {
 	  _lists: {
 	    transformsBase: ['translate', 'translateX', 'translateY', 'scale', 'scaleX', 'scaleY', 'skewX', 'skewY', 'rotateZ', 'rotate'],
 	    transforms3D: ['translate3d', 'translateZ', 'scaleZ', 'rotateX', 'rotateY', 'perspective']
 	  },
 	  transformGroup: { translate: 1, translate3d: 1, scale: 1, scale3d: 1, rotate: 1, rotate3d: 1 },
+	  filter: ['grayScale', 'sepia', 'hueRotate', 'invert', 'brightness', 'contrast', 'blur'],
+	  filterConvert: { grayScale: 'grayscale', hueRotate: 'hue-rotate' }
+	};
+	cssList._lists.transformsBase = !(IE <= 9) ? cssList._lists.transformsBase.concat(cssList._lists.transforms3D) : cssList._lists.transformsBase;
 	
-	  getGsapType: function getGsapType(_p) {
-	    var p = _p;
-	    p = p === 'x' ? 'translateX' : p;
-	    p = p === 'y' ? 'translateY' : p;
-	    p = p === 'z' ? 'translateZ' : p;
-	    p = p === 'r' ? 'rotate' : p;
+	function createMatrix(style) {
+	  return window.WebKitCSSMatrix && new window.WebKitCSSMatrix(style) || window.MozCSSMatrix && new window.MozCSSMatrix(style) || window.DOMMatrix && new window.DOMMatrix(style) || window.MsCSSMatrix && new window.MsCSSMatrix(style) || window.OCSSMatrix && new window.OCSSMatrix(style) || window.CSSMatrix && new window.CSSMatrix(style) || null;
+	}
+	
+	function checkStyleName(p) {
+	  var a = ['O', 'Moz', 'ms', 'Ms', 'Webkit'];
+	  if (p !== 'filter' && p in document.body.style) {
 	    return p;
-	  },
-	  parseShadow: function parseShadow(v) {
-	    var vArr = v.split(' ');
-	    var color = this.parseColor(vArr[3]);
-	    color[3] = typeof color[3] === 'number' ? color[3] : 1;
-	    vArr = vArr.splice(0, 3);
-	    return vArr.concat(color);
-	  },
-	  parseColor: function parseColor(_v) {
-	    var a = void 0;
-	    var r = void 0;
-	    var g = void 0;
-	    var b = void 0;
-	    var h = void 0;
-	    var s = void 0;
-	    var l = void 0;
-	    var v = _v;
-	    var _numExp = /(?:\d|\-\d|\.\d|\-\.\d)+/g;
-	    if (!v) {
-	      a = colorLookup.black;
-	    } else if (typeof v === 'number') {
-	      a = [v >> 16, v >> 8 & 255, v & 255];
-	    } else {
-	      if (v.charAt(v.length - 1) === ',') {
-	        v = v.substr(0, v.length - 1);
-	      }
-	      if (colorLookup[v]) {
-	        a = colorLookup[v];
-	      } else if (v.charAt(0) === '#') {
-	        // is #FFF
-	        if (v.length === 4) {
-	          r = v.charAt(1);
-	          g = v.charAt(2);
-	          b = v.charAt(3);
-	          v = '#' + r + r + g + g + b + b;
-	        }
-	        v = parseInt(v.substr(1), 16);
-	        a = [v >> 16, v >> 8 & 255, v & 255];
-	      } else if (v.substr(0, 3) === 'hsl') {
-	        a = v.match(_numExp);
-	        h = Number(a[0]) % 360 / 360;
-	        s = Number(a[1]) / 100;
-	        l = Number(a[2]) / 100;
-	        g = l <= 0.5 ? l * (s + 1) : l + s - l * s;
-	        r = l * 2 - g;
-	        if (a.length > 3) {
-	          a[3] = Number(a[3]);
-	        }
-	        a[0] = _hue(h + 1 / 3, r, g);
-	        a[1] = _hue(h, r, g);
-	        a[2] = _hue(h - 1 / 3, r, g);
-	      } else {
-	        a = v.match(_numExp) || colorLookup.transparent;
-	      }
-	      a[0] = Number(a[0]);
-	      a[1] = Number(a[1]);
-	      a[2] = Number(a[2]);
+	  }
+	  var _p = p.charAt(0).toUpperCase() + p.substr(1);
+	  return '' + (a.filter(function (key) {
+	    return '' + key + _p in document.body.style;
+	  })[0] || '') + _p;
+	}
 	
+	function getGsapType(_p) {
+	  var p = _p;
+	  p = p === 'x' ? 'translateX' : p;
+	  p = p === 'y' ? 'translateY' : p;
+	  p = p === 'z' ? 'translateZ' : p;
+	  p = p === 'r' ? 'rotate' : p;
+	  return p;
+	}
+	
+	function parseColor(_v) {
+	  var a = void 0;
+	  var r = void 0;
+	  var g = void 0;
+	  var b = void 0;
+	  var h = void 0;
+	  var s = void 0;
+	  var l = void 0;
+	  var v = _v;
+	  var _numExp = /(?:\d|\-\d|\.\d|\-\.\d)+/g;
+	  if (!v) {
+	    a = colorLookup.black;
+	  } else if (typeof v === 'number') {
+	    a = [v >> 16, v >> 8 & 255, v & 255];
+	  } else {
+	    if (v.charAt(v.length - 1) === ',') {
+	      v = v.substr(0, v.length - 1);
+	    }
+	    if (colorLookup[v]) {
+	      a = colorLookup[v];
+	    } else if (v.charAt(0) === '#') {
+	      // is #FFF
+	      if (v.length === 4) {
+	        r = v.charAt(1);
+	        g = v.charAt(2);
+	        b = v.charAt(3);
+	        v = '#' + r + r + g + g + b + b;
+	      }
+	      v = parseInt(v.substr(1), 16);
+	      a = [v >> 16, v >> 8 & 255, v & 255];
+	    } else if (v.substr(0, 3) === 'hsl') {
+	      a = v.match(_numExp);
+	      h = Number(a[0]) % 360 / 360;
+	      s = Number(a[1]) / 100;
+	      l = Number(a[2]) / 100;
+	      g = l <= 0.5 ? l * (s + 1) : l + s - l * s;
+	      r = l * 2 - g;
 	      if (a.length > 3) {
 	        a[3] = Number(a[3]);
 	      }
-	    }
-	    return a;
-	  },
-	  getArrayToColor: function getArrayToColor(arr) {
-	    var color = 'rgba(';
-	    var _arr = arr.map(function (item, i) {
-	      if (i < 3) {
-	        return parseInt(item, 10);
-	      }
-	      return item;
-	    });
-	    return color + _arr.join(',') + ')';
-	  },
-	  getTransformStart: function getTransformStart(name, obj) {
-	    if (name in obj) {
-	      return obj[name];
-	    }
-	    if (name.indexOf('translate') >= 0) {
-	      if ('translate' in obj || 'translate3d' in obj) {
-	        switch (name) {
-	          case 'translateX':
-	            return obj.translate.split(',')[0];
-	          case 'translateY':
-	            return obj.translate.split(',')[1];
-	          case 'translateZ':
-	            return obj.translate.split(',')[2];
-	          default:
-	            return null;
-	        }
-	      }
-	    } else if (name.indexOf('rotate') >= 0) {
-	      if ('rotate' in obj || 'rotate3d' in obj) {
-	        switch (name) {
-	          case 'rotateX':
-	            return obj.rotate.split(',')[0];
-	          case 'rotateY':
-	            return obj.rotate.split(',')[1];
-	          case 'rotateZ':
-	            return obj.rotate.split(',')[2];
-	          default:
-	            return null;
-	        }
-	      }
-	    } else if (name.indexOf('scale') >= 0) {
-	      if ('scale' in obj) {
-	        switch (name) {
-	          case 'scaleX':
-	            return obj.scale.split(',')[0];
-	          case 'scaleY':
-	            return obj.scale.split(',')[1];
-	          default:
-	            return null;
-	        }
-	      }
-	    }
-	    return false;
-	  },
-	  mergeTransformName: function mergeTransformName(a, b) {
-	    var belongTransform = this.findStyleByName(a, b);
-	    if (belongTransform) {
-	      var bArr = belongTransform.split('(');
-	      var dataArr = bArr[1].replace(')', '').split(',');
-	      switch (b) {
-	        case 'translateY' || 'scaleY' || 'rotateY':
-	          return dataArr[1];
-	        case 'translateZ' || 'rotateZ':
-	          return dataArr[2];
-	        default:
-	          return dataArr[0];
-	      }
-	    }
-	    return false;
-	  },
-	  findStyleByName: function findStyleByName(cssArray, name) {
-	    var _this = this;
-	
-	    var ret = null;
-	    if (cssArray) {
-	      cssArray.forEach(function (_cname) {
-	        if (ret) {
-	          return;
-	        }
-	        var cName = _cname.split('(')[0];
-	        var a = cName in _this.transformGroup && name.substring(0, name.length - 1).indexOf(cName) >= 0;
-	        var b = name in _this.transformGroup && cName.substring(0, cName.length - 1).indexOf(name) >= 0;
-	        var c = cName in _this.transformGroup && name in _this.transformGroup && (cName.substring(0, cName.length - 2) === name || name.substring(0, name.length - 2) === cName);
-	        if (cName === name || a || b || c) {
-	          ret = _cname;
-	        }
-	      });
-	    }
-	    return ret;
-	  },
-	  mergeStyle: function mergeStyle(current, change) {
-	    var _this2 = this;
-	
-	    if (!current || current === '') {
-	      return change;
-	    }
-	    if (!change || change === '') {
-	      return current;
-	    }
-	    var addArr = [];
-	
-	    var _current = current.replace(/\s/g, '').split(')').filter(function (item) {
-	      return item !== '' && item;
-	    });
-	    var _change = change.replace(/\s/g, '').split(')').filter(function (item) {
-	      return item !== '' && item;
-	    });
-	
-	    // 如果变动的在旧的里没有，把变动的插回进去；
-	    _change.forEach(function (changeOnly) {
-	      var changeArr = changeOnly.split('(');
-	      var changeOnlyName = changeArr[0];
-	      var changeDataArr = changeArr[1].split(',');
-	      var currentSame = _this2.findStyleByName(_current, changeOnlyName);
-	      if (!currentSame) {
-	        addArr.push(changeOnlyName + '(' + changeDataArr.join(',') + ')');
-	      }
-	    });
-	
-	    _current.forEach(function (currentOnly) {
-	      var currentArr = currentOnly.split('(');
-	      var currentOnlyName = currentArr[0];
-	
-	      var currentDataArr = currentArr[1].split(',');
-	      var changeSame = _this2.findStyleByName(_change, currentOnlyName);
-	      // 三种情况，ＸＹＺ时分析，空时组合前面的分析，
-	      if (changeSame) {
-	        var changeArr = changeSame.split('(');
-	        var changeOnlyName = changeArr[0];
-	        var changeDataArr = changeArr[1].split(',');
-	        if (currentOnlyName === changeOnlyName) {
-	          addArr.push(changeSame + ')');
-	        } else if (currentOnlyName in _this2.transformGroup && changeOnlyName.substring(0, changeOnlyName.length - 1).indexOf(currentOnlyName) >= 0) {
-	          switch (changeOnlyName) {
-	            case 'translateX' || 'scaleX' || 'rotateX':
-	              currentDataArr[0] = changeDataArr.join();
-	              break;
-	            case 'translateY' || 'scaleY' || 'rotateY':
-	              currentDataArr[1] = changeDataArr.join();
-	              break;
-	            case 'translateZ' || 'rotateZ':
-	              currentDataArr[2] = changeDataArr.join();
-	              break;
-	            default:
-	              return null;
-	          }
-	          addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
-	        } else if (changeOnlyName in _this2.transformGroup && currentOnlyName.substring(0, currentOnlyName.length - 1).indexOf(changeOnlyName) >= 0) {
-	          addArr.push(changeOnlyName + '(' + changeDataArr.join(',') + ')');
-	        } else if (changeOnlyName in _this2.transformGroup && currentOnlyName in _this2.transformGroup && currentOnlyName.substring(0, currentOnlyName.length - 2) === changeOnlyName) {
-	          // 如果是3d时,且一个为2d时；
-	          switch (changeOnlyName) {
-	            case 'translateX' || 'scaleX' || 'rotateX':
-	              currentDataArr[0] = changeDataArr[0];
-	              break;
-	            case 'translateY' || 'scaleY' || 'rotateY':
-	              currentDataArr[1] = changeDataArr[1];
-	              break;
-	            default:
-	              return null;
-	          }
-	          addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
-	        }
-	      } else {
-	        addArr.push(currentOnlyName + '(' + currentDataArr.join(',') + ')');
-	      }
-	    });
-	
-	    if (!addArr.length) {
-	      addArr.push(current, change);
-	    }
-	    addArr.forEach(function (item, i) {
-	      if (item.indexOf('perspective') >= 0 && i) {
-	        addArr.splice(i, 1);
-	        addArr.unshift(item);
-	      }
-	    });
-	    return addArr.join(' ').trim();
-	  },
-	  getValues: function getValues(p, d, u) {
-	    return p + '(' + d + (u || '') + ')';
-	  },
-	  isTransform: function isTransform(p) {
-	    return this._lists.transformsBase.indexOf(p) >= 0 ? 'transform' : p;
-	  },
-	  getShadowParam: function getShadowParam(v, d) {
-	    var color = [];
-	    for (var i = 3; i < d.length; i++) {
-	      color.push(d[i]);
-	    }
-	    color = this.getArrayToColor(color);
-	    var vArr = v.split(' ');
-	    var blur = [];
-	    // 获取单位
-	    vArr.forEach(function (item, ii) {
-	      if (ii < 3) {
-	        var unit = item.toString().replace(/[^a-z|%]/ig, '');
-	        blur.push(d[ii] + unit);
-	      }
-	    });
-	    return blur.join(' ') + ' ' + color;
-	  },
-	  getParam: function getParam(p, v, dd) {
-	    var d = Array.isArray(dd) && dd.length === 1 ? dd[0] : dd;
-	    if (p.indexOf('color') >= 0 || p.indexOf('Color') >= 0) {
-	      return this.getArrayToColor(d);
-	    }
-	    var unit = '';
-	    var param = null;
-	    var invalid = true;
-	    if (p.indexOf('translate') >= 0 || p.indexOf('perspective') >= 0) {
-	      invalid = !/(%|px|em|rem|vw|vh|\d)$/i.test(v);
-	      unit = Number(v.toString().replace('=', '')).toString() !== 'NaN' ? 'px' : '';
-	      unit = unit || v.toString().replace(/[^a-z|%]/ig, '');
-	    } else if (p.indexOf('skew') >= 0 || p.indexOf('rotate') >= 0) {
-	      invalid = !/(deg|\d)$/i.test(v);
-	      unit = Number(v.toString().replace('=', '')).toString() !== 'NaN' ? 'deg' : '';
-	      unit = unit || v.toString().replace(/[^a-z|%]/ig, '');
-	    } else if (p.indexOf('scale') >= 0) {
-	      invalid = !/(\d)$/i.test(v);
-	    } else if (p.indexOf('Shadow') >= 0 || p.indexOf('shadow') >= 0) {
-	      return this.getShadowParam(v, d);
-	    }
-	    if (!invalid) {
-	      param = this.getValues(p, d, unit);
+	      a[0] = _hue(h + 1 / 3, r, g);
+	      a[1] = _hue(h, r, g);
+	      a[2] = _hue(h - 1 / 3, r, g);
 	    } else {
-	      // unit = Number(v) !== NaN ? '' : v.toString().replace(/[^a-z|%]/ig, '');
-	      unit = Number(v.toString().replace('=', '')).toString() !== 'NaN' ? '' : v.toString().replace(/[^a-z|%]/ig, '');
-	      param = d + (unit || 0);
+	      a = v.match(_numExp) || colorLookup.transparent;
 	    }
-	    return param;
-	  },
-	  getFilterParam: function getFilterParam(current, change, data) {
-	    var _this3 = this;
+	    a[0] = Number(a[0]);
+	    a[1] = Number(a[1]);
+	    a[2] = Number(a[2]);
 	
-	    var unit = void 0;
-	    var changeArr = change.replace(/\s/g, '').split(')').filter(function (item) {
-	      return item !== '' && item;
-	    });
-	    var currentArr = current.replace(/\s/g, '').split(')').filter(function (item) {
-	      return item !== '' && item;
-	    });
-	    changeArr = changeArr.map(function (changeOnly) {
-	      var changeOnlyArr = changeOnly.split('(');
-	      var changeOnlyName = changeOnlyArr[0];
-	      if (!changeOnlyArr[1]) {
-	        return '';
-	      }
-	      var changeDataArr = changeOnlyArr[1].replace(')', '').split(',');
-	      var currentSame = _this3.findStyleByName(currentArr, changeOnlyName);
-	      if (currentSame) {
-	        (function () {
-	          var currentDataArr = currentSame.split('(')[1].replace(')', '').split(',');
-	          changeDataArr = changeDataArr.map(function (dataOnly, i) {
-	            unit = dataOnly.toString().replace(/[^a-z|%]/ig, '');
-	            var currentDataOnly = currentDataArr[i];
-	            var currentUnit = currentDataOnly.toString().replace(/[^a-z|%]/ig, '');
-	            var dataOnlyNumber = parseFloat(dataOnly);
-	            var currentDataOnlyNumber = parseFloat(currentDataOnly);
-	            var differData = currentUnit !== unit ? dataOnlyNumber : dataOnlyNumber - currentDataOnlyNumber;
-	            var _data = differData * data + currentDataOnlyNumber + unit;
-	            return _data;
-	          });
-	        })();
-	      } else {
-	        changeDataArr = changeDataArr.map(function (dataOnly) {
-	          unit = dataOnly.toString().replace(/[^a-z|%]/ig, '');
-	          return parseFloat(dataOnly) * data + unit;
-	        });
-	      }
-	      return changeOnlyName + '(' + changeDataArr.join(',') + ')';
-	    });
-	    return changeArr.join(' ');
+	    if (a.length > 3) {
+	      a[3] = Number(a[3]);
+	    }
 	  }
-	};
-	CSS._lists.transformsBase = !(IE <= 9) ? CSS._lists.transformsBase.concat(CSS._lists.transforms3D) : CSS._lists.transformsBase;
-	exports.default = CSS;
+	  return a;
+	}
+	
+	function parseShadow(v) {
+	  if (!v) {
+	    return [0, 0, 0, 0, 0, 0, 0];
+	  }
+	  if (v.indexOf('rgb') >= 0) {
+	    var t = v.match(/rgb+(?:a)?\((.*)\)/);
+	    var s = v.replace(t[0], '').trim().split(' ');
+	    var c = t[1].replace(/\s/g, '').split(',');
+	    if (c.length === 3) {
+	      c.push(1);
+	    }
+	    return s.concat(c);
+	  }
+	  var vArr = v.split(' ');
+	  var color = parseColor(vArr[3]);
+	  color[3] = typeof color[3] === 'number' ? color[3] : 1;
+	  vArr = vArr.splice(0, 3);
+	  return vArr.concat(color);
+	}
+	
+	function getColor(v) {
+	  var rgba = v.length === 4 ? 'rgba' : 'rgb';
+	  var _vars = v.map(function (d, i) {
+	    return i < 3 ? Math.round(d) : d;
+	  });
+	  return rgba + '(' + _vars.join(',') + ')';
+	}
+	
+	function isTransform(p) {
+	  return cssList._lists.transformsBase.indexOf(p) >= 0 ? 'transform' : p;
+	}
+	
+	function isConvert(p) {
+	  var cssName = isTransform(p);
+	  return cssList.filter.indexOf(cssName) >= 0 ? 'filter' : cssName;
+	}
+	
+	function splitFilterToObject(data) {
+	  if (data === 'none' || !data || data === '') {
+	    return null;
+	  }
+	  var filter = data.replace(' ', '').split(')').filter(function (item) {
+	    return item;
+	  });
+	  var startData = {};
+	  filter.forEach(function (item) {
+	    var dataArr = item.split('(');
+	    startData[dataArr[0]] = dataArr[1];
+	  });
+	  return startData;
+	}
+	
+	function getMatrix(t) {
+	  var arr = t.replace(/[a-z|(|)]/g, '').split(',');
+	  var m = {};
+	  m.m11 = parseFloat(arr[0]);
+	  m.m12 = parseFloat(arr[1]);
+	  m.m13 = 0;
+	  m.m14 = 0;
+	  m.m21 = parseFloat(arr[2]);
+	  m.m22 = parseFloat(arr[3]);
+	  m.m23 = 0;
+	  m.m24 = 0;
+	  m.m31 = 0;
+	  m.m32 = 0;
+	  m.m33 = 1;
+	  m.m34 = 0;
+	  m.m41 = parseFloat(arr[4]);
+	  m.m42 = parseFloat(arr[5]);
+	  m.m43 = 0;
+	  m.m44 = 0;
+	  return m;
+	}
+	
+	function getTransform(transform) {
+	  var _transform = transform === 'none' ? 'matrix(1, 0, 0, 1, 0, 0)' : transform;
+	  var m = createMatrix(_transform) || getMatrix(_transform);
+	  var m11 = m.m11;
+	  var m12 = m.m12;
+	  var m13 = m.m13;
+	  var m14 = m.m14;
+	  var m21 = m.m21;
+	  var m22 = m.m22;
+	  var m23 = m.m23;
+	  var m24 = m.m24;
+	  var m31 = m.m31;
+	  var m32 = m.m32;
+	  var m33 = m.m33;
+	  var m34 = m.m34;
+	  var m43 = m.m43;
+	  var t1 = void 0;
+	  var t2 = void 0;
+	  var t3 = void 0;
+	  var tm = {};
+	  tm.perspective = m34 ? parseFloat((m33 / (m34 < 0 ? -m34 : m34)).toFixed(3)) : 0;
+	  tm.rotateX = parseFloat((Math.asin(m23) * RAD2DEG).toFixed(3));
+	  var angle = tm.rotateX * DEG2RAD;
+	  var skewX = Math.tan(m.c);
+	  var skewY = Math.tan(m.b);
+	  var cos = m34 * tm.perspective;
+	  var sin = void 0;
+	  // rotateX
+	  if (angle) {
+	    cos = Math.cos(-angle);
+	    sin = Math.sin(-angle);
+	    t1 = m21 * cos + m31 * sin;
+	    t2 = m22 * cos + m32 * sin;
+	    t3 = m23 * cos + m33 * sin;
+	    m31 = m21 * -sin + m31 * cos;
+	    m32 = m22 * -sin + m32 * cos;
+	    m33 = m23 * -sin + m33 * cos;
+	    m34 = m24 * -sin + m34 * cos;
+	    m21 = t1;
+	    m22 = t2;
+	    m23 = t3;
+	  }
+	  // rotateY
+	  angle = Math.atan2(m31, m33);
+	  tm.rotateY = angle * RAD2DEG;
+	  if (angle) {
+	    cos = Math.cos(-angle);
+	    sin = Math.sin(-angle);
+	    t1 = m11 * cos - m31 * sin;
+	    t2 = m12 * cos - m32 * sin;
+	    t3 = m13 * cos - m33 * sin;
+	    m32 = m12 * sin + m32 * cos;
+	    m33 = m13 * sin + m33 * cos;
+	    m34 = m14 * sin + m34 * cos;
+	    m11 = t1;
+	    m12 = t2;
+	    m13 = t3;
+	  }
+	  // rotateZ
+	  angle = Math.atan2(m12, m11);
+	  tm.rotate = angle * RAD2DEG;
+	  if (angle) {
+	    cos = Math.cos(-angle);
+	    sin = Math.sin(-angle);
+	    m11 = m11 * cos + m21 * sin;
+	    t2 = m12 * cos + m22 * sin;
+	    m22 = m12 * -sin + m22 * cos;
+	    m23 = m13 * -sin + m23 * cos;
+	    m12 = t2;
+	  }
+	
+	  if (tm.rotateX && Math.abs(tm.rotateX) + Math.abs(tm.rotate) > 359.9) {
+	    tm.rotateX = tm.rotate = 0;
+	    tm.rotateY += 180;
+	  }
+	  var rnd = 100000;
+	  tm.scaleX = (Math.sqrt(m11 * m11 + m12 * m12) * rnd + 0.5 | 0) / rnd;
+	  tm.scaleY = (Math.sqrt(m22 * m22 + m32 * m32) * rnd + 0.5 | 0) / rnd;
+	  tm.scaleZ = (Math.sqrt(m23 * m23 + m33 * m33) * rnd + 0.5 | 0) / rnd;
+	  // 不管 skewX skewY了；
+	  tm.skewX = skewX === -skewY ? 0 : skewX;
+	  tm.skewY = skewY === -skewX ? 0 : skewY;
+	  tm.perspective = m34 ? 1 / (m34 < 0 ? -m34 : m34) : 0;
+	  tm.translateX = m.m41;
+	  tm.translateY = m.m42;
+	  tm.translateZ = m43;
+	  return tm;
+	}
+	
+	function stylesToCss(key, value) {
+	  var _value = void 0;
+	  if (!isUnitlessNumber[key] && typeof value === 'number') {
+	    _value = ' ' + value + 'px';
+	  } else if (key === 'content' && !unquotedContentValueRegex.test(value)) {
+	    _value = '\'' + value.replace(/'/g, "\\'") + '\'';
+	  }
+	  return _value || value;
+	}
+	
+	function getUnit(p, v) {
+	  var currentUnit = v && v.toString().replace(/[^a-z|%]/ig, '');
+	  var unit = '';
+	  if (p.indexOf('translate') >= 0 || p.indexOf('perspective') >= 0 || p.indexOf('blur') >= 0) {
+	    unit = 'px';
+	  } else if (p.indexOf('skew') >= 0 || p.indexOf('rotate') >= 0) {
+	    unit = 'deg';
+	  }
+	  return currentUnit || unit;
+	}
+	
+	function getValues(p, d, u) {
+	  return p + '(' + d + (u || '') + ')';
+	}
+	
+	function findStyleByName(cssArray, name) {
+	  var ret = null;
+	  if (cssArray) {
+	    cssArray.forEach(function (_cname) {
+	      if (ret) {
+	        return;
+	      }
+	      var cName = _cname.split('(')[0];
+	      var a = cName in cssList.transformGroup && name.substring(0, name.length - 1).indexOf(cName) >= 0;
+	      var b = name in cssList.transformGroup && cName.substring(0, cName.length - 1).indexOf(name) >= 0;
+	      var c = cName in cssList.transformGroup && name in cssList.transformGroup && (cName.substring(0, cName.length - 2) === name || name.substring(0, name.length - 2) === cName);
+	      if (cName === name || a || b || c) {
+	        ret = _cname;
+	      }
+	    });
+	  }
+	  return ret;
+	}
+	
+	function mergeStyle(current, change) {
+	  if (!current || current === '') {
+	    return change;
+	  }
+	  if (!change || change === '') {
+	    return current;
+	  }
+	  var _current = current.replace(/\s/g, '').split(')').filter(function (item) {
+	    return item !== '' && item;
+	  }).map(function (item) {
+	    return item + ')';
+	  });
+	  var _change = change.replace(/\s/g, '').split(')').filter(function (item) {
+	    return item !== '' && item;
+	  });
+	  _change.forEach(function (changeOnly) {
+	    var changeArr = changeOnly.split('(');
+	    var changeName = changeArr[0];
+	    var currentSame = findStyleByName(_current, changeName);
+	    if (!currentSame) {
+	      _current.push(changeOnly + ')');
+	    } else {
+	      var index = _current.indexOf(currentSame);
+	      _current[index] = changeOnly + ')';
+	    }
+	  });
+	  _current.forEach(function (item, i) {
+	    if (item.indexOf('perspective') >= 0 && i) {
+	      _current.splice(i, 1);
+	      _current.unshift(item);
+	    }
+	  });
+	  return _current.join(' ').trim();
+	}
+	
+	exports.default = cssList;
 
 
 /***/ },
-/* 177 */
+/* 180 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by jljsj on 15/12/22.
+	 * The algorithm is GSAP BezierPlugin VERSION: beta 1.3.4
+	 */
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	var _RAD2DEG = 180 / Math.PI;
+	var _r1 = [];
+	var _r2 = [];
+	var _r3 = [];
+	var _corProps = {};
+	var _correlate = ',x,y,z,left,top,right,bottom,marginTop,marginLeft,marginRight,marginBottom,paddingLeft,paddingTop,paddingRight,paddingBottom,backgroundPosition,backgroundPosition_y,';
+	function createMatrix(style) {
+	  return window.WebKitCSSMatrix && new window.WebKitCSSMatrix(style) || window.MozCSSMatrix && new window.MozCSSMatrix(style) || window.MsCSSMatrix && new window.MsCSSMatrix(style) || window.OCSSMatrix && new window.OCSSMatrix(style) || window.CSSMatrix && new window.CSSMatrix(style) || {};
+	}
+	
+	var GsapBezier = {
+	  Segment: function Segment(a, b, c, d) {
+	    this.a = a;
+	    this.b = b;
+	    this.c = c;
+	    this.d = d;
+	    this.da = d - a;
+	    this.ca = c - a;
+	    this.ba = b - a;
+	  },
+	  cubicToQuadratic: function cubicToQuadratic(a, b, c, d) {
+	    var q1 = { a: a };
+	    var q2 = {};
+	    var q3 = {};
+	    var q4 = { c: d };
+	    var mab = (a + b) / 2;
+	    var mbc = (b + c) / 2;
+	    var mcd = (c + d) / 2;
+	    var mabc = (mab + mbc) / 2;
+	    var mbcd = (mbc + mcd) / 2;
+	    var m8 = (mbcd - mabc) / 8;
+	    q1.b = mab + (a - mab) / 4;
+	    q2.b = mabc + m8;
+	    q1.c = q2.a = (q1.b + q2.b) / 2;
+	    q2.c = q3.a = (mabc + mbcd) / 2;
+	    q3.b = mbcd - m8;
+	    q4.b = mcd + (d - mcd) / 4;
+	    q3.c = q4.a = (q3.b + q4.b) / 2;
+	    return [q1, q2, q3, q4];
+	  },
+	  calculateControlPoints: function calculateControlPoints(a, curviness, quad, basic, correlate) {
+	    var l = a.length - 1;
+	    var i = undefined;
+	    var ii = 0;
+	    var p1 = undefined;
+	    var p2 = undefined;
+	    var p3 = undefined;
+	    var seg = undefined;
+	    var m1 = undefined;
+	    var m2 = undefined;
+	    var mm = undefined;
+	    var cp2 = undefined;
+	    var qb = undefined;
+	    var r1 = undefined;
+	    var r2 = undefined;
+	    var tl = undefined;
+	    var cp1 = a[0].a;
+	    for (i = 0; i < l; i++) {
+	      seg = a[ii];
+	      p1 = seg.a;
+	      p2 = seg.d;
+	      p3 = a[ii + 1].d;
+	
+	      if (correlate) {
+	        r1 = _r1[i];
+	        r2 = _r2[i];
+	        tl = (r2 + r1) * curviness * 0.25 / (basic ? 0.5 : _r3[i] || 0.5);
+	        var _aa = r1 !== 0 ? tl / r1 : 0;
+	        var _a = basic ? curviness * 0.5 : _aa;
+	        m1 = p2 - (p2 - p1) * _a;
+	        var bb = r2 !== 0 ? tl / r2 : 0;
+	        var b = basic ? curviness * 0.5 : bb;
+	        m2 = p2 + (p3 - p2) * b;
+	        mm = p2 - (m1 + ((m2 - m1) * (r1 * 3 / (r1 + r2) + 0.5) / 4 || 0));
+	      } else {
+	        m1 = p2 - (p2 - p1) * curviness * 0.5;
+	        m2 = p2 + (p3 - p2) * curviness * 0.5;
+	        mm = p2 - (m1 + m2) / 2;
+	      }
+	      m1 += mm;
+	      m2 += mm;
+	
+	      seg.c = cp2 = m1;
+	      if (i !== 0) {
+	        seg.b = cp1;
+	      } else {
+	        seg.b = cp1 = seg.a + (seg.c - seg.a) * 0.6;
+	      }
+	
+	      seg.da = p2 - p1;
+	      seg.ca = cp2 - p1;
+	      seg.ba = cp1 - p1;
+	
+	      if (quad) {
+	        qb = this.cubicToQuadratic(p1, cp1, cp2, p2);
+	        a.splice(ii, 1, qb[0], qb[1], qb[2], qb[3]);
+	        ii += 4;
+	      } else {
+	        ii++;
+	      }
+	
+	      cp1 = m2;
+	    }
+	    seg = a[ii];
+	    seg.b = cp1;
+	    seg.c = cp1 + (seg.d - cp1) * 0.4;
+	    seg.da = seg.d - seg.a;
+	    seg.ca = seg.c - seg.a;
+	    seg.ba = cp1 - seg.a;
+	    if (quad) {
+	      qb = this.cubicToQuadratic(seg.a, cp1, seg.c, seg.d);
+	      a.splice(ii, 1, qb[0], qb[1], qb[2], qb[3]);
+	    }
+	  },
+	  parseAnchors: function parseAnchors(_values, p, correlate, prepend) {
+	    var a = [];
+	    var l = undefined;
+	    var i = undefined;
+	    var p1 = undefined;
+	    var p2 = undefined;
+	    var p3 = undefined;
+	    var tmp = undefined;
+	    var values = _values;
+	    if (prepend) {
+	      values = [prepend].concat(values);
+	      i = values.length;
+	      while (--i > -1) {
+	        tmp = values[i][p];
+	        if (typeof tmp === 'string' && tmp.charAt(1) === '=') {
+	          values[i][p] = prepend[p] + Number(tmp.charAt(0) + tmp.substr(2));
+	        }
+	      }
+	    }
+	    l = values.length - 2;
+	    if (l < 0) {
+	      a[0] = new this.Segment(values[0][p], 0, 0, values[l < -1 ? 0 : 1][p]);
+	      return a;
+	    }
+	    for (i = 0; i < l; i++) {
+	      p1 = values[i][p];
+	      p2 = values[i + 1][p];
+	      a[i] = new this.Segment(p1, 0, 0, p2);
+	      if (correlate) {
+	        p3 = values[i + 2][p];
+	        _r1[i] = (_r1[i] || 0) + (p2 - p1) * (p2 - p1);
+	        _r2[i] = (_r2[i] || 0) + (p3 - p2) * (p3 - p2);
+	      }
+	    }
+	    a[i] = new this.Segment(values[i][p], 0, 0, values[i + 1][p]);
+	    return a;
+	  },
+	  bezierThrough: function bezierThrough(_values, _curviness, quadratic, basic, __correlate, _prepend) {
+	    var values = _values;
+	    var curviness = _curviness;
+	    var correlate = __correlate;
+	    var prepend = _prepend;
+	    var obj = {};
+	    var props = [];
+	    var first = prepend || values[0];
+	    var i = undefined;
+	    var p = undefined;
+	    var a = undefined;
+	    var j = undefined;
+	    var r = undefined;
+	    var l = undefined;
+	    var seamless = undefined;
+	    var last = undefined;
+	    correlate = typeof correlate === 'string' ? ',' + correlate + ',' : _correlate;
+	    if (curviness === null) {
+	      curviness = 1;
+	    }
+	    Object.keys(values[0]).forEach(function (key) {
+	      props.push(key);
+	    });
+	    if (values.length > 1) {
+	      last = values[values.length - 1];
+	      seamless = true;
+	      i = props.length;
+	      while (--i > -1) {
+	        p = props[i];
+	        if (Math.abs(first[p] - last[p]) > 0.05) {
+	          seamless = false;
+	          break;
+	        }
+	      }
+	      if (seamless) {
+	        values = values.concat();
+	        if (prepend) {
+	          values.unshift(prepend);
+	        }
+	        values.push(values[1]);
+	        prepend = values[values.length - 3];
+	      }
+	    }
+	    _r1.length = _r2.length = _r3.length = 0;
+	    i = props.length;
+	    while (--i > -1) {
+	      p = props[i];
+	      _corProps[p] = correlate.indexOf(',' + p + ',') !== -1;
+	      obj[p] = this.parseAnchors(values, p, _corProps[p], prepend);
+	    }
+	    i = _r1.length;
+	    while (--i > -1) {
+	      _r1[i] = Math.sqrt(_r1[i]);
+	      _r2[i] = Math.sqrt(_r2[i]);
+	    }
+	    if (!basic) {
+	      i = props.length;
+	      while (--i > -1) {
+	        if (_corProps[p]) {
+	          a = obj[props[i]];
+	          l = a.length - 1;
+	          for (j = 0; j < l; j++) {
+	            r = a[j + 1].da / _r2[j] + a[j].da / _r1[j];
+	            _r3[j] = (_r3[j] || 0) + r * r;
+	          }
+	        }
+	      }
+	      i = _r3.length;
+	      while (--i > -1) {
+	        _r3[i] = Math.sqrt(_r3[i]);
+	      }
+	    }
+	    i = props.length;
+	    j = quadratic ? 4 : 1;
+	    while (--i > -1) {
+	      p = props[i];
+	      a = obj[p];
+	      this.calculateControlPoints(a, curviness, quadratic, basic, _corProps[p]);
+	      if (seamless) {
+	        a.splice(0, j);
+	        a.splice(a.length - j, j);
+	      }
+	    }
+	    return obj;
+	  },
+	  parseBezierData: function parseBezierData(data) {
+	    var values = data.vars.concat();
+	    var type = data.type;
+	    var prepend = data.startPoint;
+	
+	    var obj = {};
+	    var inc = type === 'cubic' ? 3 : 2;
+	    var soft = type === 'soft';
+	    var a = undefined;
+	    var b = undefined;
+	    var c = undefined;
+	    var d = undefined;
+	    var cur = undefined;
+	    var l = undefined;
+	    var p = undefined;
+	    var cnt = undefined;
+	    var tmp = undefined;
+	    if (soft) {
+	      values.splice(0, 0, prepend);
+	    }
+	
+	    if (values === null || values.length < inc + 1) {
+	      return console.error('invalid Bezier data');
+	    }
+	    for (var i = 1; i >= 0; i--) {
+	      p = i ? 'x' : 'y';
+	      obj[p] = cur = [];
+	      cnt = 0;
+	      for (var j = 0; j < values.length; j++) {
+	        tmp = values[j][p];
+	        var _a = typeof tmp === 'string' && tmp.charAt(1) === '=' ? prepend[p] + Number(tmp.charAt(0) + tmp.substr(2)) : Number(tmp);
+	        a = prepend === null ? values[j][p] : _a;
+	        if (soft && j > 1 && j < values.length - 1) {
+	          cur[cnt++] = (a + cur[cnt - 2]) / 2;
+	        }
+	        cur[cnt++] = a;
+	      }
+	      l = cnt - inc + 1;
+	      cnt = 0;
+	      for (var jj = 0; jj < l; jj += inc) {
+	        a = cur[jj];
+	        b = cur[jj + 1];
+	        c = cur[jj + 2];
+	        d = inc === 2 ? 0 : cur[jj + 3];
+	        cur[cnt++] = tmp = inc === 3 ? new this.Segment(a, b, c, d) : new this.Segment(a, (2 * b + a) / 3, (2 * b + c) / 3, c);
+	      }
+	      cur.length = cnt;
+	    }
+	    return obj;
+	  },
+	  addCubicLengths: function addCubicLengths(a, steps, resolution) {
+	    var inc = 1 / resolution;
+	    var j = a.length;
+	    var d = undefined;
+	    var d1 = undefined;
+	    var s = undefined;
+	    var da = undefined;
+	    var ca = undefined;
+	    var ba = undefined;
+	    var p = undefined;
+	    var i = undefined;
+	    var inv = undefined;
+	    var bez = undefined;
+	    var index = undefined;
+	    while (--j > -1) {
+	      bez = a[j];
+	      s = bez.a;
+	      da = bez.d - s;
+	      ca = bez.c - s;
+	      ba = bez.b - s;
+	      d = d1 = 0;
+	      for (i = 1; i <= resolution; i++) {
+	        p = inc * i;
+	        inv = 1 - p;
+	        d = d1 - (d1 = (p * p * da + 3 * inv * (p * ca + inv * ba)) * p);
+	        index = j * resolution + i - 1;
+	        steps[index] = (steps[index] || 0) + d * d;
+	      }
+	    }
+	  },
+	  parseLengthData: function parseLengthData(obj, _resolution) {
+	    var _this = this;
+	
+	    var resolution = _resolution || 6;
+	    var a = [];
+	    var lengths = [];
+	    var threshold = resolution - 1;
+	    var segments = [];
+	    var d = 0;
+	    var total = 0;
+	    var curLS = [];
+	    Object.keys(obj).forEach(function (key) {
+	      _this.addCubicLengths(obj[key], a, resolution);
+	    });
+	    a.forEach(function (c, i) {
+	      d += Math.sqrt(c);
+	      var index = i % resolution;
+	      curLS[index] = d;
+	      if (index === threshold) {
+	        total += d;
+	        index = i / resolution >> 0;
+	        segments[index] = curLS;
+	        lengths[index] = total;
+	        d = 0;
+	        curLS = [];
+	      }
+	    });
+	    return { length: total, lengths: lengths, segments: segments };
+	  }
+	};
+	
+	function Bezier(transform, obj) {
+	  this.defaultData = this.getDefaultData(obj);
+	  var matrix = createMatrix(transform || '');
+	  // this.startRotate = parseFloat((-Math.atan2(matrix.m21, matrix.m11) * _RAD2DEG).toFixed(2));
+	  this.defaultData.startPoint = { x: matrix.e, y: matrix.f };
+	  this.init();
+	}
+	Bezier.prototype = {
+	  getDefaultData: function getDefaultData(obj) {
+	    return {
+	      type: obj.type || 'soft',
+	      autoRotate: obj.autoRotate || false,
+	      vars: obj.vars || {},
+	      startPoint: null
+	    };
+	  },
+	  init: function init() {
+	    var vars = this.defaultData;
+	    var autoRotate = vars.autoRotate;
+	    this._timeRes = !vars.timeResolution ? 6 : parseInt(vars.timeResolution, 10);
+	    var a = autoRotate === true ? 0 : Number(autoRotate);
+	    var b = autoRotate instanceof Array ? autoRotate : [['x', 'y', 'rotation', a || 0]];
+	    this._autoRotate = autoRotate ? b : null;
+	    this._beziers = vars.type !== 'cubic' && vars.type !== 'quadratic' && vars.type !== 'soft' ? GsapBezier.bezierThrough(vars.vars, isNaN(vars.curviness) ? 1 : vars.curviness, false, vars.type === 'thruBasic', vars.correlate, vars.startPoint) : GsapBezier.parseBezierData(vars);
+	    this._segCount = this._beziers.x.length;
+	    if (this._timeRes) {
+	      var ld = GsapBezier.parseLengthData(this._beziers, this._timeRes);
+	      this._length = ld.length;
+	      this._lengths = ld.lengths;
+	      this._segments = ld.segments;
+	      this._l1 = this._li = this._s1 = this._si = 0;
+	      this._l2 = this._lengths[0];
+	      this._curSeg = this._segments[0];
+	      this._s2 = this._curSeg[0];
+	      this._prec = 1 / this._curSeg.length;
+	    }
+	  },
+	  set: function set(v) {
+	    var segments = this._segCount;
+	    var XYobj = {};
+	    var curIndex = undefined;
+	    var inv = undefined;
+	    var i = undefined;
+	    var p = undefined;
+	    var b = undefined;
+	    var t = undefined;
+	    var val = undefined;
+	    var lengths = undefined;
+	    var curSeg = undefined;
+	    var value = undefined;
+	    var rotate = undefined;
+	    if (!this._timeRes) {
+	      var _cur = v >= 1 ? segments - 1 : segments * v >> 0;
+	      curIndex = v < 0 ? 0 : _cur;
+	      t = (v - curIndex * (1 / segments)) * segments;
+	    } else {
+	      lengths = this._lengths;
+	      curSeg = this._curSeg;
+	      value = v * this._length;
+	      i = this._li;
+	      if (value > this._l2 && i < segments) {
+	        this._l2 = lengths[++i];
+	        this._l1 = lengths[i - 1];
+	        this._li = i;
+	        this._curSeg = curSeg = this._segments[i];
+	        this._s2 = curSeg[this._s1 = this._si = 0];
+	      } else if (value < this._l1 && i > 0) {
+	        this._l1 = lengths[--i];
+	        if (i === 0 && value < this._l1) {
+	          this._l1 = 0;
+	        } else {
+	          i++;
+	        }
+	        this._l2 = lengths[i];
+	        this._li = i;
+	        this._curSeg = curSeg = this._segments[i];
+	        this._s1 = curSeg[(this._si = curSeg.length - 1) - 1] || 0;
+	        this._s2 = curSeg[this._si];
+	      }
+	      curIndex = i;
+	      value -= this._l1;
+	      i = this._si;
+	      if (value > this._s2 && i < curSeg.length - 1) {
+	        this._s2 = curSeg[++i];
+	        this._s1 = curSeg[i - 1];
+	        this._si = i;
+	      } else if (value < this._s1 && i > 0) {
+	        this._s1 = curSeg[--i];
+	        if (i === 0 && value < this._s1) {
+	          this._s1 = 0;
+	        } else {
+	          i++;
+	        }
+	        this._s2 = curSeg[i];
+	        this._si = i;
+	      }
+	      t = (i + (value - this._s1) / (this._s2 - this._s1)) * this._prec;
+	    }
+	    inv = 1 - t;
+	    for (i = 1; i >= 0; i--) {
+	      p = i ? 'x' : 'y';
+	      b = this._beziers[p][curIndex];
+	      val = (t * t * b.da + 3 * inv * (t * b.ca + inv * b.ba)) * t + b.a;
+	      XYobj[p] = val;
+	    }
+	    if (this._autoRotate) {
+	      var ar = this._autoRotate;
+	      var b2 = undefined;
+	      var x1 = undefined;
+	      var y1 = undefined;
+	      var x2 = undefined;
+	      var y2 = undefined;
+	      var add = undefined;
+	      var conv = undefined;
+	      i = ar.length;
+	      while (--i > -1) {
+	        p = ar[i][2];
+	        add = ar[i][3] || 0;
+	        conv = ar[i][4] === true ? 1 : _RAD2DEG;
+	        b = this._beziers[ar[i][0]];
+	        b2 = this._beziers[ar[i][1]];
+	
+	        if (b && b2) {
+	          b = b[curIndex];
+	          b2 = b2[curIndex];
+	
+	          x1 = b.a + (b.b - b.a) * t;
+	          x2 = b.b + (b.c - b.b) * t;
+	          x1 += (x2 - x1) * t;
+	          x2 += (b.c + (b.d - b.c) * t - x2) * t;
+	
+	          y1 = b2.a + (b2.b - b2.a) * t;
+	          y2 = b2.b + (b2.c - b2.b) * t;
+	          y1 += (y2 - y1) * t;
+	          y2 += (b2.c + (b2.d - b2.c) * t - y2) * t;
+	          var _r = Math.atan2(y2 - y1, x2 - x1) * conv;
+	          rotate = _r + add;
+	        }
+	      }
+	    }
+	    return rotate ? 'translate(' + XYobj.x + 'px,' + XYobj.y + 'px) rotate(' + rotate + 'deg)' : 'translate(' + XYobj.x + 'px,' + XYobj.y + 'px)';
+	  }
+	};
+	Bezier.bezierThrough = GsapBezier.bezierThrough;
+	Bezier.cubicToQuadratic = GsapBezier.cubicToQuadratic;
+	Bezier.quadraticToCubic = function (a, b, c) {
+	  return new GsapBezier.Segment(a, (2 * b + a) / 3, (2 * b + c) / 3, c);
+	};
+	
+	exports['default'] = Bezier;
+	module.exports = exports['default'];
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _raf = __webpack_require__(182);
+	
+	var _raf2 = _interopRequireDefault(_raf);
+	
+	var Ticker = function Ticker() {};
+	var p = Ticker.prototype = {
+	  tickFnObject: {},
+	  id: -1,
+	  autoSleep: 120,
+	  frame: 0,
+	  perFrame: Math.round(1000 / 60)
+	};
+	p.wake = function (key, fn) {
+	  this.tickFnObject[key] = fn;
+	  if (this.id === -1) {
+	    this.id = (0, _raf2['default'])(this.tick);
+	  }
+	};
+	p.clear = function (key) {
+	  delete this.tickFnObject[key];
+	};
+	p.sleep = function () {
+	  _raf2['default'].cancel(this.id);
+	  this.id = -1;
+	};
+	var ticker = new Ticker();
+	p.tick = function (a) {
+	  var obj = ticker.tickFnObject;
+	  Object.keys(obj).forEach(function (key) {
+	    if (obj[key]) {
+	      obj[key](a);
+	    }
+	  });
+	  // 如果 object 里没对象了，自动睡眠；
+	  if (!Object.keys(obj).length) {
+	    return ticker.sleep();
+	  }
+	  ticker.frame++;
+	  ticker.id = (0, _raf2['default'])(ticker.tick);
+	};
+	var timeoutIdNumber = 0;
+	p.timeout = function (fn, time) {
+	  var _this = this;
+	
+	  if (!(typeof fn === 'function')) {
+	    return console.warn('Is no function');
+	  }
+	  var timeoutID = 'timeout' + Date.now() + '-' + timeoutIdNumber;
+	  var startFrame = this.frame;
+	  this.wake(timeoutID, function () {
+	    var moment = (_this.frame - startFrame) * _this.perFrame;
+	    if (moment >= (time || 0)) {
+	      _this.clear(timeoutID);
+	      fn();
+	    }
+	  });
+	  timeoutIdNumber++;
+	  return timeoutID;
+	};
+	var intervalIdNumber = 0;
+	p.interval = function (fn, time) {
+	  var _this2 = this;
+	
+	  if (!(typeof fn === 'function')) {
+	    return console.warn('Is no function');
+	  }
+	  var intervalID = 'interval' + Date.now() + '-' + intervalIdNumber;
+	  var starFrame = this.frame;
+	  this.wake(intervalID, function () {
+	    var moment = (_this2.frame - starFrame) * _this2.perFrame;
+	    if (moment >= (time || 0)) {
+	      starFrame = _this2.frame;
+	      fn();
+	    }
+	  });
+	  intervalIdNumber++;
+	  return intervalID;
+	};
+	exports['default'] = ticker;
+	module.exports = exports['default'];
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(183)
+	  , root = typeof window === 'undefined' ? global : window
+	  , vendors = ['moz', 'webkit']
+	  , suffix = 'AnimationFrame'
+	  , raf = root['request' + suffix]
+	  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
+	
+	for(var i = 0; !raf && i < vendors.length; i++) {
+	  raf = root[vendors[i] + 'Request' + suffix]
+	  caf = root[vendors[i] + 'Cancel' + suffix]
+	      || root[vendors[i] + 'CancelRequest' + suffix]
+	}
+	
+	// Some versions of FF have rAF but not cAF
+	if(!raf || !caf) {
+	  var last = 0
+	    , id = 0
+	    , queue = []
+	    , frameDuration = 1000 / 60
+	
+	  raf = function(callback) {
+	    if(queue.length === 0) {
+	      var _now = now()
+	        , next = Math.max(0, frameDuration - (_now - last))
+	      last = next + _now
+	      setTimeout(function() {
+	        var cp = queue.slice(0)
+	        // Clear queue here to prevent
+	        // callbacks from appending listeners
+	        // to the current frame's queue
+	        queue.length = 0
+	        for(var i = 0; i < cp.length; i++) {
+	          if(!cp[i].cancelled) {
+	            try{
+	              cp[i].callback(last)
+	            } catch(e) {
+	              setTimeout(function() { throw e }, 0)
+	            }
+	          }
+	        }
+	      }, Math.round(next))
+	    }
+	    queue.push({
+	      handle: ++id,
+	      callback: callback,
+	      cancelled: false
+	    })
+	    return id
+	  }
+	
+	  caf = function(handle) {
+	    for(var i = 0; i < queue.length; i++) {
+	      if(queue[i].handle === handle) {
+	        queue[i].cancelled = true
+	      }
+	    }
+	  }
+	}
+	
+	module.exports = function(fn) {
+	  // Wrap in a new function to prevent
+	  // `cancel` potentially being assigned
+	  // to the native rAF function
+	  return raf.call(root, fn)
+	}
+	module.exports.cancel = function() {
+	  caf.apply(root, arguments)
+	}
+	module.exports.polyfill = function() {
+	  root.requestAnimationFrame = raf
+	  root.cancelAnimationFrame = caf
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
+	(function() {
+	  var getNanoSeconds, hrtime, loadTime;
+	
+	  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
+	    module.exports = function() {
+	      return performance.now();
+	    };
+	  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
+	    module.exports = function() {
+	      return (getNanoSeconds() - loadTime) / 1e6;
+	    };
+	    hrtime = process.hrtime;
+	    getNanoSeconds = function() {
+	      var hr;
+	      hr = hrtime();
+	      return hr[0] * 1e9 + hr[1];
+	    };
+	    loadTime = getNanoSeconds();
+	  } else if (Date.now) {
+	    module.exports = function() {
+	      return Date.now() - loadTime;
+	    };
+	    loadTime = Date.now();
+	  } else {
+	    module.exports = function() {
+	      return new Date().getTime() - loadTime;
+	    };
+	    loadTime = new Date().getTime();
+	  }
+	
+	}).call(this);
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+
+/***/ },
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21732,7 +23123,7 @@
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
-	var _raf = __webpack_require__(178);
+	var _raf = __webpack_require__(185);
 	
 	var _raf2 = _interopRequireDefault(_raf);
 	
@@ -21921,10 +23312,10 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 178 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var now = __webpack_require__(179)
+	var now = __webpack_require__(186)
 	  , global = typeof window === 'undefined' ? {} : window
 	  , vendors = ['moz', 'webkit']
 	  , suffix = 'AnimationFrame'
@@ -21995,7 +23386,7 @@
 
 
 /***/ },
-/* 179 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
@@ -22034,7 +23425,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 180 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22110,7 +23501,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 181 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22125,7 +23516,7 @@
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 	
-	var _raf = __webpack_require__(178);
+	var _raf = __webpack_require__(185);
 	
 	var _raf2 = _interopRequireDefault(_raf);
 	
@@ -22294,6 +23685,90 @@
 	  unMount: ScrollScreen.unMount.bind(ScrollScreen)
 	};
 	module.exports = exports['default'];
+
+/***/ },
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"name": "rc-scroll-anim",
+		"version": "0.2.9",
+		"description": "scroll-anim anim component for react",
+		"keywords": [
+			"react",
+			"react-component",
+			"react-scroll-anim",
+			"scroll-anim"
+		],
+		"homepage": "https://github.com/react-component/scroll-anim",
+		"author": "155259966@qq.com",
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/react-component/scroll-anim.git"
+		},
+		"bugs": {
+			"url": "https://github.com/react-component/scroll-anim/issues"
+		},
+		"files": [
+			"lib",
+			"assets/*.css"
+		],
+		"licenses": "MIT",
+		"main": "./lib/index",
+		"config": {
+			"port": 8020
+		},
+		"scripts": {
+			"build": "rc-tools run build",
+			"gh-pages": "rc-tools run gh-pages",
+			"start": "rc-server",
+			"pub": "rc-tools run pub",
+			"lint": "rc-tools run lint",
+			"karma": "rc-tools run karma",
+			"saucelabs": "rc-tools run saucelabs",
+			"browser-test": "rc-tools run browser-test",
+			"browser-test-cover": "rc-tools run browser-test-cover"
+		},
+		"devDependencies": {
+			"expect.js": "0.3.x",
+			"pre-commit": "1.x",
+			"rc-server": "3.x",
+			"rc-tools": "4.x",
+			"react": "^15.0.0",
+			"react-addons-test-utils": "^15.0.0",
+			"react-dom": "^15.0.0",
+			"rc-queue-anim": "0.11.x",
+			"rc-animate": "2.0.x"
+		},
+		"pre-commit": [
+			"lint"
+		],
+		"dependencies": {
+			"object-assign": "4.0.x",
+			"tween-functions": "1.0.x",
+			"raf": "3.1.x",
+			"rc-tween-one": "~0.5.5"
+		}
+	};
 
 /***/ }
 /******/ ]);

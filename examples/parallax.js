@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(203);
+	module.exports = __webpack_require__(209);
 
 
 /***/ },
 
-/***/ 203:
+/***/ 209:
 /***/ function(module, exports, __webpack_require__) {
 
 	// use jsx to render html, do not modify simple.html
@@ -41,6 +41,7 @@ webpackJsonp([1],{
 	
 	var ScrollParallax = _rcScrollAnim2['default'].Parallax;
 	var ScrollElement = _rcScrollAnim2['default'].Element;
+	var _package = __webpack_require__(208);
 	
 	var Demo = (function (_React$Component) {
 	  _inherits(Demo, _React$Component);
@@ -95,7 +96,9 @@ webpackJsonp([1],{
 	              _react2['default'].createElement(
 	                'p',
 	                null,
-	                'rc-scroll-anim@0.1.5'
+	                _package.name,
+	                '@',
+	                _package.version
 	              )
 	            ),
 	            _react2['default'].createElement(
@@ -115,7 +118,7 @@ webpackJsonp([1],{
 	            style: { backgroundColor: '#174270', position: 'relative', overflow: 'hidden', height: 1600 } },
 	          _react2['default'].createElement(
 	            ScrollParallax,
-	            { animation: { opacity: 1 }, style: { opacity: 0, paddingTop: 60 },
+	            { animation: { opacity: 1 }, always: false, style: { opacity: 0, paddingTop: 60 },
 	              className: 'tween-one' },
 	            'transform 必需在 style 里设定初始值'
 	          ),
@@ -159,7 +162,7 @@ webpackJsonp([1],{
 	          ),
 	          _react2['default'].createElement(
 	            ScrollParallax,
-	            { animation: { filter: 'blur(0px)', playScale: [0.5, 0.8], opacity: 1 },
+	            { animation: { blur: '0px', playScale: [0.5, 0.8], opacity: 1 },
 	              style: { filter: 'blur(20px)', opacity: 0, color: '#fff' },
 	              className: 'demo parallax-shape' },
 	            'blur'
@@ -180,7 +183,7 @@ webpackJsonp([1],{
 	          _react2['default'].createElement(
 	            ScrollParallax,
 	            {
-	              animation: [{ opacity: 1, playScale: [0, 0.2] }, { filter: 'blur(0px)', backgroundColor: '#F38EAD', playScale: [0, 0.2] }, { translateX: -100, boxShadow: '5px 5px 5px #000', color: '#fff000', playScale: [0, 0.2] }, { translateX: 100, playScale: [0, 0.2] }, { translateX: 0, playScale: [0, 0.2] }],
+	              animation: [{ opacity: 1, playScale: [0, 0.2] }, { blur: '0px', backgroundColor: '#F38EAD', playScale: [0, 0.2] }, { translateX: -100, boxShadow: '5px 5px 5px #000', color: '#fff000', playScale: [0, 0.2] }, { translateX: 100, playScale: [0, 0.2] }, { translateX: 0, playScale: [0, 0.2] }],
 	              style: { filter: 'blur(10px)', transform: 'translateX(0px)', opacity: 0, color: '#fff' },
 	              className: 'demo parallax-shape' },
 	            'timeline'
