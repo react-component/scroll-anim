@@ -65,7 +65,7 @@ describe('rc-scroll-anim', function() {
     instance = createScrollOverPack({
       always: false,
     });
-    window.scrollTo(0, 2000);
+    window.scrollTo(0, 1000);
     let child;
     setTimeout(()=> {
       window.scrollTo(0, 0);
@@ -85,7 +85,7 @@ describe('rc-scroll-anim', function() {
   it('overPack enter leave', function(done) {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
-    window.scrollTo(0, 2000);
+    window.scrollTo(0, 1000);
     let child;
     setTimeout(()=> {
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
