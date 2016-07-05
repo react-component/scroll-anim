@@ -23524,6 +23524,8 @@
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
 	
+	var _util = __webpack_require__(173);
+	
 	var _Mapped = __webpack_require__(172);
 	
 	var _Mapped2 = _interopRequireDefault(_Mapped);
@@ -23547,17 +23549,33 @@
 	    this.rafID = -1;
 	    this.toHeight = -1;
 	    this.num = 0;
-	    this.currentNum = 0;
+	    // this.currentNum = 0;
 	    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
 	    _EventDispatcher2['default'].addEventListener('wheel.scrollWheel', this.onWheel);
+	    _EventDispatcher2['default'].addEventListener('scroll.scrollScreen', this.scrollEvent);
 	    // 刚进入时滚动条位置
 	    // requestAnimationFrame(this.startScroll)
 	    setTimeout(this.startScroll);
 	  },
-	  startScroll: function startScroll() {
+	  scrollEvent: function scrollEvent() {
 	    var _this2 = this;
+	
+	    var _mapped = _Mapped2['default'].getMapped();
+	    var _arr = _mapped.__arr;
+	    this.scrollTop = (0, _util.currentScrollTop)();
+	    _arr.forEach(function (str, i) {
+	      var dom = _mapped[str];
+	      var domOffsetTop = dom.offsetTop;
+	      var domHeight = dom.getBoundingClientRect().height;
+	      if (_this2.scrollTop >= domOffsetTop && _this2.scrollTop < domOffsetTop + domHeight) {
+	        _this2.currentNum = i;
+	      }
+	    });
+	  },
+	  startScroll: function startScroll() {
+	    var _this3 = this;
 	
 	    var _mapped = _Mapped2['default'].getMapped();
 	    var _arr = _mapped.__arr;
@@ -23570,10 +23588,10 @@
 	      var dom = _mapped[str];
 	      var domOffsetTop = dom.offsetTop;
 	      var domHeight = dom.getBoundingClientRect().height;
-	      if (_this2.scrollTop >= domOffsetTop && _this2.scrollTop < domOffsetTop + domHeight) {
-	        _this2.num = i;
-	        _this2.toHeight = domOffsetTop;
-	        _this2.currentNum = _this2.num;
+	      if (_this3.scrollTop >= domOffsetTop && _this3.scrollTop < domOffsetTop + domHeight) {
+	        _this3.num = i;
+	        _this3.toHeight = domOffsetTop;
+	        // this.currentNum = this.num;
 	      }
 	    });
 	    // 如果 toHeight === -1 且 this.scrollTop 有值时；
@@ -23583,7 +23601,7 @@
 	        var windowHeight = document.documentElement.clientHeight;
 	        var tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
 	        this.num = _Mapped2['default'].getMapped().__arr.length + tooNum;
-	        this.currentNum = this.num;
+	        // this.currentNum = this.num;
 	      }
 	      return;
 	    }
@@ -23595,7 +23613,7 @@
 	    }
 	  },
 	  raf: function raf() {
-	    var _this3 = this;
+	    var _this4 = this;
 	
 	    var duration = this.vars.duration;
 	    var now = Date.now();
@@ -23605,7 +23623,7 @@
 	    if (progressTime === duration) {
 	      this.cancelRequestAnimationFrame();
 	      setTimeout(function () {
-	        _this3.toHeight = -1;
+	        _this4.toHeight = -1;
 	      }, this.vars.scrollInterval);
 	    } else {
 	      this.rafID = (0, _raf2['default'])(this.raf);
@@ -23616,7 +23634,7 @@
 	    this.rafID = -1;
 	  },
 	  onWheel: function onWheel(e) {
-	    var _this4 = this;
+	    var _this5 = this;
 	
 	    var _mapped = _Mapped2['default'].getMapped();
 	    if (!_mapped.__arr.length) {
@@ -23632,13 +23650,13 @@
 	      var endDom = _Mapped2['default'].get(_arr[_arr.length - 1]);
 	      var startDom = _Mapped2['default'].get(_arr[0]);
 	      var windowHeight = document.documentElement.clientHeight;
-	      this.scrollTop = window.pageYOffset;
+	      this.scrollTop = (0, _util.currentScrollTop)();
 	      _arr.forEach(function (str, i) {
 	        var dom = _mapped[str];
 	        var domOffsetTop = dom.offsetTop;
 	        var domHeight = dom.getBoundingClientRect().height;
-	        if (_this4.scrollTop >= domOffsetTop && _this4.scrollTop < domOffsetTop + domHeight) {
-	          _this4.num = i;
+	        if (_this5.scrollTop >= domOffsetTop && _this5.scrollTop < domOffsetTop + domHeight) {
+	          _this5.num = i;
 	        }
 	      });
 	      if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
@@ -23673,11 +23691,12 @@
 	      this.toHeight = currentDom ? currentDom.offsetTop : null;
 	      this.toHeight = typeof this.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (this.num - _Mapped2['default'].getMapped().__arr.length) : this.toHeight;
 	      this.rafID = (0, _raf2['default'])(this.raf);
-	      this.currentNum = this.num;
+	      // this.currentNum = this.num;
 	    }
 	  },
 	  unMount: function unMount() {
 	    _EventDispatcher2['default'].removeEventListener('wheel.scrollWheel', this.onWheel);
+	    _EventDispatcher2['default'].removeEventListener('scroll.scrollScreen', this.scrollEvent);
 	  }
 	};
 	exports['default'] = {
@@ -23711,7 +23730,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.2.9",
+		"version": "0.2.10",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
