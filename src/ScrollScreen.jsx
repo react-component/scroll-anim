@@ -1,6 +1,7 @@
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
+import { currentScrollTop } from './util';
 import mapped from './Mapped';
 
 // 设置默认数据
@@ -20,12 +21,26 @@ const ScrollScreen = {
     this.rafID = -1;
     this.toHeight = -1;
     this.num = 0;
-    this.currentNum = 0;
+    // this.currentNum = 0;
     ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll'].forEach((method) => this[method] = this[method].bind(this));
     EventListener.addEventListener('wheel.scrollWheel', this.onWheel);
+    EventListener.addEventListener('scroll.scrollScreen', this.scrollEvent);
     // 刚进入时滚动条位置
     // requestAnimationFrame(this.startScroll)
     setTimeout(this.startScroll);
+  },
+  scrollEvent() {
+    const _mapped = mapped.getMapped();
+    const _arr = _mapped.__arr;
+    this.scrollTop = currentScrollTop();
+    _arr.forEach((str, i)=> {
+      const dom = _mapped[str];
+      const domOffsetTop = dom.offsetTop;
+      const domHeight = dom.getBoundingClientRect().height;
+      if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
+        this.currentNum = i;
+      }
+    });
   },
   startScroll() {
     const _mapped = mapped.getMapped();
@@ -42,7 +57,7 @@ const ScrollScreen = {
       if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
         this.num = i;
         this.toHeight = domOffsetTop;
-        this.currentNum = this.num;
+        // this.currentNum = this.num;
       }
     });
     // 如果 toHeight === -1 且 this.scrollTop 有值时；
@@ -52,7 +67,7 @@ const ScrollScreen = {
         const windowHeight = document.documentElement.clientHeight;
         const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
         this.num = mapped.getMapped().__arr.length + tooNum;
-        this.currentNum = this.num;
+        // this.currentNum = this.num;
       }
       return;
     }
@@ -97,7 +112,7 @@ const ScrollScreen = {
       const endDom = mapped.get(_arr[_arr.length - 1]);
       const startDom = mapped.get(_arr[0]);
       const windowHeight = document.documentElement.clientHeight;
-      this.scrollTop = window.pageYOffset;
+      this.scrollTop = currentScrollTop();
       _arr.forEach((str, i)=> {
         const dom = _mapped[str];
         const domOffsetTop = dom.offsetTop;
@@ -138,11 +153,12 @@ const ScrollScreen = {
       this.toHeight = currentDom ? currentDom.offsetTop : null;
       this.toHeight = typeof this.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
       this.rafID = requestAnimationFrame(this.raf);
-      this.currentNum = this.num;
+      // this.currentNum = this.num;
     }
   },
   unMount() {
     EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
+    EventListener.removeEventListener('scroll.scrollScreen', this.scrollEvent);
   },
 };
 export default {
