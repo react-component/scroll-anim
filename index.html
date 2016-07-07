@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.2.11 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@0.3.0 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.2.11</h1>
+  <h1>rc-scroll-anim@0.3.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -866,11 +866,17 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td><code>null</code></td>
 <td>callback({ mode, scrollName }), mode: <code>enter</code> <code>leave</code></td>
 </tr>
+<tr>
+<td>hideProps</td>
+<td>object</td>
+<td><code>null</code></td>
+<td>v0.3.0 children hideProps move here. If the child does not have, default: { children: null }. children be <code>rc-tween-one</code> { &#39;userKey&#39;: { reverse: true }}</td>
+</tr>
 </tbody>
 </table>
-<h4>children support animation:  <code>rc-queue-anim</code> <code>rc-animte</code> <code>rc-tween-one</code><a id="user-content-children-support-animation:-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" name="children-support-animation:-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>" class="anchor" aria-hidden="true" href="#children-support-animation:-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code>"><span class="octicon octicon-link"></span></a></h4><blockquote>
-<p>children be <code>rc-queue-anim</code> <code>rc-animte</code> add on label: hideProps={{ child: null }}</p>
-<p>children be <code>rc-tween-one</code> add on label: hideProps={{ reverse: true }}</p>
+<h3>react 15.2.0 react-unknown-prop warnings, hideProps move to tag.<a id="user-content-react-15.2.0-react-unknown-prop-warnings,-hideprops-move-to-tag." name="react-15.2.0-react-unknown-prop-warnings,-hideprops-move-to-tag." class="anchor" aria-hidden="true" href="#react-15.2.0-react-unknown-prop-warnings,-hideprops-move-to-tag."><span class="octicon octicon-link"></span></a></h3><h3><del>children support animation:  <code>rc-queue-anim</code> <code>rc-animte</code> <code>rc-tween-one</code></del><a id="user-content-<del>children-support-animation:-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code></del>" name="<del>children-support-animation:-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code></del>" class="anchor" aria-hidden="true" href="#<del>children-support-animation:-<code>rc-queue-anim</code>-<code>rc-animte</code>-<code>rc-tween-one</code></del>"><span class="octicon octicon-link"></span></a></h3><blockquote>
+<p><del>children be <code>rc-queue-anim</code> <code>rc-animte</code> add on label: hideProps={{ child: null }}</del></p>
+<p><del>children be <code>rc-tween-one</code> add on label: hideProps={{ reverse: true }}</del></p>
 </blockquote>
 <h3>Parallax<a id="user-content-parallax" name="parallax" class="anchor" aria-hidden="true" href="#parallax"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>

@@ -3,12 +3,12 @@ webpackJsonp([3],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(219);
+	module.exports = __webpack_require__(216);
 
 
 /***/ },
 
-/***/ 197:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,7 +17,7 @@ webpackJsonp([3],{
 	  value: true
 	});
 	
-	var _QueueAnim = __webpack_require__(198);
+	var _QueueAnim = __webpack_require__(195);
 	
 	var _QueueAnim2 = _interopRequireDefault(_QueueAnim);
 	
@@ -29,7 +29,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 198:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {'use strict';
@@ -38,21 +38,25 @@ webpackJsonp([3],{
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _react = __webpack_require__(6);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactDom = __webpack_require__(38);
 	
-	var _utils = __webpack_require__(200);
+	var _utils = __webpack_require__(197);
 	
-	var _animTypes = __webpack_require__(201);
+	var _animTypes = __webpack_require__(198);
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -129,7 +133,7 @@ webpackJsonp([3],{
 	var velocity = void 0;
 	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 	  // only load velocity on the client
-	  velocity = __webpack_require__(202);
+	  velocity = __webpack_require__(199);
 	  Object.keys(_ease).forEach(function (key) {
 	    if (velocity.Easings) {
 	      velocity.Easings[key] = _ease[key];
@@ -436,7 +440,13 @@ webpackJsonp([3],{
 	        key: placeholderKeyPrefix + child.key
 	      });
 	    });
-	    return (0, _react.createElement)(this.props.component, this.props, childrenToRender);
+	
+	    var tagProps = _objectWithoutProperties(this.props, []);
+	
+	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName'].forEach(function (key) {
+	      return delete tagProps[key];
+	    });
+	    return (0, _react.createElement)(this.props.component, _extends({}, tagProps), childrenToRender);
 	  };
 	
 	  return QueueAnim;
@@ -476,11 +486,11 @@ webpackJsonp([3],{
 	
 	exports["default"] = QueueAnim;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(196).setImmediate))
 
 /***/ },
 
-/***/ 199:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(8).nextTick;
@@ -559,11 +569,11 @@ webpackJsonp([3],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199).setImmediate, __webpack_require__(199).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(196).setImmediate, __webpack_require__(196).clearImmediate))
 
 /***/ },
 
-/***/ 200:
+/***/ 197:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -669,7 +679,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 201:
+/***/ 198:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -718,7 +728,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 202:
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
@@ -4610,35 +4620,25 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 203:
+/***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var TweenOne = __webpack_require__(204);
-	TweenOne.TweenOneGroup = __webpack_require__(206);
+	var TweenOne = __webpack_require__(201);
+	TweenOne.TweenOneGroup = __webpack_require__(203);
 	module.exports = TweenOne;
 
 /***/ },
 
-/***/ 204:
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var _react = __webpack_require__(6);
 	
@@ -4648,21 +4648,35 @@ webpackJsonp([3],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(186);
+	var _objectAssign = __webpack_require__(182);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _util = __webpack_require__(205);
+	var _util = __webpack_require__(202);
 	
-	var _styleUtils = __webpack_require__(188);
+	var _styleUtils = __webpack_require__(186);
 	
-	var _TimeLine = __webpack_require__(185);
+	var _TimeLine = __webpack_require__(181);
 	
 	var _TimeLine2 = _interopRequireDefault(_TimeLine);
 	
-	var _ticker = __webpack_require__(190);
+	var _plugins = __webpack_require__(184);
+	
+	var _plugins2 = _interopRequireDefault(_plugins);
+	
+	var _ticker = __webpack_require__(187);
 	
 	var _ticker2 = _interopRequireDefault(_ticker);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
 	function noop() {}
 	
@@ -4670,183 +4684,179 @@ webpackJsonp([3],{
 	
 	var tickerIdNum = 0;
 	
-	var TweenOne = (function (_Component) {
+	var TweenOne = function (_Component) {
 	  _inherits(TweenOne, _Component);
 	
 	  function TweenOne() {
-	    var _this = this;
-	
 	    _classCallCheck(this, TweenOne);
 	
-	    _get(Object.getPrototypeOf(TweenOne.prototype), 'constructor', this).apply(this, arguments);
-	    this.rafID = -1;
-	    this.moment = this.props.moment || 0;
-	    this.state = {
-	      startMoment: this.props.moment,
-	      startFrame: _ticker2['default'].frame,
-	      paused: this.props.paused
+	    var _this = _possibleConstructorReturn(this, _Component.apply(this, arguments));
+	
+	    _this.rafID = -1;
+	    _this.moment = _this.props.moment || 0;
+	    _this.state = {
+	      startMoment: _this.props.moment,
+	      startFrame: _ticker2["default"].frame,
+	      paused: _this.props.paused
 	    };
 	    ['raf', 'frame', 'start', 'play', 'restart'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
+	    return _this;
 	  }
 	
-	  _createClass(TweenOne, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.dom = _reactDom2['default'].findDOMNode(this);
-	      this.start(this.props);
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var _this2 = this;
+	  TweenOne.prototype.componentDidMount = function componentDidMount() {
+	    this.dom = _reactDom2["default"].findDOMNode(this);
+	    this.start(this.props);
+	  };
 	
-	      var newStyle = nextProps.style;
-	      var styleEqual = (0, _util.objectEqual)(this.props.style, newStyle);
-	      // 如果在动画时,改变了 style 将改变 timeLine 的初始值;
-	      if (!styleEqual) {
-	        if (this.rafID !== -1) {
-	          this.start(nextProps);
-	        }
-	      }
+	  TweenOne.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	    var _this2 = this;
 	
-	      // 跳帧事件 moment;
-	      var newMoment = nextProps.moment;
-	      if (typeof newMoment === 'number' && newMoment !== this.moment) {
-	        this.setState({
-	          startMoment: newMoment,
-	          startFrame: _ticker2['default'].frame
-	        }, function () {
-	          if (_this2.rafID === -1 && !nextProps.paused) {
-	            (function () {
-	              _this2.timeLine.resetAnimData();
-	              var style = nextProps.style;
-	              _this2.dom.setAttribute('style', '');
-	              Object.keys(style).forEach(function (key) {
-	                _this2.dom.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
-	              });
-	              _this2.play();
-	            })();
-	          } else {
-	            _this2.raf();
-	          }
-	        });
-	      }
-	      // 动画处理
-	      var newAnimation = nextProps.animation;
-	      var currentAnimation = this.props.animation;
-	      var equal = (0, _util.objectEqual)(currentAnimation, newAnimation);
-	      if (!equal) {
-	        this.setState({
-	          startFrame: _ticker2['default'].frame
-	        }, function () {
-	          _this2.start(nextProps);
-	        });
-	      }
-	      // 暂停倒放
-	      if (this.props.paused !== nextProps.paused || this.props.reverse !== nextProps.reverse) {
-	        if (nextProps.paused) {
-	          this.cancelRequestAnimationFrame();
-	        } else {
-	          if (nextProps.reverse && nextProps.reverseDelay) {
-	            _ticker2['default'].timeout(this.restart, nextProps.reverseDelay);
-	          } else {
-	            this.restart();
-	          }
-	        }
+	    var newStyle = nextProps.style;
+	    var styleEqual = (0, _util.objectEqual)(this.props.style, newStyle);
+	    // 如果在动画时,改变了 style 将改变 timeLine 的初始值;
+	    if (!styleEqual) {
+	      if (this.rafID !== -1) {
+	        this.start(nextProps);
 	      }
 	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      this.cancelRequestAnimationFrame();
-	    }
-	  }, {
-	    key: 'restart',
-	    value: function restart() {
-	      var _this3 = this;
 	
+	    // 跳帧事件 moment;
+	    var newMoment = nextProps.moment;
+	    if (typeof newMoment === 'number' && newMoment !== this.moment) {
 	      this.setState({
-	        startMoment: this.timeLine.progressTime,
-	        startFrame: _ticker2['default'].frame
+	        startMoment: newMoment,
+	        startFrame: _ticker2["default"].frame
 	      }, function () {
-	        _this3.play();
+	        if (_this2.rafID === -1 && !nextProps.paused) {
+	          (function () {
+	            _this2.timeLine.resetAnimData();
+	            var style = nextProps.style;
+	            _this2.dom.setAttribute('style', '');
+	            Object.keys(style).forEach(function (key) {
+	              _this2.dom.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
+	            });
+	            _this2.play();
+	          })();
+	        } else {
+	          _this2.raf();
+	        }
 	      });
 	    }
-	  }, {
-	    key: 'start',
-	    value: function start(props) {
-	      if (props.animation && Object.keys(props.animation).length) {
-	        this.timeLine = new _TimeLine2['default'](this.dom, (0, _util.dataToArray)(props.animation));
-	        // 开始动画
-	        this.play();
-	      }
+	    // 动画处理
+	    var newAnimation = nextProps.animation;
+	    var currentAnimation = this.props.animation;
+	    var equal = (0, _util.objectEqual)(currentAnimation, newAnimation);
+	    if (!equal) {
+	      this.setState({
+	        startFrame: _ticker2["default"].frame
+	      }, function () {
+	        _this2.start(nextProps);
+	      });
 	    }
-	  }, {
-	    key: 'play',
-	    value: function play() {
-	      this.cancelRequestAnimationFrame();
-	      this.rafID = 'tween' + Date.now() + '-' + tickerIdNum;
-	      this.raf();
-	      _ticker2['default'].wake(this.rafID, this.raf);
-	      tickerIdNum++;
-	    }
-	  }, {
-	    key: 'frame',
-	    value: function frame() {
-	      var moment = (_ticker2['default'].frame - this.state.startFrame) * perFrame + (this.state.startMoment || 0);
-	      if (this.props.reverse) {
-	        moment = (this.state.startMoment || 0) - (_ticker2['default'].frame - this.state.startFrame) * perFrame;
-	      }
-	      moment = moment > this.timeLine.totalTime ? this.timeLine.totalTime : moment;
-	      moment = moment <= 0 ? 0 : moment;
-	      if (moment < this.moment) {
-	        this.timeLine.resetDefaultStyle();
-	      }
-	      this.moment = moment;
-	      this.timeLine.onChange = this.props.onChange;
-	      this.timeLine.frame(moment);
-	    }
-	  }, {
-	    key: 'raf',
-	    value: function raf() {
-	      this.frame();
-	      if (this.moment >= this.timeLine.totalTime && !this.props.reverse || this.props.paused || this.props.reverse && this.moment === 0) {
-	        return this.cancelRequestAnimationFrame();
-	      }
-	    }
-	  }, {
-	    key: 'cancelRequestAnimationFrame',
-	    value: function cancelRequestAnimationFrame() {
-	      _ticker2['default'].clear(this.rafID);
-	      this.rafID = -1;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var props = (0, _objectAssign2['default'])({}, this.props);
-	      props.style = (0, _objectAssign2['default'])({}, this.props.style);
-	      for (var p in props.style) {
-	        if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {
-	          // ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix=> style[`${prefix}Filter`] = style[p]);
-	          var transformArr = ['Webkit', 'Moz', 'Ms', 'ms'];
-	          for (var i = 0; i < transformArr.length; i++) {
-	            props.style[transformArr[i] + 'Filter'] = props.style[p];
-	          }
+	    // 暂停倒放
+	    if (this.props.paused !== nextProps.paused || this.props.reverse !== nextProps.reverse) {
+	      if (nextProps.paused) {
+	        this.cancelRequestAnimationFrame();
+	      } else {
+	        if (nextProps.reverse && nextProps.reverseDelay) {
+	          _ticker2["default"].timeout(this.restart, nextProps.reverseDelay);
+	        } else {
+	          this.restart();
 	        }
 	      }
-	      return _react2['default'].createElement(this.props.component, props);
 	    }
-	  }]);
+	  };
+	
+	  TweenOne.prototype.componentWillUnmount = function componentWillUnmount() {
+	    this.cancelRequestAnimationFrame();
+	  };
+	
+	  TweenOne.prototype.restart = function restart() {
+	    var _this3 = this;
+	
+	    this.setState({
+	      startMoment: this.timeLine.progressTime,
+	      startFrame: _ticker2["default"].frame
+	    }, function () {
+	      _this3.play();
+	    });
+	  };
+	
+	  TweenOne.prototype.start = function start(props) {
+	    if (props.animation && Object.keys(props.animation).length) {
+	      this.timeLine = new _TimeLine2["default"](this.dom, (0, _util.dataToArray)(props.animation), this.props.attr);
+	      // 开始动画
+	      this.play();
+	    }
+	  };
+	
+	  TweenOne.prototype.play = function play() {
+	    this.cancelRequestAnimationFrame();
+	    this.rafID = 'tween' + Date.now() + '-' + tickerIdNum;
+	    this.raf();
+	    _ticker2["default"].wake(this.rafID, this.raf);
+	    tickerIdNum++;
+	  };
+	
+	  TweenOne.prototype.frame = function frame() {
+	    var moment = (_ticker2["default"].frame - this.state.startFrame) * perFrame + (this.state.startMoment || 0);
+	    if (this.props.reverse) {
+	      moment = (this.state.startMoment || 0) - (_ticker2["default"].frame - this.state.startFrame) * perFrame;
+	    }
+	    moment = moment > this.timeLine.totalTime ? this.timeLine.totalTime : moment;
+	    moment = moment <= 0 ? 0 : moment;
+	    if (moment < this.moment) {
+	      this.timeLine.resetDefaultStyle();
+	    }
+	    this.moment = moment;
+	    this.timeLine.onChange = this.props.onChange;
+	    this.timeLine.frame(moment);
+	  };
+	
+	  TweenOne.prototype.raf = function raf() {
+	    this.frame();
+	    if (this.moment >= this.timeLine.totalTime && !this.props.reverse || this.props.paused || this.props.reverse && this.moment === 0) {
+	      return this.cancelRequestAnimationFrame();
+	    }
+	  };
+	
+	  TweenOne.prototype.cancelRequestAnimationFrame = function cancelRequestAnimationFrame() {
+	    _ticker2["default"].clear(this.rafID);
+	    this.rafID = -1;
+	  };
+	
+	  TweenOne.prototype.render = function render() {
+	    var props = (0, _objectAssign2["default"])({}, this.props);
+	    ['animation', 'component', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment'].forEach(function (key) {
+	      return delete props[key];
+	    });
+	    props.style = (0, _objectAssign2["default"])({}, this.props.style);
+	    for (var p in props.style) {
+	      if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {
+	        // ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix=> style[`${prefix}Filter`] = style[p]);
+	        var transformArr = ['Webkit', 'Moz', 'Ms', 'ms'];
+	        for (var i = 0; i < transformArr.length; i++) {
+	          props.style[transformArr[i] + 'Filter'] = props.style[p];
+	        }
+	      }
+	    }
+	    props.component = typeof props.component === 'function' ? this.props.componentReplace : props.component;
+	    if (!props.component) {
+	      delete props.component;
+	    }
+	    return _react2["default"].createElement(this.props.component, props);
+	  };
 	
 	  return TweenOne;
-	})(_react.Component);
+	}(_react.Component);
 	
 	var objectOrArray = _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]);
 	
 	TweenOne.propTypes = {
 	  component: _react.PropTypes.any,
+	  componentReplace: _react.PropTypes.string,
 	  animation: objectOrArray,
 	  children: _react.PropTypes.any,
 	  style: _react.PropTypes.object,
@@ -4864,19 +4874,23 @@ webpackJsonp([3],{
 	  attr: 'style',
 	  onChange: noop
 	};
-	exports['default'] = TweenOne;
+	TweenOne.plugins = _plugins2["default"];
+	exports["default"] = TweenOne;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 205:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
 	exports.toArrayChildren = toArrayChildren;
 	exports.dataToArray = dataToArray;
 	exports.objectEqual = objectEqual;
@@ -4885,15 +4899,15 @@ webpackJsonp([3],{
 	exports.transformArguments = transformArguments;
 	exports.getChildrenFromProps = getChildrenFromProps;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
 	var _react = __webpack_require__(6);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
 	function toArrayChildren(children) {
 	  var ret = [];
-	  _react2['default'].Children.forEach(children, function (c) {
+	  _react2["default"].Children.forEach(children, function (c) {
 	    ret.push(c);
 	  });
 	  return ret;
@@ -4923,7 +4937,7 @@ webpackJsonp([3],{
 	      var nextObj = obj2[i];
 	      for (var p in currentObj) {
 	        if (currentObj[p] !== nextObj[p]) {
-	          if (typeof currentObj[p] === 'object' && typeof nextObj[p] === 'object') {
+	          if (_typeof(currentObj[p]) === 'object' && _typeof(nextObj[p]) === 'object') {
 	            equalBool = objectEqual(currentObj[p], nextObj[p]);
 	          } else {
 	            equalBool = false;
@@ -4940,7 +4954,7 @@ webpackJsonp([3],{
 	      return false;
 	    }
 	
-	    if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+	    if (_typeof(obj1[key]) === 'object' && _typeof(obj2[key]) === 'object') {
 	      equalBool = objectEqual(obj1[key], obj2[key]);
 	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
 	      if (obj1[key].name !== obj2[key].name) {
@@ -4956,7 +4970,7 @@ webpackJsonp([3],{
 	      equalBool = false;
 	      return false;
 	    }
-	    if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
+	    if (_typeof(obj2[key]) === 'object' && _typeof(obj1[key]) === 'object') {
 	      equalBool = objectEqual(obj2[key], obj1[key]);
 	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
 	      if (obj1[key].name !== obj2[key].name) {
@@ -5027,7 +5041,7 @@ webpackJsonp([3],{
 	}
 	
 	function transformArguments(arg, key, i) {
-	  var result = undefined;
+	  var result = void 0;
 	  if (typeof arg === 'function') {
 	    result = arg({
 	      key: key,
@@ -5045,173 +5059,185 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 206:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
 	var _react = __webpack_require__(6);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TweenOne = __webpack_require__(204);
+	var _TweenOne = __webpack_require__(201);
 	
 	var _TweenOne2 = _interopRequireDefault(_TweenOne);
 	
-	var _util = __webpack_require__(205);
+	var _util = __webpack_require__(202);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
 	function noop() {}
 	
-	var TweenOneGroup = (function (_Component) {
+	var TweenOneGroup = function (_Component) {
 	  _inherits(TweenOneGroup, _Component);
 	
 	  function TweenOneGroup() {
-	    var _this = this;
-	
 	    _classCallCheck(this, TweenOneGroup);
 	
-	    _get(Object.getPrototypeOf(TweenOneGroup.prototype), 'constructor', this).apply(this, arguments);
-	    this.keysToEnter = [];
-	    this.keysToLeave = [];
-	    this.onEnterBool = false;
+	    var _this = _possibleConstructorReturn(this, _Component.apply(this, arguments));
+	
+	    _this.keysToEnter = [];
+	    _this.keysToLeave = [];
+	    _this.onEnterBool = false;
+	    _this.enterAnimEnd = false;
 	    // 第一进入，appear 为 true 时默认用 enter 或 tween-one 上的效果
-	    var children = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(this.props));
+	    var children = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(_this.props));
 	    children.forEach(function (child) {
 	      if (!child || !child.key) {
 	        return;
 	      }
 	      _this.keysToEnter.push(child.key);
 	    });
-	    this.originalChildren = children;
-	    this.state = {
+	    _this.state = {
 	      children: children
 	    };
 	    ['getChildrenToRender', 'getCoverAnimation', 'onChange'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
+	    return _this;
 	  }
 	
-	  _createClass(TweenOneGroup, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.onEnterBool = true;
+	  TweenOneGroup.prototype.componentDidMount = function componentDidMount() {
+	    this.onEnterBool = true;
+	  };
+	
+	  TweenOneGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	    var _this2 = this;
+	
+	    var nextChildren = (0, _util.toArrayChildren)(nextProps.children);
+	    var currentChildren = this.state.children;
+	    var newChildren = (0, _util.mergeChildren)(currentChildren, nextChildren);
+	
+	    this.keysToEnter = [];
+	    this.keysToLeave = [];
+	    nextChildren.forEach(function (c) {
+	      if (!c) {
+	        return;
+	      }
+	      var key = c.key;
+	      var hasPrev = (0, _util.findChildInChildrenByKey)(currentChildren, key);
+	      if (!hasPrev && key) {
+	        _this2.keysToEnter.push(key);
+	      }
+	    });
+	
+	    currentChildren.forEach(function (c) {
+	      if (!c) {
+	        return;
+	      }
+	      var key = c.key;
+	      var hasNext = (0, _util.findChildInChildrenByKey)(nextChildren, key);
+	      if (!hasNext && key) {
+	        _this2.keysToLeave.push(key);
+	      }
+	    });
+	    if (this.keysToEnter.length || this.keysToLeave.length) {
+	      this.enterAnimEnd = false;
 	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var _this2 = this;
+	    this.setState({
+	      children: newChildren
+	    });
+	  };
 	
-	      var nextChildren = (0, _util.toArrayChildren)(nextProps.children);
-	      var currentChildren = this.originalChildren;
-	      var newChildren = (0, _util.mergeChildren)(currentChildren, nextChildren);
-	
-	      this.keysToEnter = [];
-	      this.keysToLeave = [];
-	      nextChildren.forEach(function (c) {
-	        if (!c) {
-	          return;
-	        }
-	        var key = c.key;
-	        var hasPrev = (0, _util.findChildInChildrenByKey)(currentChildren, key);
-	        if (!hasPrev && key) {
-	          _this2.keysToEnter.push(key);
-	        }
-	      });
-	
-	      currentChildren.forEach(function (c) {
-	        if (!c) {
-	          return;
-	        }
-	        var key = c.key;
-	        var hasNext = (0, _util.findChildInChildrenByKey)(nextChildren, key);
-	        if (!hasNext && key) {
-	          _this2.keysToLeave.push(key);
-	        }
-	      });
+	  TweenOneGroup.prototype.onChange = function onChange(animation, key, type, obj) {
+	    var length = (0, _util.dataToArray)(animation).length;
+	    if (obj.index === length - 1 && obj.mode === 'onComplete') {
+	      var children = void 0;
+	      if (type === 'enter') {
+	        children = this.state.children;
+	        this.enterAnimEnd = true;
+	      } else {
+	        children = this.state.children.filter(function (child) {
+	          return key !== child.key;
+	        });
+	      }
 	      this.setState({
-	        children: newChildren
+	        children: children
 	      });
+	      var _obj = { key: key, type: type };
+	      this.props.onEnd(_obj);
 	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      this.originalChildren = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(this.props));
-	    }
-	  }, {
-	    key: 'onChange',
-	    value: function onChange(animation, key, type, obj) {
-	      var length = (0, _util.dataToArray)(animation).length;
-	      if (obj.index === length - 1 && obj.mode === 'onComplete') {
-	        if (type === 'leave') {
-	          var children = this.state.children.filter(function (child) {
-	            return child.key !== key;
-	          });
-	          this.setState({
-	            children: children
-	          });
-	        }
-	        var _obj = { key: key, type: type };
-	        this.props.onEnd(_obj);
+	  };
+	
+	  TweenOneGroup.prototype.getCoverAnimation = function getCoverAnimation(child, i, type) {
+	    var animation = void 0;
+	    var onChange = void 0;
+	    var className = child.props.className || '';
+	    if (type) {
+	      animation = type === 'leave' ? this.props.leave : this.props.enter;
+	      onChange = this.onChange.bind(this, animation, child.key, type);
+	      if (!this.enterAnimEnd) {
+	        className = (className + ' ' + (type === 'leave' ? this.props.animatingClassName[1] : this.props.animatingClassName[0])).trim();
 	      }
 	    }
-	  }, {
-	    key: 'getCoverAnimation',
-	    value: function getCoverAnimation(child, i, type) {
-	      var animation = type === 'leave' ? this.props.leave : this.props.enter;
-	      var onChange = this.onChange.bind(this, animation, child.key, type);
-	      return _react2['default'].createElement(_TweenOne2['default'], _extends({}, child.props, {
-	        key: child.key,
-	        component: child.type,
-	        animation: (0, _util.transformArguments)(animation, child.key, i),
-	        onChange: onChange
-	      }));
-	    }
-	  }, {
-	    key: 'getChildrenToRender',
-	    value: function getChildrenToRender(children) {
-	      var _this3 = this;
+	    return _react2["default"].createElement(_TweenOne2["default"], _extends({}, child.props, {
+	      key: child.key,
+	      component: child.type,
+	      animation: (0, _util.transformArguments)(animation, child.key, i),
+	      onChange: onChange,
+	      className: className
+	    }));
+	  };
 	
-	      return children.map(function (child, i) {
-	        if (!child || !child.key) {
-	          return child;
-	        }
-	        var key = child.key;
-	        if (_this3.keysToLeave.indexOf(key) >= 0) {
-	          return _this3.getCoverAnimation(child, i, 'leave');
-	        }
-	        var appear = (0, _util.transformArguments)(_this3.props.appear, key, i);
+	  TweenOneGroup.prototype.getChildrenToRender = function getChildrenToRender(children) {
+	    var _this3 = this;
+	
+	    return children.map(function (child, i) {
+	      if (!child || !child.key) {
+	        return child;
+	      }
+	      var key = child.key;
+	      if (_this3.keysToLeave.indexOf(key) >= 0) {
+	        return _this3.getCoverAnimation(child, i, 'leave');
+	      }
+	      var appear = (0, _util.transformArguments)(_this3.props.appear, key, i);
+	      if (_this3.keysToEnter.indexOf(key) >= 0) {
 	        if (appear || _this3.onEnterBool) {
 	          return _this3.getCoverAnimation(child, i, 'enter');
 	        }
-	        return child.type === _TweenOne2['default'] ? (0, _react.createElement)(child.props.component, _extends({}, child.props, { key: child.key })) : child;
-	      });
+	      }
+	      return _this3.getCoverAnimation(child, i);
+	    });
+	  };
+	
+	  TweenOneGroup.prototype.render = function render() {
+	    var childrenToRender = this.getChildrenToRender(this.state.children);
+	    if (!this.props.component) {
+	      return childrenToRender[0] || null;
 	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var childrenToRender = this.getChildrenToRender(this.state.children);
-	      return (0, _react.createElement)(this.props.component, this.props, childrenToRender);
-	    }
-	  }]);
+	    var componentProps = _extends({}, this.props);
+	    ['component', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd'].forEach(function (key) {
+	      return delete componentProps[key];
+	    });
+	    return (0, _react.createElement)(this.props.component, componentProps, childrenToRender);
+	  };
 	
 	  return TweenOneGroup;
-	})(_react.Component);
+	}(_react.Component);
 	
 	var objectOrArray = _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]);
 	var objectOrArrayOrFunc = _react.PropTypes.oneOfType([objectOrArray, _react.PropTypes.func]);
@@ -5223,32 +5249,34 @@ webpackJsonp([3],{
 	  appear: _react.PropTypes.bool,
 	  enter: objectOrArrayOrFunc,
 	  leave: objectOrArrayOrFunc,
+	  animatingClassName: _react.PropTypes.array,
 	  onEnd: _react.PropTypes.func
 	};
 	
 	TweenOneGroup.defaultProps = {
 	  component: 'div',
 	  appear: true,
+	  animatingClassName: ['tween-one-entering', 'tween-one-leaving'],
 	  enter: { x: 50, opacity: 0, type: 'from' },
 	  leave: { x: -50, opacity: 0 },
 	  onEnd: noop
 	};
-	exports['default'] = TweenOneGroup;
+	exports["default"] = TweenOneGroup;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 207:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(208);
+	module.exports = __webpack_require__(205);
 
 /***/ },
 
-/***/ 208:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5261,13 +5289,13 @@ webpackJsonp([3],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(209);
+	var _ChildrenUtils = __webpack_require__(206);
 	
-	var _AnimateChild = __webpack_require__(210);
+	var _AnimateChild = __webpack_require__(207);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(215);
+	var _util = __webpack_require__(212);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5581,7 +5609,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 209:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5704,7 +5732,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 210:
+/***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5723,11 +5751,11 @@ webpackJsonp([3],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(211);
+	var _cssAnimation = __webpack_require__(208);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(215);
+	var _util = __webpack_require__(212);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5809,7 +5837,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 211:
+/***/ 208:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5818,11 +5846,11 @@ webpackJsonp([3],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(212);
+	var _Event = __webpack_require__(209);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(213);
+	var _componentClasses = __webpack_require__(210);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -6000,7 +6028,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 212:
+/***/ 209:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6094,7 +6122,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 213:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6102,9 +6130,9 @@ webpackJsonp([3],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(214);
+	  var index = __webpack_require__(211);
 	} catch (err) {
-	  var index = __webpack_require__(214);
+	  var index = __webpack_require__(211);
 	}
 	
 	/**
@@ -6292,7 +6320,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 214:
+/***/ 211:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -6305,7 +6333,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 215:
+/***/ 212:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6338,22 +6366,10 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 219:
+/***/ 216:
 /***/ function(module, exports, __webpack_require__) {
 
-	// use jsx to render html, do not modify simple.html
-	
 	'use strict';
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	__webpack_require__(2);
 	
@@ -6369,130 +6385,155 @@ webpackJsonp([3],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcQueueAnim = __webpack_require__(197);
+	var _rcQueueAnim = __webpack_require__(194);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _rcTweenOne = __webpack_require__(203);
+	var _rcTweenOne = __webpack_require__(200);
 	
 	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
 	
-	var _rcAnimate = __webpack_require__(207);
+	var _rcAnimate = __webpack_require__(204);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _package = __webpack_require__(216);
-	var ScrollOverPack = _rcScrollAnim2['default'].OverPack;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Demo = (function (_React$Component) {
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } // use jsx to render html, do not modify simple.html
+	
+	var _package = __webpack_require__(213);
+	var ScrollOverPack = _rcScrollAnim2.default.OverPack;
+	
+	var Demo = function (_React$Component) {
 	  _inherits(Demo, _React$Component);
 	
 	  function Demo() {
 	    _classCallCheck(this, Demo);
 	
-	    _get(Object.getPrototypeOf(Demo.prototype), 'constructor', this).apply(this, arguments);
+	    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	  }
 	
-	  _createClass(Demo, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
+	  Demo.prototype.render = function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'pack-page page0' },
-	          _react2['default'].createElement(
-	            _rcQueueAnim2['default'],
-	            { className: 'home-title' },
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'page-title', key: 'title' },
-	              _react2['default'].createElement(
-	                'p',
-	                null,
-	                _package.name,
-	                '@',
-	                _package.version
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'page-description', key: 'c' },
-	              _react2['default'].createElement(
-	                'p',
-	                null,
-	                'The simple demo'
-	              )
+	        { className: 'pack-page page0' },
+	        _react2.default.createElement(
+	          _rcQueueAnim2.default,
+	          { className: 'home-title' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-title', key: 'title' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              _package.name,
+	              '@',
+	              _package.version
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-description', key: 'c' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'The simple demo'
 	            )
 	          )
-	        ),
-	        _react2['default'].createElement(
-	          ScrollOverPack,
-	          { scrollName: 'page1', className: 'page1', replay: true },
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { className: 'tween-one', key: '0', animation: { opacity: 1 },
-	              hideProps: { reverse: true } },
-	            '默认进入与出场'
-	          ),
-	          _react2['default'].createElement(
-	            _rcQueueAnim2['default'],
-	            { key: '1', hideProps: { child: null } },
-	            _react2['default'].createElement('div', { key: '0', className: 'demo' }),
-	            _react2['default'].createElement('div', { key: '1', className: 'demo', style: { backgroundColor: '#F38EAD' } }),
-	            _react2['default'].createElement('div', { key: '2', className: 'demo' }),
-	            _react2['default'].createElement('div', { key: '3', className: 'demo' })
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          ScrollOverPack,
-	          { scrollName: 'page2', scrollEvent: this.scrollEvent, className: 'pack-page page2',
-	            style: { backgroundColor: '#0098CE' }, always: false,
-	            id: 'page2' },
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { key: 'title', animation: { opacity: 0, type: 'from' },
-	              hideProps: { reverse: true }, className: 'page2-title'
-	            },
-	            '只进入一次'
-	          ),
-	          _react2['default'].createElement(
-	            _rcAnimate2['default'],
-	            { key: '0', transitionName: 'fade', transitionAppear: true, hideProps: { child: null } },
-	            _react2['default'].createElement('div', { className: 'demo2' })
-	          ),
-	          _react2['default'].createElement(_rcTweenOne2['default'], { className: 'demo2', animation: { y: 0, opacity: 1 }, key: '1',
-	            style: { transform: 'translateY(100px)', opacity: 0 },
-	            hideProps: { reverse: true } })
-	        ),
-	        _react2['default'].createElement(
-	          ScrollOverPack,
-	          { scrollName: 'page3', className: 'pack-page page3', style: { backgroundColor: '#174270' },
-	            playScale: 0.8, id: 'page3' },
-	          _react2['default'].createElement(
-	            _rcTweenOne2['default'],
-	            { animation: { opacity: 1 }, style: { opacity: 0 }, key: 'title', hideProps: { reverse: true },
-	              className: 'page2-title' },
-	            '在页面80％时进入'
-	          ),
-	          _react2['default'].createElement(
-	            _rcAnimate2['default'],
-	            { key: '0', transitionName: 'fade', transitionAppear: true, hideProps: { child: null } },
-	            _react2['default'].createElement('div', { className: 'demo' })
-	          ),
-	          _react2['default'].createElement(_rcTweenOne2['default'], { className: 'demo', animation: { y: 0, opacity: 1 }, key: '1',
-	            style: { transform: 'translateY(100px)', opacity: 0 },
-	            hideProps: { reverse: true } })
 	        )
-	      );
-	    }
-	  }]);
+	      ),
+	      _react2.default.createElement(
+	        ScrollOverPack,
+	        {
+	          scrollName: 'page1',
+	          className: 'page1', replay: true,
+	          hideProps: { 0: { reverse: true } }
+	        },
+	        _react2.default.createElement(
+	          _rcTweenOne2.default,
+	          { className: 'tween-one', key: '0', animation: { opacity: 1 } },
+	          '默认进入与出场'
+	        ),
+	        _react2.default.createElement(
+	          _rcQueueAnim2.default,
+	          { key: '1' },
+	          _react2.default.createElement('div', { key: '0', className: 'demo' }),
+	          _react2.default.createElement('div', { key: '1', className: 'demo', style: { backgroundColor: '#F38EAD' } }),
+	          _react2.default.createElement('div', { key: '2', className: 'demo' }),
+	          _react2.default.createElement('div', { key: '3', className: 'demo' })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        ScrollOverPack,
+	        {
+	          scrollName: 'page2',
+	          scrollEvent: this.scrollEvent,
+	          className: 'pack-page page2',
+	          style: { backgroundColor: '#0098CE' }, always: false,
+	          id: 'page2',
+	          hideProps: { title: { reverse: true } }
+	        },
+	        _react2.default.createElement(
+	          _rcTweenOne2.default,
+	          { key: 'title', animation: { opacity: 0, type: 'from' }, className: 'page2-title' },
+	          '只进入一次'
+	        ),
+	        _react2.default.createElement(
+	          _rcAnimate2.default,
+	          { key: '0', transitionName: 'fade', transitionAppear: true },
+	          _react2.default.createElement('div', { className: 'demo2' })
+	        ),
+	        _react2.default.createElement(_rcTweenOne2.default, { className: 'demo2', animation: { y: 0, opacity: 1 }, key: '1',
+	          style: { transform: 'translateY(100px)', opacity: 0 }
+	        })
+	      ),
+	      _react2.default.createElement(
+	        ScrollOverPack,
+	        {
+	          scrollName: 'page3',
+	          className: 'pack-page page3',
+	          style: { backgroundColor: '#174270' },
+	          playScale: 0.8, id: 'page3',
+	          hideProps: { title: { reverse: true }, 1: { reverse: true } }
+	        },
+	        _react2.default.createElement(
+	          _rcTweenOne2.default,
+	          {
+	            animation: { opacity: 1 },
+	            style: { opacity: 0 },
+	            key: 'title',
+	            className: 'page2-title'
+	          },
+	          '在页面80％时进入'
+	        ),
+	        _react2.default.createElement(
+	          _rcAnimate2.default,
+	          { key: '0', transitionName: 'fade', transitionAppear: true },
+	          _react2.default.createElement('div', { className: 'demo' })
+	        ),
+	        _react2.default.createElement(_rcTweenOne2.default, {
+	          className: 'demo',
+	          animation: { y: 0, opacity: 1 },
+	          key: '1',
+	          style: { transform: 'translateY(100px)', opacity: 0 }
+	        })
+	      )
+	    );
+	  };
 	
 	  return Demo;
-	})(_react2['default'].Component);
+	}(_react2.default.Component);
 	
-	_reactDom2['default'].render(_react2['default'].createElement(Demo, null), document.getElementById('__react-content'));
+	_reactDom2.default.render(_react2.default.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ }
 
