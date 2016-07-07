@@ -55,7 +55,7 @@
     "object-assign": "4.0.x",
     "object.omit": "^2.0.0",
     "raf": "3.1.x",
-    "rc-tween-one": "~0.5.5",
+    "rc-tween-one": "~0.6.19",
     "tween-functions": "1.0.x"
   }
 }
