@@ -1,13 +1,11 @@
-/**
- * Created by jljsj on 16/1/13.
- */
+/* eslint no-console:0 */
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
 
-describe('rc-scroll-anim', function() {
+describe('rc-scroll-anim', () => {
   let div;
   let instance;
 
@@ -19,8 +17,8 @@ describe('rc-scroll-anim', function() {
 
       render() {
         return (<div>
-          <div style={{height: 1000}}></div>
-          <div style={{height: 1000}}>
+          <div style={{ height: 1000 }}></div>
+          <div style={{ height: 1000 }}>
             <ScrollAnim.Parallax {...this.props}>
               demo
             </ScrollAnim.Parallax>
@@ -31,12 +29,12 @@ describe('rc-scroll-anim', function() {
     return ReactDom.render(<ParallaxDemo {...props} />, div);
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     div = document.createElement('div');
     document.body.appendChild(div);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     try {
       ReactDom.unmountComponentAtNode(div);
       document.body.removeChild(div);
@@ -49,7 +47,7 @@ describe('rc-scroll-anim', function() {
     return parseFloat(str);
   }
 
-  it('parallax always false', function(done) {
+  it('parallax always false', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollParallax({
       style: { opacity: 0 },
@@ -65,10 +63,10 @@ describe('rc-scroll-anim', function() {
       console.log('window height:', windowHeight, 'doc height:', docHeight);
       window.scrollTo(0, endHeight + 1);
       console.log('window.pageYOffset:', window.pageYOffset);
-      setTimeout(()=> {
+      setTimeout(() => {
         window.scrollTo(0, 0);
         console.log('window.pageYOffset:', window.pageYOffset);
-        setTimeout(()=> {
+        setTimeout(() => {
           const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
           console.log('always = false, child opacity:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.be(1);
@@ -78,7 +76,7 @@ describe('rc-scroll-anim', function() {
     });
   });
 
-  it('parallax scroll', function(done) {
+  it('parallax scroll', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollParallax({
       style: { opacity: 0 },
@@ -94,19 +92,19 @@ describe('rc-scroll-anim', function() {
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
     expect(getFloat(child[0].style.opacity)).to.be(0);
     window.scrollTo(0, startHeight);
-    setTimeout(()=> {
+    setTimeout(() => {
       console.log('scroll to start:', child[0].style.opacity);
       expect(getFloat(child[0].style.opacity)).to.be(0);
       window.scrollTo(0, startHeight + 0.1 * windowHeight);
-      setTimeout(()=> {
+      setTimeout(() => {
         console.log('scroll update access start:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.above(0).below(0.1);
         window.scrollTo(0, startHeight + 0.9 * windowHeight);
-        setTimeout(()=> {
+        setTimeout(() => {
           console.log('scroll update access end:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.above(0.9).below(1);
           window.scrollTo(0, endHeight);
-          setTimeout(()=> {
+          setTimeout(() => {
             console.log('scroll to end:', child[0].style.opacity);
             expect(getFloat(child[0].style.opacity)).to.be(1);
             done();
@@ -116,7 +114,7 @@ describe('rc-scroll-anim', function() {
     }, 30);
   });
 
-  it('parallax playScale', function(done) {
+  it('parallax playScale', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollParallax({
       style: { opacity: 0 },
@@ -131,14 +129,16 @@ describe('rc-scroll-anim', function() {
     console.log('window height:', windowHeight, 'doc height:', docHeight);
     expect(getFloat(child[0].style.opacity)).to.be(0);
     console.log('window height:', docHeight, 'window height:', windowHeight);
-    console.log('playScale = [0.5, 1]: pageYOffset is:', 'start:' + (startHeight + windowHeight * 0.5), 'end:' + endHeight);
+    console.log('playScale = [0.5, 1]: pageYOffset is:',
+      'start:', (startHeight + windowHeight * 0.5), 'end:', endHeight
+    );
     window.scrollTo(0, startHeight + windowHeight * 0.5);
-    setTimeout(()=> {
+    setTimeout(() => {
       console.log('window.pageYOffset:', window.pageYOffset);
       console.log('scroll to start:', child[0].style.opacity);
       expect(getFloat(child[0].style.opacity)).to.be(0);
       window.scrollTo(0, endHeight + 1);
-      setTimeout(()=> {
+      setTimeout(() => {
         console.log('window.pageYOffset:', window.pageYOffset);
         console.log('scroll to end:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.be(1);

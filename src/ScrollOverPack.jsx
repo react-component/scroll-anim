@@ -2,8 +2,7 @@ import React, { createElement } from 'react';
 import ReactDom from 'react-dom';
 import EventListener from './EventDispatcher';
 import mapped from './Mapped';
-import omit from 'object.omit';
-import {currentScrollTop, transformArguments} from './util';
+import { currentScrollTop, transformArguments } from './util';
 
 function noop() {
 }
@@ -38,7 +37,7 @@ class ScrollOverPack extends React.Component {
     }
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-    this.eventType = 'scroll.scrollEvent' + date + length;
+    this.eventType = `scroll.scrollEvent${date}${length}`;
     this.scrollEventListener();
     EventListener.addEventListener(this.eventType, this.scrollEventListener);
   }
@@ -55,7 +54,8 @@ class ScrollOverPack extends React.Component {
   }
 
   scrollEventListener(e) {
-    const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    const clientHeight = window.innerHeight ||
+      document.documentElement.clientHeight || document.body.clientHeight;
     const scrollTop = currentScrollTop();
     // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
     const domRect = this.dom.getBoundingClientRect();
@@ -68,7 +68,8 @@ class ScrollOverPack extends React.Component {
     const bottomLeave = elementShowHeight < playHeight;
     // 设置往上时的出场点...
     const leaveHeight = domRect.height > clientHeight ? clientHeight : domRect.height;
-    const topLeave = this.props.replay ? elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
+    const topLeave = this.props.replay ?
+      elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
     let mode = 'scroll';
     if (enter) {
       if (!this.state.show) {
@@ -76,7 +77,7 @@ class ScrollOverPack extends React.Component {
           show: true,
         });
         mode = 'enter';
-        this.props.onChange({ mode: mode, scrollName: this.props.scrollName });
+        this.props.onChange({ mode, scrollName: this.props.scrollName });
       }
       if (!this.props.always) {
         EventListener.removeEventListener(this.eventType, this.scrollEventListener);
@@ -88,18 +89,18 @@ class ScrollOverPack extends React.Component {
           show: false,
         });
         mode = 'leave';
-        this.props.onChange({ mode: mode, scrollName: this.props.scrollName });
+        this.props.onChange({ mode, scrollName: this.props.scrollName });
       }
     }
 
     if (e) {
-      this.props.scrollEvent({ mode: mode, scrollName: this.props.scrollName, e });
+      this.props.scrollEvent({ mode, scrollName: this.props.scrollName, e });
     }
   }
 
   render() {
-    let { ...placeholderProps } = this.props;
-    placeholderProps = omit(placeholderProps, [
+    const { ...placeholderProps } = this.props;
+    [
       'scrollName',
       'playScale',
       'replay',
@@ -107,7 +108,8 @@ class ScrollOverPack extends React.Component {
       'playScale',
       'always',
       'scrollEvent',
-    ]);
+      'hideProps',
+    ].forEach(key => delete placeholderProps[key]);
     let childToRender;
     if (!this.oneEnter && !this.state.show) {
       childToRender = createElement(this.props.component, { ...placeholderProps }, null);
@@ -115,20 +117,17 @@ class ScrollOverPack extends React.Component {
     } else {
       if (!this.state.show) {
         this.children = this.children.map(item => {
-          if (!item) {
+          if (!item || !item.key) {
             return null;
           }
           let element;
-          const hideProps = item.props.hideProps;
+          const hideProps = this.props.hideProps[item.key];
           if (hideProps) {
-            if ('child' in hideProps) {
-              element = React.cloneElement(item, {}, null);
-              return element;
-            }
             element = React.cloneElement(item, { ...hideProps });
             return element;
           }
-          return null;
+          element = React.cloneElement(item, {}, null);
+          return element;
         });
       } else {
         this.children = this.state.children;
@@ -151,6 +150,7 @@ ScrollOverPack.propTypes = {
   scrollName: React.PropTypes.string,
   replay: React.PropTypes.bool,
   onChange: React.PropTypes.func,
+  hideProps: React.PropTypes.object,
 };
 
 ScrollOverPack.defaultProps = {

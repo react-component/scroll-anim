@@ -43,7 +43,7 @@ export function objectEqual(obj1, obj2) {
     }
   }
 
-  Object.keys(obj1).forEach(key=> {
+  Object.keys(obj1).forEach(key => {
     if (!(key in obj2)) {
       equalBool = false;
       return false;
@@ -60,7 +60,7 @@ export function objectEqual(obj1, obj2) {
     }
   });
 
-  Object.keys(obj2).forEach(key=> {
+  Object.keys(obj2).forEach(key => {
     if (!(key in obj1)) {
       equalBool = false;
       return false;
@@ -82,6 +82,7 @@ export function objectEqual(obj1, obj2) {
 export function currentScrollTop() {
   const supportPageOffset = window.pageXOffset !== undefined;
   const isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
-  const isCSS1ScrollTop = isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+  const isCSS1ScrollTop = isCSS1Compat ?
+    document.documentElement.scrollTop : document.body.scrollTop;
   return supportPageOffset ? window.pageYOffset : isCSS1ScrollTop;
 }

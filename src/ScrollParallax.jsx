@@ -5,9 +5,8 @@ import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Timeline from 'rc-tween-one/lib/TimeLine';
 import ticker from 'rc-tween-one/lib/ticker';
-import {dataToArray, objectEqual, currentScrollTop} from './util';
+import { dataToArray, objectEqual, currentScrollTop } from './util';
 import mapped from './Mapped';
-import omit from 'object.omit';
 
 let tickerId = 0;
 
@@ -44,16 +43,17 @@ class ScrollParallax extends React.Component {
       mapped.register(this.props.scrollName, this.dom);
     }
     this.scrollTop = currentScrollTop();
-    this.clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    this.clientHeight = window.innerHeight ||
+      document.documentElement.clientHeight || document.body.clientHeight;
     this.setDefaultData(this.props.animation || {});
 
     // 第一次进入;
-    setTimeout(()=> {
+    setTimeout(() => {
       this.timeline = new Timeline(this.dom, this.defaultTweenData);
       this.scrollEventListener();
       const date = Date.now();
       const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-      this.eventType = 'scroll.scrollEvent' + date + length;
+      this.eventType = `scroll.scrollEvent${date}${length}`;
       EventListener.addEventListener(this.eventType, this.scrollEventListener);
     });
   }
@@ -74,7 +74,7 @@ class ScrollParallax extends React.Component {
 
   setDefaultData(_vars) {
     const vars = dataToArray(_vars);
-    const varsForIn = (item, i)=> {
+    const varsForIn = (item, i) => {
       const playScale = playScaleToArray(item.playScale).map(data => data * this.clientHeight);
       const __item = assign({}, item);
       delete __item.playScale;
@@ -96,7 +96,8 @@ class ScrollParallax extends React.Component {
 
   scrollEventListener() {
     const scrollTop = currentScrollTop();
-    this.clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    this.clientHeight = window.innerHeight ||
+      document.documentElement.clientHeight || document.body.clientHeight;
     const dom = this.props.location ? mapped.get(this.props.location) : this.dom;
     if (!dom) {
       throw new Error('"location" is null');
@@ -135,7 +136,7 @@ class ScrollParallax extends React.Component {
       tickerId = 0;
     }
     const startFrame = ticker.frame;
-    ticker.wake(this.tickerId, ()=> {
+    ticker.wake(this.tickerId, () => {
       const moment = (ticker.frame - startFrame) * ticker.perFrame;
       const ratio = easingTypes.easeOutQuad(moment, 0.08, 1, 300);
       this.timeline.frame(currentShow + ratio * (elementShowHeight - currentShow));
@@ -152,12 +153,12 @@ class ScrollParallax extends React.Component {
   }
 
   render() {
-    let props = assign({}, this.props);
-    props = omit(props, [
+    const props = assign({}, this.props);
+    [
       'animation',
       'always',
       'component',
-    ]);
+    ].forEach(key => delete props[key]);
     const style = assign({}, props.style);
     for (const p in style) {
       if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {

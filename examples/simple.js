@@ -27,44 +27,65 @@ class Demo extends React.Component {
           </div>
         </QueueAnim>
       </div>
-      <ScrollOverPack scrollName="page1" className="page1" replay>
-        <TweenOne className="tween-one" key="0" animation={{opacity: 1}}
-          hideProps={{ reverse: true }}>默认进入与出场
+      <ScrollOverPack
+        scrollName="page1"
+        className="page1" replay
+        hideProps={{ 0: { reverse: true } }}
+      >
+        <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
+          默认进入与出场
         </TweenOne>
-        <QueueAnim key="1" hideProps={{child: null}}>
+        <QueueAnim key="1">
           <div key="0" className="demo"></div>
-          <div key="1" className="demo" style={{backgroundColor: '#F38EAD'}}></div>
+          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }}></div>
           <div key="2" className="demo"></div>
           <div key="3" className="demo"></div>
         </QueueAnim>
       </ScrollOverPack>
 
-      <ScrollOverPack scrollName="page2" scrollEvent={this.scrollEvent} className="pack-page page2"
-        style={{backgroundColor: '#0098CE'}} always={false}
-        id="page2">
-        <TweenOne key="title" animation={{ opacity: 0, type: 'from' }}
-          hideProps={{ reverse: true }} className="page2-title"
-        >
+      <ScrollOverPack
+        scrollName="page2"
+        scrollEvent={this.scrollEvent}
+        className="pack-page page2"
+        style={{ backgroundColor: '#0098CE' }} always={false}
+        id="page2"
+        hideProps={{ title: { reverse: true } }}
+      >
+        <TweenOne key="title" animation={{ opacity: 0, type: 'from' }} className="page2-title">
           只进入一次
         </TweenOne>
-        <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>
+        <Animate key="0" transitionName="fade" transitionAppear>
           <div className="demo2"></div>
         </Animate>
-        <TweenOne className="demo2" animation={{y: 0, opacity: 1}} key="1"
-          style={{transform: 'translateY(100px)', opacity: 0}}
-          hideProps={{ reverse: true }} />
+        <TweenOne className="demo2" animation={{ y: 0, opacity: 1 }} key="1"
+          style={{ transform: 'translateY(100px)', opacity: 0 }}
+        />
       </ScrollOverPack>
 
-      <ScrollOverPack scrollName="page3" className="pack-page page3" style={{backgroundColor: '#174270'}}
-        playScale={0.8} id="page3">
-        <TweenOne animation={{opacity: 1}} style={{opacity: 0}} key="title" hideProps={{ reverse: true }}
-          className="page2-title">在页面80％时进入</TweenOne>
-        <Animate key="0" transitionName="fade" transitionAppear hideProps={{child: null}}>
+      <ScrollOverPack
+        scrollName="page3"
+        className="pack-page page3"
+        style={{ backgroundColor: '#174270' }}
+        playScale={0.8} id="page3"
+        hideProps={{ title: { reverse: true }, 1: { reverse: true } }}
+      >
+        <TweenOne
+          animation={{ opacity: 1 }}
+          style={{ opacity: 0 }}
+          key="title"
+          className="page2-title"
+        >
+          在页面80％时进入
+        </TweenOne>
+        <Animate key="0" transitionName="fade" transitionAppear>
           <div className="demo"></div>
         </Animate>
-        <TweenOne className="demo" animation={{y: 0, opacity: 1}} key="1"
-          style={{transform: 'translateY(100px)', opacity: 0}}
-          hideProps={{ reverse: true }} />
+        <TweenOne
+          className="demo"
+          animation={{ y: 0, opacity: 1 }}
+          key="1"
+          style={{ transform: 'translateY(100px)', opacity: 0 }}
+        />
       </ScrollOverPack>
     </div>);
   }

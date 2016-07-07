@@ -1,6 +1,4 @@
-/**
- * Created by jljsj on 16/1/13.
- */
+/* eslint no-console:0 */
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
@@ -10,7 +8,7 @@ import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
 
-describe('rc-scroll-anim', function() {
+describe('rc-scroll-anim', () => {
   let div;
   let instance;
   let tickerId = 0;
@@ -23,11 +21,22 @@ describe('rc-scroll-anim', function() {
 
       render() {
         return (<div>
-          <div style={{height: 1000}}></div>
-          <ScrollAnim.OverPack {...this.props} style={{height: 1000}}>
-            <TweenOne key="one" animation={{opacity: 1}} className="tween-one" style={{opacity: 0}} component="i"
-              hideProps={{ reverse: true }}>demo</TweenOne>
-            <QueueAnim key="queueAnim" className="queue-anim" hideProps={{child: null}}>
+          <div style={{ height: 1000 }}></div>
+          <ScrollAnim.OverPack
+            {...this.props}
+            style={{ height: 1000 }}
+            hideProps={{ one: { reverse: true } }}
+          >
+            <TweenOne
+              key="one"
+              animation={{ opacity: 1 }}
+              className="tween-one"
+              style={{ opacity: 0 }}
+              component="i"
+            >
+              demo
+            </TweenOne>
+            <QueueAnim key="queueAnim" className="queue-anim">
               <p key="0">demo</p>
               <p key="1">demo</p>
             </QueueAnim>
@@ -38,12 +47,12 @@ describe('rc-scroll-anim', function() {
     return ReactDom.render(<OverPackDemo {...props} />, div);
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     div = document.createElement('div');
     document.body.appendChild(div);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     try {
       ReactDom.unmountComponentAtNode(div);
       document.body.removeChild(div);
@@ -56,14 +65,15 @@ describe('rc-scroll-anim', function() {
     return parseFloat(str);
   }
 
-  it('single overPack', function() {
+  it('single overPack', () => {
+    window.scrollTo(0, 0);
     instance = createScrollOverPack();
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    console.log('overPack child length is 0');
+    console.log('overPack child length is 0', child.length);
     expect(child.length).to.be(3);
   });
 
-  it('overPack always false', function(done) {
+  it('overPack always false', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollOverPack({
       always: false,
@@ -74,7 +84,7 @@ describe('rc-scroll-anim', function() {
       tickerId = 0;
     }
     const startFrame = ticker.frame;
-    ticker.wake(_tickerId, ()=> {
+    ticker.wake(_tickerId, () => {
       const moment = (ticker.frame - startFrame) * ticker.perFrame;
       const ratio = moment / 300 * 3000;
       window.scrollTo(0, ratio);
@@ -82,10 +92,10 @@ describe('rc-scroll-anim', function() {
         ticker.clear(_tickerId);
       }
     });
-    setTimeout(()=> {
+    setTimeout(() => {
       let child;
-      setTimeout(()=> {
-        setTimeout(()=> {
+      setTimeout(() => {
+        setTimeout(() => {
           console.log('window.pageYOffset:', window.pageYOffset);
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
           console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
@@ -99,7 +109,7 @@ describe('rc-scroll-anim', function() {
     }, 330);
   });
 
-  it('overPack enter leave', function(done) {
+  it('overPack enter leave', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
     const _tickerId = `scrollText${Date.now()}`;
@@ -108,7 +118,7 @@ describe('rc-scroll-anim', function() {
       tickerId = 0;
     }
     const startFrame = ticker.frame;
-    ticker.wake(_tickerId, ()=> {
+    ticker.wake(_tickerId, () => {
       const moment = (ticker.frame - startFrame) * ticker.perFrame;
       const ratio = moment / 300 * 3000;
       window.scrollTo(0, ratio);
@@ -118,24 +128,24 @@ describe('rc-scroll-anim', function() {
     });
     setTimeout(() => {
       let child;
-      setTimeout(()=> {
+      setTimeout(() => {
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
         console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.above(0);
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
         console.log('enter -> QueueAnim start child length:', child.length);
         expect(child.length).to.above(0);
-        setTimeout(()=> {
+        setTimeout(() => {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
           console.log('enter -> TweenOne end opacity:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.be(1);
         }, 500);
-        setTimeout(()=> {
+        setTimeout(() => {
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
           console.log('enter -> QueueAnim end child length:', child.length);
           expect(child.length).to.be(2);
           window.scrollTo(0, 0);
-          setTimeout(()=> {
+          setTimeout(() => {
             child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
             console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
             expect(getFloat(child[0].style.opacity)).to.below(1);

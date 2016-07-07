@@ -25,11 +25,11 @@ EventDispatcher.prototype = {
       }
     }
     const func = this.dispatchEvent.bind(this, _type);
-    list.splice(index, 0, {c: callback, n: namespaces, t: _type, func: func});
+    list.splice(index, 0, { c: callback, n: namespaces, t: _type, func });
     if (this._eventTarget.addEventListener) {
       this._eventTarget.addEventListener(_type, func, false);
     } else if (this._eventTarget.attachEvent) {
-      this._eventTarget.attachEvent('on' + _type, func);
+      this._eventTarget.attachEvent(`on${_type}`, func);
     }
   },
 
@@ -72,7 +72,7 @@ EventDispatcher.prototype = {
       while (--i > -1) {
         listener = list[i];
         if (listener) {
-          const _e = e || {type: type, target: t};
+          const _e = e || { type, target: t };
           listener.c.call(t, _e);
         }
       }

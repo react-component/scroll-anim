@@ -22,7 +22,8 @@ const ScrollScreen = {
     this.toHeight = -1;
     this.num = 0;
     // this.currentNum = 0;
-    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll'].forEach((method) => this[method] = this[method].bind(this));
+    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll']
+      .forEach((method) => this[method] = this[method].bind(this));
     EventListener.addEventListener('wheel.scrollWheel', this.onWheel);
     EventListener.addEventListener('scroll.scrollScreen', this.scrollEvent);
     // 刚进入时滚动条位置
@@ -33,7 +34,7 @@ const ScrollScreen = {
     const _mapped = mapped.getMapped();
     const _arr = _mapped.__arr;
     this.scrollTop = currentScrollTop();
-    _arr.forEach((str, i)=> {
+    _arr.forEach((str, i) => {
       const dom = _mapped[str];
       const domOffsetTop = dom.offsetTop;
       const domHeight = dom.getBoundingClientRect().height;
@@ -50,7 +51,7 @@ const ScrollScreen = {
       return;
     }
     this.scrollTop = window.pageYOffset;
-    _arr.forEach((str, i)=> {
+    _arr.forEach((str, i) => {
       const dom = _mapped[str];
       const domOffsetTop = dom.offsetTop;
       const domHeight = dom.getBoundingClientRect().height;
@@ -65,7 +66,8 @@ const ScrollScreen = {
       if (this.scrollTop > 0) {
         const endDom = mapped.get(mapped.getMapped().__arr[mapped.getMapped().__arr.length - 1]);
         const windowHeight = document.documentElement.clientHeight;
-        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
+          endDom.getBoundingClientRect().height) / windowHeight);
         this.num = mapped.getMapped().__arr.length + tooNum;
         // this.currentNum = this.num;
       }
@@ -82,11 +84,12 @@ const ScrollScreen = {
     const duration = this.vars.duration;
     const now = Date.now();
     const progressTime = now - this.initTime > duration ? duration : now - this.initTime;
-    const easeValue = easingTypes[this.vars.ease](progressTime, this.scrollTop, this.toHeight, duration);
+    const easeValue = easingTypes[this.vars.ease](progressTime, this.scrollTop,
+      this.toHeight, duration);
     window.scrollTo(window.scrollX, easeValue);
     if (progressTime === duration) {
       this.cancelRequestAnimationFrame();
-      setTimeout(()=> {
+      setTimeout(() => {
         this.toHeight = -1;
       }, this.vars.scrollInterval);
     } else {
@@ -113,7 +116,7 @@ const ScrollScreen = {
       const startDom = mapped.get(_arr[0]);
       const windowHeight = document.documentElement.clientHeight;
       this.scrollTop = currentScrollTop();
-      _arr.forEach((str, i)=> {
+      _arr.forEach((str, i) => {
         const dom = _mapped[str];
         const domOffsetTop = dom.offsetTop;
         const domHeight = dom.getBoundingClientRect().height;
@@ -122,7 +125,8 @@ const ScrollScreen = {
         }
       });
       if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
-        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
+          endDom.getBoundingClientRect().height) / windowHeight);
         this.num = _arr.length + tooNum;
       } else if (this.scrollTop < startDom.offsetTop) {
         this.num = 0;
@@ -133,8 +137,10 @@ const ScrollScreen = {
         this.num++;
       }
       // docHeight: 在 body, html 设了 100% 的情况下,给用户设置，如查没设置用默认的。。
-      const docHeight = this.vars.docHeight || document.documentElement.getBoundingClientRect().height;
-      const manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
+      const docHeight = this.vars.docHeight ||
+        document.documentElement.getBoundingClientRect().height;
+      const manyHeight = docHeight - endDom.offsetTop -
+        endDom.getBoundingClientRect().height;
       let manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
       manyScale = manyScale > 0 ? manyScale : 0;
       const maxNum = _arr.length + manyScale;
@@ -151,7 +157,9 @@ const ScrollScreen = {
       this.initTime = Date.now();
       const currentDom = mapped.get(mapped.getMapped().__arr[this.num]);
       this.toHeight = currentDom ? currentDom.offsetTop : null;
-      this.toHeight = typeof this.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
+      this.toHeight = typeof this.toHeight !== 'number' ?
+      endDom.offsetTop + endDom.getBoundingClientRect().height +
+      windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
       this.rafID = requestAnimationFrame(this.raf);
       // this.currentNum = this.num;
     }

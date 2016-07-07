@@ -4,7 +4,7 @@ let __mapped = {
 
 export default{
   unMount() {
-    __mapped = {__arr: []};
+    __mapped = { __arr: [] };
   },
 
   register(name, element) {

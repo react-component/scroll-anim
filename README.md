@@ -122,12 +122,14 @@ ScrollAnim.scrollScreen.unMount();
 | scrollName| string         | `null`  | need to location the name，parallax the `location` or link the `location`, need to use |
 | replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
 | onChange  | func           | `null`  | callback({ mode, scrollName }), mode: `enter` `leave` |
+| hideProps | object         | `null`  | v0.3.0 children hideProps move here. If the child does not have, default: { children: null }. children be `rc-tween-one` { 'userKey': { reverse: true }} |
 
-#### children support animation:  `rc-queue-anim` `rc-animte` `rc-tween-one`
+## react 15.2.0 react-unknown-prop warnings, hideProps move to tag.
+### ~~children support animation:  `rc-queue-anim` `rc-animte` `rc-tween-one`
 
-> children be `rc-queue-anim` `rc-animte` add on label: hideProps={{ child: null }}
+> ~~children be `rc-queue-anim` `rc-animte` add on label: hideProps={{ child: null }}
 
-> children be `rc-tween-one` add on label: hideProps={{ reverse: true }}
+> ~~children be `rc-tween-one` add on label: hideProps={{ reverse: true }}
 
 
 ### Parallax

@@ -1,15 +1,15 @@
 /**
  * Created by jljsj on 16/1/13.
  */
-import React, {createElement} from 'react';
+import React, { createElement } from 'react';
 import ReactDOM from 'react-dom';
 import assign from 'object-assign';
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
-import {transformArguments, currentScrollTop} from './util';
+import { transformArguments, currentScrollTop } from './util';
 import mapped from './Mapped';
-import omit from 'object.omit';
+
 function noop() {
 }
 
@@ -32,10 +32,10 @@ class ScrollLink extends React.Component {
     this.dom = ReactDOM.findDOMNode(this);
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-    this.eventType = 'scroll.scrollAnchorEvent' + date + length;
+    this.eventType = `scroll.scrollAnchorEvent${date}${length}`;
     EventListener.addEventListener(this.eventType, this.scrollEventListener);
     // 第一次进入；
-    setTimeout(()=> {
+    setTimeout(() => {
       this.scrollEventListener();
     });
   }
@@ -52,7 +52,8 @@ class ScrollLink extends React.Component {
     const elementRect = elementDom.getBoundingClientRect();
     this.scrollTop = currentScrollTop();
     const toTop = Math.round(elementRect.top) - Math.round(docRect.top);
-    this.toTop = this.props.toShowHeight ? toTop - transformArguments(this.props.showHeightActive)[0] : toTop;
+    this.toTop = this.props.toShowHeight ?
+      toTop - transformArguments(this.props.showHeightActive)[0] : toTop;
     this.initTime = Date.now();
     this.rafID = requestAnimationFrame(this.raf);
   }
@@ -64,7 +65,8 @@ class ScrollLink extends React.Component {
     const duration = this.props.duration;
     const now = Date.now();
     const progressTime = now - this.initTime > duration ? duration : now - this.initTime;
-    const easeValue = easingTypes[this.props.ease](progressTime, this.scrollTop, this.toTop, duration);
+    const easeValue = easingTypes[this.props.ease](progressTime, this.scrollTop,
+      this.toTop, duration);
     window.scrollTo(window.scrollX, easeValue);
     if (progressTime === duration) {
       this.cancelRequestAnimationFrame();
@@ -89,8 +91,12 @@ class ScrollLink extends React.Component {
     const scrollTop = currentScrollTop();
     const top = Math.round(docRect.top) - Math.round(elementRect.top) + scrollTop;
     const showHeightActive = transformArguments(this.props.showHeightActive);
-    const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * elementClientHeight : parseFloat(showHeightActive[0]);
-    const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * elementClientHeight : parseFloat(showHeightActive[1]);
+    const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
+      parseFloat(showHeightActive[0]) / 100 * elementClientHeight :
+      parseFloat(showHeightActive[0]);
+    const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ?
+      parseFloat(showHeightActive[1]) / 100 * elementClientHeight :
+      parseFloat(showHeightActive[1]);
     if (top >= -0.5 - startShowHeight && top <= elementClientHeight - 0.5 - endShowHeight) {
       if (!this.props.onFocus.only) {
         const obj = {
@@ -121,13 +127,13 @@ class ScrollLink extends React.Component {
   render() {
     const active = this.state.active ? this.props.active : '';
     const onClick = this.props.onClick;
-    let props = assign({}, this.props, {
-      onClick: (e)=> {
+    const props = assign({}, this.props, {
+      onClick: (e) => {
         onClick(e);
         this.onClick(e);
       },
     });
-    props = omit(props, [
+    [
       'component',
       'duration',
       'active',
@@ -135,9 +141,10 @@ class ScrollLink extends React.Component {
       'showHeightActive',
       'ease',
       'toShowHeight',
-    ]);
+    ].forEach(key => delete props[key]);
     const reg = new RegExp(active, 'ig');
-    props.className = props.className.indexOf(active) === -1 ? `${props.className} ${active}` : props.className.replace(reg, '').trim();
+    props.className = props.className.indexOf(active) === -1 ?
+      `${props.className} ${active}` : props.className.replace(reg, '').trim();
     return createElement(this.props.component, props);
   }
 }

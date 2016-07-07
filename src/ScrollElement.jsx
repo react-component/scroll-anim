@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mapped from './Mapped';
-import omit from 'object.omit';
 
 class ScrollElement extends React.Component {
   componentDidMount() {
@@ -16,9 +15,9 @@ class ScrollElement extends React.Component {
   }
 
   render() {
-    let { ...tagProps } = this.props;
-    tagProps = omit(tagProps, ['scrollName', 'component']);
-    return React.createElement(this.props.component, { ...tagProps });
+    const { ...props } = this.props;
+    ['scrollName', 'component'].forEach(key => delete props[key]);
+    return React.createElement(this.props.component, { ...props });
   }
 }
 const funcOrString = React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]);
