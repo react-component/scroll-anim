@@ -9,7 +9,7 @@ import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
 import {transformArguments, currentScrollTop} from './util';
 import mapped from './Mapped';
-
+import omit from 'object.omit';
 function noop() {
 }
 
@@ -121,12 +121,21 @@ class ScrollLink extends React.Component {
   render() {
     const active = this.state.active ? this.props.active : '';
     const onClick = this.props.onClick;
-    const props = assign({}, this.props, {
+    let props = assign({}, this.props, {
       onClick: (e)=> {
         onClick(e);
         this.onClick(e);
       },
     });
+    props = omit(props, [
+      'component',
+      'duration',
+      'active',
+      'location',
+      'showHeightActive',
+      'ease',
+      'toShowHeight',
+    ]);
     const reg = new RegExp(active, 'ig');
     props.className = props.className.indexOf(active) === -1 ? `${props.className} ${active}` : props.className.replace(reg, '').trim();
     return createElement(this.props.component, props);

@@ -2,6 +2,7 @@ import React, { createElement } from 'react';
 import ReactDom from 'react-dom';
 import EventListener from './EventDispatcher';
 import mapped from './Mapped';
+import omit from 'object.omit';
 import {currentScrollTop, transformArguments} from './util';
 
 function noop() {
@@ -97,10 +98,19 @@ class ScrollOverPack extends React.Component {
   }
 
   render() {
-    const placeholderProps = this.props;
+    let { ...placeholderProps } = this.props;
+    placeholderProps = omit(placeholderProps, [
+      'scrollName',
+      'playScale',
+      'replay',
+      'component',
+      'playScale',
+      'always',
+      'scrollEvent',
+    ]);
     let childToRender;
     if (!this.oneEnter && !this.state.show) {
-      childToRender = createElement(this.props.component, placeholderProps, null);
+      childToRender = createElement(this.props.component, { ...placeholderProps }, null);
       this.oneEnter = true;
     } else {
       if (!this.state.show) {
@@ -123,7 +133,7 @@ class ScrollOverPack extends React.Component {
       } else {
         this.children = this.state.children;
       }
-      childToRender = createElement(this.props.component, placeholderProps, this.children);
+      childToRender = createElement(this.props.component, { ...placeholderProps }, this.children);
     }
     return childToRender;
   }

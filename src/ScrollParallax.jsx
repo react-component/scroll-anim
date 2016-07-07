@@ -7,6 +7,7 @@ import Timeline from 'rc-tween-one/lib/TimeLine';
 import ticker from 'rc-tween-one/lib/ticker';
 import {dataToArray, objectEqual, currentScrollTop} from './util';
 import mapped from './Mapped';
+import omit from 'object.omit';
 
 let tickerId = 0;
 
@@ -151,7 +152,12 @@ class ScrollParallax extends React.Component {
   }
 
   render() {
-    const props = assign({}, this.props);
+    let props = assign({}, this.props);
+    props = omit(props, [
+      'animation',
+      'always',
+      'component',
+    ]);
     const style = assign({}, props.style);
     for (const p in style) {
       if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {

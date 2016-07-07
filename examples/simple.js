@@ -17,7 +17,7 @@ class Demo extends React.Component {
 
   render() {
     return (<div>
-      <div className="pack-page page0" scrollName="page0">
+      <div className="pack-page page0">
         <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>
