@@ -124,7 +124,7 @@ ScrollAnim.scrollScreen.unMount();
 | onChange  | func           | `null`  | callback({ mode, scrollName }), mode: `enter` `leave` |
 | hideProps | object         | `null`  | v0.3.0 children hideProps move here. If the child does not have, default: { children: null }. children be `rc-tween-one` { 'userKey': { reverse: true }} |
 
-## react 15.2.0 react-unknown-prop warnings, hideProps move to tag.
+### react 15.2.0 react-unknown-prop warnings, hideProps move to tag.
 ### ~~children support animation:  `rc-queue-anim` `rc-animte` `rc-tween-one`~~
 
 > ~~children be `rc-queue-anim` `rc-animte` add on label: hideProps={{ child: null }}~~
