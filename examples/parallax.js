@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(209);
+	module.exports = __webpack_require__(217);
 
 
 /***/ },
 
-/***/ 209:
+/***/ 217:
 /***/ function(module, exports, __webpack_require__) {
 
 	// use jsx to render html, do not modify simple.html
@@ -35,13 +35,13 @@ webpackJsonp([1],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(37);
+	var _reactDom = __webpack_require__(38);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
 	var ScrollParallax = _rcScrollAnim2['default'].Parallax;
 	var ScrollElement = _rcScrollAnim2['default'].Element;
-	var _package = __webpack_require__(208);
+	var _package = __webpack_require__(216);
 	
 	var Demo = (function (_React$Component) {
 	  _inherits(Demo, _React$Component);
