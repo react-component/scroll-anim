@@ -77,7 +77,7 @@ describe('rc-scroll-anim', () => {
     return parseFloat(str);
   }
 
-  it.only('link bar and active', (done) => {
+  it('link bar and active', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollLink();
     const listChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-list');
