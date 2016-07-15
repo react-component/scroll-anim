@@ -159,7 +159,7 @@ ScrollAnim.scrollScreen.unMount();
 | duration  | number         | `450`   | scroll animate duration |
 | ease      | string         | `easeInOutQuad` | animation easing string | 
 | active    | string         | `active`| selected className  |
-| showHeightActive| string / number / array | `0` | Distance from top be you value, tag add `active`, leave same; is array [enter, leave]; |
+| showHeightActive| string / number / array | `50%` | enter distance window top `50%` add `active`, leave same; is array [enter, leave]; |
 | toShowHeight | boolean     | false   | scroll to `showHeightActive` |
 | onFocus   | func           | null    | check callback,onFocus({target,to}) |
 | onBlur    | func           | null    | blur callback ｜
