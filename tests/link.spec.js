@@ -77,7 +77,7 @@ describe('rc-scroll-anim', () => {
     return parseFloat(str);
   }
 
-  it('link bar and active', (done) => {
+  it.only('link bar and active', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollLink();
     const listChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-list');
@@ -92,7 +92,7 @@ describe('rc-scroll-anim', () => {
         expect(listChild[1].className.split(' ')[1]).to.be('active');
         expect(getFloat(barChild.style.left)).to.be(100);
         done();
-      }, 10);
+      }, 30);
     }, 30);
   });
 });
