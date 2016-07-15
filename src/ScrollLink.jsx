@@ -89,7 +89,7 @@ class ScrollLink extends React.Component {
     const elementRect = elementDom.getBoundingClientRect();
     const elementClientHeight = elementDom.clientHeight;
     const scrollTop = currentScrollTop();
-    const top = Math.round(docRect.top) - Math.round(elementRect.top) + scrollTop;
+    const top = Math.round(docRect.top - elementRect.top + scrollTop);
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
       parseFloat(showHeightActive[0]) / 100 * elementClientHeight :
@@ -97,7 +97,7 @@ class ScrollLink extends React.Component {
     const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ?
       parseFloat(showHeightActive[1]) / 100 * elementClientHeight :
       parseFloat(showHeightActive[1]);
-    if (top >= -0.5 - startShowHeight && top <= elementClientHeight - 0.5 - endShowHeight) {
+    if (top >= - startShowHeight && top < elementClientHeight - endShowHeight) {
       if (!this.props.onFocus.only) {
         const obj = {
           target: this.dom,
@@ -173,7 +173,7 @@ ScrollLink.defaultProps = {
   component: 'div',
   duration: 450,
   active: 'active',
-  showHeightActive: 0,
+  showHeightActive: '50%',
   ease: 'easeInOutQuad',
   onClick: noop,
   onFocus: noop,

@@ -43,7 +43,7 @@ class Demo extends React.Component {
           <p>Ant Motion</p>
         </div>
         <div className="nav-wap">
-          <Link className="nav-list" location="page0" showHeightActive="300" ref="page0"
+          <Link className="nav-list" location="page0"
             onFocus={this.onFocus.bind(this)}
           >
             Example
