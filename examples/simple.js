@@ -3,12 +3,12 @@ webpackJsonp([3],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(216);
+	module.exports = __webpack_require__(218);
 
 
 /***/ },
 
-/***/ 194:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,7 +17,7 @@ webpackJsonp([3],{
 	  value: true
 	});
 	
-	var _QueueAnim = __webpack_require__(195);
+	var _QueueAnim = __webpack_require__(197);
 	
 	var _QueueAnim2 = _interopRequireDefault(_QueueAnim);
 	
@@ -29,7 +29,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 195:
+/***/ 197:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {'use strict';
@@ -46,9 +46,9 @@ webpackJsonp([3],{
 	
 	var _reactDom = __webpack_require__(38);
 	
-	var _utils = __webpack_require__(197);
+	var _utils = __webpack_require__(199);
 	
-	var _animTypes = __webpack_require__(198);
+	var _animTypes = __webpack_require__(200);
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
 	
@@ -133,7 +133,7 @@ webpackJsonp([3],{
 	var velocity = void 0;
 	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 	  // only load velocity on the client
-	  velocity = __webpack_require__(199);
+	  velocity = __webpack_require__(201);
 	  Object.keys(_ease).forEach(function (key) {
 	    if (velocity.Easings) {
 	      velocity.Easings[key] = _ease[key];
@@ -486,11 +486,11 @@ webpackJsonp([3],{
 	
 	exports["default"] = QueueAnim;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(196).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(198).setImmediate))
 
 /***/ },
 
-/***/ 196:
+/***/ 198:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(8).nextTick;
@@ -569,11 +569,11 @@ webpackJsonp([3],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(196).setImmediate, __webpack_require__(196).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(198).setImmediate, __webpack_require__(198).clearImmediate))
 
 /***/ },
 
-/***/ 197:
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -679,7 +679,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 198:
+/***/ 200:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -728,7 +728,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 199:
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
@@ -4620,18 +4620,18 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 200:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var TweenOne = __webpack_require__(201);
-	TweenOne.TweenOneGroup = __webpack_require__(203);
+	var TweenOne = __webpack_require__(203);
+	TweenOne.TweenOneGroup = __webpack_require__(205);
 	module.exports = TweenOne;
 
 /***/ },
 
-/***/ 201:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4648,23 +4648,23 @@ webpackJsonp([3],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(182);
+	var _objectAssign = __webpack_require__(184);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _util = __webpack_require__(202);
+	var _util = __webpack_require__(204);
 	
-	var _styleUtils = __webpack_require__(186);
+	var _styleUtils = __webpack_require__(188);
 	
-	var _TimeLine = __webpack_require__(181);
+	var _TimeLine = __webpack_require__(183);
 	
 	var _TimeLine2 = _interopRequireDefault(_TimeLine);
 	
-	var _plugins = __webpack_require__(184);
+	var _plugins = __webpack_require__(186);
 	
 	var _plugins2 = _interopRequireDefault(_plugins);
 	
-	var _ticker = __webpack_require__(187);
+	var _ticker = __webpack_require__(189);
 	
 	var _ticker2 = _interopRequireDefault(_ticker);
 	
@@ -4880,7 +4880,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 202:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5059,7 +5059,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 203:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5074,11 +5074,11 @@ webpackJsonp([3],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TweenOne = __webpack_require__(201);
+	var _TweenOne = __webpack_require__(203);
 	
 	var _TweenOne2 = _interopRequireDefault(_TweenOne);
 	
-	var _util = __webpack_require__(202);
+	var _util = __webpack_require__(204);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -5266,17 +5266,17 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 204:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(205);
+	module.exports = __webpack_require__(207);
 
 /***/ },
 
-/***/ 205:
+/***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5289,13 +5289,13 @@ webpackJsonp([3],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(206);
+	var _ChildrenUtils = __webpack_require__(208);
 	
-	var _AnimateChild = __webpack_require__(207);
+	var _AnimateChild = __webpack_require__(209);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(212);
+	var _util = __webpack_require__(214);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5609,7 +5609,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 206:
+/***/ 208:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5732,7 +5732,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 207:
+/***/ 209:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5751,11 +5751,11 @@ webpackJsonp([3],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(208);
+	var _cssAnimation = __webpack_require__(210);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(212);
+	var _util = __webpack_require__(214);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5837,7 +5837,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 208:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5846,11 +5846,11 @@ webpackJsonp([3],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(209);
+	var _Event = __webpack_require__(211);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(210);
+	var _componentClasses = __webpack_require__(212);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -6028,7 +6028,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 209:
+/***/ 211:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6122,7 +6122,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 210:
+/***/ 212:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6130,9 +6130,9 @@ webpackJsonp([3],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(211);
+	  var index = __webpack_require__(213);
 	} catch (err) {
-	  var index = __webpack_require__(211);
+	  var index = __webpack_require__(213);
 	}
 	
 	/**
@@ -6320,7 +6320,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 211:
+/***/ 213:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -6333,7 +6333,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 212:
+/***/ 214:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6366,7 +6366,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 216:
+/***/ 218:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6385,15 +6385,15 @@ webpackJsonp([3],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcQueueAnim = __webpack_require__(194);
+	var _rcQueueAnim = __webpack_require__(196);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _rcTweenOne = __webpack_require__(200);
+	var _rcTweenOne = __webpack_require__(202);
 	
 	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
 	
-	var _rcAnimate = __webpack_require__(204);
+	var _rcAnimate = __webpack_require__(206);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
@@ -6407,7 +6407,7 @@ webpackJsonp([3],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } // use jsx to render html, do not modify simple.html
 	
-	var _package = __webpack_require__(213);
+	var _package = __webpack_require__(215);
 	var ScrollOverPack = _rcScrollAnim2.default.OverPack;
 	
 	var Demo = function (_React$Component) {
