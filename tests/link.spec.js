@@ -48,10 +48,10 @@ describe('rc-scroll-anim', () => {
             </ScrollAnim.Link>
             <div ref="bar" className="nav-bar"></div>
           </div>
-          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page0" className="page">
+          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page0">
             示例
           </ScrollAnim.Element>
-          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page1" className="page">
+          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page1">
             示例
           </ScrollAnim.Element>
         </div>);
@@ -78,20 +78,15 @@ describe('rc-scroll-anim', () => {
     return parseFloat(str);
   }
 
-  it('link bar and active', (done) => {
-    console.log(window.innerHeight,
-      document.documentElement.clientHeight, document.body.clientHeight);
+  it.only('link bar and active', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollLink();
     const listChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-list');
     const barChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-bar')[0];
-    const pageChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'page');
     ticker.timeout(() => {
       console.log('bar left:', barChild.style.left || 0);
       expect(getFloat(barChild.style.left) || 0).to.be(0);
-      pageChild[1].scrollIntoView();
-      console.log(window.innerHeight,
-        document.documentElement.clientHeight, document.body.clientHeight);
+      document.body.scrollTop = 1000;
       console.log('window.pageYOffset:', window.pageYOffset);
       ticker.timeout(() => {
         console.log('bar left:', barChild.style.left);
