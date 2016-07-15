@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
+import ticker from 'rc-tween-one/lib/ticker';
 require('./link.spec.less');
 
 describe('rc-scroll-anim', () => {
@@ -82,11 +83,11 @@ describe('rc-scroll-anim', () => {
     instance = createScrollLink();
     const listChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-list');
     const barChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-bar')[0];
-    setTimeout(() => {
+    ticker.timeout(() => {
       console.log('bar left:', barChild.style.left || 0);
       expect(getFloat(barChild.style.left) || 0).to.be(0);
-      window.scrollTo(0, 2000);
-      setTimeout(() => {
+      window.scrollBy(0, 2000);
+      ticker.timeout(() => {
         console.log('bar left:', barChild.style.left);
         console.log('className 0:', listChild[0].className);
         console.log('className 1:', listChild[1].className);

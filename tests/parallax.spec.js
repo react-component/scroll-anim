@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
+import ticker from 'rc-tween-one/lib/ticker';
 
 describe('rc-scroll-anim', () => {
   let div;
@@ -61,7 +62,7 @@ describe('rc-scroll-anim', () => {
       const startHeight = docHeight - 1000 - windowHeight;
       const endHeight = startHeight + windowHeight;
       console.log('window height:', windowHeight, 'doc height:', docHeight);
-      window.scrollTo(0, endHeight + 1);
+      window.scrollBy(0, endHeight + 1);
       console.log('window.pageYOffset:', window.pageYOffset);
       setTimeout(() => {
         window.scrollTo(0, 0);
@@ -91,25 +92,23 @@ describe('rc-scroll-anim', () => {
     // 窗口高度 300, 其它样式高度: 145, parallax里的高为 1200,
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
     expect(getFloat(child[0].style.opacity)).to.be(0);
-    window.scrollTo(0, startHeight);
-    setTimeout(() => {
+    window.scrollBy(0, startHeight);
+    ticker.timeout(() => {
+      console.log('current scroll top:', window.pageYOffset);
       console.log('scroll to start:', child[0].style.opacity);
       expect(getFloat(child[0].style.opacity)).to.be(0);
-      window.scrollTo(0, startHeight + 0.1 * windowHeight);
-      setTimeout(() => {
+      window.scrollBy(0, startHeight + 0.1 * windowHeight);
+      ticker.timeout(() => {
+        console.log('current scroll top:', window.pageYOffset);
         console.log('scroll update access start:', child[0].style.opacity);
-        expect(getFloat(child[0].style.opacity)).to.above(0).below(0.1);
-        window.scrollTo(0, startHeight + 0.9 * windowHeight);
-        setTimeout(() => {
+        expect(getFloat(child[0].style.opacity)).to.above(0).below(0.5);
+        window.scrollBy(0, endHeight);
+        ticker.timeout(() => {
+          console.log('current scroll top:', window.pageYOffset);
           console.log('scroll update access end:', child[0].style.opacity);
-          expect(getFloat(child[0].style.opacity)).to.above(0.9).below(1);
-          window.scrollTo(0, endHeight);
-          setTimeout(() => {
-            console.log('scroll to end:', child[0].style.opacity);
-            expect(getFloat(child[0].style.opacity)).to.be(1);
-            done();
-          }, 100);
-        }, 100);
+          expect(getFloat(child[0].style.opacity)).to.be(1);
+          done();
+        }, 300);
       }, 100);
     }, 100);
   });
@@ -132,13 +131,13 @@ describe('rc-scroll-anim', () => {
     console.log('playScale = [0.5, 1]: pageYOffset is:',
       'start:', (startHeight + windowHeight * 0.5), 'end:', endHeight
     );
-    window.scrollTo(0, startHeight + windowHeight * 0.5);
-    setTimeout(() => {
+    window.scrollBy(0, startHeight + windowHeight * 0.5);
+    ticker.timeout(() => {
       console.log('window.pageYOffset:', window.pageYOffset);
       console.log('scroll to start:', child[0].style.opacity);
       expect(getFloat(child[0].style.opacity)).to.be(0);
-      window.scrollTo(0, endHeight + 1);
-      setTimeout(() => {
+      window.scrollBy(0, endHeight + 1);
+      ticker.timeout(() => {
         console.log('window.pageYOffset:', window.pageYOffset);
         console.log('scroll to end:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.be(1);

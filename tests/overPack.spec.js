@@ -87,15 +87,15 @@ describe('rc-scroll-anim', () => {
     ticker.wake(_tickerId, () => {
       const moment = (ticker.frame - startFrame) * ticker.perFrame;
       const ratio = moment / 300 * 3000;
-      window.scrollTo(0, ratio);
+      window.scrollBy(0, ratio);
       if (moment >= 300) {
         ticker.clear(_tickerId);
       }
     });
-    setTimeout(() => {
+    ticker.timeout(() => {
       let child;
-      setTimeout(() => {
-        setTimeout(() => {
+      ticker.timeout(() => {
+        ticker.timeout(() => {
           console.log('window.pageYOffset:', window.pageYOffset);
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
           console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
@@ -112,50 +112,27 @@ describe('rc-scroll-anim', () => {
   it('overPack enter leave', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
-    const _tickerId = `scrollText${Date.now()}`;
-    tickerId++;
-    if (tickerId >= Number.MAX_VALUE) {
-      tickerId = 0;
-    }
-    const startFrame = ticker.frame;
-    ticker.wake(_tickerId, () => {
-      const moment = (ticker.frame - startFrame) * ticker.perFrame;
-      const ratio = moment / 300 * 3000;
-      window.scrollTo(0, ratio);
-      if (moment >= 300) {
-        ticker.clear(_tickerId);
-      }
-    });
-    setTimeout(() => {
+    window.scrollBy(0, 3000);
+    ticker.timeout(() => {
       let child;
-      setTimeout(() => {
+      console.log('current scroll top:', window.pageYOffset);
+      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+      console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
+      expect(getFloat(child[0].style.opacity)).to.be(1);
+      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
+      console.log('enter -> QueueAnim start child length:', child.length);
+      expect(child.length).to.be(2);
+      window.scrollTo(0, 0);
+      ticker.timeout(() => {
+        console.log('current scroll top:', window.pageYOffset);
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-        console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
-        expect(getFloat(child[0].style.opacity)).to.above(0);
+        console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
+        expect(getFloat(child[0].style.opacity)).to.be(0);
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-        console.log('enter -> QueueAnim start child length:', child.length);
-        expect(child.length).to.above(0);
-        setTimeout(() => {
-          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-          console.log('enter -> TweenOne end opacity:', child[0].style.opacity);
-          expect(getFloat(child[0].style.opacity)).to.be(1);
-        }, 500);
-        setTimeout(() => {
-          child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-          console.log('enter -> QueueAnim end child length:', child.length);
-          expect(child.length).to.be(2);
-          window.scrollTo(0, 0);
-          setTimeout(() => {
-            child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
-            console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
-            expect(getFloat(child[0].style.opacity)).to.below(1);
-            child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
-            console.log('leave -> QueueAnim end child length:', child.length);
-            expect(child.length).to.be(0);
-            done();
-          }, 1000);
-        }, 600);
-      }, 60);
-    }, 300);
+        console.log('leave -> QueueAnim end child length:', child.length);
+        expect(child.length).to.be(0);
+        done();
+      }, 600);
+    }, 500);
   });
 });
