@@ -69,7 +69,7 @@ describe('rc-scroll-anim', () => {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    console.log('overPack child length is 0', child.length);
+    console.log('overPack child length is 3', child.length);
     expect(child.length).to.be(3);
   });
 

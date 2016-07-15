@@ -56,7 +56,7 @@ describe('rc-scroll-anim', () => {
       animation: { opacity: 1 },
       always: false,
     });
-    setTimeout(() => {
+    ticker.timeout(() => {
       const windowHeight = document.documentElement.clientHeight;
       const docHeight = document.documentElement.getBoundingClientRect().height;
       const startHeight = docHeight - 1000 - windowHeight;
@@ -64,10 +64,10 @@ describe('rc-scroll-anim', () => {
       console.log('window height:', windowHeight, 'doc height:', docHeight);
       window.scrollTo(0, endHeight + 1);
       console.log('window.pageYOffset:', window.pageYOffset);
-      setTimeout(() => {
+      ticker.timeout(() => {
         window.scrollTo(0, 0);
         console.log('window.pageYOffset:', window.pageYOffset);
-        setTimeout(() => {
+        ticker.timeout(() => {
           const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
           console.log('always = false, child opacity:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.be(1);
