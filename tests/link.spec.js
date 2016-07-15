@@ -87,6 +87,7 @@ describe('rc-scroll-anim', () => {
       console.log('bar left:', barChild.style.left || 0);
       expect(getFloat(barChild.style.left) || 0).to.be(0);
       window.scrollTo(0, 2000);
+      console.log(window.scrollTo);
       console.log('window.pageYOffset:', window.pageYOffset);
       ticker.timeout(() => {
         console.log('bar left:', barChild.style.left);
