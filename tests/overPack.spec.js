@@ -87,7 +87,7 @@ describe('rc-scroll-anim', () => {
     ticker.wake(_tickerId, () => {
       const moment = (ticker.frame - startFrame) * ticker.perFrame;
       const ratio = moment / 300 * 3000;
-      window.scrollBy(0, ratio);
+      window.scrollTo(0, ratio);
       if (moment >= 300) {
         ticker.clear(_tickerId);
       }
@@ -112,7 +112,7 @@ describe('rc-scroll-anim', () => {
   it('overPack enter leave', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
-    window.scrollBy(0, 3000);
+    window.scrollTo(0, 3000);
     ticker.timeout(() => {
       let child;
       console.log('current scroll top:', window.pageYOffset);
