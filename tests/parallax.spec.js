@@ -108,10 +108,10 @@ describe('rc-scroll-anim', () => {
             console.log('scroll to end:', child[0].style.opacity);
             expect(getFloat(child[0].style.opacity)).to.be(1);
             done();
-          }, 30);
-        }, 30);
-      }, 30);
-    }, 30);
+          }, 100);
+        }, 100);
+      }, 100);
+    }, 100);
   });
 
   it('parallax playScale', (done) => {
@@ -143,7 +143,7 @@ describe('rc-scroll-anim', () => {
         console.log('scroll to end:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.be(1);
         done();
-      }, 30);
-    }, 30);
+      }, 100);
+    }, 100);
   });
 });

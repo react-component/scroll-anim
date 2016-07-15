@@ -88,11 +88,12 @@ describe('rc-scroll-anim', () => {
       window.scrollTo(0, 2000);
       setTimeout(() => {
         console.log('bar left:', barChild.style.left);
-        console.log('className is active:', listChild[1].className);
+        console.log('className 0:', listChild[0].className);
+        console.log('className 1:', listChild[1].className);
         expect(listChild[1].className.split(' ')[1]).to.be('active');
         expect(getFloat(barChild.style.left)).to.be(100);
         done();
-      }, 30);
-    }, 30);
+      }, 100);
+    }, 100);
   });
 });
