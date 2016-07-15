@@ -79,7 +79,7 @@ describe('rc-scroll-anim', () => {
   }
 
   it.only('link bar and active', (done) => {
-    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
     instance = createScrollLink();
     const listChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-list');
     const barChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-bar')[0];
@@ -87,6 +87,7 @@ describe('rc-scroll-anim', () => {
       console.log('bar left:', barChild.style.left || 0);
       expect(getFloat(barChild.style.left) || 0).to.be(0);
       document.body.scrollTop = 1000;
+      console.log(document.body.clientHeight);
       console.log('window.pageYOffset:', window.pageYOffset);
       ticker.timeout(() => {
         console.log('bar left:', barChild.style.left);
