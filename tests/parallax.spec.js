@@ -127,7 +127,6 @@ describe('rc-scroll-anim', () => {
     const endHeight = startHeight + windowHeight;
     console.log('window height:', windowHeight, 'doc height:', docHeight);
     expect(getFloat(child[0].style.opacity)).to.be(0);
-    console.log('window height:', docHeight, 'window height:', windowHeight);
     console.log('playScale = [0.5, 1]: pageYOffset is:',
       'start:', (startHeight + windowHeight * 0.5), 'end:', endHeight
     );
