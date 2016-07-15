@@ -48,10 +48,10 @@ describe('rc-scroll-anim', () => {
             </ScrollAnim.Link>
             <div ref="bar" className="nav-bar"></div>
           </div>
-          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page0">
+          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page0" className="page">
             示例
           </ScrollAnim.Element>
-          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page1">
+          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page1" className="page">
             示例
           </ScrollAnim.Element>
         </div>);
@@ -82,11 +82,12 @@ describe('rc-scroll-anim', () => {
     document.body.scrollTop = 0;
     instance = createScrollLink();
     const listChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-list');
+    const pageChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'page');
     const barChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-bar')[0];
     ticker.timeout(() => {
       console.log('bar left:', barChild.style.left || 0);
       expect(getFloat(barChild.style.left) || 0).to.be(0);
-      document.body.scrollTop = 1000;
+      pageChild[1].scrollIntoView();
       console.log(document.body.clientHeight);
       console.log('window.pageYOffset:', window.pageYOffset);
       ticker.timeout(() => {
