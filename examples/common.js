@@ -23981,8 +23981,8 @@
 	    var scrollTop = (0, _util.currentScrollTop)();
 	    var top = Math.round(docRect.top - elementRect.top + scrollTop);
 	    var showHeightActive = (0, _util.transformArguments)(this.props.showHeightActive);
-	    var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * elementClientHeight : parseFloat(showHeightActive[0]);
-	    var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * elementClientHeight : parseFloat(showHeightActive[1]);
+	    var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * docRect.height : parseFloat(showHeightActive[0]);
+	    var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * docRect.height : parseFloat(showHeightActive[1]);
 	    if (top >= -startShowHeight && top < elementClientHeight - endShowHeight) {
 	      if (!this.props.onFocus.only) {
 	        var obj = {
@@ -24450,7 +24450,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.1",
+		"version": "0.3.2",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
