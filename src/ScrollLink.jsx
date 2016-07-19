@@ -92,10 +92,10 @@ class ScrollLink extends React.Component {
     const top = Math.round(docRect.top - elementRect.top + scrollTop);
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[0]) / 100 * elementClientHeight :
+      parseFloat(showHeightActive[0]) / 100 * docRect.height :
       parseFloat(showHeightActive[0]);
     const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[1]) / 100 * elementClientHeight :
+      parseFloat(showHeightActive[1]) / 100 * docRect.height :
       parseFloat(showHeightActive[1]);
     if (top >= - startShowHeight && top < elementClientHeight - endShowHeight) {
       if (!this.props.onFocus.only) {
