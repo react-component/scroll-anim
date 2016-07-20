@@ -82,9 +82,11 @@ class ScrollLink extends React.Component {
 
   scrollEventListener() {
     const docRect = document.documentElement.getBoundingClientRect();
+    const clientHeight = window.innerHeight ||
+      document.documentElement.clientHeight || document.body.clientHeight;
     const elementDom = mapped.get(this.props.location);
     if (!elementDom) {
-      throw new Error('"location" is null');
+      throw new Error(`There is no location(${this.props.location}) in the element.`);
     }
     const elementRect = elementDom.getBoundingClientRect();
     const elementClientHeight = elementDom.clientHeight;
@@ -92,10 +94,10 @@ class ScrollLink extends React.Component {
     const top = Math.round(docRect.top - elementRect.top + scrollTop);
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[0]) / 100 * docRect.height :
+      parseFloat(showHeightActive[0]) / 100 * clientHeight :
       parseFloat(showHeightActive[0]);
     const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[1]) / 100 * docRect.height :
+      parseFloat(showHeightActive[1]) / 100 * clientHeight :
       parseFloat(showHeightActive[1]);
     if (top >= - startShowHeight && top < elementClientHeight - endShowHeight) {
       if (!this.props.onFocus.only) {
