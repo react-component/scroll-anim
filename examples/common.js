@@ -23972,17 +23972,18 @@
 	
 	  ScrollLink.prototype.scrollEventListener = function scrollEventListener() {
 	    var docRect = document.documentElement.getBoundingClientRect();
+	    var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 	    var elementDom = _Mapped2.default.get(this.props.location);
 	    if (!elementDom) {
-	      throw new Error('"location" is null');
+	      throw new Error('There is no location(' + this.props.location + ') in the element.');
 	    }
 	    var elementRect = elementDom.getBoundingClientRect();
 	    var elementClientHeight = elementDom.clientHeight;
 	    var scrollTop = (0, _util.currentScrollTop)();
 	    var top = Math.round(docRect.top - elementRect.top + scrollTop);
 	    var showHeightActive = (0, _util.transformArguments)(this.props.showHeightActive);
-	    var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * docRect.height : parseFloat(showHeightActive[0]);
-	    var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * docRect.height : parseFloat(showHeightActive[1]);
+	    var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * clientHeight : parseFloat(showHeightActive[0]);
+	    var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * clientHeight : parseFloat(showHeightActive[1]);
 	    if (top >= -startShowHeight && top < elementClientHeight - endShowHeight) {
 	      if (!this.props.onFocus.only) {
 	        var obj = {
@@ -24450,7 +24451,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.2",
+		"version": "0.3.3",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
