@@ -67,14 +67,14 @@ var React = require('react');
 
 // ScrollOverPack support rc-animate,rc-queue-anim,rc-tween-one;
 
-React.render(<ScrollOverPack>
-  <QueueAnim key='queueAnim' hideProps={{child: null}}>
+React.render(<ScrollOverPack hideProps={{ tweenOne: { reverse: true } }}>
+  <QueueAnim key='queueAnim'>
     <div key='a'>enter</div>
     <div key='b'>enter</div>
     <div key='b'>enter</div>
   </QueueAnim>
-  <TweenOne key='tweenOne' vars={{x:100}} hideProps={{ reverse: true }}>one element</TweenOne>
-  <Animate key='rc-animate' transitionName="fade" transitionAppear hideProps={{child: null}}>rc-animate</Animate>
+  <TweenOne key='tweenOne' vars={{x:100}}>one element</TweenOne>
+  <Animate key='rc-animate' transitionName="fade" transitionAppear>rc-animate</Animate>
 </ScrollOverPack>, container);
 ```
 #### Parallax
