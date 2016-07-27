@@ -145,7 +145,7 @@ class ScrollLink extends React.Component {
       'toShowHeight',
     ].forEach(key => delete props[key]);
     const reg = new RegExp(active, 'ig');
-    props.className = props.className.indexOf(active) === -1 ?
+    props.className = props.className && props.className.indexOf(active) === -1 ?
       `${props.className} ${active}` : props.className.replace(reg, '').trim();
     return createElement(this.props.component, props);
   }
