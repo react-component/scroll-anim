@@ -24026,7 +24026,7 @@
 	      return delete props[key];
 	    });
 	    var reg = new RegExp(active, 'ig');
-	    props.className = props.className.indexOf(active) === -1 ? props.className + ' ' + active : props.className.replace(reg, '').trim();
+	    props.className = props.className && props.className.indexOf(active) === -1 ? props.className + ' ' + active : props.className.replace(reg, '').trim();
 	    return (0, _react.createElement)(this.props.component, props);
 	  };
 	
@@ -24451,7 +24451,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.3",
+		"version": "0.3.4",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
