@@ -124,12 +124,16 @@ const ScrollScreen = {
           this.num = i;
         }
       });
+      const startManyHeight = startDom.offsetTop;
+      const startManyScale = startManyHeight ? Math.ceil(startManyHeight / windowHeight) : 0;
+      let tooNum;
       if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
-        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
+        tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
           endDom.getBoundingClientRect().height) / windowHeight);
         this.num = _arr.length + tooNum;
       } else if (this.scrollTop < startDom.offsetTop) {
-        this.num = 0;
+        tooNum = Math.ceil(-(this.scrollTop - startManyHeight) / windowHeight);
+        this.num = -tooNum;
       }
       if (deltaY < 0) {
         this.num--;
@@ -141,14 +145,13 @@ const ScrollScreen = {
         document.documentElement.getBoundingClientRect().height;
       const manyHeight = docHeight - endDom.offsetTop -
         endDom.getBoundingClientRect().height;
-      let manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
-      manyScale = manyScale > 0 ? manyScale : 0;
+      const manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
       const maxNum = _arr.length + manyScale;
       if (this.vars.loop) {
-        this.num = this.num < 0 ? maxNum - 1 : this.num;
-        this.num = this.num >= maxNum ? 0 : this.num;
+        this.num = this.num < -startManyScale ? maxNum - 1 : this.num;
+        this.num = this.num >= maxNum ? -startManyScale : this.num;
       } else {
-        this.num = this.num <= 0 ? 0 : this.num;
+        this.num = this.num <= -startManyScale ? -startManyScale : this.num;
         this.num = this.num >= maxNum ? maxNum : this.num;
       }
       if (this.num === this.currentNum) {
@@ -160,6 +163,9 @@ const ScrollScreen = {
       this.toHeight = typeof this.toHeight !== 'number' ?
       endDom.offsetTop + endDom.getBoundingClientRect().height +
       windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
+      this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
+      this.toHeight = this.toHeight > docHeight - windowHeight ?
+        docHeight - windowHeight : this.toHeight;
       this.rafID = requestAnimationFrame(this.raf);
       // this.currentNum = this.num;
     }
