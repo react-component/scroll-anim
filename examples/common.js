@@ -24380,11 +24380,15 @@
 	          _this5.num = i;
 	        }
 	      });
+	      var startManyHeight = startDom.offsetTop;
+	      var startManyScale = startManyHeight ? Math.ceil(startManyHeight / windowHeight) : 0;
+	      var tooNum = void 0;
 	      if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
-	        var tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
+	        tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
 	        this.num = _arr.length + tooNum;
 	      } else if (this.scrollTop < startDom.offsetTop) {
-	        this.num = 0;
+	        tooNum = Math.ceil(-(this.scrollTop - startManyHeight) / windowHeight);
+	        this.num = -tooNum;
 	      }
 	      if (deltaY < 0) {
 	        this.num--;
@@ -24395,13 +24399,12 @@
 	      var docHeight = this.vars.docHeight || document.documentElement.getBoundingClientRect().height;
 	      var manyHeight = docHeight - endDom.offsetTop - endDom.getBoundingClientRect().height;
 	      var manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
-	      manyScale = manyScale > 0 ? manyScale : 0;
 	      var maxNum = _arr.length + manyScale;
 	      if (this.vars.loop) {
-	        this.num = this.num < 0 ? maxNum - 1 : this.num;
-	        this.num = this.num >= maxNum ? 0 : this.num;
+	        this.num = this.num < -startManyScale ? maxNum - 1 : this.num;
+	        this.num = this.num >= maxNum ? -startManyScale : this.num;
 	      } else {
-	        this.num = this.num <= 0 ? 0 : this.num;
+	        this.num = this.num <= -startManyScale ? -startManyScale : this.num;
 	        this.num = this.num >= maxNum ? maxNum : this.num;
 	      }
 	      if (this.num === this.currentNum) {
@@ -24411,6 +24414,8 @@
 	      var currentDom = _Mapped2.default.get(_Mapped2.default.getMapped().__arr[this.num]);
 	      this.toHeight = currentDom ? currentDom.offsetTop : null;
 	      this.toHeight = typeof this.toHeight !== 'number' ? endDom.offsetTop + endDom.getBoundingClientRect().height + windowHeight * (this.num - _Mapped2.default.getMapped().__arr.length) : this.toHeight;
+	      this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
+	      this.toHeight = this.toHeight > docHeight - windowHeight ? docHeight - windowHeight : this.toHeight;
 	      this.rafID = (0, _raf2.default)(this.raf);
 	      // this.currentNum = this.num;
 	    }
@@ -24451,7 +24456,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.4",
+		"version": "0.3.5",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
