@@ -137,7 +137,7 @@ webpackJsonp([0],{
 	      ),
 	      _react2.default.createElement(
 	        Element,
-	        { className: 'pack-page page0' },
+	        { className: 'pack-page page0', scrollName: 'page0' },
 	        _react2.default.createElement(
 	          _rcQueueAnim2.default,
 	          { className: 'home-title' },

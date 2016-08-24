@@ -284,7 +284,7 @@
 	
 	  ScrollOverPack.prototype.componentDidMount = function componentDidMount() {
 	    this.dom = _reactDom2.default.findDOMNode(this);
-	    this.computedStyle = document.defaultView.getComputedStyle(this.dom);
+	    // this.computedStyle = document.defaultView.getComputedStyle(this.dom);
 	    if (this.props.scrollName) {
 	      _Mapped2.default.register(this.props.scrollName, this.dom);
 	    }
@@ -409,7 +409,8 @@
 	  always: true,
 	  scrollEvent: noop,
 	  replay: false,
-	  onChange: noop
+	  onChange: noop,
+	  hideProps: {}
 	};
 	
 	exports.default = ScrollOverPack;
@@ -21458,7 +21459,7 @@
 	});
 	function EventDispatcher(target) {
 	  this._listeners = {};
-	  this._eventTarget = target || this;
+	  this._eventTarget = target || {};
 	}
 	EventDispatcher.prototype = {
 	  addEventListener: function addEventListener(type, callback) {
@@ -21535,8 +21536,13 @@
 	    }
 	  }
 	};
-	
-	exports.default = new EventDispatcher(window);
+	var event = void 0;
+	if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+	  event = new EventDispatcher(window);
+	} else {
+	  event = new EventDispatcher();
+	}
+	exports.default = event;
 	module.exports = exports['default'];
 
 /***/ },
@@ -24456,7 +24462,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.5",
+		"version": "0.3.6",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
