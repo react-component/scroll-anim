@@ -66,7 +66,7 @@ class Demo extends React.Component {
           <div ref="bar" className="nav-bar" />
         </div>
       </div>
-      <Element className="pack-page page0">
+      <Element className="pack-page page0" scrollName="page0">
         <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>

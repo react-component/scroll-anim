@@ -31,7 +31,7 @@ class ScrollOverPack extends React.Component {
 
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
-    this.computedStyle = document.defaultView.getComputedStyle(this.dom);
+    // this.computedStyle = document.defaultView.getComputedStyle(this.dom);
     if (this.props.scrollName) {
       mapped.register(this.props.scrollName, this.dom);
     }
@@ -69,7 +69,7 @@ class ScrollOverPack extends React.Component {
     // 设置往上时的出场点...
     const leaveHeight = domRect.height > clientHeight ? clientHeight : domRect.height;
     const topLeave = this.props.replay ?
-      elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
+    elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
     let mode = 'scroll';
     if (enter) {
       if (!this.state.show) {
@@ -160,6 +160,7 @@ ScrollOverPack.defaultProps = {
   scrollEvent: noop,
   replay: false,
   onChange: noop,
+  hideProps: {},
 };
 
 export default ScrollOverPack;

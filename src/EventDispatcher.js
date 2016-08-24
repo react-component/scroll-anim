@@ -1,6 +1,6 @@
 function EventDispatcher(target) {
   this._listeners = {};
-  this._eventTarget = target || this;
+  this._eventTarget = target || {};
 }
 EventDispatcher.prototype = {
   addEventListener(type, callback) {
@@ -79,5 +79,10 @@ EventDispatcher.prototype = {
     }
   },
 };
-
-export default new EventDispatcher(window);
+let event;
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  event = new EventDispatcher(window);
+} else {
+  event = new EventDispatcher();
+}
+export default event;
