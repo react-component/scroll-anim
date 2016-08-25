@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import assign from 'object-assign';
 import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Timeline from 'rc-tween-one/lib/TimeLine';
@@ -76,9 +75,9 @@ class ScrollParallax extends React.Component {
     const vars = dataToArray(_vars);
     const varsForIn = (item, i) => {
       const playScale = playScaleToArray(item.playScale).map(data => data * this.clientHeight);
-      const __item = assign({}, item);
+      const __item = { ...item };
       delete __item.playScale;
-      const _item = assign({}, item);
+      const _item = { ...item };
       delete _item.playScale;
       _item.delay = __item.delay = playScale[0];
       _item.duration = __item.duration = playScale[1] - playScale[0];
@@ -153,13 +152,15 @@ class ScrollParallax extends React.Component {
   }
 
   render() {
-    const props = assign({}, this.props);
+    const props = { ...this.props };
     [
       'animation',
       'always',
       'component',
+      'location',
+      'scrollName',
     ].forEach(key => delete props[key]);
-    const style = assign({}, props.style);
+    const style = { ...props.style };
     for (const p in style) {
       if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {
         // ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix=> style[`${prefix}Filter`] = style[p]);

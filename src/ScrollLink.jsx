@@ -3,7 +3,6 @@
  */
 import React, { createElement } from 'react';
 import ReactDOM from 'react-dom';
-import assign from 'object-assign';
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
@@ -53,7 +52,7 @@ class ScrollLink extends React.Component {
     this.scrollTop = currentScrollTop();
     const toTop = Math.round(elementRect.top) - Math.round(docRect.top);
     this.toTop = this.props.toShowHeight ?
-      toTop - transformArguments(this.props.showHeightActive)[0] : toTop;
+    toTop - transformArguments(this.props.showHeightActive)[0] : toTop;
     this.initTime = Date.now();
     this.rafID = requestAnimationFrame(this.raf);
   }
@@ -94,12 +93,12 @@ class ScrollLink extends React.Component {
     const top = Math.round(docRect.top - elementRect.top + scrollTop);
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[0]) / 100 * clientHeight :
+    parseFloat(showHeightActive[0]) / 100 * clientHeight :
       parseFloat(showHeightActive[0]);
     const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[1]) / 100 * clientHeight :
+    parseFloat(showHeightActive[1]) / 100 * clientHeight :
       parseFloat(showHeightActive[1]);
-    if (top >= - startShowHeight && top < elementClientHeight - endShowHeight) {
+    if (top >= -startShowHeight && top < elementClientHeight - endShowHeight) {
       if (!this.props.onFocus.only) {
         const obj = {
           target: this.dom,
@@ -129,12 +128,13 @@ class ScrollLink extends React.Component {
   render() {
     const active = this.state.active ? this.props.active : '';
     const onClick = this.props.onClick;
-    const props = assign({}, this.props, {
+    const props = {
+      ...this.props,
       onClick: (e) => {
         onClick(e);
         this.onClick(e);
       },
-    });
+    };
     [
       'component',
       'duration',
