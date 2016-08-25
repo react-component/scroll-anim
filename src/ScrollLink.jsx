@@ -174,6 +174,7 @@ ScrollLink.propTypes = {
 ScrollLink.defaultProps = {
   component: 'div',
   duration: 450,
+  className: '',
   active: 'active',
   showHeightActive: '50%',
   ease: 'easeInOutQuad',
