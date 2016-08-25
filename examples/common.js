@@ -24061,7 +24061,8 @@
 	      return delete props[key];
 	    });
 	    var reg = new RegExp(active, 'ig');
-	    props.className = props.className && props.className.indexOf(active) === -1 ? props.className + ' ' + active : props.className.replace(reg, '').trim();
+	    var className = props.className || '';
+	    props.className = className.indexOf(active) === -1 ? (className + ' ' + active).trim() : className.replace(reg, '').trim();
 	    return (0, _react.createElement)(this.props.component, props);
 	  };
 	
@@ -24091,7 +24092,6 @@
 	ScrollLink.defaultProps = {
 	  component: 'div',
 	  duration: 450,
-	  className: '',
 	  active: 'active',
 	  showHeightActive: '50%',
 	  ease: 'easeInOutQuad',
@@ -24492,7 +24492,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.7",
+		"version": "0.3.8",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
