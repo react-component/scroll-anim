@@ -145,8 +145,9 @@ class ScrollLink extends React.Component {
       'toShowHeight',
     ].forEach(key => delete props[key]);
     const reg = new RegExp(active, 'ig');
-    props.className = props.className && props.className.indexOf(active) === -1 ?
-      `${props.className} ${active}` : props.className.replace(reg, '').trim();
+    const className = props.className || '';
+    props.className = className.indexOf(active) === -1 ?
+      `${className} ${active}`.trim() : className.replace(reg, '').trim();
     return createElement(this.props.component, props);
   }
 }
@@ -174,7 +175,6 @@ ScrollLink.propTypes = {
 ScrollLink.defaultProps = {
   component: 'div',
   duration: 450,
-  className: '',
   active: 'active',
   showHeightActive: '50%',
   ease: 'easeInOutQuad',
