@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(216);
+	module.exports = __webpack_require__(215);
 
 
 /***/ },
 
-/***/ 216:
+/***/ 215:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39,7 +39,7 @@ webpackJsonp([1],{
 	
 	var ScrollParallax = _rcScrollAnim2.default.Parallax;
 	var ScrollElement = _rcScrollAnim2.default.Element;
-	var _package = __webpack_require__(215);
+	var _package = __webpack_require__(214);
 	
 	var Demo = function (_React$Component) {
 	  _inherits(Demo, _React$Component);

@@ -3,12 +3,12 @@ webpackJsonp([2],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(217);
+	module.exports = __webpack_require__(216);
 
 
 /***/ },
 
-/***/ 196:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,7 +17,7 @@ webpackJsonp([2],{
 	  value: true
 	});
 	
-	var _QueueAnim = __webpack_require__(197);
+	var _QueueAnim = __webpack_require__(196);
 	
 	var _QueueAnim2 = _interopRequireDefault(_QueueAnim);
 	
@@ -29,7 +29,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 197:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {'use strict';
@@ -46,9 +46,9 @@ webpackJsonp([2],{
 	
 	var _reactDom = __webpack_require__(38);
 	
-	var _utils = __webpack_require__(199);
+	var _utils = __webpack_require__(198);
 	
-	var _animTypes = __webpack_require__(200);
+	var _animTypes = __webpack_require__(199);
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
 	
@@ -133,7 +133,7 @@ webpackJsonp([2],{
 	var velocity = void 0;
 	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 	  // only load velocity on the client
-	  velocity = __webpack_require__(201);
+	  velocity = __webpack_require__(200);
 	  Object.keys(_ease).forEach(function (key) {
 	    if (velocity.Easings) {
 	      velocity.Easings[key] = _ease[key];
@@ -486,11 +486,11 @@ webpackJsonp([2],{
 	
 	exports["default"] = QueueAnim;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(198).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(197).setImmediate))
 
 /***/ },
 
-/***/ 198:
+/***/ 197:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(8).nextTick;
@@ -569,11 +569,11 @@ webpackJsonp([2],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(198).setImmediate, __webpack_require__(198).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(197).setImmediate, __webpack_require__(197).clearImmediate))
 
 /***/ },
 
-/***/ 199:
+/***/ 198:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -679,7 +679,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 200:
+/***/ 199:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -728,7 +728,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 201:
+/***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
@@ -4620,18 +4620,18 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 202:
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var TweenOne = __webpack_require__(203);
-	TweenOne.TweenOneGroup = __webpack_require__(205);
+	var TweenOne = __webpack_require__(202);
+	TweenOne.TweenOneGroup = __webpack_require__(204);
 	module.exports = TweenOne;
 
 /***/ },
 
-/***/ 203:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4648,23 +4648,23 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(184);
+	var _objectAssign = __webpack_require__(183);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _util = __webpack_require__(204);
+	var _util = __webpack_require__(203);
 	
-	var _styleUtils = __webpack_require__(188);
+	var _styleUtils = __webpack_require__(187);
 	
-	var _TimeLine = __webpack_require__(183);
+	var _TimeLine = __webpack_require__(182);
 	
 	var _TimeLine2 = _interopRequireDefault(_TimeLine);
 	
-	var _plugins = __webpack_require__(186);
+	var _plugins = __webpack_require__(185);
 	
 	var _plugins2 = _interopRequireDefault(_plugins);
 	
-	var _ticker = __webpack_require__(189);
+	var _ticker = __webpack_require__(188);
 	
 	var _ticker2 = _interopRequireDefault(_ticker);
 	
@@ -4694,11 +4694,11 @@ webpackJsonp([2],{
 	
 	    _this.rafID = -1;
 	    _this.moment = _this.props.moment || 0;
-	    _this.state = {
-	      startMoment: _this.props.moment,
-	      startFrame: _ticker2["default"].frame,
-	      paused: _this.props.paused
-	    };
+	    _this.startMoment = _this.props.moment;
+	    _this.startFrame = _ticker2["default"].frame;
+	    _this.paused = _this.props.paused;
+	    _this.reverse = _this.props.reverse;
+	    _this.onChange = _this.props.onChange;
 	    ['raf', 'frame', 'start', 'play', 'restart'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
@@ -4707,60 +4707,67 @@ webpackJsonp([2],{
 	
 	  TweenOne.prototype.componentDidMount = function componentDidMount() {
 	    this.dom = _reactDom2["default"].findDOMNode(this);
-	    this.start(this.props);
+	    this.start();
 	  };
 	
 	  TweenOne.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
 	    var _this2 = this;
 	
-	    var newStyle = nextProps.style;
-	    var styleEqual = (0, _util.objectEqual)(this.props.style, newStyle);
-	    // 如果在动画时,改变了 style 将改变 timeLine 的初始值;
-	    if (!styleEqual) {
-	      if (this.rafID !== -1) {
-	        this.start(nextProps);
-	      }
-	    }
-	
+	    this.onChange = nextProps.onChange;
 	    // 跳帧事件 moment;
 	    var newMoment = nextProps.moment;
 	    if (typeof newMoment === 'number' && newMoment !== this.moment) {
-	      this.setState({
-	        startMoment: newMoment,
-	        startFrame: _ticker2["default"].frame
-	      }, function () {
-	        if (_this2.rafID === -1 && !nextProps.paused) {
-	          (function () {
-	            _this2.timeLine.resetAnimData();
-	            var style = nextProps.style;
-	            _this2.dom.setAttribute('style', '');
-	            Object.keys(style).forEach(function (key) {
-	              _this2.dom.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
-	            });
-	            _this2.play();
-	          })();
-	        } else {
-	          _this2.raf();
-	        }
-	      });
+	      this.startMoment = newMoment;
+	      this.startFrame = _ticker2["default"].frame;
+	      if (this.rafID === -1 && !nextProps.paused) {
+	        (function () {
+	          _this2.timeLine.resetAnimData();
+	          var style = nextProps.style;
+	          _this2.dom.setAttribute('style', '');
+	          Object.keys(style).forEach(function (key) {
+	            _this2.dom.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
+	          });
+	          _this2.play();
+	        })();
+	      } else {
+	        this.raf();
+	      }
 	    }
 	    // 动画处理
 	    var newAnimation = nextProps.animation;
 	    var currentAnimation = this.props.animation;
 	    var equal = (0, _util.objectEqual)(currentAnimation, newAnimation);
+	    var styleEqual = (0, _util.objectEqual)(this.props.style, nextProps.style);
+	    // 如果 animation 不同， 重新动画
+	    this.restartAnim = false;
 	    if (!equal) {
-	      this.setState({
-	        startFrame: _ticker2["default"].frame
-	      }, function () {
-	        _this2.start(nextProps);
-	      });
+	      this.cancelRequestAnimationFrame();
+	      if (nextProps.resetStyleBool && this.timeLine) {
+	        this.timeLine.resetDefaultStyle();
+	      }
+	      this.startMoment = perFrame - 1; // 设置 perFrame 为开始时就播放一帧动画, 不是从0开始, 鼠标跟随使用
+	      this.startFrame = _ticker2["default"].frame;
+	      this.restartAnim = true;
+	      // this.start(nextProps);
+	    } else if (!styleEqual) {
+	      // 如果 animation 相同，，style 不同，从当前时间开放。
+	      if (this.rafID !== -1) {
+	        this.cancelRequestAnimationFrame();
+	        this.startMoment = this.timeLine.progressTime;
+	        this.startFrame = _ticker2["default"].frame;
+	        this.restartAnim = true;
+	        // this.start(nextProps);
+	      }
 	    }
 	    // 暂停倒放
-	    if (this.props.paused !== nextProps.paused || this.props.reverse !== nextProps.reverse) {
-	      if (nextProps.paused) {
+	    if (this.paused !== nextProps.paused || this.reverse !== nextProps.reverse) {
+	      this.paused = nextProps.paused;
+	      this.reverse = nextProps.reverse;
+	      if (this.paused) {
 	        this.cancelRequestAnimationFrame();
 	      } else {
-	        if (nextProps.reverse && nextProps.reverseDelay) {
+	        if (this.reverse && nextProps.reverseDelay) {
+	          this.cancelRequestAnimationFrame();
 	          _ticker2["default"].timeout(this.restart, nextProps.reverseDelay);
 	        } else {
 	          this.restart();
@@ -4769,24 +4776,29 @@ webpackJsonp([2],{
 	    }
 	  };
 	
+	  TweenOne.prototype.componentDidUpdate = function componentDidUpdate() {
+	    // 样式更新了后再执行动画；
+	    if (this.restartAnim) {
+	      this.start();
+	    }
+	  };
+	
 	  TweenOne.prototype.componentWillUnmount = function componentWillUnmount() {
 	    this.cancelRequestAnimationFrame();
 	  };
 	
 	  TweenOne.prototype.restart = function restart() {
-	    var _this3 = this;
-	
-	    this.setState({
-	      startMoment: this.timeLine.progressTime,
-	      startFrame: _ticker2["default"].frame
-	    }, function () {
-	      _this3.play();
-	    });
+	    this.startMoment = this.timeLine.progressTime;
+	    this.startFrame = _ticker2["default"].frame;
+	    this.play();
 	  };
 	
-	  TweenOne.prototype.start = function start(props) {
+	  TweenOne.prototype.start = function start() {
+	    var props = this.props;
 	    if (props.animation && Object.keys(props.animation).length) {
-	      this.timeLine = new _TimeLine2["default"](this.dom, (0, _util.dataToArray)(props.animation), this.props.attr);
+	      this.timeLine = new _TimeLine2["default"](this.dom, (0, _util.dataToArray)(props.animation), props.attr);
+	      // 预先注册 raf, 初始动画数值。
+	      this.raf();
 	      // 开始动画
 	      this.play();
 	    }
@@ -4794,30 +4806,32 @@ webpackJsonp([2],{
 	
 	  TweenOne.prototype.play = function play() {
 	    this.cancelRequestAnimationFrame();
+	    if (this.paused) {
+	      return;
+	    }
 	    this.rafID = 'tween' + Date.now() + '-' + tickerIdNum;
-	    this.raf();
 	    _ticker2["default"].wake(this.rafID, this.raf);
 	    tickerIdNum++;
 	  };
 	
 	  TweenOne.prototype.frame = function frame() {
-	    var moment = (_ticker2["default"].frame - this.state.startFrame) * perFrame + (this.state.startMoment || 0);
-	    if (this.props.reverse) {
-	      moment = (this.state.startMoment || 0) - (_ticker2["default"].frame - this.state.startFrame) * perFrame;
+	    var moment = (_ticker2["default"].frame - this.startFrame) * perFrame + (this.startMoment || 0);
+	    if (this.reverse) {
+	      moment = (this.startMoment || 0) - (_ticker2["default"].frame - this.startFrame) * perFrame;
 	    }
 	    moment = moment > this.timeLine.totalTime ? this.timeLine.totalTime : moment;
 	    moment = moment <= 0 ? 0 : moment;
-	    if (moment < this.moment) {
+	    if (moment < this.moment && !this.reverse) {
 	      this.timeLine.resetDefaultStyle();
 	    }
 	    this.moment = moment;
-	    this.timeLine.onChange = this.props.onChange;
+	    this.timeLine.onChange = this.onChange;
 	    this.timeLine.frame(moment);
 	  };
 	
 	  TweenOne.prototype.raf = function raf() {
 	    this.frame();
-	    if (this.moment >= this.timeLine.totalTime && !this.props.reverse || this.props.paused || this.props.reverse && this.moment === 0) {
+	    if (this.moment >= this.timeLine.totalTime && !this.reverse || this.paused || this.reverse && this.moment === 0) {
 	      return this.cancelRequestAnimationFrame();
 	    }
 	  };
@@ -4829,7 +4843,7 @@ webpackJsonp([2],{
 	
 	  TweenOne.prototype.render = function render() {
 	    var props = (0, _objectAssign2["default"])({}, this.props);
-	    ['animation', 'component', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment'].forEach(function (key) {
+	    ['animation', 'component', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool'].forEach(function (key) {
 	      return delete props[key];
 	    });
 	    props.style = (0, _objectAssign2["default"])({}, this.props.style);
@@ -4865,7 +4879,8 @@ webpackJsonp([2],{
 	  reverseDelay: _react.PropTypes.number,
 	  moment: _react.PropTypes.number,
 	  attr: _react.PropTypes.string,
-	  onChange: _react.PropTypes.func
+	  onChange: _react.PropTypes.func,
+	  resetStyleBool: _react.PropTypes.bool
 	};
 	
 	TweenOne.defaultProps = {
@@ -4880,7 +4895,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 204:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5059,7 +5074,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 205:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5074,11 +5089,11 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TweenOne = __webpack_require__(203);
+	var _TweenOne = __webpack_require__(202);
 	
 	var _TweenOne2 = _interopRequireDefault(_TweenOne);
 	
-	var _util = __webpack_require__(204);
+	var _util = __webpack_require__(203);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -5103,7 +5118,7 @@ webpackJsonp([2],{
 	    _this.keysToEnter = [];
 	    _this.keysToLeave = [];
 	    _this.onEnterBool = false;
-	    _this.enterAnimEnd = false;
+	    _this.isTween = {};
 	    // 第一进入，appear 为 true 时默认用 enter 或 tween-one 上的效果
 	    var children = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(_this.props));
 	    children.forEach(function (child) {
@@ -5155,9 +5170,6 @@ webpackJsonp([2],{
 	        _this2.keysToLeave.push(key);
 	      }
 	    });
-	    if (this.keysToEnter.length || this.keysToLeave.length) {
-	      this.enterAnimEnd = false;
-	    }
 	    this.setState({
 	      children: newChildren
 	    });
@@ -5165,16 +5177,26 @@ webpackJsonp([2],{
 	
 	  TweenOneGroup.prototype.onChange = function onChange(animation, key, type, obj) {
 	    var length = (0, _util.dataToArray)(animation).length;
-	    if (obj.index === length - 1 && obj.mode === 'onComplete') {
+	    var animatingClassName = this.props.animatingClassName;
+	    var tag = obj.target;
+	    if (obj.mode === 'onStart') {
+	      tag.className = tag.className.replace(animatingClassName[type === 'enter' ? 1 : 0], '').trim();
+	      if (tag.className.indexOf(animatingClassName[type === 'enter' ? 0 : 1]) === -1) {
+	        tag.className = (tag.className + ' ' + animatingClassName[type === 'enter' ? 0 : 1]).trim();
+	      }
+	    } else if (obj.index === length - 1 && obj.mode === 'onComplete') {
 	      var children = void 0;
 	      if (type === 'enter') {
 	        children = this.state.children;
-	        this.enterAnimEnd = true;
+	        this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
 	      } else {
 	        children = this.state.children.filter(function (child) {
 	          return key !== child.key;
 	        });
+	        this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
 	      }
+	      tag.className = tag.className.replace(animatingClassName[type === 'enter' ? 0 : 1], '').trim();
+	      delete this.isTween[key];
 	      this.setState({
 	        children: children
 	      });
@@ -5186,21 +5208,22 @@ webpackJsonp([2],{
 	  TweenOneGroup.prototype.getCoverAnimation = function getCoverAnimation(child, i, type) {
 	    var animation = void 0;
 	    var onChange = void 0;
-	    var className = child.props.className || '';
-	    if (type) {
+	    var appear = (0, _util.transformArguments)(this.props.appear, child.key, i);
+	    if (appear || this.onEnterBool) {
 	      animation = type === 'leave' ? this.props.leave : this.props.enter;
 	      onChange = this.onChange.bind(this, animation, child.key, type);
-	      if (!this.enterAnimEnd) {
-	        className = (className + ' ' + (type === 'leave' ? this.props.animatingClassName[1] : this.props.animatingClassName[0])).trim();
-	      }
 	    }
-	    return _react2["default"].createElement(_TweenOne2["default"], _extends({}, child.props, {
+	    var children = _react2["default"].createElement(_TweenOne2["default"], _extends({}, child.props, {
 	      key: child.key,
 	      component: child.type,
 	      animation: (0, _util.transformArguments)(animation, child.key, i),
 	      onChange: onChange,
-	      className: className
+	      resetStyleBool: child.key in this.isTween
 	    }));
+	    if (this.keysToEnter.concat(this.keysToLeave).indexOf(child.key) >= 0) {
+	      this.isTween[child.key] = true;
+	    }
+	    return children;
 	  };
 	
 	  TweenOneGroup.prototype.getChildrenToRender = function getChildrenToRender(children) {
@@ -5214,13 +5237,7 @@ webpackJsonp([2],{
 	      if (_this3.keysToLeave.indexOf(key) >= 0) {
 	        return _this3.getCoverAnimation(child, i, 'leave');
 	      }
-	      var appear = (0, _util.transformArguments)(_this3.props.appear, key, i);
-	      if (_this3.keysToEnter.indexOf(key) >= 0) {
-	        if (appear || _this3.onEnterBool) {
-	          return _this3.getCoverAnimation(child, i, 'enter');
-	        }
-	      }
-	      return _this3.getCoverAnimation(child, i);
+	      return _this3.getCoverAnimation(child, i, 'enter');
 	    });
 	  };
 	
@@ -5266,17 +5283,17 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 206:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(207);
+	module.exports = __webpack_require__(206);
 
 /***/ },
 
-/***/ 207:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5289,13 +5306,13 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(208);
+	var _ChildrenUtils = __webpack_require__(207);
 	
-	var _AnimateChild = __webpack_require__(209);
+	var _AnimateChild = __webpack_require__(208);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(214);
+	var _util = __webpack_require__(213);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5609,7 +5626,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 208:
+/***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5732,7 +5749,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 209:
+/***/ 208:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5751,11 +5768,11 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(210);
+	var _cssAnimation = __webpack_require__(209);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(214);
+	var _util = __webpack_require__(213);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5815,7 +5832,14 @@ webpackJsonp([2],{
 	    };
 	    if ((_cssAnimation.isCssAnimationSupported || !props.animation[animationType]) && transitionName && props[transitionMap[animationType]]) {
 	      var name = nameIsObj ? transitionName[animationType] : transitionName + '-' + animationType;
-	      this.stopper = (0, _cssAnimation2["default"])(node, name, end);
+	      var activeName = name + '-active';
+	      if (nameIsObj && transitionName[animationType + 'Active']) {
+	        activeName = transitionName[animationType + 'Active'];
+	      }
+	      this.stopper = (0, _cssAnimation2["default"])(node, {
+	        name: name,
+	        active: activeName
+	      }, end);
 	    } else {
 	      this.stopper = props.animation[animationType](node, end);
 	    }
@@ -5837,7 +5861,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 210:
+/***/ 209:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5846,11 +5870,13 @@ webpackJsonp([2],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(211);
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	var _Event = __webpack_require__(210);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(212);
+	var _componentClasses = __webpack_require__(211);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -5864,7 +5890,7 @@ webpackJsonp([2],{
 	'ms'];
 	var prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
 	
-	function getDuration(node, name) {
+	function getStyleProperty(node, name) {
 	  var style = window.getComputedStyle(node);
 	
 	  var ret = '';
@@ -5879,9 +5905,11 @@ webpackJsonp([2],{
 	
 	function fixBrowserByTimeout(node) {
 	  if (isCssAnimationSupported) {
-	    var transitionDuration = parseFloat(getDuration(node, 'transition-duration')) || 0;
-	    var animationDuration = parseFloat(getDuration(node, 'animation-duration')) || 0;
-	    var time = Math.max(transitionDuration, animationDuration);
+	    var transitionDelay = parseFloat(getStyleProperty(node, 'transition-delay')) || 0;
+	    var transitionDuration = parseFloat(getStyleProperty(node, 'transition-duration')) || 0;
+	    var animationDelay = parseFloat(getStyleProperty(node, 'animation-delay')) || 0;
+	    var animationDuration = parseFloat(getStyleProperty(node, 'animation-duration')) || 0;
+	    var time = Math.max(transitionDuration + transitionDelay, animationDuration + animationDelay);
 	    // sometimes, browser bug
 	    node.rcEndAnimTimeout = setTimeout(function () {
 	      node.rcEndAnimTimeout = null;
@@ -5900,8 +5928,9 @@ webpackJsonp([2],{
 	}
 	
 	var cssAnimation = function cssAnimation(node, transitionName, endCallback) {
-	  var className = transitionName;
-	  var activeClassName = className + '-active';
+	  var nameIsObj = (typeof transitionName === 'undefined' ? 'undefined' : _typeof(transitionName)) === 'object';
+	  var className = nameIsObj ? transitionName.name : transitionName;
+	  var activeClassName = nameIsObj ? transitionName.active : transitionName + '-active';
 	  var end = endCallback;
 	  var start = void 0;
 	  var active = void 0;
@@ -6028,7 +6057,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 211:
+/***/ 210:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6122,7 +6151,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 212:
+/***/ 211:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6130,9 +6159,9 @@ webpackJsonp([2],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(213);
+	  var index = __webpack_require__(212);
 	} catch (err) {
-	  var index = __webpack_require__(213);
+	  var index = __webpack_require__(212);
 	}
 	
 	/**
@@ -6320,7 +6349,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 213:
+/***/ 212:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -6333,7 +6362,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 214:
+/***/ 213:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6366,7 +6395,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 217:
+/***/ 216:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6385,15 +6414,15 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcQueueAnim = __webpack_require__(196);
+	var _rcQueueAnim = __webpack_require__(195);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _rcTweenOne = __webpack_require__(202);
+	var _rcTweenOne = __webpack_require__(201);
 	
 	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
 	
-	var _rcAnimate = __webpack_require__(206);
+	var _rcAnimate = __webpack_require__(205);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
@@ -6407,7 +6436,7 @@ webpackJsonp([2],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } // use jsx to render html, do not modify simple.html
 	
-	var _package = __webpack_require__(215);
+	var _package = __webpack_require__(214);
 	
 	var Link = _rcScrollAnim2.default.Link;
 	var Element = _rcScrollAnim2.default.Element;
