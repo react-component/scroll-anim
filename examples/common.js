@@ -24028,9 +24028,11 @@
 	        this.props.onFocus.call(this, obj);
 	        this.props.onFocus.only = true;
 	      }
-	      this.setState({
-	        active: true
-	      });
+	      if (!this.state.active) {
+	        this.setState({
+	          active: true
+	        });
+	      }
 	    } else {
 	      if (this.props.onFocus.only) {
 	        var _obj = {
@@ -24040,9 +24042,11 @@
 	        this.props.onBlur.call(this, _obj);
 	      }
 	      this.props.onFocus.only = false;
-	      this.setState({
-	        active: false
-	      });
+	      if (this.state.active) {
+	        this.setState({
+	          active: false
+	        });
+	      }
 	    }
 	  };
 	
@@ -24492,7 +24496,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.8",
+		"version": "0.3.9",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
