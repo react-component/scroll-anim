@@ -107,7 +107,7 @@ class ScrollLink extends React.Component {
         this.props.onFocus.call(this, obj);
         this.props.onFocus.only = true;
       }
-      if (this.state.active !== true) {
+      if (!this.state.active) {
         this.setState({
           active: true,
         });
@@ -121,7 +121,7 @@ class ScrollLink extends React.Component {
         this.props.onBlur.call(this, obj);
       }
       this.props.onFocus.only = false;
-      if (this.state.active !== false) {
+      if (this.state.active) {
         this.setState({
           active: false,
         });
