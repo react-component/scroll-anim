@@ -105,7 +105,6 @@ class ScrollOverPack extends React.Component {
       'playScale',
       'replay',
       'component',
-      'playScale',
       'always',
       'scrollEvent',
       'hideProps',
