@@ -43,12 +43,12 @@ class Demo extends React.Component {
           <p>Ant Motion</p>
         </div>
         <div className="nav-wap">
-          <Link className="nav-list" location="page0"
+          <Link className="nav-list" location="page0" offset={-58}
             onFocus={this.onFocus.bind(this)}
           >
             Example
           </Link>
-          <Link className="nav-list" location="page1"
+          <Link className="nav-list" location="page1" offset={-58}
             onFocus={this.onFocus.bind(this)}
           >
             Example2

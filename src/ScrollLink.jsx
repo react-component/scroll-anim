@@ -50,7 +50,7 @@ class ScrollLink extends React.Component {
     const elementDom = mapped.get(this.props.location);
     const elementRect = elementDom.getBoundingClientRect();
     this.scrollTop = currentScrollTop();
-    const toTop = Math.round(elementRect.top) - Math.round(docRect.top);
+    const toTop = Math.round(elementRect.top) - Math.round(docRect.top) + Math.round(this.props.offset?this.props.offset:0);
     this.toTop = this.props.toShowHeight ?
     toTop - transformArguments(this.props.showHeightActive)[0] : toTop;
     this.initTime = Date.now();
