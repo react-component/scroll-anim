@@ -270,15 +270,55 @@
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	
+	    _this.scrollEventListener = function (e) {
+	      var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      var scrollTop = (0, _util.currentScrollTop)();
+	      // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
+	      var domRect = _this.dom.getBoundingClientRect();
+	      var offsetTop = domRect.top + scrollTop;
+	      var elementShowHeight = scrollTop - offsetTop + clientHeight;
+	      var playScale = (0, _util.transformArguments)(_this.props.playScale);
+	      var playHeight = clientHeight * playScale[0];
+	
+	      var enter = elementShowHeight >= playHeight && elementShowHeight <= clientHeight + playHeight;
+	      var bottomLeave = elementShowHeight < playHeight;
+	      // 设置往上时的出场点...
+	      var leaveHeight = domRect.height > clientHeight ? clientHeight : domRect.height;
+	      var topLeave = _this.props.replay ? elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
+	      var mode = 'scroll';
+	      if (enter) {
+	        if (!_this.state.show) {
+	          _this.setState({
+	            show: true
+	          });
+	          mode = 'enter';
+	          _this.props.onChange({ mode: mode, scrollName: _this.props.scrollName });
+	        }
+	        if (!_this.props.always) {
+	          _EventDispatcher2.default.removeEventListener(_this.eventType, _this.scrollEventListener);
+	        }
+	      }
+	      if (topLeave || bottomLeave) {
+	        if (_this.state.show) {
+	          _this.setState({
+	            show: false
+	          });
+	          mode = 'leave';
+	          _this.props.onChange({ mode: mode, scrollName: _this.props.scrollName });
+	        }
+	      }
+	
+	      if (e) {
+	        _this.props.scrollEvent({ mode: mode, scrollName: _this.props.scrollName, e: e });
+	      }
+	    };
+	
 	    _this.children = toArrayChildren(_this.props.children);
 	    _this.oneEnter = false;
 	    _this.state = {
 	      show: false,
 	      children: toArrayChildren(_this.props.children)
 	    };
-	    ['scrollEventListener'].forEach(function (method) {
-	      return _this[method] = _this[method].bind(_this);
-	    });
 	    return _this;
 	  }
 	
@@ -306,55 +346,12 @@
 	    _EventDispatcher2.default.removeEventListener(this.eventType, this.scrollEventListener);
 	  };
 	
-	  ScrollOverPack.prototype.scrollEventListener = function scrollEventListener(e) {
-	    var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	    var scrollTop = (0, _util.currentScrollTop)();
-	    // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
-	    var domRect = this.dom.getBoundingClientRect();
-	    var offsetTop = domRect.top + scrollTop;
-	    var elementShowHeight = scrollTop - offsetTop + clientHeight;
-	    var playScale = (0, _util.transformArguments)(this.props.playScale);
-	    var playHeight = clientHeight * playScale[0];
-	
-	    var enter = elementShowHeight >= playHeight && elementShowHeight <= clientHeight + playHeight;
-	    var bottomLeave = elementShowHeight < playHeight;
-	    // 设置往上时的出场点...
-	    var leaveHeight = domRect.height > clientHeight ? clientHeight : domRect.height;
-	    var topLeave = this.props.replay ? elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
-	    var mode = 'scroll';
-	    if (enter) {
-	      if (!this.state.show) {
-	        this.setState({
-	          show: true
-	        });
-	        mode = 'enter';
-	        this.props.onChange({ mode: mode, scrollName: this.props.scrollName });
-	      }
-	      if (!this.props.always) {
-	        _EventDispatcher2.default.removeEventListener(this.eventType, this.scrollEventListener);
-	      }
-	    }
-	    if (topLeave || bottomLeave) {
-	      if (this.state.show) {
-	        this.setState({
-	          show: false
-	        });
-	        mode = 'leave';
-	        this.props.onChange({ mode: mode, scrollName: this.props.scrollName });
-	      }
-	    }
-	
-	    if (e) {
-	      this.props.scrollEvent({ mode: mode, scrollName: this.props.scrollName, e: e });
-	    }
-	  };
-	
 	  ScrollOverPack.prototype.render = function render() {
 	    var _this2 = this;
 	
 	    var placeholderProps = _objectWithoutProperties(this.props, []);
 	
-	    ['scrollName', 'playScale', 'replay', 'component', 'playScale', 'always', 'scrollEvent', 'hideProps'].forEach(function (key) {
+	    ['scrollName', 'playScale', 'replay', 'component', 'always', 'scrollEvent', 'hideProps'].forEach(function (key) {
 	      return delete placeholderProps[key];
 	    });
 	    var childToRender = void 0;
@@ -387,16 +384,14 @@
 	  return ScrollOverPack;
 	}(_react2.default.Component);
 	
-	var objectOrArray = _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.object, _react2.default.PropTypes.array]);
-	var numberOrArray = _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.array]);
 	ScrollOverPack.propTypes = {
 	  component: _react2.default.PropTypes.string,
-	  playScale: numberOrArray,
+	  playScale: _react2.default.PropTypes.any,
 	  always: _react2.default.PropTypes.bool,
 	  scrollEvent: _react2.default.PropTypes.func,
-	  children: objectOrArray,
+	  children: _react2.default.PropTypes.any,
 	  className: _react2.default.PropTypes.string,
-	  style: objectOrArray,
+	  style: _react2.default.PropTypes.any,
 	  scrollName: _react2.default.PropTypes.string,
 	  replay: _react2.default.PropTypes.bool,
 	  onChange: _react2.default.PropTypes.func,
@@ -21813,13 +21808,87 @@
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	
+	    _this.setDefaultData = function (_vars) {
+	      var vars = (0, _util.dataToArray)(_vars);
+	      var varsForIn = function varsForIn(item, i) {
+	        var playScale = playScaleToArray(item.playScale).map(function (data) {
+	          return data * _this.clientHeight;
+	        });
+	        var __item = _extends({}, item);
+	        delete __item.playScale;
+	        var _item = _extends({}, item);
+	        delete _item.playScale;
+	        _item.delay = __item.delay = playScale[0];
+	        _item.duration = __item.duration = playScale[1] - playScale[0];
+	        _item.onStart = null;
+	        _item.onUpdate = null;
+	        _item.onComplete = null;
+	        _item.onRepeat = null;
+	        __item.onStart = __item.onStart || noop;
+	        __item.onComplete = __item.onComplete || noop;
+	        _this.defaultTweenData[i] = _item;
+	        _this.defaultData[i] = __item;
+	      };
+	      vars.forEach(varsForIn);
+	    };
+	
+	    _this.scrollEventListener = function () {
+	      var scrollTop = (0, _util.currentScrollTop)();
+	      _this.clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      var dom = _this.props.location ? _Mapped2.default.get(_this.props.location) : _this.dom;
+	      if (!dom) {
+	        throw new Error('"location" is null');
+	      }
+	      var offsetTop = dom.getBoundingClientRect().top + scrollTop;
+	      var elementShowHeight = scrollTop - offsetTop + _this.clientHeight;
+	      var currentShow = _this.scrollTop - offsetTop + _this.clientHeight;
+	      var scrollTopValue = scrollTop - _this.scrollTop;
+	      _this.defaultData.forEach(function (item) {
+	        if (scrollTopValue > 0 && elementShowHeight < item.delay || scrollTopValue < 0 && elementShowHeight > item.delay) {
+	          item.onStart.only = false;
+	        }
+	        if ((elementShowHeight >= item.delay && currentShow <= item.delay && scrollTopValue > 0 || elementShowHeight <= item.delay && currentShow >= item.delay && scrollTopValue < 0) && !item.onStart.only) {
+	          item.onStart.only = true;
+	          item.onStart();
+	        }
+	        var time = item.delay + item.duration;
+	        if (scrollTopValue > 0 && elementShowHeight < time || scrollTopValue < 0 && elementShowHeight > time) {
+	          item.onComplete.only = false;
+	        }
+	        if (!item.onComplete.only && (elementShowHeight >= time && currentShow <= time && scrollTopValue > 0 || elementShowHeight <= time && currentShow >= time && scrollTopValue < 0)) {
+	          item.onComplete();
+	          item.onComplete.only = true;
+	        }
+	      });
+	      _ticker2.default.clear(_this.tickerId);
+	      _this.tickerId = 'scrollParallax' + Date.now() + '-' + tickerId;
+	      tickerId++;
+	      if (tickerId >= Number.MAX_VALUE) {
+	        tickerId = 0;
+	      }
+	      var startFrame = _ticker2.default.frame;
+	      _ticker2.default.wake(_this.tickerId, function () {
+	        var moment = (_ticker2.default.frame - startFrame) * _ticker2.default.perFrame;
+	        var ratio = _tweenFunctions2.default.easeOutQuad(moment, 0.08, 1, 300);
+	        _this.timeline.frame(currentShow + ratio * (elementShowHeight - currentShow));
+	        if (moment >= 300) {
+	          _ticker2.default.clear(_this.tickerId);
+	        }
+	      });
+	
+	      _this.scrollTop = scrollTop;
+	      // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
+	      if (_this.defaultData.every(function (c) {
+	        return c.onComplete.only;
+	      }) && !_this.props.always) {
+	        _EventDispatcher2.default.removeEventListener(_this.eventType, _this.scrollEventListener);
+	      }
+	    };
+	
 	    _this.scrollTop = 0;
 	    _this.defaultTweenData = [];
 	    _this.defaultData = [];
 	    _this.state = {};
-	    ['scrollEventListener'].forEach(function (method) {
-	      return _this[method] = _this[method].bind(_this);
-	    });
 	    return _this;
 	  }
 	
@@ -21859,87 +21928,6 @@
 	    _EventDispatcher2.default.removeEventListener(this.eventType, this.scrollEventListener);
 	  };
 	
-	  ScrollParallax.prototype.setDefaultData = function setDefaultData(_vars) {
-	    var _this3 = this;
-	
-	    var vars = (0, _util.dataToArray)(_vars);
-	    var varsForIn = function varsForIn(item, i) {
-	      var playScale = playScaleToArray(item.playScale).map(function (data) {
-	        return data * _this3.clientHeight;
-	      });
-	      var __item = _extends({}, item);
-	      delete __item.playScale;
-	      var _item = _extends({}, item);
-	      delete _item.playScale;
-	      _item.delay = __item.delay = playScale[0];
-	      _item.duration = __item.duration = playScale[1] - playScale[0];
-	      _item.onStart = null;
-	      _item.onUpdate = null;
-	      _item.onComplete = null;
-	      _item.onRepeat = null;
-	      __item.onStart = __item.onStart || noop;
-	      __item.onComplete = __item.onComplete || noop;
-	      _this3.defaultTweenData[i] = _item;
-	      _this3.defaultData[i] = __item;
-	    };
-	    vars.forEach(varsForIn);
-	  };
-	
-	  ScrollParallax.prototype.scrollEventListener = function scrollEventListener() {
-	    var _this4 = this;
-	
-	    var scrollTop = (0, _util.currentScrollTop)();
-	    this.clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	    var dom = this.props.location ? _Mapped2.default.get(this.props.location) : this.dom;
-	    if (!dom) {
-	      throw new Error('"location" is null');
-	    }
-	    var offsetTop = dom.getBoundingClientRect().top + scrollTop;
-	    var elementShowHeight = scrollTop - offsetTop + this.clientHeight;
-	    var currentShow = this.scrollTop - offsetTop + this.clientHeight;
-	    var scrollTopValue = scrollTop - this.scrollTop;
-	    this.defaultData.forEach(function (item) {
-	      if (scrollTopValue > 0 && elementShowHeight < item.delay || scrollTopValue < 0 && elementShowHeight > item.delay) {
-	        item.onStart.only = false;
-	      }
-	      if ((elementShowHeight >= item.delay && currentShow <= item.delay && scrollTopValue > 0 || elementShowHeight <= item.delay && currentShow >= item.delay && scrollTopValue < 0) && !item.onStart.only) {
-	        item.onStart.only = true;
-	        item.onStart();
-	      }
-	      var time = item.delay + item.duration;
-	      if (scrollTopValue > 0 && elementShowHeight < time || scrollTopValue < 0 && elementShowHeight > time) {
-	        item.onComplete.only = false;
-	      }
-	      if (!item.onComplete.only && (elementShowHeight >= time && currentShow <= time && scrollTopValue > 0 || elementShowHeight <= time && currentShow >= time && scrollTopValue < 0)) {
-	        item.onComplete();
-	        item.onComplete.only = true;
-	      }
-	    });
-	    _ticker2.default.clear(this.tickerId);
-	    this.tickerId = 'scrollParallax' + Date.now() + '-' + tickerId;
-	    tickerId++;
-	    if (tickerId >= Number.MAX_VALUE) {
-	      tickerId = 0;
-	    }
-	    var startFrame = _ticker2.default.frame;
-	    _ticker2.default.wake(this.tickerId, function () {
-	      var moment = (_ticker2.default.frame - startFrame) * _ticker2.default.perFrame;
-	      var ratio = _tweenFunctions2.default.easeOutQuad(moment, 0.08, 1, 300);
-	      _this4.timeline.frame(currentShow + ratio * (elementShowHeight - currentShow));
-	      if (moment >= 300) {
-	        _ticker2.default.clear(_this4.tickerId);
-	      }
-	    });
-	
-	    this.scrollTop = scrollTop;
-	    // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
-	    if (this.defaultData.every(function (c) {
-	      return c.onComplete.only;
-	    }) && !this.props.always) {
-	      _EventDispatcher2.default.removeEventListener(this.eventType, this.scrollEventListener);
-	    }
-	  };
-	
 	  ScrollParallax.prototype.render = function render() {
 	    var props = _extends({}, this.props);
 	    ['animation', 'always', 'component', 'location', 'scrollName'].forEach(function (key) {
@@ -21962,16 +21950,14 @@
 	  return ScrollParallax;
 	}(_react2.default.Component);
 	
-	var objectOrArray = _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.object, _react2.default.PropTypes.array]);
-	var childPropTypes = _react2.default.PropTypes.oneOfType([objectOrArray, _react2.default.PropTypes.string]);
 	ScrollParallax.propTypes = {
 	  component: _react2.default.PropTypes.string,
-	  animation: objectOrArray,
+	  animation: _react2.default.PropTypes.any,
 	  always: _react2.default.PropTypes.bool,
 	  location: _react2.default.PropTypes.string,
-	  children: childPropTypes,
+	  children: _react2.default.PropTypes.any,
 	  className: _react2.default.PropTypes.string,
-	  style: objectOrArray,
+	  style: _react2.default.PropTypes.any,
 	  scrollName: _react2.default.PropTypes.string
 	};
 	
@@ -23943,13 +23929,88 @@
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	
+	    _this.onClick = function (e) {
+	      e.preventDefault();
+	      var docRect = document.documentElement.getBoundingClientRect();
+	      var elementDom = _Mapped2.default.get(_this.props.location);
+	      var elementRect = elementDom.getBoundingClientRect();
+	      _this.scrollTop = (0, _util.currentScrollTop)();
+	      var toTop = Math.round(elementRect.top) - Math.round(docRect.top) + _this.props.offsetTop;
+	      _this.toTop = _this.props.toShowHeight ? toTop - (0, _util.transformArguments)(_this.props.showHeightActive)[0] : toTop;
+	      _this.initTime = Date.now();
+	      _this.rafID = (0, _raf2.default)(_this.raf);
+	    };
+	
+	    _this.raf = function () {
+	      if (_this.rafID === -1) {
+	        return;
+	      }
+	      var duration = _this.props.duration;
+	      var now = Date.now();
+	      var progressTime = now - _this.initTime > duration ? duration : now - _this.initTime;
+	      var easeValue = _tweenFunctions2.default[_this.props.ease](progressTime, _this.scrollTop, _this.toTop, duration);
+	      window.scrollTo(window.scrollX, easeValue);
+	      if (progressTime === duration) {
+	        _this.cancelRequestAnimationFrame();
+	      } else {
+	        _this.rafID = (0, _raf2.default)(_this.raf);
+	      }
+	    };
+	
+	    _this.cancelRequestAnimationFrame = function () {
+	      _raf2.default.cancel(_this.rafID);
+	      _this.rafID = -1;
+	    };
+	
+	    _this.scrollEventListener = function () {
+	      var docRect = document.documentElement.getBoundingClientRect();
+	      var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	      var elementDom = _Mapped2.default.get(_this.props.location);
+	      if (!elementDom) {
+	        throw new Error('There is no location(' + _this.props.location + ') in the element.');
+	      }
+	      var elementRect = elementDom.getBoundingClientRect();
+	      var elementClientHeight = elementDom.clientHeight;
+	      var scrollTop = (0, _util.currentScrollTop)();
+	      var top = Math.round(docRect.top - elementRect.top + scrollTop);
+	      var showHeightActive = (0, _util.transformArguments)(_this.props.showHeightActive);
+	      var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * clientHeight : parseFloat(showHeightActive[0]);
+	      var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * clientHeight : parseFloat(showHeightActive[1]);
+	      if (top >= -startShowHeight && top < elementClientHeight - endShowHeight) {
+	        if (!_this.props.onFocus.only) {
+	          var obj = {
+	            target: _this.dom,
+	            location: _this.props.location
+	          };
+	          _this.props.onFocus.call(_this, obj);
+	          _this.props.onFocus.only = true;
+	        }
+	        if (!_this.state.active) {
+	          _this.setState({
+	            active: true
+	          });
+	        }
+	      } else {
+	        if (_this.props.onFocus.only) {
+	          var _obj = {
+	            target: _this.dom,
+	            location: _this.props.location
+	          };
+	          _this.props.onBlur.call(_this, _obj);
+	        }
+	        _this.props.onFocus.only = false;
+	        if (_this.state.active) {
+	          _this.setState({
+	            active: false
+	          });
+	        }
+	      }
+	    };
+	
 	    _this.rafID = -1;
 	    _this.state = {
 	      active: false
 	    };
-	    ['scrollEventListener', 'onClick', 'raf'].forEach(function (method) {
-	      return _this[method] = _this[method].bind(_this);
-	    });
 	    return _this;
 	  }
 	
@@ -23972,84 +24033,6 @@
 	    this.cancelRequestAnimationFrame();
 	  };
 	
-	  ScrollLink.prototype.onClick = function onClick(e) {
-	    e.preventDefault();
-	    var docRect = document.documentElement.getBoundingClientRect();
-	    var elementDom = _Mapped2.default.get(this.props.location);
-	    var elementRect = elementDom.getBoundingClientRect();
-	    this.scrollTop = (0, _util.currentScrollTop)();
-	    var toTop = Math.round(elementRect.top) - Math.round(docRect.top);
-	    this.toTop = this.props.toShowHeight ? toTop - (0, _util.transformArguments)(this.props.showHeightActive)[0] : toTop;
-	    this.initTime = Date.now();
-	    this.rafID = (0, _raf2.default)(this.raf);
-	  };
-	
-	  ScrollLink.prototype.raf = function raf() {
-	    if (this.rafID === -1) {
-	      return;
-	    }
-	    var duration = this.props.duration;
-	    var now = Date.now();
-	    var progressTime = now - this.initTime > duration ? duration : now - this.initTime;
-	    var easeValue = _tweenFunctions2.default[this.props.ease](progressTime, this.scrollTop, this.toTop, duration);
-	    window.scrollTo(window.scrollX, easeValue);
-	    if (progressTime === duration) {
-	      this.cancelRequestAnimationFrame();
-	    } else {
-	      this.rafID = (0, _raf2.default)(this.raf);
-	    }
-	  };
-	
-	  ScrollLink.prototype.cancelRequestAnimationFrame = function cancelRequestAnimationFrame() {
-	    _raf2.default.cancel(this.rafID);
-	    this.rafID = -1;
-	  };
-	
-	  ScrollLink.prototype.scrollEventListener = function scrollEventListener() {
-	    var docRect = document.documentElement.getBoundingClientRect();
-	    var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	    var elementDom = _Mapped2.default.get(this.props.location);
-	    if (!elementDom) {
-	      throw new Error('There is no location(' + this.props.location + ') in the element.');
-	    }
-	    var elementRect = elementDom.getBoundingClientRect();
-	    var elementClientHeight = elementDom.clientHeight;
-	    var scrollTop = (0, _util.currentScrollTop)();
-	    var top = Math.round(docRect.top - elementRect.top + scrollTop);
-	    var showHeightActive = (0, _util.transformArguments)(this.props.showHeightActive);
-	    var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * clientHeight : parseFloat(showHeightActive[0]);
-	    var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * clientHeight : parseFloat(showHeightActive[1]);
-	    if (top >= -startShowHeight && top < elementClientHeight - endShowHeight) {
-	      if (!this.props.onFocus.only) {
-	        var obj = {
-	          target: this.dom,
-	          location: this.props.location
-	        };
-	        this.props.onFocus.call(this, obj);
-	        this.props.onFocus.only = true;
-	      }
-	      if (!this.state.active) {
-	        this.setState({
-	          active: true
-	        });
-	      }
-	    } else {
-	      if (this.props.onFocus.only) {
-	        var _obj = {
-	          target: this.dom,
-	          location: this.props.location
-	        };
-	        this.props.onBlur.call(this, _obj);
-	      }
-	      this.props.onFocus.only = false;
-	      if (this.state.active) {
-	        this.setState({
-	          active: false
-	        });
-	      }
-	    }
-	  };
-	
 	  ScrollLink.prototype.render = function render() {
 	    var _this3 = this;
 	
@@ -24061,7 +24044,7 @@
 	        _this3.onClick(e);
 	      }
 	    });
-	    ['component', 'duration', 'active', 'location', 'showHeightActive', 'ease', 'toShowHeight'].forEach(function (key) {
+	    ['component', 'duration', 'active', 'location', 'showHeightActive', 'ease', 'toShowHeight', 'offsetTop'].forEach(function (key) {
 	      return delete props[key];
 	    });
 	    var reg = new RegExp(active, 'ig');
@@ -24073,19 +24056,16 @@
 	  return ScrollLink;
 	}(_react2.default.Component);
 	
-	var stringOrNumber = _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]);
-	var stringOrNumberOrArray = _react2.default.PropTypes.oneOfType([stringOrNumber, _react2.default.PropTypes.array]);
-	var objectOrArray = _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.object, _react2.default.PropTypes.array]);
-	var childPropTypes = _react2.default.PropTypes.oneOfType([objectOrArray, _react2.default.PropTypes.string]);
 	ScrollLink.propTypes = {
 	  component: _react2.default.PropTypes.string,
-	  children: childPropTypes,
+	  children: _react2.default.PropTypes.any,
 	  className: _react2.default.PropTypes.string,
-	  style: objectOrArray,
+	  style: _react2.default.PropTypes.any,
+	  offsetTop: _react2.default.PropTypes.number,
 	  duration: _react2.default.PropTypes.number,
 	  active: _react2.default.PropTypes.string,
 	  location: _react2.default.PropTypes.string,
-	  showHeightActive: stringOrNumberOrArray,
+	  showHeightActive: _react2.default.PropTypes.any,
 	  toShowHeight: _react2.default.PropTypes.bool,
 	  ease: _react2.default.PropTypes.string,
 	  onClick: _react2.default.PropTypes.func,
@@ -24095,6 +24075,7 @@
 	
 	ScrollLink.defaultProps = {
 	  component: 'div',
+	  offsetTop: 0,
 	  duration: 450,
 	  active: 'active',
 	  showHeightActive: '50%',
@@ -24496,7 +24477,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.3.9",
+		"version": "0.4.0",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",

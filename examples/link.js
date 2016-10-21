@@ -106,14 +106,14 @@ webpackJsonp([0],{
 	          { className: 'nav-wap' },
 	          _react2.default.createElement(
 	            Link,
-	            { className: 'nav-list', location: 'page0',
+	            { className: 'nav-list', location: 'page0', offsetTop: -58,
 	              onFocus: this.onFocus.bind(this)
 	            },
 	            'Example'
 	          ),
 	          _react2.default.createElement(
 	            Link,
-	            { className: 'nav-list', location: 'page1',
+	            { className: 'nav-list', location: 'page1', offsetTop: -58,
 	              onFocus: this.onFocus.bind(this)
 	            },
 	            'Example2'
