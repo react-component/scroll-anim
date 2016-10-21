@@ -31,9 +31,6 @@ class ScrollParallax extends React.Component {
     this.defaultTweenData = [];
     this.defaultData = [];
     this.state = {};
-    [
-      'scrollEventListener',
-    ].forEach((method) => this[method] = this[method].bind(this));
   }
 
   componentDidMount() {
@@ -71,7 +68,7 @@ class ScrollParallax extends React.Component {
     EventListener.removeEventListener(this.eventType, this.scrollEventListener);
   }
 
-  setDefaultData(_vars) {
+  setDefaultData = _vars => {
     const vars = dataToArray(_vars);
     const varsForIn = (item, i) => {
       const playScale = playScaleToArray(item.playScale).map(data => data * this.clientHeight);
@@ -93,7 +90,7 @@ class ScrollParallax extends React.Component {
     vars.forEach(varsForIn);
   }
 
-  scrollEventListener() {
+  scrollEventListener = () => {
     const scrollTop = currentScrollTop();
     this.clientHeight = window.innerHeight ||
       document.documentElement.clientHeight || document.body.clientHeight;
@@ -175,16 +172,14 @@ class ScrollParallax extends React.Component {
   }
 }
 
-const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
-const childPropTypes = React.PropTypes.oneOfType([objectOrArray, React.PropTypes.string]);
 ScrollParallax.propTypes = {
   component: React.PropTypes.string,
-  animation: objectOrArray,
+  animation: React.PropTypes.any,
   always: React.PropTypes.bool,
   location: React.PropTypes.string,
-  children: childPropTypes,
+  children: React.PropTypes.any,
   className: React.PropTypes.string,
-  style: objectOrArray,
+  style: React.PropTypes.any,
   scrollName: React.PropTypes.string,
 };
 

@@ -24,9 +24,6 @@ class ScrollOverPack extends React.Component {
       show: false,
       children: toArrayChildren(this.props.children),
     };
-    [
-      'scrollEventListener',
-    ].forEach((method) => this[method] = this[method].bind(this));
   }
 
   componentDidMount() {
@@ -53,7 +50,7 @@ class ScrollOverPack extends React.Component {
     EventListener.removeEventListener(this.eventType, this.scrollEventListener);
   }
 
-  scrollEventListener(e) {
+  scrollEventListener = (e) => {
     const clientHeight = window.innerHeight ||
       document.documentElement.clientHeight || document.body.clientHeight;
     const scrollTop = currentScrollTop();
@@ -136,16 +133,14 @@ class ScrollOverPack extends React.Component {
     return childToRender;
   }
 }
-const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
-const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.array]);
 ScrollOverPack.propTypes = {
   component: React.PropTypes.string,
-  playScale: numberOrArray,
+  playScale: React.PropTypes.any,
   always: React.PropTypes.bool,
   scrollEvent: React.PropTypes.func,
-  children: objectOrArray,
+  children: React.PropTypes.any,
   className: React.PropTypes.string,
-  style: objectOrArray,
+  style: React.PropTypes.any,
   scrollName: React.PropTypes.string,
   replay: React.PropTypes.bool,
   onChange: React.PropTypes.func,

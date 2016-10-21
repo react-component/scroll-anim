@@ -161,6 +161,7 @@ ScrollAnim.scrollScreen.unMount();
 | active    | string         | `active`| selected className  |
 | showHeightActive| string / number / array | `50%` | enter distance window top `50%` add `active`, leave same; is array [enter, leave]; |
 | toShowHeight | boolean     | false   | scroll to `showHeightActive` |
+| offsetTop |  number        |  0      | scroll to elem top offset  |
 | onFocus   | func           | null    | check callback,onFocus({target,to}) |
 | onBlur    | func           | null    | blur callback ｜
 | component | string         | `div`   | -            |

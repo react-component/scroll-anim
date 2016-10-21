@@ -20,11 +20,6 @@ class ScrollLink extends React.Component {
     this.state = {
       active: false,
     };
-    [
-      'scrollEventListener',
-      'onClick',
-      'raf',
-    ].forEach((method) => this[method] = this[method].bind(this));
   }
 
   componentDidMount() {
@@ -44,20 +39,20 @@ class ScrollLink extends React.Component {
     this.cancelRequestAnimationFrame();
   }
 
-  onClick(e) {
+  onClick = (e) => {
     e.preventDefault();
     const docRect = document.documentElement.getBoundingClientRect();
     const elementDom = mapped.get(this.props.location);
     const elementRect = elementDom.getBoundingClientRect();
     this.scrollTop = currentScrollTop();
-    const toTop = Math.round(elementRect.top) - Math.round(docRect.top) + Math.round(this.props.offset?this.props.offset:0);
+    const toTop = Math.round(elementRect.top) - Math.round(docRect.top) + this.props.offsetTop;
     this.toTop = this.props.toShowHeight ?
     toTop - transformArguments(this.props.showHeightActive)[0] : toTop;
     this.initTime = Date.now();
     this.rafID = requestAnimationFrame(this.raf);
   }
 
-  raf() {
+  raf = () => {
     if (this.rafID === -1) {
       return;
     }
@@ -74,12 +69,12 @@ class ScrollLink extends React.Component {
     }
   }
 
-  cancelRequestAnimationFrame() {
+  cancelRequestAnimationFrame = () => {
     requestAnimationFrame.cancel(this.rafID);
     this.rafID = -1;
   }
 
-  scrollEventListener() {
+  scrollEventListener = () => {
     const docRect = document.documentElement.getBoundingClientRect();
     const clientHeight = window.innerHeight ||
       document.documentElement.clientHeight || document.body.clientHeight;
@@ -147,6 +142,7 @@ class ScrollLink extends React.Component {
       'showHeightActive',
       'ease',
       'toShowHeight',
+      'offsetTop',
     ].forEach(key => delete props[key]);
     const reg = new RegExp(active, 'ig');
     const className = props.className || '';
@@ -156,19 +152,16 @@ class ScrollLink extends React.Component {
   }
 }
 
-const stringOrNumber = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]);
-const stringOrNumberOrArray = React.PropTypes.oneOfType([stringOrNumber, React.PropTypes.array]);
-const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
-const childPropTypes = React.PropTypes.oneOfType([objectOrArray, React.PropTypes.string]);
 ScrollLink.propTypes = {
   component: React.PropTypes.string,
-  children: childPropTypes,
+  children: React.PropTypes.any,
   className: React.PropTypes.string,
-  style: objectOrArray,
+  style: React.PropTypes.any,
+  offsetTop: React.PropTypes.number,
   duration: React.PropTypes.number,
   active: React.PropTypes.string,
   location: React.PropTypes.string,
-  showHeightActive: stringOrNumberOrArray,
+  showHeightActive: React.PropTypes.any,
   toShowHeight: React.PropTypes.bool,
   ease: React.PropTypes.string,
   onClick: React.PropTypes.func,
@@ -178,6 +171,7 @@ ScrollLink.propTypes = {
 
 ScrollLink.defaultProps = {
   component: 'div',
+  offsetTop: 0,
   duration: 450,
   active: 'active',
   showHeightActive: '50%',
