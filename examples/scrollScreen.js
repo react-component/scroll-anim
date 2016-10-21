@@ -3,12 +3,12 @@ webpackJsonp([2],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(216);
+	module.exports = __webpack_require__(213);
 
 
 /***/ },
 
-/***/ 195:
+/***/ 193:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,7 +17,7 @@ webpackJsonp([2],{
 	  value: true
 	});
 	
-	var _QueueAnim = __webpack_require__(196);
+	var _QueueAnim = __webpack_require__(194);
 	
 	var _QueueAnim2 = _interopRequireDefault(_QueueAnim);
 	
@@ -29,7 +29,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 196:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {'use strict';
@@ -46,9 +46,9 @@ webpackJsonp([2],{
 	
 	var _reactDom = __webpack_require__(38);
 	
-	var _utils = __webpack_require__(198);
+	var _utils = __webpack_require__(196);
 	
-	var _animTypes = __webpack_require__(199);
+	var _animTypes = __webpack_require__(197);
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
 	
@@ -133,7 +133,7 @@ webpackJsonp([2],{
 	var velocity = void 0;
 	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 	  // only load velocity on the client
-	  velocity = __webpack_require__(200);
+	  velocity = __webpack_require__(198);
 	  Object.keys(_ease).forEach(function (key) {
 	    if (velocity.Easings) {
 	      velocity.Easings[key] = _ease[key];
@@ -486,11 +486,11 @@ webpackJsonp([2],{
 	
 	exports["default"] = QueueAnim;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(197).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(195).setImmediate))
 
 /***/ },
 
-/***/ 197:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(8).nextTick;
@@ -569,11 +569,11 @@ webpackJsonp([2],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(197).setImmediate, __webpack_require__(197).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(195).setImmediate, __webpack_require__(195).clearImmediate))
 
 /***/ },
 
-/***/ 198:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -679,7 +679,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 199:
+/***/ 197:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -728,7 +728,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 200:
+/***/ 198:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
@@ -4620,18 +4620,18 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 201:
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var TweenOne = __webpack_require__(202);
-	TweenOne.TweenOneGroup = __webpack_require__(204);
+	var TweenOne = __webpack_require__(200);
+	TweenOne.TweenOneGroup = __webpack_require__(201);
 	module.exports = TweenOne;
 
 /***/ },
 
-/***/ 202:
+/***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4639,6 +4639,8 @@ webpackJsonp([2],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _react = __webpack_require__(6);
 	
@@ -4648,23 +4650,19 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _objectAssign = __webpack_require__(183);
+	var _util = __webpack_require__(186);
 	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-	
-	var _util = __webpack_require__(203);
-	
-	var _styleUtils = __webpack_require__(187);
+	var _styleUtils = __webpack_require__(185);
 	
 	var _TimeLine = __webpack_require__(182);
 	
 	var _TimeLine2 = _interopRequireDefault(_TimeLine);
 	
-	var _plugins = __webpack_require__(185);
+	var _plugins = __webpack_require__(183);
 	
 	var _plugins2 = _interopRequireDefault(_plugins);
 	
-	var _ticker = __webpack_require__(188);
+	var _ticker = __webpack_require__(187);
 	
 	var _ticker2 = _interopRequireDefault(_ticker);
 	
@@ -4681,8 +4679,6 @@ webpackJsonp([2],{
 	function noop() {}
 	
 	var perFrame = Math.round(1000 / 60);
-	
-	var tickerIdNum = 0;
 	
 	var TweenOne = function (_Component) {
 	  _inherits(TweenOne, _Component);
@@ -4809,9 +4805,7 @@ webpackJsonp([2],{
 	    if (this.paused) {
 	      return;
 	    }
-	    this.rafID = 'tween' + Date.now() + '-' + tickerIdNum;
-	    _ticker2["default"].wake(this.rafID, this.raf);
-	    tickerIdNum++;
+	    this.rafID = _ticker2["default"].add(this.raf);
 	  };
 	
 	  TweenOne.prototype.frame = function frame() {
@@ -4842,20 +4836,18 @@ webpackJsonp([2],{
 	  };
 	
 	  TweenOne.prototype.render = function render() {
-	    var props = (0, _objectAssign2["default"])({}, this.props);
+	    var props = _extends({}, this.props);
 	    ['animation', 'component', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool'].forEach(function (key) {
 	      return delete props[key];
 	    });
-	    props.style = (0, _objectAssign2["default"])({}, this.props.style);
-	    for (var p in props.style) {
-	      if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {
-	        // ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix=> style[`${prefix}Filter`] = style[p]);
-	        var transformArr = ['Webkit', 'Moz', 'Ms', 'ms'];
-	        for (var i = 0; i < transformArr.length; i++) {
-	          props.style[transformArr[i] + 'Filter'] = props.style[p];
-	        }
+	    props.style = _extends({}, this.props.style);
+	    Object.keys(props.style).forEach(function (p) {
+	      if (p.match(/filter/i)) {
+	        ['Webkit', 'Moz', 'Ms', 'ms'].forEach(function (prefix) {
+	          return props.style[prefix + 'Filter'] = props.style[p];
+	        });
 	      }
-	    }
+	    });
 	    props.component = typeof props.component === 'function' ? this.props.componentReplace : props.component;
 	    if (!props.component) {
 	      delete props.component;
@@ -4895,186 +4887,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 203:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
-	exports.toArrayChildren = toArrayChildren;
-	exports.dataToArray = dataToArray;
-	exports.objectEqual = objectEqual;
-	exports.findChildInChildrenByKey = findChildInChildrenByKey;
-	exports.mergeChildren = mergeChildren;
-	exports.transformArguments = transformArguments;
-	exports.getChildrenFromProps = getChildrenFromProps;
-	
-	var _react = __webpack_require__(6);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function toArrayChildren(children) {
-	  var ret = [];
-	  _react2["default"].Children.forEach(children, function (c) {
-	    ret.push(c);
-	  });
-	  return ret;
-	}
-	
-	function dataToArray(vars) {
-	  if (!vars && vars !== 0) {
-	    return [];
-	  }
-	  if (Array.isArray(vars)) {
-	    return vars;
-	  }
-	  return [vars];
-	}
-	
-	function objectEqual(obj1, obj2) {
-	  if (obj1 === obj2) {
-	    return true;
-	  }
-	  if (!obj1 || !obj2) {
-	    return false;
-	  }
-	  var equalBool = true;
-	  if (Array.isArray(obj1) && Array.isArray(obj2)) {
-	    for (var i = 0; i < obj1.length; i++) {
-	      var currentObj = obj1[i];
-	      var nextObj = obj2[i];
-	      for (var p in currentObj) {
-	        if (currentObj[p] !== nextObj[p]) {
-	          if (_typeof(currentObj[p]) === 'object' && _typeof(nextObj[p]) === 'object') {
-	            equalBool = objectEqual(currentObj[p], nextObj[p]);
-	          } else {
-	            equalBool = false;
-	            return false;
-	          }
-	        }
-	      }
-	    }
-	  }
-	
-	  Object.keys(obj1).forEach(function (key) {
-	    if (!(key in obj2)) {
-	      equalBool = false;
-	      return false;
-	    }
-	
-	    if (_typeof(obj1[key]) === 'object' && _typeof(obj2[key]) === 'object') {
-	      equalBool = objectEqual(obj1[key], obj2[key]);
-	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
-	      if (obj1[key].name !== obj2[key].name) {
-	        equalBool = false;
-	      }
-	    } else if (obj1[key] !== obj2[key]) {
-	      equalBool = false;
-	    }
-	  });
-	
-	  Object.keys(obj2).forEach(function (key) {
-	    if (!(key in obj1)) {
-	      equalBool = false;
-	      return false;
-	    }
-	    if (_typeof(obj2[key]) === 'object' && _typeof(obj1[key]) === 'object') {
-	      equalBool = objectEqual(obj2[key], obj1[key]);
-	    } else if (typeof obj1[key] === 'function' && typeof obj2[key] === 'function') {
-	      if (obj1[key].name !== obj2[key].name) {
-	        equalBool = false;
-	      }
-	    } else if (obj2[key] !== obj1[key]) {
-	      equalBool = false;
-	    }
-	  });
-	
-	  return equalBool;
-	}
-	
-	function findChildInChildrenByKey(children, key) {
-	  var ret = null;
-	  if (children) {
-	    children.forEach(function (c) {
-	      if (ret || !c) {
-	        return;
-	      }
-	      if (c.key === key) {
-	        ret = c;
-	      }
-	    });
-	  }
-	  return ret;
-	}
-	
-	function mergeChildren(prev, next) {
-	  var ret = [];
-	  // For each key of `next`, the list of keys to insert before that key in
-	  // the combined list
-	  var nextChildrenPending = {};
-	  var pendingChildren = [];
-	  prev.forEach(function (c) {
-	    if (!c) {
-	      return;
-	    }
-	    if (findChildInChildrenByKey(next, c.key)) {
-	      if (pendingChildren.length) {
-	        nextChildrenPending[c.key] = pendingChildren;
-	        pendingChildren = [];
-	      }
-	    } else if (c.key) {
-	      pendingChildren.push(c);
-	    }
-	  });
-	
-	  next.forEach(function (c) {
-	    if (!c) {
-	      return;
-	    }
-	    if (nextChildrenPending.hasOwnProperty(c.key)) {
-	      ret = ret.concat(nextChildrenPending[c.key]);
-	    }
-	    ret.push(c);
-	  });
-	
-	  // 保持原有的顺序
-	  pendingChildren.forEach(function (c) {
-	    var originIndex = prev.indexOf(c);
-	    if (originIndex >= 0) {
-	      ret.splice(originIndex, 0, c);
-	    }
-	  });
-	
-	  return ret;
-	}
-	
-	function transformArguments(arg, key, i) {
-	  var result = void 0;
-	  if (typeof arg === 'function') {
-	    result = arg({
-	      key: key,
-	      index: i
-	    });
-	  } else {
-	    result = arg;
-	  }
-	  return result;
-	}
-	
-	function getChildrenFromProps(props) {
-	  return props && props.children;
-	}
-
-/***/ },
-
-/***/ 204:
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5089,11 +4902,11 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TweenOne = __webpack_require__(202);
+	var _TweenOne = __webpack_require__(200);
 	
 	var _TweenOne2 = _interopRequireDefault(_TweenOne);
 	
-	var _util = __webpack_require__(203);
+	var _util = __webpack_require__(186);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -5283,17 +5096,17 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 205:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(206);
+	module.exports = __webpack_require__(203);
 
 /***/ },
 
-/***/ 206:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5306,13 +5119,13 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(207);
+	var _ChildrenUtils = __webpack_require__(204);
 	
-	var _AnimateChild = __webpack_require__(208);
+	var _AnimateChild = __webpack_require__(205);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(213);
+	var _util = __webpack_require__(210);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5626,7 +5439,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 207:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5749,7 +5562,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 208:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5768,11 +5581,11 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(209);
+	var _cssAnimation = __webpack_require__(206);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(213);
+	var _util = __webpack_require__(210);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5861,7 +5674,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 209:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5872,11 +5685,11 @@ webpackJsonp([2],{
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _Event = __webpack_require__(210);
+	var _Event = __webpack_require__(207);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(211);
+	var _componentClasses = __webpack_require__(208);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -6057,7 +5870,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 210:
+/***/ 207:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6151,7 +5964,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 211:
+/***/ 208:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6159,9 +5972,9 @@ webpackJsonp([2],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(212);
+	  var index = __webpack_require__(209);
 	} catch (err) {
-	  var index = __webpack_require__(212);
+	  var index = __webpack_require__(209);
 	}
 	
 	/**
@@ -6349,7 +6162,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 212:
+/***/ 209:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -6362,7 +6175,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 213:
+/***/ 210:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6395,7 +6208,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 216:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6414,15 +6227,15 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcQueueAnim = __webpack_require__(195);
+	var _rcQueueAnim = __webpack_require__(193);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _rcTweenOne = __webpack_require__(201);
+	var _rcTweenOne = __webpack_require__(199);
 	
 	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
 	
-	var _rcAnimate = __webpack_require__(205);
+	var _rcAnimate = __webpack_require__(202);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
@@ -6436,7 +6249,7 @@ webpackJsonp([2],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } // use jsx to render html, do not modify simple.html
 	
-	var _package = __webpack_require__(214);
+	var _package = __webpack_require__(211);
 	
 	var Link = _rcScrollAnim2.default.Link;
 	var Element = _rcScrollAnim2.default.Element;
@@ -6570,7 +6383,7 @@ webpackJsonp([2],{
 	        _react2.default.createElement(
 	          _rcTweenOne2.default,
 	          { className: 'tween-one', key: '0', animation: { opacity: 1 } },
-	          '每次进入都启动播放'
+	          '\u6BCF\u6B21\u8FDB\u5165\u90FD\u542F\u52A8\u64AD\u653E'
 	        ),
 	        _react2.default.createElement(
 	          _rcQueueAnim2.default,
@@ -6594,7 +6407,7 @@ webpackJsonp([2],{
 	        _react2.default.createElement(
 	          _rcTweenOne2.default,
 	          { className: 'tween-one', animation: { opacity: 1 }, key: 't' },
-	          '只从上往下时播放'
+	          '\u53EA\u4ECE\u4E0A\u5F80\u4E0B\u65F6\u64AD\u653E'
 	        ),
 	        _react2.default.createElement(
 	          _rcAnimate2.default,
@@ -6627,7 +6440,7 @@ webpackJsonp([2],{
 	            className: 'tween-one',
 	            style: { opacity: 0 }
 	          },
-	          '只进入一次'
+	          '\u53EA\u8FDB\u5165\u4E00\u6B21'
 	        ),
 	        _react2.default.createElement(
 	          _rcAnimate2.default,

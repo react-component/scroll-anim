@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(215);
+	module.exports = __webpack_require__(212);
 
 
 /***/ },
 
-/***/ 215:
+/***/ 212:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39,7 +39,7 @@ webpackJsonp([1],{
 	
 	var ScrollParallax = _rcScrollAnim2.default.Parallax;
 	var ScrollElement = _rcScrollAnim2.default.Element;
-	var _package = __webpack_require__(214);
+	var _package = __webpack_require__(211);
 	
 	var Demo = function (_React$Component) {
 	  _inherits(Demo, _React$Component);
@@ -126,7 +126,7 @@ webpackJsonp([1],{
 	            style: { opacity: 0, paddingTop: 60 },
 	            className: 'tween-one'
 	          },
-	          'transform 必需在 style 里设定初始值'
+	          'transform \u5FC5\u9700\u5728 style \u91CC\u8BBE\u5B9A\u521D\u59CB\u503C'
 	        ),
 	        _react2.default.createElement(
 	          ScrollParallax,
@@ -135,7 +135,7 @@ webpackJsonp([1],{
 	            style: { opacity: 0, paddingTop: 0, fontSize: 24 },
 	            className: 'tween-one'
 	          },
-	          '默认显示位置[0 ,1]'
+	          '\u9ED8\u8BA4\u663E\u793A\u4F4D\u7F6E[0 ,1]'
 	        ),
 	        _react2.default.createElement(
 	          ScrollParallax,
@@ -185,7 +185,7 @@ webpackJsonp([1],{
 	            style: { opacity: 0, paddingTop: 60, fontSize: 24 },
 	            className: 'tween-one'
 	          },
-	          '自定义显示位置'
+	          '\u81EA\u5B9A\u4E49\u663E\u793A\u4F4D\u7F6E'
 	        ),
 	        _react2.default.createElement(
 	          ScrollParallax,
@@ -212,7 +212,7 @@ webpackJsonp([1],{
 	            style: { opacity: 0, paddingTop: 60, fontSize: 24 },
 	            className: 'tween-one'
 	          },
-	          '多种样式时间轴动画'
+	          '\u591A\u79CD\u6837\u5F0F\u65F6\u95F4\u8F74\u52A8\u753B'
 	        ),
 	        _react2.default.createElement(
 	          ScrollParallax,
@@ -242,7 +242,7 @@ webpackJsonp([1],{
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'page2-title' },
-	          '视差示例'
+	          '\u89C6\u5DEE\u793A\u4F8B'
 	        ),
 	        _react2.default.createElement(
 	          ScrollParallax,
@@ -317,7 +317,7 @@ webpackJsonp([1],{
 	                textAlign: 'center'
 	              }
 	            },
-	            '示例示例'
+	            '\u793A\u4F8B\u793A\u4F8B'
 	          )
 	        )
 	      )
