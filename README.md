@@ -163,7 +163,7 @@ ScrollAnim.scrollScreen.unMount();
 | toShowHeight | boolean     | false   | scroll to `showHeightActive` |
 | offsetTop |  number        |  0      | scroll to elem top offset  |
 | onFocus   | func           | null    | check callback,onFocus({target,to}) |
-| onBlur    | func           | null    | blur callback ｜
+| onBlur    | func           | null    | blur callback |
 | component | string         | `div`   | -            |
 
 ### Element 
