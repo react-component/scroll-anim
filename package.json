@@ -1,6 +1,6 @@
 {
   "name": "rc-scroll-anim",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "scroll-anim anim component for react",
   "keywords": [
     "react",
@@ -52,8 +52,8 @@
     "lint"
   ],
   "dependencies": {
-    "raf": "3.1.x",
-    "rc-tween-one": "~0.8.0",
-    "tween-functions": "1.0.x"
+    "raf": "3.x",
+    "rc-tween-one": "~0.9.0",
+    "tween-functions": "1.x"
   }
 }
