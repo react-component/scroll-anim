@@ -146,7 +146,7 @@ ScrollAnim.scrollScreen.unMount();
 |-----------|----------------|---------|----------------|
 | playScale | array          | `[0, 1]`| play area, [start, end]<br/> timeline: `[{playScale: [0, 0.2]}, {playScale: [0, 0.8]}]]`, Second will increase by 0.2, The second end is 1  |
 | ease      | string         | `easeInOutQuad`| animation easing string |
-| onUpdate  | function       |    -    |  animate updates, callback: onUpdate(easeValue})   ｜ 
+| onUpdate  | function       |    -    |  animate updates, callback: onUpdate(easeValue})   |
 | onStart   | function       |    -    |  animate start (playScale[0]) callback; |
 | onComplete| function       |    -    |  animate completed (playScale[1]) callback |
 
