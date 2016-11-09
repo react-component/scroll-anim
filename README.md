@@ -108,7 +108,7 @@ ScrollAnim.scrollScreen.unMount();
 
 ## API
 
-<a href='https://motion.ant.design/components/scroll-anim' target='_blank'>中文文档</a>
+<a href='https://motion.ant.design/api/scroll-anim' target='_blank'>中文文档</a>
 
 ### props
 
