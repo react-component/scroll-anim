@@ -133,14 +133,6 @@ OverPack inherit Element; `component` `scrollName` `playScale` `onChange` refer 
 | replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
 | hideProps | object         | `null`  | v0.3.0 children hideProps move here. If the child does not have, default: { children: null }. children be `rc-tween-one` { 'userKey': { reverse: true }} |
 
-### react 15.2.0 react-unknown-prop warnings, hideProps move to tag.
-### ~~children support animation:  `rc-queue-anim` `rc-animte` `rc-tween-one`~~
-
-> ~~children be `rc-queue-anim` `rc-animte` add on label: hideProps={{ child: null }}~~
-
-> ~~children be `rc-tween-one` add on label: hideProps={{ reverse: true }}~~
-
-
 ### Parallax
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
