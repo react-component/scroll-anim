@@ -1,9 +1,9 @@
-webpackJsonp([3],{
+webpackJsonp([1],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(215);
+	module.exports = __webpack_require__(213);
 
 
 /***/ },
@@ -6208,7 +6208,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 215:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6249,13 +6249,14 @@ webpackJsonp([3],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } // use jsx to render html, do not modify simple.html
 	
+	
 	var _package = __webpack_require__(212);
 	
 	var Link = _rcScrollAnim2.default.Link;
 	var Element = _rcScrollAnim2.default.Element;
 	var ScrollOverPack = _rcScrollAnim2.default.OverPack;
 	var EventListener = _rcScrollAnim2.default.Event;
-	_rcScrollAnim2.default.scrollScreen.init({ loop: true });
+	// ScrollAnim.scrollScreen({scrollInterval: 600});
 	
 	var Demo = function (_React$Component) {
 	  _inherits(Demo, _React$Component);
@@ -6265,20 +6266,26 @@ webpackJsonp([3],{
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	
-	    ['barAnimate', 'onFocus'].forEach(function (method) {
-	      return _this[method] = _this[method].bind(_this);
-	    });
+	    _this.onFocus = function (e) {
+	      _this.dom = e.target;
+	      _this.barAnimate();
+	    };
+	
+	    _this.onDataLoadEnd = function (func) {
+	      setTimeout(function () {
+	        _this.setState({ show: true }, func);
+	      }, 1500);
+	    };
+	
+	    _this.state = {
+	      show: false
+	    };
 	    return _this;
 	  }
 	
 	  Demo.prototype.componentDidMount = function componentDidMount() {
 	    // 添加改变窗口事件,可加setTimeout
 	    EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
-	  };
-	
-	  Demo.prototype.onFocus = function onFocus(e) {
-	    this.dom = e.target;
-	    this.barAnimate();
 	  };
 	
 	  Demo.prototype.barAnimate = function barAnimate() {
@@ -6298,53 +6305,54 @@ webpackJsonp([3],{
 	        { className: 'nav' },
 	        _react2.default.createElement(
 	          'div',
+	          { className: 'logo' },
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'Ant Motion'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
 	          { className: 'nav-wap' },
 	          _react2.default.createElement(
 	            Link,
-	            {
-	              className: 'nav-list',
-	              to: 'page0',
-	              showHeightActive: '300',
-	              onFocus: this.onFocus
+	            { className: 'nav-list', to: 'page0', showHeightActive: ['50%', '10%'],
+	              onFocus: this.onFocus,
+	              onAsynchronousAddEvent: this.onDataLoadEnd
 	            },
-	            'Page0'
+	            'Example'
 	          ),
 	          _react2.default.createElement(
 	            Link,
-	            {
-	              className: 'nav-list',
-	              to: 'page1',
-	              showHeightActive: '300',
-	              onFocus: this.onFocus
+	            { className: 'nav-list', to: 'page1', showHeightActive: ['10%', '60%'], toShowHeight: true,
+	              onFocus: this.onFocus,
+	              onAsynchronousAddEvent: this.onDataLoadEnd
 	            },
-	            'Page1'
+	            'Example2'
 	          ),
 	          _react2.default.createElement(
 	            Link,
-	            {
-	              className: 'nav-list',
-	              to: 'page2',
-	              showHeightActive: '300',
-	              onFocus: this.onFocus
+	            { className: 'nav-list', to: 'page2', showHeightActive: ['60%', '50%'], toShowHeight: true,
+	              onFocus: this.onFocus,
+	              onAsynchronousAddEvent: this.onDataLoadEnd
 	            },
-	            'Page2'
+	            'Example3'
 	          ),
 	          _react2.default.createElement(
 	            Link,
-	            {
-	              className: 'nav-list',
-	              to: 'page3',
-	              showHeightActive: '300',
-	              onFocus: this.onFocus
+	            { className: 'nav-list', to: 'page3', offsetTop: 100,
+	              onFocus: this.onFocus,
+	              onAsynchronousAddEvent: this.onDataLoadEnd
 	            },
-	            'Page3'
+	            'Example4'
 	          ),
 	          _react2.default.createElement('div', { ref: 'bar', className: 'nav-bar' })
 	        )
 	      ),
-	      _react2.default.createElement(
+	      this.state.show && [_react2.default.createElement(
 	        Element,
-	        { className: 'pack-page page0', id: 'page0' },
+	        { className: 'pack-page page0', id: 'page0', key: 'banner' },
 	        _react2.default.createElement(
 	          _rcQueueAnim2.default,
 	          { className: 'home-title' },
@@ -6365,47 +6373,40 @@ webpackJsonp([3],{
 	            _react2.default.createElement(
 	              'p',
 	              null,
-	              'A scrollScreen demo'
+	              'The link demo'
 	            )
 	          )
 	        )
-	      ),
-	      _react2.default.createElement(
+	      ), _react2.default.createElement(
 	        ScrollOverPack,
-	        {
-	          id: 'page1',
-	          className: 'page1',
-	          playScale: 1,
-	          replay: true,
-	          hideProps: { 0: { reverse: true } }
-	        },
+	        { id: 'page1', className: 'page1', hideProps: { 0: { reverse: true } }, key: '1' },
 	        _react2.default.createElement(
 	          _rcTweenOne2.default,
 	          { className: 'tween-one', key: '0', animation: { opacity: 1 } },
-	          '\u6BCF\u6B21\u8FDB\u5165\u90FD\u542F\u52A8\u64AD\u653E'
+	          '\u9ED8\u8BA4\u8FDB\u5165\u4E0E\u51FA\u573A'
 	        ),
 	        _react2.default.createElement(
 	          _rcQueueAnim2.default,
 	          { key: '1' },
 	          _react2.default.createElement('div', { key: '0', className: 'demo' }),
-	          _react2.default.createElement('div', { key: '1', className: 'demo' }),
+	          _react2.default.createElement('div', { key: '1', className: 'demo', style: { backgroundColor: '#F38EAD' } }),
 	          _react2.default.createElement('div', { key: '2', className: 'demo' }),
 	          _react2.default.createElement('div', { key: '3', className: 'demo' })
 	        )
-	      ),
-	      _react2.default.createElement(
+	      ), _react2.default.createElement(
 	        ScrollOverPack,
 	        {
 	          className: 'pack-page page2',
-	          style: { backgroundColor: '#174270' },
-	          id: 'page3',
-	          playScale: 1,
-	          hideProps: { t: { reverse: true }, 1: { reverse: true } }
+	          style: { backgroundColor: '#0098CE' },
+	          always: false,
+	          id: 'page2',
+	          hideProps: { 1: { reverse: true } },
+	          key: '2'
 	        },
 	        _react2.default.createElement(
-	          _rcTweenOne2.default,
-	          { className: 'tween-one', animation: { opacity: 1 }, key: 't' },
-	          '\u53EA\u4ECE\u4E0A\u5F80\u4E0B\u65F6\u64AD\u653E'
+	          'div',
+	          { className: 'page2-title' },
+	          '\u53EA\u8FDB\u5165\u4E00\u6B21'
 	        ),
 	        _react2.default.createElement(
 	          _rcAnimate2.default,
@@ -6418,26 +6419,22 @@ webpackJsonp([3],{
 	          key: '1',
 	          style: { transform: 'translateY(100px)', opacity: 0 }
 	        })
-	      ),
-	      _react2.default.createElement(
+	      ), _react2.default.createElement(
 	        ScrollOverPack,
 	        {
 	          className: 'pack-page page3',
 	          style: { backgroundColor: '#174270' },
-	          always: false,
-	          id: 'page2',
-	          playScale: 1,
-	          hideProps: { t: { reverse: true }, 1: { reverse: true } }
+	          playScale: 0.8,
+	          id: 'page3',
+	          hideProps: { title: { reverse: true }, 1: { reverse: true } },
+	          key: '3'
 	        },
 	        _react2.default.createElement(
 	          _rcTweenOne2.default,
-	          {
-	            animation: { opacity: 1 },
-	            key: 't',
-	            className: 'tween-one',
-	            style: { opacity: 0 }
+	          { animation: { opacity: 1 }, style: { opacity: 0 }, key: 'title',
+	            className: 'page2-title'
 	          },
-	          '\u53EA\u8FDB\u5165\u4E00\u6B21'
+	          '\u5728\u9875\u976280\uFF05\u65F6\u8FDB\u5165'
 	        ),
 	        _react2.default.createElement(
 	          _rcAnimate2.default,
@@ -6450,7 +6447,7 @@ webpackJsonp([3],{
 	          key: '1',
 	          style: { transform: 'translateY(100px)', opacity: 0 }
 	        })
-	      )
+	      )]
 	    );
 	  };
 	
@@ -6462,4 +6459,4 @@ webpackJsonp([3],{
 /***/ }
 
 });
-//# sourceMappingURL=scrollScreen.js.map
+//# sourceMappingURL=linkAsynchronous.js.map

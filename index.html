@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.4.1 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@0.5.0 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.4.1</h1>
+  <h1>rc-scroll-anim@0.5.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -745,6 +745,8 @@
     <ul>
       
       <li><a href="examples/link.html">link</a></li>
+      
+      <li><a href="examples/linkAsynchronous.html">linkAsynchronous</a></li>
       
       <li><a href="examples/parallax.html">parallax</a></li>
       
@@ -819,8 +821,8 @@ React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-titl
   <span class="hljs-tag">&lt;<span class="hljs-title">Element</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page0"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-title">Element</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">Element</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span> <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page1"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-title">Element</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,container);</span></code></pre></div><h3>scrollScreen<a id="user-content-scrollscreen" name="scrollscreen" class="anchor" aria-hidden="true" href="#scrollscreen"><span class="octicon octicon-link"></span></a></h3><div class="highlight"><pre><code language="js">ScrollAnim.scrollScreen.init();
-ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><p><a href='http://motion.ant.design/#/components/scroll-anim' target='_blank'>中文文档</a></p>
-<h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><h3>OverPack<a id="user-content-overpack" name="overpack" class="anchor" aria-hidden="true" href="#overpack"><span class="octicon octicon-link"></span></a></h3><table>
+ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><p><a href='https://motion.ant.design/api/scroll-anim' target='_blank'>中文文档</a></p>
+<h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><h3>Element<a id="user-content-element" name="element" class="anchor" aria-hidden="true" href="#element"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>
 <tr>
 <th>name</th>
@@ -834,7 +836,13 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>component</td>
 <td>string</td>
 <td><code>div</code></td>
-<td>component tag</td>
+<td>-</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>null</td>
+<td>need to location the id，parallax the <code>location</code> or link the <code>to</code>, need to use</td>
 </tr>
 <tr>
 <td>playScale</td>
@@ -843,28 +851,38 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>percentage of screen to start play, screen center is 0.5, if replay is true : [bottomEnter, topLeave]， topLeave &gt;= bottomEnter</td>
 </tr>
 <tr>
+<td>onChange</td>
+<td>func</td>
+<td>null</td>
+<td>change callback({ mode, scrollName }); mode: <code>enter</code> or <code>leave</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: if the element is not the above component, you need to location this element; please use the <code>Element</code></p>
+</blockquote>
+<h3>OverPack<a id="user-content-overpack" name="overpack" class="anchor" aria-hidden="true" href="#overpack"><span class="octicon octicon-link"></span></a></h3><p>OverPack inherit Element; <code>component</code> <code>scrollName</code> <code>playScale</code> <code>onChange</code> refer to  <code>Element</code>;</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>always</td>
 <td>boolean</td>
 <td><code>true</code></td>
 <td>back to top, enter replay，as <code>false</code> will only play it again, leave does not play</td>
 </tr>
 <tr>
-<td>scrollName</td>
-<td>string</td>
-<td><code>null</code></td>
-<td>need to location the name，parallax the <code>location</code> or link the <code>location</code>, need to use</td>
-</tr>
-<tr>
 <td>replay</td>
 <td>boolean</td>
 <td><code>false</code></td>
 <td>play every enter, do you want to animate each time you show the current, <code>false</code> only scroll to down play animate</td>
-</tr>
-<tr>
-<td>onChange</td>
-<td>func</td>
-<td><code>null</code></td>
-<td>callback({ mode, scrollName }), mode: <code>enter</code> <code>leave</code></td>
 </tr>
 <tr>
 <td>hideProps</td>
@@ -898,18 +916,12 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>location</td>
 <td>string</td>
 <td><code>null</code></td>
-<td>location, <code>Element</code> the <code>scrollName</code>, only scroll name</td>
+<td>location, <code>Element</code> the id, only scroll name</td>
 </tr>
 <tr>
 <td>always</td>
 <td>boolean</td>
 <td><code>true</code></td>
-<td>-</td>
-</tr>
-<tr>
-<td>scrollName</td>
-<td>string</td>
-<td><code>null</code></td>
 <td>-</td>
 </tr>
 <tr>
@@ -952,13 +964,25 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>onStart</td>
 <td>function</td>
 <td>-</td>
-<td>animate start (playScale[0]) callback;</td>
+<td>scroll down animate start (playScale[0]) callback;</td>
 </tr>
 <tr>
 <td>onComplete</td>
 <td>function</td>
 <td>-</td>
-<td>animate completed (playScale[1]) callback</td>
+<td>scroll down animate completed (playScale[1]) callback</td>
+</tr>
+<tr>
+<td>onStartBack</td>
+<td>function</td>
+<td>-</td>
+<td>scroll up animate start (playScale[1]) callback;</td>
+</tr>
+<tr>
+<td>onCompleteBack</td>
+<td>function</td>
+<td>-</td>
+<td>scroll up animate completed (playScale[0]) callback;</td>
 </tr>
 </tbody>
 </table>
@@ -976,10 +1000,16 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 </thead>
 <tbody>
 <tr>
-<td>location</td>
+<td>to</td>
 <td>string</td>
 <td><code>null</code></td>
-<td>need; Specifies the element to top; <code>Element</code> the <code>scrollName</code></td>
+<td>need; Specifies the element to top; <code>Element</code> the id</td>
+</tr>
+<tr>
+<td>toHash</td>
+<td>boolean</td>
+<td>true</td>
+<td>add <code>to</code> to the <code>location.hash</code></td>
 </tr>
 <tr>
 <td>duration</td>
@@ -1003,7 +1033,7 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>showHeightActive</td>
 <td>string / number / array</td>
 <td><code>50%</code></td>
-<td>enter distance window top <code>50%</code> add <code>active</code>, leave same; is array [enter, leave];</td>
+<td>enter: the element offset top <code>50%</code> add <code>active</code>, leave: the element in the window <code>50%</code> remove <code>active</code>; is array [enter, leave];</td>
 </tr>
 <tr>
 <td>toShowHeight</td>
@@ -1030,28 +1060,10 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>blur callback</td>
 </tr>
 <tr>
-<td>component</td>
-<td>string</td>
-<td><code>div</code></td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<h3>Element<a id="user-content-element" name="element" class="anchor" aria-hidden="true" href="#element"><span class="octicon octicon-link"></span></a></h3><table>
-<thead>
-<tr>
-<th>name</th>
-<th>type</th>
-<th>default</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scrollName</td>
-<td>string</td>
+<td>onAsynchronousAddEvent</td>
+<td>func</td>
 <td>null</td>
-<td>-</td>
+<td>Asynchronous add onScroll; callback(function) <a href="http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html" title="null">refs</a></td>
 </tr>
 <tr>
 <td>component</td>
@@ -1061,9 +1073,6 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>Note: if the element is not the above component, you need to location this element; please use the <code>Element</code></p>
-</blockquote>
 <h3>ScrollAnim.scrollScreen.init(vars)<a id="user-content-scrollanim.scrollscreen.init(vars)" name="scrollanim.scrollscreen.init(vars)" class="anchor" aria-hidden="true" href="#scrollanim.scrollscreen.init(vars)"><span class="octicon octicon-link"></span></a></h3><p>Use: scroll a screen window;</p>
 <h4>vars = { }<a id="user-content-vars-=-{-}" name="vars-=-{-}" class="anchor" aria-hidden="true" href="#vars-=-{-}"><span class="octicon octicon-link"></span></a></h4><table>
 <thead>

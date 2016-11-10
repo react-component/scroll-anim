@@ -1,14 +1,14 @@
-webpackJsonp([1],{
+webpackJsonp([2],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(212);
+	module.exports = __webpack_require__(214);
 
 
 /***/ },
 
-/***/ 212:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23,7 +23,7 @@ webpackJsonp([1],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(38);
+	var _reactDom = __webpack_require__(41);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -39,7 +39,7 @@ webpackJsonp([1],{
 	
 	var ScrollParallax = _rcScrollAnim2.default.Parallax;
 	var ScrollElement = _rcScrollAnim2.default.Element;
-	var _package = __webpack_require__(211);
+	var _package = __webpack_require__(212);
 	
 	var Demo = function (_React$Component) {
 	  _inherits(Demo, _React$Component);
@@ -49,13 +49,13 @@ webpackJsonp([1],{
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	
-	    _this.onComplete = function () {
-	      console.log('complete');
+	    _this.onComplete = function (e) {
+	      console.log(e);
 	    };
 	
-	    _this.setCss = function () {
+	    _this.setCss = function (e) {
 	      var css = _this.state.css;
-	      console.log('start');
+	      console.log(e);
 	      if (_this.state.cssNoPosition) {
 	        css.position = 'fixed';
 	        css.top = 0;
@@ -77,6 +77,8 @@ webpackJsonp([1],{
 	  }
 	
 	  Demo.prototype.render = function render() {
+	    var _this2 = this;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -280,7 +282,7 @@ webpackJsonp([1],{
 	      ),
 	      _react2.default.createElement(
 	        ScrollElement,
-	        { style: { height: 2000 }, scrollName: 'Scroll-Pack' },
+	        { style: { height: 2000 }, id: 'Scroll-Pack' },
 	        _react2.default.createElement(
 	          ScrollParallax,
 	          {
@@ -289,8 +291,18 @@ webpackJsonp([1],{
 	            animation: {
 	              backgroundColor: '#0097D0',
 	              playScale: [1, 2],
-	              onStart: this.setCss,
-	              onComplete: this.onComplete
+	              onStart: function onStart() {
+	                _this2.setCss('start');
+	              },
+	              onCompleteBack: function onCompleteBack() {
+	                _this2.setCss('back complete');
+	              },
+	              onComplete: function onComplete() {
+	                _this2.onComplete('complete');
+	              },
+	              onStartBack: function onStartBack() {
+	                _this2.onComplete('back start');
+	              }
 	            },
 	            style: this.state.css
 	          },

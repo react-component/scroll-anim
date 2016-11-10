@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>parallax.js - example - rc-scroll-anim@0.4.1</title>
+  <title>parallax.js - example - rc-scroll-anim@0.5.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-scroll-anim@0.4.1</h1>
+      <h1>rc-scroll-anim@0.5.0</h1>
 
       <p>scroll-anim anim component for react</p>
     </div>
@@ -289,13 +289,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     };
   }
 
-  onComplete = () =&gt; {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'complete'</span>);
+  onComplete = (e) =&gt; {
+    <span class="hljs-built_in">console</span>.log(e);
   };
 
-  setCss = () =&gt; {
+  setCss = (e) =&gt; {
     <span class="hljs-keyword">const</span> css = <span class="hljs-keyword">this</span>.state.css;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>);
+    <span class="hljs-built_in">console</span>.log(e);
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.cssNoPosition) {
       css.position = <span class="hljs-string">'fixed'</span>;
       css.top = <span class="hljs-number">0</span>;
@@ -461,18 +461,20 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           /&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">ScrollElement</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">2000</span> }} <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"Scroll-Pack"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">ScrollElement</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">2000</span> }} <span class="hljs-attribute">id</span>=<span class="hljs-value">"Scroll-Pack"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
           <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page"</span>
           <span class="hljs-attribute">location</span>=<span class="hljs-value">"Scroll-Pack"</span>
           <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span>
             <span class="hljs-attribute">backgroundColor:</span> '#<span class="hljs-attribute">0097D0</span>',
             <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">1</span>, <span class="hljs-attribute">2</span>],
-            <span class="hljs-attribute">onStart:</span> <span class="hljs-attribute">this.setCss</span>,
-            <span class="hljs-attribute">onComplete:</span> <span class="hljs-attribute">this.onComplete</span>,
+            <span class="hljs-attribute">onStart:</span> () =&gt;</span> { this.setCss('start'); },
+            onCompleteBack: () =&gt; { this.setCss('back complete'); },
+            onComplete: () =&gt; { this.onComplete('complete'); },
+            onStartBack: () =&gt; { this.onComplete('back start'); },
           }}
-          <span class="hljs-attribute">style</span>=<span class="hljs-value">{this.state.css}</span>
-        &gt;</span>
+          style={this.state.css}
+        &gt;
           <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
             <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">translateX:</span> '<span class="hljs-attribute">0</span>%', <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">1</span>, <span class="hljs-attribute">2</span>] }}
             <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>

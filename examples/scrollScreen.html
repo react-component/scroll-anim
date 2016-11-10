@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>scrollScreen.js - example - rc-scroll-anim@0.4.1</title>
+  <title>scrollScreen.js - example - rc-scroll-anim@0.5.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-scroll-anim@0.4.1</h1>
+      <h1>rc-scroll-anim@0.5.0</h1>
 
       <p>scroll-anim anim component for react</p>
     </div>
@@ -318,16 +318,15 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-wap"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span>
             <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span>
-            <span class="hljs-attribute">location</span>=<span class="hljs-value">"page0"</span>
+            <span class="hljs-attribute">to</span>=<span class="hljs-value">"page0"</span>
             <span class="hljs-attribute">showHeightActive</span>=<span class="hljs-value">"300"</span>
-            <span class="hljs-attribute">ref</span>=<span class="hljs-value">"page0"</span>
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
           &gt;</span>
             Page0
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span>
             <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span>
-            <span class="hljs-attribute">location</span>=<span class="hljs-value">"page1"</span>
+            <span class="hljs-attribute">to</span>=<span class="hljs-value">"page1"</span>
             <span class="hljs-attribute">showHeightActive</span>=<span class="hljs-value">"300"</span>
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
           &gt;</span>
@@ -335,7 +334,7 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span>
             <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span>
-            <span class="hljs-attribute">location</span>=<span class="hljs-value">"page2"</span>
+            <span class="hljs-attribute">to</span>=<span class="hljs-value">"page2"</span>
             <span class="hljs-attribute">showHeightActive</span>=<span class="hljs-value">"300"</span>
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
           &gt;</span>
@@ -343,7 +342,7 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span>
             <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span>
-            <span class="hljs-attribute">location</span>=<span class="hljs-value">"page3"</span>
+            <span class="hljs-attribute">to</span>=<span class="hljs-value">"page3"</span>
             <span class="hljs-attribute">showHeightActive</span>=<span class="hljs-value">"300"</span>
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
           &gt;</span>
@@ -352,7 +351,7 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"bar"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-bar"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">Element</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page page0"</span> <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page0"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Element</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page page0"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"page0"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"home-title"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"page-title"</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"title"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>{_package.name}@{_package.version}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
@@ -363,7 +362,7 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
         <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">Element</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">ScrollOverPack</span>
-        <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page1"</span>
+        <span class="hljs-attribute">id</span>=<span class="hljs-value">"page1"</span>
         <span class="hljs-attribute">className</span>=<span class="hljs-value">"page1"</span>
         <span class="hljs-attribute">playScale</span>=<span class="hljs-value">{1}</span>
         <span class="hljs-attribute">replay</span>
@@ -381,7 +380,6 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
       <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollOverPack</span>&gt;</span>
 
       <span class="hljs-tag">&lt;<span class="hljs-title">ScrollOverPack</span>
-        <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page2"</span>
         <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page page2"</span>
         <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">backgroundColor:</span> '#<span class="hljs-attribute">174270</span>' }}
         <span class="hljs-attribute">id</span>=<span class="hljs-value">"page3"</span>
@@ -403,7 +401,6 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
       <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollOverPack</span>&gt;</span>
 
       <span class="hljs-tag">&lt;<span class="hljs-title">ScrollOverPack</span>
-        <span class="hljs-attribute">scrollName</span>=<span class="hljs-value">"page3"</span>
         <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page page3"</span>
         <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">backgroundColor:</span> '#<span class="hljs-attribute">174270</span>' }}
         <span class="hljs-attribute">always</span>=<span class="hljs-value">{false}</span>
