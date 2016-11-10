@@ -112,16 +112,25 @@ ScrollAnim.scrollScreen.unMount();
 
 ### props
 
-### OverPack
+### Element 
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| component | string         | `div`   | component tag        |
+| component | string         | `div`   | -            |
+| id | string         | null    | need to location the id，parallax the `location` or link the `to`, need to use |
 | playScale | number / array        | `0.5`   | percentage of screen to start play, screen center is 0.5, if replay is true : [bottomEnter, topLeave]， topLeave >= bottomEnter |
+| onChange  | func           | null     | change callback({ mode, scrollName }); mode: `enter` or `leave` |
+
+> Note: if the element is not the above component, you need to location this element; please use the `Element`
+
+### OverPack 
+
+OverPack inherit Element; `component` `scrollName` `playScale` `onChange` refer to  `Element`;
+
+| name      | type           | default | description    |
+|-----------|----------------|---------|----------------|
 | always    | boolean        | `true`  | back to top, enter replay，as `false` will only play it again, leave does not play |
-| scrollName| string         | `null`  | need to location the name，parallax the `location` or link the `location`, need to use |
 | replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
-| onChange  | func           | `null`  | callback({ mode, scrollName }), mode: `enter` `leave` |
 | hideProps | object         | `null`  | v0.3.0 children hideProps move here. If the child does not have, default: { children: null }. children be `rc-tween-one` { 'userKey': { reverse: true }} |
 
 ### react 15.2.0 react-unknown-prop warnings, hideProps move to tag.
@@ -136,9 +145,8 @@ ScrollAnim.scrollScreen.unMount();
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | animation      | object / array | `null`  | animation data     |
-| location  | string         | `null`  | location, `Element` the `scrollName`, only scroll name |
+| location  | string         | `null`  | location, `Element` the id, only scroll name |
 | always    | boolean        | `true`  | -            |
-| scrollName| string         | `null`  | -            |
 | component | string         | `div`   | -            |
 
 #### animation = { }
@@ -147,33 +155,28 @@ ScrollAnim.scrollScreen.unMount();
 | playScale | array          | `[0, 1]`| play area, [start, end]<br/> timeline: `[{playScale: [0, 0.2]}, {playScale: [0, 0.8]}]]`, Second will increase by 0.2, The second end is 1  |
 | ease      | string         | `easeInOutQuad`| animation easing string |
 | onUpdate  | function       |    -    |  animate updates, callback: onUpdate(easeValue})   |
-| onStart   | function       |    -    |  animate start (playScale[0]) callback; |
-| onComplete| function       |    -    |  animate completed (playScale[1]) callback |
+| onStart   | function       |    -    |  scroll down animate start (playScale[0]) callback; |
+| onComplete| function       |    -    |  scroll down animate completed (playScale[1]) callback |
+| onStartBack   | function       |    -    |   scroll up animate start (playScale[1]) callback; |
+| onCompleteBack | function       |    -    |   scroll up animate completed (playScale[0]) callback; |
 
 > animation = [{},{}] 时为timeline;
 
 ### Link
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
-| location  | string         | `null`  | need; Specifies the element to top; `Element` the `scrollName`  |
+| to  | string         | `null`  | need; Specifies the element to top; `Element` the id  |
+| toHash | boolean     | true    | add `to` to the `location.hash` |
 | duration  | number         | `450`   | scroll animate duration |
 | ease      | string         | `easeInOutQuad` | animation easing string | 
 | active    | string         | `active`| selected className  |
-| showHeightActive| string / number / array | `50%` | enter distance window top `50%` add `active`, leave same; is array [enter, leave]; |
+| showHeightActive| string / number / array | `50%` | enter: the element offset top `50%` add `active`, leave: the element in the window `50%` remove `active`; is array [enter, leave]; |
 | toShowHeight | boolean     | false   | scroll to `showHeightActive` |
-| offsetTop |  number        |  0      | scroll to elem top offset  |
+| offsetTop |  number        |  0      | scroll to elem top offset   |
 | onFocus   | func           | null    | check callback,onFocus({target,to}) |
 | onBlur    | func           | null    | blur callback |
+| onAsynchronousAddEvent | func | null | Asynchronous add onScroll; callback(function) [refs](http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html) |
 | component | string         | `div`   | -            |
-
-### Element 
-
-| name      | type           | default | description    |
-|-----------|----------------|---------|----------------|
-| scrollName | string         | null    | - |
-| component | string         | `div`   | -            |
-
-> Note: if the element is not the above component, you need to location this element; please use the `Element`
 
 ### ScrollAnim.scrollScreen.init(vars)
 Use: scroll a screen window;

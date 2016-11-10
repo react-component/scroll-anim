@@ -28,7 +28,7 @@ class Demo extends React.Component {
         </QueueAnim>
       </div>
       <ScrollOverPack
-        scrollName="page1"
+        id="page1"
         className="page1" replay
         hideProps={{ 0: { reverse: true } }}
       >
@@ -44,7 +44,6 @@ class Demo extends React.Component {
       </ScrollOverPack>
 
       <ScrollOverPack
-        scrollName="page2"
         scrollEvent={this.scrollEvent}
         className="pack-page page2"
         style={{ backgroundColor: '#0098CE' }} always={false}
@@ -63,7 +62,7 @@ class Demo extends React.Component {
       </ScrollOverPack>
 
       <ScrollOverPack
-        scrollName="page3"
+        id="page3"
         className="pack-page page3"
         style={{ backgroundColor: '#174270' }}
         playScale={0.8} id="page3"

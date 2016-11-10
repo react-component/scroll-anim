@@ -1,104 +1,51 @@
 import React, { createElement } from 'react';
-import ReactDom from 'react-dom';
 import EventListener from './EventDispatcher';
-import mapped from './Mapped';
-import { currentScrollTop, transformArguments } from './util';
+import ScrollElement from './ScrollElement';
+import { toArrayChildren } from './util';
 
 function noop() {
 }
 
-function toArrayChildren(children) {
-  const ret = [];
-  React.Children.forEach(children, (c) => {
-    ret.push(c);
-  });
-  return ret;
-}
-
-class ScrollOverPack extends React.Component {
-  constructor() {
-    super(...arguments);
+class ScrollOverPack extends ScrollElement {
+  constructor(props) {
+    super(props);
     this.children = toArrayChildren(this.props.children);
     this.oneEnter = false;
+    this.enter = false;
     this.state = {
       show: false,
       children: toArrayChildren(this.props.children),
     };
   }
 
-  componentDidMount() {
-    this.dom = ReactDom.findDOMNode(this);
-    // this.computedStyle = document.defaultView.getComputedStyle(this.dom);
-    if (this.props.scrollName) {
-      mapped.register(this.props.scrollName, this.dom);
-    }
-    const date = Date.now();
-    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-    this.eventType = `scroll.scrollEvent${date}${length}`;
-    this.scrollEventListener();
-    EventListener.addEventListener(this.eventType, this.scrollEventListener);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      children: toArrayChildren(nextProps.children),
-    });
-  }
-
-  componentWillUnmount() {
-    mapped.unRegister(this.props.scrollName);
-    EventListener.removeEventListener(this.eventType, this.scrollEventListener);
-  }
-
   scrollEventListener = (e) => {
-    const clientHeight = window.innerHeight ||
-      document.documentElement.clientHeight || document.body.clientHeight;
-    const scrollTop = currentScrollTop();
-    // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
-    const domRect = this.dom.getBoundingClientRect();
-    const offsetTop = domRect.top + scrollTop;
-    const elementShowHeight = scrollTop - offsetTop + clientHeight;
-    const playScale = transformArguments(this.props.playScale);
-    const playHeight = clientHeight * playScale[0];
-
-    const enter = elementShowHeight >= playHeight && elementShowHeight <= clientHeight + playHeight;
-    const bottomLeave = elementShowHeight < playHeight;
-    // 设置往上时的出场点...
-    const leaveHeight = domRect.height > clientHeight ? clientHeight : domRect.height;
-    const topLeave = this.props.replay ?
-    elementShowHeight > clientHeight + leaveHeight * playScale[1] : null;
-    let mode = 'scroll';
-    if (enter) {
+    this.getParam(e);
+    if (this.enter) {
       if (!this.state.show) {
         this.setState({
           show: true,
         });
-        mode = 'enter';
-        this.props.onChange({ mode, scrollName: this.props.scrollName });
       }
       if (!this.props.always) {
         EventListener.removeEventListener(this.eventType, this.scrollEventListener);
       }
     }
+    const bottomLeave = this.elementShowHeight < this.playHeight;
+    // 设置往上时的出场点...
+    const topLeave = this.props.replay ?
+    this.elementShowHeight > this.clientHeight + this.leavePlayHeight : null;
     if (topLeave || bottomLeave) {
       if (this.state.show) {
         this.setState({
           show: false,
         });
-        mode = 'leave';
-        this.props.onChange({ mode, scrollName: this.props.scrollName });
       }
-    }
-
-    if (e) {
-      this.props.scrollEvent({ mode, scrollName: this.props.scrollName, e });
     }
   }
 
   render() {
     const { ...placeholderProps } = this.props;
     [
-      'scrollName',
       'playScale',
       'replay',
       'component',
@@ -141,7 +88,6 @@ ScrollOverPack.propTypes = {
   children: React.PropTypes.any,
   className: React.PropTypes.string,
   style: React.PropTypes.any,
-  scrollName: React.PropTypes.string,
   replay: React.PropTypes.bool,
   onChange: React.PropTypes.func,
   hideProps: React.PropTypes.object,

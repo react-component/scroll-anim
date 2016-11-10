@@ -1,3 +1,14 @@
+import React from 'react';
+
+export function toArrayChildren(children) {
+  const ret = [];
+  React.Children.forEach(children, (c) => {
+    ret.push(c);
+  });
+  return ret;
+}
+
+
 export function dataToArray(vars) {
   if (!vars && vars !== 0) {
     return [];
@@ -85,4 +96,9 @@ export function currentScrollTop() {
   const isCSS1ScrollTop = isCSS1Compat ?
     document.documentElement.scrollTop : document.body.scrollTop;
   return supportPageOffset ? window.pageYOffset : isCSS1ScrollTop;
+}
+
+export function windowHeight() {
+  return window.innerHeight ||
+    document.documentElement.clientHeight || document.body.clientHeight;
 }

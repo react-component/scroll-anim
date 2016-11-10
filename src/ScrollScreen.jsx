@@ -140,7 +140,7 @@ const ScrollScreen = {
       } else if (deltaY > 0) {
         this.num++;
       }
-      // docHeight: 在 body, html 设了 100% 的情况下,给用户设置，如查没设置用默认的。。
+      // docHeight: 在 body, html 设了 100% 的情况下,先用用户设置，如没设置用默认的。。
       const docHeight = this.vars.docHeight ||
         document.documentElement.getBoundingClientRect().height;
       const manyHeight = docHeight - endDom.offsetTop -

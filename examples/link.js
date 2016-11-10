@@ -14,18 +14,19 @@ const ScrollOverPack = ScrollAnim.OverPack;
 const EventListener = ScrollAnim.Event;
 // ScrollAnim.scrollScreen({scrollInterval: 600});
 class Demo extends React.Component {
-  constructor() {
-    super(...arguments);
-  }
-
   componentDidMount() {
     // 添加改变窗口事件,可加setTimeout
     EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
   }
 
-  onFocus(e) {
+  onFocus = (e) => {
+    console.log(e, 'focus');
     this.dom = e.target;
     this.barAnimate();
+  }
+
+  onBlur = (e) => {
+    console.log(e, 'blur');
   }
 
   barAnimate() {
@@ -43,30 +44,34 @@ class Demo extends React.Component {
           <p>Ant Motion</p>
         </div>
         <div className="nav-wap">
-          <Link className="nav-list" location="page0"
-            onFocus={this.onFocus.bind(this)}
+          <Link className="nav-list" to="page0" showHeightActive={['50%', '10%']}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           >
             Example
           </Link>
-          <Link className="nav-list" location="page1" offsetTop={158}
-            onFocus={this.onFocus.bind(this)}
+          <Link className="nav-list" to="page1" showHeightActive={['10%', '60%']} toShowHeight
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           >
             Example2
           </Link>
-          <Link className="nav-list" location="page2"
-            onFocus={this.onFocus.bind(this)}
+          <Link className="nav-list" to="page2" showHeightActive={['60%', '50%']} toShowHeight
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           >
             Example3
           </Link>
-          <Link className="nav-list" location="page3"
-            onFocus={this.onFocus.bind(this)}
+          <Link className="nav-list" to="page3" offsetTop={100}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           >
             Example4
           </Link>
           <div ref="bar" className="nav-bar" />
         </div>
       </div>
-      <Element className="pack-page page0" scrollName="page0">
+      <Element className="pack-page page0" id="page0">
         <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>
@@ -76,7 +81,7 @@ class Demo extends React.Component {
           </div>
         </QueueAnim>
       </Element>
-      <ScrollOverPack scrollName="page1" className="page1" hideProps={{ 0: { reverse: true } }}>
+      <ScrollOverPack id="page1" className="page1" hideProps={{ 0: { reverse: true } }}>
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
           默认进入与出场
         </TweenOne>
@@ -89,7 +94,6 @@ class Demo extends React.Component {
       </ScrollOverPack>
 
       <ScrollOverPack
-        scrollName="page2"
         className="pack-page page2"
         style={{ backgroundColor: '#0098CE' }}
         always={false}
@@ -109,7 +113,6 @@ class Demo extends React.Component {
       </ScrollOverPack>
 
       <ScrollOverPack
-        scrollName="page3"
         className="pack-page page3"
         style={{ backgroundColor: '#174270' }}
         playScale={0.8}

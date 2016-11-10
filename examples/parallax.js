@@ -18,13 +18,13 @@ class Demo extends React.Component {
     };
   }
 
-  onComplete = () => {
-    console.log('complete');
+  onComplete = (e) => {
+    console.log(e);
   };
 
-  setCss = () => {
+  setCss = (e) => {
     const css = this.state.css;
-    console.log('start');
+    console.log(e);
     if (this.state.cssNoPosition) {
       css.position = 'fixed';
       css.top = 0;
@@ -190,15 +190,17 @@ class Demo extends React.Component {
           />
         </ScrollParallax>
       </div>
-      <ScrollElement style={{ height: 2000 }} scrollName="Scroll-Pack">
+      <ScrollElement style={{ height: 2000 }} id="Scroll-Pack">
         <ScrollParallax
           className="pack-page"
           location="Scroll-Pack"
           animation={{
             backgroundColor: '#0097D0',
             playScale: [1, 2],
-            onStart: this.setCss,
-            onComplete: this.onComplete,
+            onStart: () => { this.setCss('start'); },
+            onCompleteBack: () => { this.setCss('back complete'); },
+            onComplete: () => { this.onComplete('complete'); },
+            onStartBack: () => { this.onComplete('back start'); },
           }}
           style={this.state.css}
         >

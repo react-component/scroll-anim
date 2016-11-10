@@ -4,8 +4,7 @@ import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Timeline from 'rc-tween-one/lib/TimeLine';
 import ticker from 'rc-tween-one/lib/ticker';
-import { dataToArray, objectEqual, currentScrollTop } from './util';
-import mapped from './Mapped';
+import { dataToArray, objectEqual, currentScrollTop, windowHeight } from './util';
 
 let tickerId = 0;
 
@@ -25,8 +24,8 @@ function playScaleToArray(playScale) {
 }
 
 class ScrollParallax extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.scrollTop = 0;
     this.defaultTweenData = [];
     this.defaultData = [];
@@ -35,9 +34,6 @@ class ScrollParallax extends React.Component {
 
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
-    if (this.props.scrollName) {
-      mapped.register(this.props.scrollName, this.dom);
-    }
     this.scrollTop = currentScrollTop();
     this.clientHeight = window.innerHeight ||
       document.documentElement.clientHeight || document.body.clientHeight;
@@ -46,6 +42,8 @@ class ScrollParallax extends React.Component {
     // 第一次进入;
     setTimeout(() => {
       this.timeline = new Timeline(this.dom, this.defaultTweenData);
+      // 预注册;
+      this.timeline.frame(0);
       this.scrollEventListener();
       const date = Date.now();
       const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
@@ -64,7 +62,6 @@ class ScrollParallax extends React.Component {
   }
 
   componentWillUnmount() {
-    mapped.unRegister(this.props.scrollName);
     EventListener.removeEventListener(this.eventType, this.scrollEventListener);
   }
 
@@ -72,57 +69,70 @@ class ScrollParallax extends React.Component {
     const vars = dataToArray(_vars);
     const varsForIn = (item, i) => {
       const playScale = playScaleToArray(item.playScale).map(data => data * this.clientHeight);
-      const __item = { ...item };
-      delete __item.playScale;
-      const _item = { ...item };
-      delete _item.playScale;
-      _item.delay = __item.delay = playScale[0];
-      _item.duration = __item.duration = playScale[1] - playScale[0];
-      _item.onStart = null;
-      _item.onUpdate = null;
-      _item.onComplete = null;
-      _item.onRepeat = null;
-      __item.onStart = __item.onStart || noop;
-      __item.onComplete = __item.onComplete || noop;
-      this.defaultTweenData[i] = _item;
-      this.defaultData[i] = __item;
+      const aItem = { ...item };
+      delete aItem.playScale;
+      const cItem = { ...item };
+      delete cItem.playScale;
+      cItem.delay = aItem.delay = playScale[0];
+      cItem.duration = aItem.duration = playScale[1] - playScale[0];
+      cItem.onStart = null;
+      cItem.onUpdate = null;
+      cItem.onComplete = null;
+      cItem.onRepeat = null;
+      aItem.onStart = aItem.onStart || noop;
+      aItem.onComplete = aItem.onComplete || noop;
+      aItem.onStartBack = aItem.onStartBack || noop;
+      aItem.onCompleteBack = aItem.onCompleteBack || noop;
+      this.defaultTweenData[i] = cItem;
+      this.defaultData[i] = aItem;
     };
     vars.forEach(varsForIn);
   }
 
   scrollEventListener = () => {
     const scrollTop = currentScrollTop();
-    this.clientHeight = window.innerHeight ||
-      document.documentElement.clientHeight || document.body.clientHeight;
-    const dom = this.props.location ? mapped.get(this.props.location) : this.dom;
+    this.clientHeight = windowHeight();
+    const dom = this.props.location ? document.getElementById(this.props.location) : this.dom;
     if (!dom) {
       throw new Error('"location" is null');
     }
     const offsetTop = dom.getBoundingClientRect().top + scrollTop;
     const elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const currentShow = this.scrollTop - offsetTop + this.clientHeight;
-    const scrollTopValue = scrollTop - this.scrollTop;
     this.defaultData.forEach(item => {
-      if (scrollTopValue > 0 && elementShowHeight < item.delay ||
-        scrollTopValue < 0 && elementShowHeight > item.delay) {
-        item.onStart.only = false;
+      if (elementShowHeight <= item.delay) {
+        if (!this.onCompleteBackBool && this.onStartBool) {
+          this.onCompleteBackBool = true;
+          item.onCompleteBack();
+        }
+      } else {
+        this.onCompleteBackBool = false;
       }
-      if ((elementShowHeight >= item.delay && currentShow <= item.delay && scrollTopValue > 0 ||
-        elementShowHeight <= item.delay && currentShow >= item.delay && scrollTopValue < 0)
-        && !item.onStart.only) {
-        item.onStart.only = true;
-        item.onStart();
+      if (elementShowHeight >= item.delay) {
+        if (!this.onStartBool) {
+          this.onStartBool = true;
+          item.onStart();
+        }
+      } else {
+        this.onStartBool = false;
       }
-      const time = item.delay + item.duration;
-      if (scrollTopValue > 0 && elementShowHeight < time ||
-        scrollTopValue < 0 && elementShowHeight > time) {
-        item.onComplete.only = false;
+
+      if (elementShowHeight <= item.delay + item.duration) {
+        if (!this.onStartBackBool && this.onCompleteBool) {
+          this.onStartBackBool = true;
+          item.onStartBack();
+        }
+      } else {
+        this.onStartBackBool = false;
       }
-      if (!item.onComplete.only &&
-        (elementShowHeight >= time && currentShow <= time && scrollTopValue > 0 ||
-        elementShowHeight <= time && currentShow >= time && scrollTopValue < 0)) {
-        item.onComplete();
-        item.onComplete.only = true;
+
+      if (elementShowHeight >= item.delay + item.duration) {
+        if (!this.onCompleteBool) {
+          this.onCompleteBool = true;
+          item.onComplete();
+        }
+      } else {
+        this.onCompleteBool = false;
       }
     });
     ticker.clear(this.tickerId);
@@ -155,7 +165,7 @@ class ScrollParallax extends React.Component {
       'always',
       'component',
       'location',
-      'scrollName',
+      'id',
     ].forEach(key => delete props[key]);
     const style = { ...props.style };
     for (const p in style) {
@@ -180,7 +190,7 @@ ScrollParallax.propTypes = {
   children: React.PropTypes.any,
   className: React.PropTypes.string,
   style: React.PropTypes.any,
-  scrollName: React.PropTypes.string,
+  id: React.PropTypes.string,
 };
 
 ScrollParallax.defaultProps = {

@@ -47,16 +47,15 @@ class Demo extends React.Component {
         <div className="nav-wap">
           <Link
             className="nav-list"
-            location="page0"
+            to="page0"
             showHeightActive="300"
-            ref="page0"
             onFocus={this.onFocus}
           >
             Page0
           </Link>
           <Link
             className="nav-list"
-            location="page1"
+            to="page1"
             showHeightActive="300"
             onFocus={this.onFocus}
           >
@@ -64,7 +63,7 @@ class Demo extends React.Component {
           </Link>
           <Link
             className="nav-list"
-            location="page2"
+            to="page2"
             showHeightActive="300"
             onFocus={this.onFocus}
           >
@@ -72,7 +71,7 @@ class Demo extends React.Component {
           </Link>
           <Link
             className="nav-list"
-            location="page3"
+            to="page3"
             showHeightActive="300"
             onFocus={this.onFocus}
           >
@@ -81,7 +80,7 @@ class Demo extends React.Component {
           <div ref="bar" className="nav-bar"></div>
         </div>
       </div>
-      <Element className="pack-page page0" scrollName="page0">
+      <Element className="pack-page page0" id="page0">
         <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>
@@ -92,7 +91,7 @@ class Demo extends React.Component {
         </QueueAnim>
       </Element>
       <ScrollOverPack
-        scrollName="page1"
+        id="page1"
         className="page1"
         playScale={1}
         replay
@@ -110,7 +109,6 @@ class Demo extends React.Component {
       </ScrollOverPack>
 
       <ScrollOverPack
-        scrollName="page2"
         className="pack-page page2"
         style={{ backgroundColor: '#174270' }}
         id="page3"
@@ -132,7 +130,6 @@ class Demo extends React.Component {
       </ScrollOverPack>
 
       <ScrollOverPack
-        scrollName="page3"
         className="pack-page page3"
         style={{ backgroundColor: '#174270' }}
         always={false}
