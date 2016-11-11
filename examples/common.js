@@ -4603,12 +4603,16 @@
 	var ScrollElement = function (_React$Component) {
 	  _inherits(ScrollElement, _React$Component);
 	
-	  function ScrollElement(props) {
+	  function ScrollElement() {
+	    var _temp, _this, _ret;
+	
 	    _classCallCheck(this, ScrollElement);
 	
-	    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 	
-	    _this.getParam = function (e) {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.getParam = function (e) {
 	      _this.clientHeight = (0, _util.windowHeight)();
 	      var scrollTop = (0, _util.currentScrollTop)();
 	      // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
@@ -4621,19 +4625,14 @@
 	      _this.leavePlayHeight = leaveHeight * playScale[1];
 	      var enter = _this.elementShowHeight >= _this.playHeight && _this.elementShowHeight <= _this.clientHeight + _this.leavePlayHeight;
 	      var enterOrLeave = enter ? 'enter' : 'leave';
-	      var mode = _this.enter !== enter ? enterOrLeave : null;
+	      var mode = _this.enter !== enter || typeof _this.enter !== 'boolean' ? enterOrLeave : null;
 	      if (mode) {
 	        _this.props.onChange({ mode: mode, id: _this.props.id }, e);
 	      }
 	      _this.enter = enter;
-	    };
-	
-	    _this.scrollEventListener = function (e) {
+	    }, _this.scrollEventListener = function (e) {
 	      _this.getParam(e);
-	    };
-	
-	    _this.enter = false;
-	    return _this;
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
 	  ScrollElement.prototype.componentDidMount = function componentDidMount() {
@@ -22693,7 +22692,6 @@
 	exports["default"] = timeLine;
 	module.exports = exports['default'];
 
-
 /***/ },
 /* 184 */
 /***/ function(module, exports, __webpack_require__) {
@@ -23770,7 +23768,6 @@
 	exports["default"] = StylePlugin;
 	module.exports = exports['default'];
 
-
 /***/ },
 /* 189 */
 /***/ function(module, exports, __webpack_require__) {
@@ -24495,7 +24492,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.5.0",
+		"version": "0.5.1",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",

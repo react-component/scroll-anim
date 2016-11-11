@@ -76,20 +76,20 @@ webpackJsonp([0],{
 	      _this.barAnimate();
 	    }, _this.onBlur = function (e) {
 	      console.log(e, 'blur');
+	    }, _this.onChange = function (e) {
+	      console.log(e);
+	    }, _this.barAnimate = function () {
+	      if (!_this.dom) {
+	        return;
+	      }
+	      var bar = _this.refs.bar;
+	      bar.style.left = _this.dom.getBoundingClientRect().left + 'px';
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
 	  Demo.prototype.componentDidMount = function componentDidMount() {
 	    // 添加改变窗口事件,可加setTimeout
 	    EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
-	  };
-	
-	  Demo.prototype.barAnimate = function barAnimate() {
-	    if (!this.dom) {
-	      return;
-	    }
-	    var bar = this.refs.bar;
-	    bar.style.left = this.dom.getBoundingClientRect().left + 'px';
 	  };
 	
 	  Demo.prototype.render = function render() {
@@ -148,7 +148,7 @@ webpackJsonp([0],{
 	      ),
 	      _react2.default.createElement(
 	        Element,
-	        { className: 'pack-page page0', id: 'page0' },
+	        { className: 'pack-page page0', id: 'page0', onChange: this.onChange },
 	        _react2.default.createElement(
 	          _rcQueueAnim2.default,
 	          { className: 'home-title' },
