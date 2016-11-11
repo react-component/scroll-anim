@@ -29,7 +29,11 @@ class Demo extends React.Component {
     console.log(e, 'blur');
   }
 
-  barAnimate() {
+  onChange = (e) => {
+    console.log(e);
+  }
+
+  barAnimate = () => {
     if (!this.dom) {
       return;
     }
@@ -71,7 +75,7 @@ class Demo extends React.Component {
           <div ref="bar" className="nav-bar" />
         </div>
       </div>
-      <Element className="pack-page page0" id="page0">
+      <Element className="pack-page page0" id="page0" onChange={this.onChange}>
         <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>

@@ -7,11 +7,6 @@ import { currentScrollTop, transformArguments, windowHeight, toArrayChildren } f
 const noop = () => {
 };
 class ScrollElement extends React.Component {
-  constructor(props) {
-    super(props);
-    this.enter = false;
-  }
-
   componentDidMount() {
     this.dom = ReactDOM.findDOMNode(this);
     if (this.props.id) {
@@ -49,7 +44,7 @@ class ScrollElement extends React.Component {
     const enter = this.elementShowHeight >= this.playHeight
       && this.elementShowHeight <= this.clientHeight + this.leavePlayHeight;
     const enterOrLeave = enter ? 'enter' : 'leave';
-    const mode = this.enter !== enter ? enterOrLeave : null;
+    const mode = this.enter !== enter || typeof this.enter !== 'boolean' ? enterOrLeave : null;
     if (mode) {
       this.props.onChange({ mode, id: this.props.id }, e);
     }
