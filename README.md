@@ -125,7 +125,7 @@ ScrollAnim.scrollScreen.unMount();
 
 ### OverPack 
 
-OverPack inherit Element; `component` `scrollName` `playScale` `onChange` refer to  `Element`;
+OverPack inherit Element; `component` `playScale` `onChange` refer to  `Element`;
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
