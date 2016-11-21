@@ -6350,10 +6350,10 @@ webpackJsonp([3],{
 	          { className: 'home-title' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'page-title', key: 'title' },
+	            { className: 'page-title', key: 'title', style: { height: 100, overflow: 'auto' } },
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              { style: { height: 600 } },
 	              _package.name,
 	              '@',
 	              _package.version
@@ -6386,7 +6386,7 @@ webpackJsonp([3],{
 	        ),
 	        _react2.default.createElement(
 	          _rcQueueAnim2.default,
-	          { key: '1' },
+	          { key: '1', style: { height: 100 } },
 	          _react2.default.createElement('div', { key: '0', className: 'demo' }),
 	          _react2.default.createElement('div', { key: '1', className: 'demo' }),
 	          _react2.default.createElement('div', { key: '2', className: 'demo' }),
@@ -6397,8 +6397,8 @@ webpackJsonp([3],{
 	        ScrollOverPack,
 	        {
 	          className: 'pack-page page2',
-	          style: { backgroundColor: '#174270' },
-	          id: 'page3',
+	          style: { backgroundColor: '#174270', height: 500 },
+	          id: 'page2',
 	          playScale: 1,
 	          hideProps: { t: { reverse: true }, 1: { reverse: true } }
 	        },
@@ -6425,7 +6425,7 @@ webpackJsonp([3],{
 	          className: 'pack-page page3',
 	          style: { backgroundColor: '#174270' },
 	          always: false,
-	          id: 'page2',
+	          id: 'page3',
 	          playScale: 1,
 	          hideProps: { t: { reverse: true }, 1: { reverse: true } }
 	        },

@@ -4546,10 +4546,7 @@
 	}
 	
 	function currentScrollTop() {
-	  var supportPageOffset = window.pageXOffset !== undefined;
-	  var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat';
-	  var isCSS1ScrollTop = isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
-	  return supportPageOffset ? window.pageYOffset : isCSS1ScrollTop;
+	  return window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
 	}
 	
 	function windowHeight() {
@@ -24308,32 +24305,15 @@
 	    this.toHeight = -1;
 	    this.num = 0;
 	    // this.currentNum = 0;
-	    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll'].forEach(function (method) {
+	    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll', 'isScroll'].forEach(function (method) {
 	      return _this[method] = _this[method].bind(_this);
 	    });
 	    _EventDispatcher2.default.addEventListener('wheel.scrollWheel', this.onWheel);
-	    _EventDispatcher2.default.addEventListener('scroll.scrollScreen', this.scrollEvent);
 	    // 刚进入时滚动条位置
-	    // requestAnimationFrame(this.startScroll)
 	    setTimeout(this.startScroll);
 	  },
-	  scrollEvent: function scrollEvent() {
-	    var _this2 = this;
-	
-	    var _mapped = _Mapped2.default.getMapped();
-	    var _arr = _mapped.__arr;
-	    this.scrollTop = (0, _util.currentScrollTop)();
-	    _arr.forEach(function (str, i) {
-	      var dom = _mapped[str];
-	      var domOffsetTop = dom.offsetTop;
-	      var domHeight = dom.getBoundingClientRect().height;
-	      if (_this2.scrollTop >= domOffsetTop && _this2.scrollTop < domOffsetTop + domHeight) {
-	        _this2.currentNum = i;
-	      }
-	    });
-	  },
 	  startScroll: function startScroll() {
-	    var _this3 = this;
+	    var _this2 = this;
 	
 	    var _mapped = _Mapped2.default.getMapped();
 	    var _arr = _mapped.__arr;
@@ -24341,15 +24321,14 @@
 	      _EventDispatcher2.default.removeEventListener('wheel.scrollWheel', this.onWheel);
 	      return;
 	    }
-	    this.scrollTop = window.pageYOffset;
+	    this.scrollTop = (0, _util.currentScrollTop)();
 	    _arr.forEach(function (str, i) {
 	      var dom = _mapped[str];
 	      var domOffsetTop = dom.offsetTop;
 	      var domHeight = dom.getBoundingClientRect().height;
-	      if (_this3.scrollTop >= domOffsetTop && _this3.scrollTop < domOffsetTop + domHeight) {
-	        _this3.num = i;
-	        _this3.toHeight = domOffsetTop;
-	        // this.currentNum = this.num;
+	      if (_this2.scrollTop >= domOffsetTop && _this2.scrollTop < domOffsetTop + domHeight) {
+	        _this2.num = i;
+	        _this2.toHeight = domOffsetTop;
 	      }
 	    });
 	    // 如果 toHeight === -1 且 this.scrollTop 有值时；
@@ -24359,7 +24338,6 @@
 	        var windowHeight = document.documentElement.clientHeight;
 	        var tooNum = Math.ceil((this.scrollTop - endDom.offsetTop - endDom.getBoundingClientRect().height) / windowHeight);
 	        this.num = _Mapped2.default.getMapped().__arr.length + tooNum;
-	        // this.currentNum = this.num;
 	      }
 	      return;
 	    }
@@ -24371,7 +24349,7 @@
 	    }
 	  },
 	  raf: function raf() {
-	    var _this4 = this;
+	    var _this3 = this;
 	
 	    var duration = this.vars.duration;
 	    var now = Date.now();
@@ -24381,7 +24359,7 @@
 	    if (progressTime === duration) {
 	      this.cancelRequestAnimationFrame();
 	      setTimeout(function () {
-	        _this4.toHeight = -1;
+	        _this3.toHeight = -1;
 	      }, this.vars.scrollInterval);
 	    } else {
 	      this.rafID = (0, _raf2.default)(this.raf);
@@ -24391,17 +24369,34 @@
 	    _raf2.default.cancel(this.rafID);
 	    this.rafID = -1;
 	  },
+	  getComputedStyle: function getComputedStyle(dom) {
+	    return document.defaultView ? document.defaultView.getComputedStyle(dom) : {};
+	  },
+	  isScroll: function isScroll(dom) {
+	    var style = this.getComputedStyle(dom);
+	    var overflow = style.overflow;
+	    var overflowY = style.overflowY;
+	    var isScrollOverflow = overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay' || overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay';
+	    if (dom === document.body) {
+	      return false;
+	    } else if (dom.scrollHeight > dom.offsetHeight && isScrollOverflow && dom.scrollTop < dom.scrollHeight) {
+	      return true;
+	    }
+	    return this.isScroll(dom.parentNode);
+	  },
 	  onWheel: function onWheel(e) {
-	    var _this5 = this;
+	    var _this4 = this;
 	
 	    var _mapped = _Mapped2.default.getMapped();
 	    if (!_mapped.__arr.length) {
 	      _EventDispatcher2.default.removeEventListener('wheel.scrollWheel', this.onWheel);
 	      return;
 	    }
+	    if (this.isScroll(e.target)) {
+	      return;
+	    }
 	    var deltaY = e.deltaY;
 	    e.preventDefault();
-	    // console.log(e.wheelDelta,e.deltaY)
 	    if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
 	      // 如果滚动条托动过了，需要获取当前的num;
 	      var _arr = _mapped.__arr;
@@ -24413,8 +24408,8 @@
 	        var dom = _mapped[str];
 	        var domOffsetTop = dom.offsetTop;
 	        var domHeight = dom.getBoundingClientRect().height;
-	        if (_this5.scrollTop >= domOffsetTop && _this5.scrollTop < domOffsetTop + domHeight) {
-	          _this5.num = i;
+	        if (_this4.scrollTop >= domOffsetTop && _this4.scrollTop < domOffsetTop + domHeight) {
+	          _this4.num = i;
 	        }
 	      });
 	      var startManyHeight = startDom.offsetTop;
@@ -24454,12 +24449,11 @@
 	      this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
 	      this.toHeight = this.toHeight > docHeight - windowHeight ? docHeight - windowHeight : this.toHeight;
 	      this.rafID = (0, _raf2.default)(this.raf);
-	      // this.currentNum = this.num;
+	      this.currentNum = this.num;
 	    }
 	  },
 	  unMount: function unMount() {
 	    _EventDispatcher2.default.removeEventListener('wheel.scrollWheel', this.onWheel);
-	    _EventDispatcher2.default.removeEventListener('scroll.scrollScreen', this.scrollEvent);
 	  }
 	};
 	exports.default = {
@@ -24492,7 +24486,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.5.1",
+		"version": "0.5.2",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
