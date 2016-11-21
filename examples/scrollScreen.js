@@ -82,8 +82,8 @@ class Demo extends React.Component {
       </div>
       <Element className="pack-page page0" id="page0">
         <QueueAnim className="home-title">
-          <div className="page-title" key="title">
-            <p>{_package.name}@{_package.version}</p>
+          <div className="page-title" key="title" style={{ height: 100, overflow: 'auto' }}>
+            <p style={{ height: 600 }}>{_package.name}@{_package.version}</p>
           </div>
           <div className="page-description" key="c">
             <p>A scrollScreen demo</p>
@@ -100,7 +100,7 @@ class Demo extends React.Component {
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
           每次进入都启动播放
         </TweenOne>
-        <QueueAnim key="1">
+        <QueueAnim key="1" style={{ height: 100 }}>
           <div key="0" className="demo"></div>
           <div key="1" className="demo"></div>
           <div key="2" className="demo"></div>
@@ -110,8 +110,8 @@ class Demo extends React.Component {
 
       <ScrollOverPack
         className="pack-page page2"
-        style={{ backgroundColor: '#174270' }}
-        id="page3"
+        style={{ backgroundColor: '#174270', height: 500 }}
+        id="page2"
         playScale={1}
         hideProps={{ t: { reverse: true }, 1: { reverse: true } }}
       >
@@ -133,7 +133,7 @@ class Demo extends React.Component {
         className="pack-page page3"
         style={{ backgroundColor: '#174270' }}
         always={false}
-        id="page2"
+        id="page3"
         playScale={1}
         hideProps={{ t: { reverse: true }, 1: { reverse: true } }}
       >

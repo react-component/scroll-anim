@@ -22,27 +22,13 @@ const ScrollScreen = {
     this.toHeight = -1;
     this.num = 0;
     // this.currentNum = 0;
-    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll']
+    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll', 'isScroll']
       .forEach((method) => this[method] = this[method].bind(this));
     EventListener.addEventListener('wheel.scrollWheel', this.onWheel);
-    EventListener.addEventListener('scroll.scrollScreen', this.scrollEvent);
     // 刚进入时滚动条位置
-    // requestAnimationFrame(this.startScroll)
     setTimeout(this.startScroll);
   },
-  scrollEvent() {
-    const _mapped = mapped.getMapped();
-    const _arr = _mapped.__arr;
-    this.scrollTop = currentScrollTop();
-    _arr.forEach((str, i) => {
-      const dom = _mapped[str];
-      const domOffsetTop = dom.offsetTop;
-      const domHeight = dom.getBoundingClientRect().height;
-      if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
-        this.currentNum = i;
-      }
-    });
-  },
+
   startScroll() {
     const _mapped = mapped.getMapped();
     const _arr = _mapped.__arr;
@@ -50,7 +36,7 @@ const ScrollScreen = {
       EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
       return;
     }
-    this.scrollTop = window.pageYOffset;
+    this.scrollTop = currentScrollTop();
     _arr.forEach((str, i) => {
       const dom = _mapped[str];
       const domOffsetTop = dom.offsetTop;
@@ -58,7 +44,6 @@ const ScrollScreen = {
       if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
         this.num = i;
         this.toHeight = domOffsetTop;
-        // this.currentNum = this.num;
       }
     });
     // 如果 toHeight === -1 且 this.scrollTop 有值时；
@@ -69,7 +54,6 @@ const ScrollScreen = {
         const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
           endDom.getBoundingClientRect().height) / windowHeight);
         this.num = mapped.getMapped().__arr.length + tooNum;
-        // this.currentNum = this.num;
       }
       return;
     }
@@ -100,15 +84,35 @@ const ScrollScreen = {
     requestAnimationFrame.cancel(this.rafID);
     this.rafID = -1;
   },
+  getComputedStyle(dom) {
+    return document.defaultView ? document.defaultView.getComputedStyle(dom) : {};
+  },
+  isScroll(dom) {
+    const style = this.getComputedStyle(dom);
+    const overflow = style.overflow;
+    const overflowY = style.overflowY;
+    const isScrollOverflow = overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay'
+      || overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay';
+    if (dom === document.body) {
+      return false;
+    } else if (dom.scrollHeight > dom.offsetHeight
+      && isScrollOverflow
+      && dom.scrollTop < dom.scrollHeight) {
+      return true;
+    }
+    return this.isScroll(dom.parentNode);
+  },
   onWheel(e) {
     const _mapped = mapped.getMapped();
     if (!_mapped.__arr.length) {
       EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
       return;
     }
+    if (this.isScroll(e.target)) {
+      return;
+    }
     const deltaY = e.deltaY;
     e.preventDefault();
-    // console.log(e.wheelDelta,e.deltaY)
     if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
       // 如果滚动条托动过了，需要获取当前的num;
       const _arr = _mapped.__arr;
@@ -165,14 +169,13 @@ const ScrollScreen = {
       windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
       this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
       this.toHeight = this.toHeight > docHeight - windowHeight ?
-        docHeight - windowHeight : this.toHeight;
+        (docHeight - windowHeight) : this.toHeight;
       this.rafID = requestAnimationFrame(this.raf);
-      // this.currentNum = this.num;
+      this.currentNum = this.num;
     }
   },
   unMount() {
     EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
-    EventListener.removeEventListener('scroll.scrollScreen', this.scrollEvent);
   },
 };
 export default {
