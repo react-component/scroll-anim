@@ -4399,7 +4399,7 @@
 	    var namespaces = types[1];
 	    var list = this._listeners[_type];
 	    this.recoverLists = this.recoverLists.concat((0, _util.dataToArray)(list).filter(function (item) {
-	      return item.n.match(namespaces);
+	      return item.n && item.n.match(namespaces);
 	    }));
 	    this.recoverLists.forEach(function (item) {
 	      _this.removeEventListener(item.t + '.' + item.n, item.c);
@@ -24486,7 +24486,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.5.2",
+		"version": "0.5.3",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
