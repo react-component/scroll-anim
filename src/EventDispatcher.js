@@ -86,7 +86,7 @@ EventDispatcher.prototype = {
     const namespaces = types[1];
     const list = this._listeners[_type];
     this.recoverLists = this.recoverLists.concat(dataToArray(list).filter(item =>
-      item.n.match(namespaces)
+      item.n && item.n.match(namespaces)
     ));
     this.recoverLists.forEach(item => {
       this.removeEventListener(`${item.t}.${item.n}`, item.c);
