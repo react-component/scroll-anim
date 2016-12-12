@@ -10,7 +10,8 @@ class ScrollElement extends React.Component {
   componentDidMount() {
     this.dom = ReactDOM.findDOMNode(this);
     if (this.props.location) {
-      mapped.register(this.props.location, document.getElementById(this.props.location));
+      this.dom = document.getElementById(this.props.location);
+      mapped.register(this.props.location, this.dom);
     } else if (this.props.id) {
       mapped.register(this.props.id, this.dom);
     }

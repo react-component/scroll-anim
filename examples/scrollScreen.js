@@ -93,7 +93,7 @@ class Demo extends React.Component {
       <div id="page1" style={{ overflow: 'hidden', background: '#133252' }}>
         <ScrollOverPack
           className="page1"
-          playScale={0.5}
+          playScale={1}
           replay
           hideProps={{ 0: { reverse: true } }}
           location="page1"
