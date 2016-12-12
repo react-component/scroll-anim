@@ -253,7 +253,7 @@
 	
 	    var placeholderProps = _objectWithoutProperties(this.props, []);
 	
-	    ['playScale', 'replay', 'component', 'always', 'scrollEvent', 'hideProps'].forEach(function (key) {
+	    ['playScale', 'replay', 'component', 'always', 'scrollEvent', 'hideProps', 'location'].forEach(function (key) {
 	      return delete placeholderProps[key];
 	    });
 	    var childToRender = void 0;
@@ -4634,7 +4634,9 @@
 	
 	  ScrollElement.prototype.componentDidMount = function componentDidMount() {
 	    this.dom = _reactDom2.default.findDOMNode(this);
-	    if (this.props.id) {
+	    if (this.props.location) {
+	      _Mapped2.default.register(this.props.location, document.getElementById(this.props.location));
+	    } else if (this.props.id) {
 	      _Mapped2.default.register(this.props.id, this.dom);
 	    }
 	    var date = Date.now();
@@ -4658,7 +4660,7 @@
 	  ScrollElement.prototype.render = function render() {
 	    var props = _objectWithoutProperties(this.props, []);
 	
-	    ['component', 'playScale'].forEach(function (key) {
+	    ['component', 'playScale', 'location'].forEach(function (key) {
 	      return delete props[key];
 	    });
 	    return _react2.default.createElement(this.props.component, _extends({}, props));
@@ -4671,7 +4673,8 @@
 	  component: _react2.default.PropTypes.any,
 	  playScale: _react2.default.PropTypes.any,
 	  id: _react2.default.PropTypes.string,
-	  onChange: _react2.default.PropTypes.func
+	  onChange: _react2.default.PropTypes.func,
+	  location: _react2.default.PropTypes.string
 	};
 	
 	ScrollElement.defaultProps = {
@@ -24486,7 +24489,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.5.3",
+		"version": "0.6.0",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",

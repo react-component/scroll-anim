@@ -6371,26 +6371,31 @@ webpackJsonp([3],{
 	        )
 	      ),
 	      _react2.default.createElement(
-	        ScrollOverPack,
-	        {
-	          id: 'page1',
-	          className: 'page1',
-	          playScale: 1,
-	          replay: true,
-	          hideProps: { 0: { reverse: true } }
-	        },
+	        'div',
+	        { id: 'page1', style: { overflow: 'hidden', background: '#133252' } },
 	        _react2.default.createElement(
-	          _rcTweenOne2.default,
-	          { className: 'tween-one', key: '0', animation: { opacity: 1 } },
-	          '\u6BCF\u6B21\u8FDB\u5165\u90FD\u542F\u52A8\u64AD\u653E'
-	        ),
-	        _react2.default.createElement(
-	          _rcQueueAnim2.default,
-	          { key: '1', style: { height: 100 } },
-	          _react2.default.createElement('div', { key: '0', className: 'demo' }),
-	          _react2.default.createElement('div', { key: '1', className: 'demo' }),
-	          _react2.default.createElement('div', { key: '2', className: 'demo' }),
-	          _react2.default.createElement('div', { key: '3', className: 'demo' })
+	          ScrollOverPack,
+	          {
+	            className: 'page1',
+	            playScale: 0.5,
+	            replay: true,
+	            hideProps: { 0: { reverse: true } },
+	            location: 'page1',
+	            style: { marginTop: 150 }
+	          },
+	          _react2.default.createElement(
+	            _rcTweenOne2.default,
+	            { className: 'tween-one', key: '0', animation: { opacity: 1 } },
+	            '\u6BCF\u6B21\u8FDB\u5165\u90FD\u542F\u52A8\u64AD\u653E'
+	          ),
+	          _react2.default.createElement(
+	            _rcQueueAnim2.default,
+	            { key: '1', style: { height: 100 } },
+	            _react2.default.createElement('div', { key: '0', className: 'demo' }),
+	            _react2.default.createElement('div', { key: '1', className: 'demo' }),
+	            _react2.default.createElement('div', { key: '2', className: 'demo' }),
+	            _react2.default.createElement('div', { key: '3', className: 'demo' })
+	          )
 	        )
 	      ),
 	      _react2.default.createElement(
