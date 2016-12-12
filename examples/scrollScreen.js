@@ -90,13 +90,14 @@ class Demo extends React.Component {
           </div>
         </QueueAnim>
       </Element>
-      <div id="page1">
+      <div id="page1" style={{ overflow: 'hidden', background: '#133252' }}>
         <ScrollOverPack
           className="page1"
-          playScale={1}
+          playScale={0.5}
           replay
           hideProps={{ 0: { reverse: true } }}
           location="page1"
+          style={{ marginTop: 150 }}
         >
           <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
             每次进入都启动播放
