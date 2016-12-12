@@ -4635,7 +4635,8 @@
 	  ScrollElement.prototype.componentDidMount = function componentDidMount() {
 	    this.dom = _reactDom2.default.findDOMNode(this);
 	    if (this.props.location) {
-	      _Mapped2.default.register(this.props.location, document.getElementById(this.props.location));
+	      this.dom = document.getElementById(this.props.location);
+	      _Mapped2.default.register(this.props.location, this.dom);
 	    } else if (this.props.id) {
 	      _Mapped2.default.register(this.props.id, this.dom);
 	    }
@@ -24489,7 +24490,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.6.0",
+		"version": "0.6.1",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",

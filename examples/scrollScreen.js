@@ -6377,7 +6377,7 @@ webpackJsonp([3],{
 	          ScrollOverPack,
 	          {
 	            className: 'page1',
-	            playScale: 0.5,
+	            playScale: 1,
 	            replay: true,
 	            hideProps: { 0: { reverse: true } },
 	            location: 'page1',
