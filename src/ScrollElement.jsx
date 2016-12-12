@@ -9,7 +9,9 @@ const noop = () => {
 class ScrollElement extends React.Component {
   componentDidMount() {
     this.dom = ReactDOM.findDOMNode(this);
-    if (this.props.id) {
+    if (this.props.location) {
+      mapped.register(this.props.location, document.getElementById(this.props.location));
+    } else if (this.props.id) {
       mapped.register(this.props.id, this.dom);
     }
     const date = Date.now();
@@ -57,7 +59,7 @@ class ScrollElement extends React.Component {
 
   render() {
     const { ...props } = this.props;
-    ['component', 'playScale'].forEach(key => delete props[key]);
+    ['component', 'playScale', 'location'].forEach(key => delete props[key]);
     return React.createElement(this.props.component, { ...props });
   }
 }
@@ -67,6 +69,7 @@ ScrollElement.propTypes = {
   playScale: React.PropTypes.any,
   id: React.PropTypes.string,
   onChange: React.PropTypes.func,
+  location: React.PropTypes.string,
 };
 
 ScrollElement.defaultProps = {

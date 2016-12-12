@@ -52,6 +52,7 @@ class ScrollOverPack extends ScrollElement {
       'always',
       'scrollEvent',
       'hideProps',
+      'location',
     ].forEach(key => delete placeholderProps[key]);
     let childToRender;
     if (!this.oneEnter && !this.state.show) {

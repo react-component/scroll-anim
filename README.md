@@ -120,12 +120,13 @@ ScrollAnim.scrollScreen.unMount();
 | id | string         | null    | need to location the id，parallax the `location` or link the `to`, need to use |
 | playScale | number / array        | `0.5`   | percentage of screen to start play, screen center is 0.5, if replay is true : [bottomEnter, topLeave]， topLeave >= bottomEnter |
 | onChange  | func           | null     | change callback({ mode, scrollName }); mode: `enter` or `leave` |
+| location  | string         | null     |  v0.6.0 above have,location, the parent id; |
 
 > Note: if the element is not the above component, you need to location this element; please use the `Element`
 
 ### OverPack 
 
-OverPack inherit Element; `component` `playScale` `onChange` refer to  `Element`;
+OverPack inherit Element; `component` `playScale` `onChange` `location` refer to  `Element`;
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
@@ -137,7 +138,7 @@ OverPack inherit Element; `component` `playScale` `onChange` refer to  `Element`
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | animation      | object / array | `null`  | animation data     |
-| location  | string         | `null`  | location, `Element` the id, only scroll name |
+| location  | string         | `null`  | location, the parent id |
 | always    | boolean        | `true`  | -            |
 | component | string         | `div`   | -            |
 

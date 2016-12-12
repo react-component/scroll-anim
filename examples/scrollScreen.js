@@ -90,23 +90,25 @@ class Demo extends React.Component {
           </div>
         </QueueAnim>
       </Element>
-      <ScrollOverPack
-        id="page1"
-        className="page1"
-        playScale={1}
-        replay
-        hideProps={{ 0: { reverse: true } }}
-      >
-        <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
-          每次进入都启动播放
-        </TweenOne>
-        <QueueAnim key="1" style={{ height: 100 }}>
-          <div key="0" className="demo"></div>
-          <div key="1" className="demo"></div>
-          <div key="2" className="demo"></div>
-          <div key="3" className="demo"></div>
-        </QueueAnim>
-      </ScrollOverPack>
+      <div id="page1">
+        <ScrollOverPack
+          className="page1"
+          playScale={1}
+          replay
+          hideProps={{ 0: { reverse: true } }}
+          location="page1"
+        >
+          <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
+            每次进入都启动播放
+          </TweenOne>
+          <QueueAnim key="1" style={{ height: 100 }}>
+            <div key="0" className="demo"></div>
+            <div key="1" className="demo"></div>
+            <div key="2" className="demo"></div>
+            <div key="3" className="demo"></div>
+          </QueueAnim>
+        </ScrollOverPack>
+      </div>
 
       <ScrollOverPack
         className="pack-page page2"
