@@ -49,12 +49,12 @@ EventDispatcher.prototype = {
       i = list.length;
       while (--i > -1) {
         if (list[i].c === callback && (_force || list[i].n === namespaces)) {
-          list.splice(i, 1);
           if (this._eventTarget.removeEventListener) {
-            this._eventTarget.removeEventListener(list.t, list.func);
+            this._eventTarget.removeEventListener(list[i].t, list[i].func);
           } else if (this._eventTarget.detachEvent) {
-            this._eventTarget.detachEvent(`on${list.t}`, list.func);
+            this._eventTarget.detachEvent(`on${list[i].t}`, list[i].func);
           }
+          list.splice(i, 1);
           if (!_force) {
             return;
           }
