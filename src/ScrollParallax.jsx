@@ -29,6 +29,7 @@ class ScrollParallax extends React.Component {
     this.scrollTop = 0;
     this.defaultTweenData = [];
     this.defaultData = [];
+    this.timeout = null;
     this.state = {};
   }
 
@@ -40,7 +41,7 @@ class ScrollParallax extends React.Component {
     this.setDefaultData(this.props.animation || {});
 
     // 第一次进入;
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.timeline = new Timeline(this.dom, this.defaultTweenData);
       // 预注册;
       this.timeline.frame(0);
@@ -62,7 +63,12 @@ class ScrollParallax extends React.Component {
   }
 
   componentWillUnmount() {
-    EventListener.removeEventListener(this.eventType, this.scrollEventListener);
+    if (!this.eventType && this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    } else {
+      EventListener.removeEventListener(this.eventType, this.scrollEventListener);
+    }
   }
 
   setDefaultData = _vars => {

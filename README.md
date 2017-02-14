@@ -153,7 +153,7 @@ OverPack inherit Element; `component` `playScale` `onChange` `location` refer to
 | onStartBack   | function       |    -    |   scroll up animate start (playScale[1]) callback; |
 | onCompleteBack | function       |    -    |   scroll up animate completed (playScale[0]) callback; |
 
-> animation = [{},{}] 时为timeline;
+> animation = [{},{}] is timeline;
 
 ### Link
 | name      | type           | default | description    |
