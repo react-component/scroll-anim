@@ -22011,6 +22011,7 @@
 	    _this.scrollTop = 0;
 	    _this.defaultTweenData = [];
 	    _this.defaultData = [];
+	    _this.timeout = null;
 	    _this.state = {};
 	    return _this;
 	  }
@@ -22024,7 +22025,7 @@
 	    this.setDefaultData(this.props.animation || {});
 	
 	    // 第一次进入;
-	    setTimeout(function () {
+	    this.timeout = setTimeout(function () {
 	      _this2.timeline = new _TimeLine2.default(_this2.dom, _this2.defaultTweenData);
 	      // 预注册;
 	      _this2.timeline.frame(0);
@@ -22046,7 +22047,12 @@
 	  };
 	
 	  ScrollParallax.prototype.componentWillUnmount = function componentWillUnmount() {
-	    _EventDispatcher2.default.removeEventListener(this.eventType, this.scrollEventListener);
+	    if (!this.eventType && this.timeout) {
+	      clearTimeout(this.timeout);
+	      this.timeout = null;
+	    } else {
+	      _EventDispatcher2.default.removeEventListener(this.eventType, this.scrollEventListener);
+	    }
 	  };
 	
 	  ScrollParallax.prototype.render = function render() {
@@ -24490,7 +24496,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.6.2",
+		"version": "0.6.3",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
