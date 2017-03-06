@@ -3,12 +3,12 @@ webpackJsonp([4],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(216);
+	module.exports = __webpack_require__(303);
 
 
 /***/ },
 
-/***/ 194:
+/***/ 280:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,7 +17,7 @@ webpackJsonp([4],{
 	  value: true
 	});
 	
-	var _QueueAnim = __webpack_require__(195);
+	var _QueueAnim = __webpack_require__(281);
 	
 	var _QueueAnim2 = _interopRequireDefault(_QueueAnim);
 	
@@ -29,7 +29,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 195:
+/***/ 281:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {'use strict';
@@ -40,15 +40,15 @@ webpackJsonp([4],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(41);
+	var _reactDom = __webpack_require__(125);
 	
-	var _utils = __webpack_require__(197);
+	var _utils = __webpack_require__(284);
 	
-	var _animTypes = __webpack_require__(198);
+	var _animTypes = __webpack_require__(285);
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
 	
@@ -133,7 +133,7 @@ webpackJsonp([4],{
 	var velocity = void 0;
 	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 	  // only load velocity on the client
-	  velocity = __webpack_require__(199);
+	  velocity = __webpack_require__(286);
 	  Object.keys(_ease).forEach(function (key) {
 	    if (velocity.Easings) {
 	      velocity.Easings[key] = _ease[key];
@@ -486,18 +486,14 @@ webpackJsonp([4],{
 	
 	exports["default"] = QueueAnim;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(196).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(282).setImmediate))
 
 /***/ },
 
-/***/ 196:
+/***/ 282:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(8).nextTick;
 	var apply = Function.prototype.apply;
-	var slice = Array.prototype.slice;
-	var immediateIds = {};
-	var nextImmediateId = 0;
 	
 	// DOM APIs, for completeness
 	
@@ -508,7 +504,11 @@ webpackJsonp([4],{
 	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
 	};
 	exports.clearTimeout =
-	exports.clearInterval = function(timeout) { timeout.close(); };
+	exports.clearInterval = function(timeout) {
+	  if (timeout) {
+	    timeout.close();
+	  }
+	};
 	
 	function Timeout(id, clearFn) {
 	  this._id = id;
@@ -542,38 +542,209 @@ webpackJsonp([4],{
 	  }
 	};
 	
-	// That's not how node.js implements it but the exposed api is the same.
-	exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
-	  var id = nextImmediateId++;
-	  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
-	
-	  immediateIds[id] = true;
-	
-	  nextTick(function onNextTick() {
-	    if (immediateIds[id]) {
-	      // fn.call() is faster so we optimize for the common use-case
-	      // @see http://jsperf.com/call-apply-segu
-	      if (args) {
-	        fn.apply(null, args);
-	      } else {
-	        fn.call(null);
-	      }
-	      // Prevent ids from leaking
-	      exports.clearImmediate(id);
-	    }
-	  });
-	
-	  return id;
-	};
-	
-	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
-	  delete immediateIds[id];
-	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(196).setImmediate, __webpack_require__(196).clearImmediate))
+	// setimmediate attaches itself to the global object
+	__webpack_require__(283);
+	exports.setImmediate = setImmediate;
+	exports.clearImmediate = clearImmediate;
+
 
 /***/ },
 
-/***/ 197:
+/***/ 283:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+	    "use strict";
+	
+	    if (global.setImmediate) {
+	        return;
+	    }
+	
+	    var nextHandle = 1; // Spec says greater than zero
+	    var tasksByHandle = {};
+	    var currentlyRunningATask = false;
+	    var doc = global.document;
+	    var registerImmediate;
+	
+	    function setImmediate(callback) {
+	      // Callback can either be a function or a string
+	      if (typeof callback !== "function") {
+	        callback = new Function("" + callback);
+	      }
+	      // Copy function arguments
+	      var args = new Array(arguments.length - 1);
+	      for (var i = 0; i < args.length; i++) {
+	          args[i] = arguments[i + 1];
+	      }
+	      // Store and register the task
+	      var task = { callback: callback, args: args };
+	      tasksByHandle[nextHandle] = task;
+	      registerImmediate(nextHandle);
+	      return nextHandle++;
+	    }
+	
+	    function clearImmediate(handle) {
+	        delete tasksByHandle[handle];
+	    }
+	
+	    function run(task) {
+	        var callback = task.callback;
+	        var args = task.args;
+	        switch (args.length) {
+	        case 0:
+	            callback();
+	            break;
+	        case 1:
+	            callback(args[0]);
+	            break;
+	        case 2:
+	            callback(args[0], args[1]);
+	            break;
+	        case 3:
+	            callback(args[0], args[1], args[2]);
+	            break;
+	        default:
+	            callback.apply(undefined, args);
+	            break;
+	        }
+	    }
+	
+	    function runIfPresent(handle) {
+	        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+	        // So if we're currently running a task, we'll need to delay this invocation.
+	        if (currentlyRunningATask) {
+	            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+	            // "too much recursion" error.
+	            setTimeout(runIfPresent, 0, handle);
+	        } else {
+	            var task = tasksByHandle[handle];
+	            if (task) {
+	                currentlyRunningATask = true;
+	                try {
+	                    run(task);
+	                } finally {
+	                    clearImmediate(handle);
+	                    currentlyRunningATask = false;
+	                }
+	            }
+	        }
+	    }
+	
+	    function installNextTickImplementation() {
+	        registerImmediate = function(handle) {
+	            process.nextTick(function () { runIfPresent(handle); });
+	        };
+	    }
+	
+	    function canUsePostMessage() {
+	        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+	        // where `global.postMessage` means something completely different and can't be used for this purpose.
+	        if (global.postMessage && !global.importScripts) {
+	            var postMessageIsAsynchronous = true;
+	            var oldOnMessage = global.onmessage;
+	            global.onmessage = function() {
+	                postMessageIsAsynchronous = false;
+	            };
+	            global.postMessage("", "*");
+	            global.onmessage = oldOnMessage;
+	            return postMessageIsAsynchronous;
+	        }
+	    }
+	
+	    function installPostMessageImplementation() {
+	        // Installs an event handler on `global` for the `message` event: see
+	        // * https://developer.mozilla.org/en/DOM/window.postMessage
+	        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+	
+	        var messagePrefix = "setImmediate$" + Math.random() + "$";
+	        var onGlobalMessage = function(event) {
+	            if (event.source === global &&
+	                typeof event.data === "string" &&
+	                event.data.indexOf(messagePrefix) === 0) {
+	                runIfPresent(+event.data.slice(messagePrefix.length));
+	            }
+	        };
+	
+	        if (global.addEventListener) {
+	            global.addEventListener("message", onGlobalMessage, false);
+	        } else {
+	            global.attachEvent("onmessage", onGlobalMessage);
+	        }
+	
+	        registerImmediate = function(handle) {
+	            global.postMessage(messagePrefix + handle, "*");
+	        };
+	    }
+	
+	    function installMessageChannelImplementation() {
+	        var channel = new MessageChannel();
+	        channel.port1.onmessage = function(event) {
+	            var handle = event.data;
+	            runIfPresent(handle);
+	        };
+	
+	        registerImmediate = function(handle) {
+	            channel.port2.postMessage(handle);
+	        };
+	    }
+	
+	    function installReadyStateChangeImplementation() {
+	        var html = doc.documentElement;
+	        registerImmediate = function(handle) {
+	            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+	            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+	            var script = doc.createElement("script");
+	            script.onreadystatechange = function () {
+	                runIfPresent(handle);
+	                script.onreadystatechange = null;
+	                html.removeChild(script);
+	                script = null;
+	            };
+	            html.appendChild(script);
+	        };
+	    }
+	
+	    function installSetTimeoutImplementation() {
+	        registerImmediate = function(handle) {
+	            setTimeout(runIfPresent, 0, handle);
+	        };
+	    }
+	
+	    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+	    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+	    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+	
+	    // Don't get fooled by e.g. browserify environments.
+	    if ({}.toString.call(global.process) === "[object process]") {
+	        // For Node.js before 0.9
+	        installNextTickImplementation();
+	
+	    } else if (canUsePostMessage()) {
+	        // For non-IE10 modern browsers
+	        installPostMessageImplementation();
+	
+	    } else if (global.MessageChannel) {
+	        // For web workers, where supported
+	        installMessageChannelImplementation();
+	
+	    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+	        // For IE 6–8
+	        installReadyStateChangeImplementation();
+	
+	    } else {
+	        // For older browsers
+	        installSetTimeoutImplementation();
+	    }
+	
+	    attachTo.setImmediate = setImmediate;
+	    attachTo.clearImmediate = clearImmediate;
+	}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(92)))
+
+/***/ },
+
+/***/ 284:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -587,7 +758,7 @@ webpackJsonp([4],{
 	exports.transformArguments = transformArguments;
 	exports.getChildrenFromProps = getChildrenFromProps;
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -679,7 +850,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 198:
+/***/ 285:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -728,7 +899,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 199:
+/***/ 286:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
@@ -4620,19 +4791,19 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 200:
+/***/ 287:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var TweenOne = __webpack_require__(201);
-	TweenOne.TweenOneGroup = __webpack_require__(202);
-	TweenOne.easing = __webpack_require__(184);
+	var TweenOne = __webpack_require__(288);
+	TweenOne.TweenOneGroup = __webpack_require__(289);
+	TweenOne.easing = __webpack_require__(268);
 	module.exports = TweenOne;
 
 /***/ },
 
-/***/ 201:
+/***/ 288:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4643,27 +4814,27 @@ webpackJsonp([4],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(41);
+	var _reactDom = __webpack_require__(125);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _util = __webpack_require__(185);
+	var _util = __webpack_require__(269);
 	
-	var _styleUtils = __webpack_require__(186);
+	var _styleUtils = __webpack_require__(274);
 	
-	var _TimeLine = __webpack_require__(183);
+	var _TimeLine = __webpack_require__(267);
 	
 	var _TimeLine2 = _interopRequireDefault(_TimeLine);
 	
-	var _plugins = __webpack_require__(187);
+	var _plugins = __webpack_require__(272);
 	
 	var _plugins2 = _interopRequireDefault(_plugins);
 	
-	var _ticker = __webpack_require__(189);
+	var _ticker = __webpack_require__(275);
 	
 	var _ticker2 = _interopRequireDefault(_ticker);
 	
@@ -4699,10 +4870,10 @@ webpackJsonp([4],{
 	      var props = _this.props;
 	      if (props.animation && Object.keys(props.animation).length) {
 	        _this.timeLine = new _TimeLine2["default"](_this.dom, (0, _util.dataToArray)(props.animation), props.attr);
-	        // 开始动画
-	        _this.play();
 	        // 预先注册 raf, 初始动画数值。
 	        _this.raf(0, true);
+	        // 开始动画
+	        _this.play();
 	      }
 	    };
 	
@@ -4714,8 +4885,13 @@ webpackJsonp([4],{
 	      _this.rafID = _ticker2["default"].add(_this.raf);
 	    };
 	
-	    _this.frame = function (register) {
-	      var moment = (_ticker2["default"].frame - _this.startFrame) * perFrame + (!register && _this.startMoment || 0);
+	    _this.frame = function (date, register) {
+	      var registerMoment = register ? date : 0;
+	      var moment = (_ticker2["default"].frame - _this.startFrame) * perFrame + registerMoment + _this.startMoment;
+	      if (!register && moment < perFrame) {
+	        // 注册完后，第一帧预先跑动， 鼠标跟随
+	        moment = perFrame;
+	      }
 	      if (_this.reverse) {
 	        moment = (_this.startMoment || 0) - (_ticker2["default"].frame - _this.startFrame) * perFrame;
 	      }
@@ -4730,7 +4906,7 @@ webpackJsonp([4],{
 	    };
 	
 	    _this.raf = function (date, register) {
-	      _this.frame(register);
+	      _this.frame(date, register);
 	      if (_this.moment >= _this.timeLine.totalTime && !_this.reverse || _this.paused || _this.reverse && _this.moment === 0) {
 	        return _this.cancelRequestAnimationFrame();
 	      }
@@ -4743,7 +4919,7 @@ webpackJsonp([4],{
 	
 	    _this.rafID = -1;
 	    _this.moment = _this.props.moment || 0;
-	    _this.startMoment = _this.props.moment || perFrame - 1;
+	    _this.startMoment = _this.props.moment || 0;
 	    _this.startFrame = _ticker2["default"].frame;
 	    _this.paused = _this.props.paused;
 	    _this.reverse = _this.props.reverse;
@@ -4791,7 +4967,7 @@ webpackJsonp([4],{
 	      if (nextProps.resetStyleBool && this.timeLine) {
 	        this.timeLine.resetDefaultStyle();
 	      }
-	      this.startMoment = perFrame - 1; // 设置 perFrame 为开始时就播放一帧动画, 不是从0开始, 鼠标跟随使用
+	      this.startMoment = 0;
 	      this.startFrame = _ticker2["default"].frame;
 	      this.restartAnim = true;
 	      // this.start(nextProps);
@@ -4885,7 +5061,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 202:
+/***/ 289:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4896,15 +5072,15 @@ webpackJsonp([4],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TweenOne = __webpack_require__(201);
+	var _TweenOne = __webpack_require__(288);
 	
 	var _TweenOne2 = _interopRequireDefault(_TweenOne);
 	
-	var _util = __webpack_require__(185);
+	var _util = __webpack_require__(269);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -5096,17 +5272,17 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 203:
+/***/ 290:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(204);
+	module.exports = __webpack_require__(291);
 
 /***/ },
 
-/***/ 204:
+/***/ 291:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5115,17 +5291,19 @@ webpackJsonp([4],{
 	  value: true
 	});
 	
-	var _react = __webpack_require__(6);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(205);
+	var _ChildrenUtils = __webpack_require__(292);
 	
-	var _AnimateChild = __webpack_require__(206);
+	var _AnimateChild = __webpack_require__(293);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(211);
+	var _util = __webpack_require__(298);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5155,6 +5333,7 @@ webpackJsonp([4],{
 	
 	  propTypes: {
 	    component: _react2["default"].PropTypes.any,
+	    componentProps: _react2["default"].PropTypes.object,
 	    animation: _react2["default"].PropTypes.object,
 	    transitionName: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.object]),
 	    transitionEnter: _react2["default"].PropTypes.bool,
@@ -5172,6 +5351,7 @@ webpackJsonp([4],{
 	    return {
 	      animation: {},
 	      component: 'span',
+	      componentProps: {},
 	      transitionEnter: true,
 	      transitionLeave: true,
 	      transitionAppear: false,
@@ -5419,10 +5599,10 @@ webpackJsonp([4],{
 	    if (Component) {
 	      var passedProps = props;
 	      if (typeof Component === 'string') {
-	        passedProps = {
+	        passedProps = _extends({
 	          className: props.className,
 	          style: props.style
-	        };
+	        }, props.componentProps);
 	      }
 	      return _react2["default"].createElement(
 	        Component,
@@ -5439,7 +5619,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 205:
+/***/ 292:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5454,7 +5634,7 @@ webpackJsonp([4],{
 	exports.isSameChildren = isSameChildren;
 	exports.mergeChildren = mergeChildren;
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -5562,7 +5742,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 206:
+/***/ 293:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5571,21 +5751,21 @@ webpackJsonp([4],{
 	  value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(41);
+	var _reactDom = __webpack_require__(125);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(207);
+	var _cssAnimation = __webpack_require__(294);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(211);
+	var _util = __webpack_require__(298);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -5674,7 +5854,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 207:
+/***/ 294:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5683,13 +5863,13 @@ webpackJsonp([4],{
 	  value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _Event = __webpack_require__(208);
+	var _Event = __webpack_require__(295);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(209);
+	var _componentClasses = __webpack_require__(296);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -5704,8 +5884,8 @@ webpackJsonp([4],{
 	var prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
 	
 	function getStyleProperty(node, name) {
-	  var style = window.getComputedStyle(node);
-	
+	  // old ff need null, https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+	  var style = window.getComputedStyle(node, null);
 	  var ret = '';
 	  for (var i = 0; i < prefixes.length; i++) {
 	    ret = style.getPropertyValue(prefixes[i] + name);
@@ -5870,7 +6050,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 208:
+/***/ 295:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5964,7 +6144,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 209:
+/***/ 296:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -5972,9 +6152,9 @@ webpackJsonp([4],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(210);
+	  var index = __webpack_require__(297);
 	} catch (err) {
-	  var index = __webpack_require__(210);
+	  var index = __webpack_require__(297);
 	}
 	
 	/**
@@ -6162,7 +6342,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 210:
+/***/ 297:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -6175,7 +6355,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 211:
+/***/ 298:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6208,59 +6388,65 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 216:
+/***/ 303:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(2);
+	var _defineProperty2 = __webpack_require__(304);
 	
-	var _rcScrollAnim = __webpack_require__(3);
+	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+	
+	var _classCallCheck2 = __webpack_require__(2);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(3);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(72);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	__webpack_require__(80);
+	
+	var _rcScrollAnim = __webpack_require__(81);
 	
 	var _rcScrollAnim2 = _interopRequireDefault(_rcScrollAnim);
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(41);
+	var _reactDom = __webpack_require__(125);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcQueueAnim = __webpack_require__(194);
+	var _rcQueueAnim = __webpack_require__(280);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _rcTweenOne = __webpack_require__(200);
+	var _rcTweenOne = __webpack_require__(287);
 	
 	var _rcTweenOne2 = _interopRequireDefault(_rcTweenOne);
 	
-	var _rcAnimate = __webpack_require__(203);
+	var _rcAnimate = __webpack_require__(290);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	var _package = __webpack_require__(299); // use jsx to render html, do not modify simple.html
 	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } // use jsx to render html, do not modify simple.html
-	
-	var _package = __webpack_require__(212);
 	var ScrollOverPack = _rcScrollAnim2.default.OverPack;
 	
 	var Demo = function (_React$Component) {
-	  _inherits(Demo, _React$Component);
+	  (0, _inherits3.default)(Demo, _React$Component);
 	
 	  function Demo() {
-	    _classCallCheck(this, Demo);
-	
-	    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    (0, _classCallCheck3.default)(this, Demo);
+	    return (0, _possibleConstructorReturn3.default)(this, _React$Component.apply(this, arguments));
 	  }
 	
 	  Demo.prototype.render = function render() {
@@ -6347,7 +6533,7 @@ webpackJsonp([4],{
 	          id: 'page3',
 	          className: 'pack-page page3',
 	          style: { backgroundColor: '#174270' },
-	          playScale: 0.8 }, _defineProperty(_React$createElement, 'id', 'page3'), _defineProperty(_React$createElement, 'hideProps', { title: { reverse: true }, 1: { reverse: true } }), _React$createElement),
+	          playScale: 0.8 }, (0, _defineProperty3.default)(_React$createElement, 'id', 'page3'), (0, _defineProperty3.default)(_React$createElement, 'hideProps', { title: { reverse: true }, 1: { reverse: true } }), _React$createElement),
 	        _react2.default.createElement(
 	          _rcTweenOne2.default,
 	          {
@@ -6377,6 +6563,63 @@ webpackJsonp([4],{
 	}(_react2.default.Component);
 	
 	_reactDom2.default.render(_react2.default.createElement(Demo, null), document.getElementById('__react-content'));
+
+/***/ },
+
+/***/ 304:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	exports.__esModule = true;
+	
+	var _defineProperty = __webpack_require__(305);
+	
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (obj, key, value) {
+	  if (key in obj) {
+	    (0, _defineProperty2.default)(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+	
+	  return obj;
+	};
+
+/***/ },
+
+/***/ 305:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(306), __esModule: true };
+
+/***/ },
+
+/***/ 306:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(307);
+	var $Object = __webpack_require__(15).Object;
+	module.exports = function defineProperty(it, key, desc){
+	  return $Object.defineProperty(it, key, desc);
+	};
+
+/***/ },
+
+/***/ 307:
+/***/ function(module, exports, __webpack_require__) {
+
+	var $export = __webpack_require__(13);
+	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+	$export($export.S + $export.F * !__webpack_require__(23), 'Object', {defineProperty: __webpack_require__(19).f});
 
 /***/ }
 
