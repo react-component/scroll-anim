@@ -26998,7 +26998,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "0.6.4",
+		"version": "0.6.5",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
@@ -27024,8 +27024,8 @@
 		"main": "./lib/index",
 		"entry": {
 			"rc-scroll-anim": [
-				"./src/index.js",
-				"./assets/index.less"
+				"./assets/index.less",
+				"./src/index.js"
 			]
 		},
 		"config": {
