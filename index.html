@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-scroll-anim@0.6.5 - scroll-anim anim component for react</title>
+  <title>rc-scroll-anim@1.0.0 - scroll-anim anim component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-scroll-anim@0.6.5</h1>
+  <h1>rc-scroll-anim@1.0.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -753,6 +753,8 @@
       <li><a href="examples/scrollScreen.html">scrollScreen</a></li>
       
       <li><a href="examples/simple.html">simple</a></li>
+      
+      <li><a href="examples/target.html">target</a></li>
       
     </ul>
   </div>
@@ -802,7 +804,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 
 <span class="hljs-comment">// ScrollOverPack support rc-animate,rc-queue-anim,rc-tween-one;</span>
 
-React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollOverPack</span> <span class="hljs-attribute">hideProps</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">tweenOne:</span> { <span class="hljs-attribute">reverse:</span> <span class="hljs-attribute">true</span> } }}&gt;</span>
+React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollOverPack</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'queueAnim'</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'a'</span>&gt;</span>enter<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'b'</span>&gt;</span>enter<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -845,6 +847,12 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>need to location the id，parallax the <code>location</code> or link the <code>to</code>, need to use</td>
 </tr>
 <tr>
+<td>targetId</td>
+<td>string</td>
+<td>null</td>
+<td>scroll target id, if don&#39;t window scroll, parent element is <code>overflow: scroll</code>, use parent id to do scroll; <a href="http://react-component.github.io/scroll-anim/examples/target.html" title="null">demo refs</a></td>
+</tr>
+<tr>
 <td>playScale</td>
 <td>number / array</td>
 <td><code>0.5</code></td>
@@ -868,6 +876,9 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <p>Note: if the element is not the above component, you need to location this element; please use the <code>Element</code></p>
 </blockquote>
 <h3>OverPack<a id="user-content-overpack" name="overpack" class="anchor" aria-hidden="true" href="#overpack"><span class="octicon octicon-link"></span></a></h3><p>OverPack inherit Element; <code>component</code> <code>playScale</code> <code>onChange</code> <code>location</code> refer to  <code>Element</code>;</p>
+<blockquote>
+<p>1.0.0 remove hideProps;</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -891,10 +902,10 @@ ScrollAnim.scrollScreen.unMount();</code></pre></div><h2>API<a id="user-content-
 <td>play every enter, do you want to animate each time you show the current, <code>false</code> only scroll to down play animate</td>
 </tr>
 <tr>
-<td>hideProps</td>
-<td>object</td>
-<td><code>null</code></td>
-<td>v0.3.0 children hideProps move here. If the child does not have, default: { children: null }. children be <code>rc-tween-one</code> { &#39;userKey&#39;: { reverse: true }}</td>
+<td>appear</td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>whether support appear the operation</td>
 </tr>
 </tbody>
 </table>
