@@ -1,4 +1,5 @@
 import React, { createElement } from 'react';
+import TweenOne from 'rc-tween-one';
 import EventListener from './EventDispatcher';
 import ScrollElement from './ScrollElement';
 import { toArrayChildren } from './util';
@@ -9,36 +10,37 @@ function noop() {
 class ScrollOverPack extends ScrollElement {
   constructor(props) {
     super(props);
-    this.children = toArrayChildren(this.props.children);
+    this.children = toArrayChildren(props.children);
     this.oneEnter = false;
     this.enter = false;
     this.state = {
       show: false,
-      children: toArrayChildren(this.props.children),
+      children: toArrayChildren(props.children),
     };
   }
 
   scrollEventListener = (e) => {
     this.getParam(e);
-    if (this.enter) {
+    const isTop = this.elementShowHeight > this.clientHeight + this.leavePlayHeight;
+    if (this.enter || !this.props.replay && isTop) {
       if (!this.state.show) {
         this.setState({
           show: true,
         });
       }
       if (!this.props.always) {
-        EventListener.removeEventListener(this.eventType, this.scrollEventListener);
+        EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
       }
-    }
-    const bottomLeave = this.elementShowHeight < this.playHeight;
-    // 设置往上时的出场点...
-    const topLeave = this.props.replay ?
-    this.elementShowHeight > this.clientHeight + this.leavePlayHeight : null;
-    if (topLeave || bottomLeave) {
-      if (this.state.show) {
-        this.setState({
-          show: false,
-        });
+    } else {
+      const bottomLeave = this.elementShowHeight < this.playHeight;
+      // 设置往上时的出场点...
+      const topLeave = this.props.replay ? isTop : null;
+      if (topLeave || bottomLeave) {
+        if (this.state.show) {
+          this.setState({
+            show: false,
+          });
+        }
       }
     }
   }
@@ -51,12 +53,14 @@ class ScrollOverPack extends ScrollElement {
       'component',
       'always',
       'scrollEvent',
-      'hideProps',
+      'appear',
       'location',
+      'targetId',
     ].forEach(key => delete placeholderProps[key]);
     let childToRender;
-    if (!this.oneEnter && !this.state.show) {
-      childToRender = createElement(this.props.component, { ...placeholderProps }, null);
+    if (!this.oneEnter) {
+      const children = !this.props.appear && this.props.children;
+      childToRender = createElement(this.props.component, { ...placeholderProps }, children);
       this.oneEnter = true;
     } else {
       if (!this.state.show) {
@@ -65,9 +69,8 @@ class ScrollOverPack extends ScrollElement {
             return null;
           }
           let element;
-          const hideProps = this.props.hideProps[item.key];
-          if (hideProps) {
-            element = React.cloneElement(item, { ...hideProps });
+          if (item.type === TweenOne) {
+            element = React.cloneElement(item, { reverse: true });
             return element;
           }
           element = React.cloneElement(item, {}, null);
@@ -91,7 +94,7 @@ ScrollOverPack.propTypes = {
   style: React.PropTypes.any,
   replay: React.PropTypes.bool,
   onChange: React.PropTypes.func,
-  hideProps: React.PropTypes.object,
+  appear: React.PropTypes.bool,
 };
 
 ScrollOverPack.defaultProps = {
@@ -101,7 +104,7 @@ ScrollOverPack.defaultProps = {
   scrollEvent: noop,
   replay: false,
   onChange: noop,
-  hideProps: {},
+  appear: true,
 };
 
 export default ScrollOverPack;

@@ -85,7 +85,7 @@ class Demo extends React.Component {
           </div>
         </QueueAnim>
       </Element>
-      <ScrollOverPack id="page1" className="page1" hideProps={{ 0: { reverse: true } }}>
+      <ScrollOverPack id="page1" className="page1">
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
           默认进入与出场
         </TweenOne>
@@ -102,7 +102,6 @@ class Demo extends React.Component {
         style={{ backgroundColor: '#0098CE' }}
         always={false}
         id="page2"
-        hideProps={{ 1: { reverse: true } }}
       >
         <div className="page2-title">只进入一次</div>
         <Animate key="0" transitionName="fade" transitionAppear>
@@ -121,7 +120,6 @@ class Demo extends React.Component {
         style={{ backgroundColor: '#174270' }}
         playScale={0.8}
         id="page3"
-        hideProps={{ title: { reverse: true }, 1: { reverse: true } }}
       >
         <TweenOne animation={{ opacity: 1 }} style={{ opacity: 0 }} key="title"
           className="page2-title"

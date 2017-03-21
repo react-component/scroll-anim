@@ -67,7 +67,7 @@ var React = require('react');
 
 // ScrollOverPack support rc-animate,rc-queue-anim,rc-tween-one;
 
-React.render(<ScrollOverPack hideProps={{ tweenOne: { reverse: true } }}>
+React.render(<ScrollOverPack>
   <QueueAnim key='queueAnim'>
     <div key='a'>enter</div>
     <div key='b'>enter</div>
@@ -118,6 +118,7 @@ ScrollAnim.scrollScreen.unMount();
 |-----------|----------------|---------|----------------|
 | component | string         | `div`   | -            |
 | id | string         | null    | need to location the id，parallax the `location` or link the `to`, need to use |
+| targetId  |  string        | null    |  scroll target id, if don't window scroll, parent element is `overflow: scroll`, use parent id to do scroll; [demo refs](http://react-component.github.io/scroll-anim/examples/target.html) |
 | playScale | number / array        | `0.5`   | percentage of screen to start play, screen center is 0.5, if replay is true : [bottomEnter, topLeave]， topLeave >= bottomEnter |
 | onChange  | func           | null     | change callback({ mode, scrollName }); mode: `enter` or `leave` |
 | location  | string         | null     |  v0.6.0 above have,location, the parent id; |
@@ -128,11 +129,13 @@ ScrollAnim.scrollScreen.unMount();
 
 OverPack inherit Element; `component` `playScale` `onChange` `location` refer to  `Element`;
 
+> 1.0.0 remove hideProps;
+
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | always    | boolean        | `true`  | back to top, enter replay，as `false` will only play it again, leave does not play |
 | replay    | boolean        | `false` | play every enter, do you want to animate each time you show the current, `false` only scroll to down play animate |
-| hideProps | object         | `null`  | v0.3.0 children hideProps move here. If the child does not have, default: { children: null }. children be `rc-tween-one` { 'userKey': { reverse: true }} |
+| appear | boolean         | `true`  | whether support appear the operation |
 
 ### Parallax
 | name      | type           | default | description    |

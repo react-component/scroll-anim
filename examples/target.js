@@ -6,7 +6,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
-import Animate from 'rc-animate';
 const _package = require('../package.json');
 const ScrollOverPack = ScrollAnim.OverPack;
 
@@ -16,7 +15,7 @@ class Demo extends React.Component {
   }
 
   render() {
-    return (<div>
+    return (<div style={{ height: '100vh', overflow: 'scroll' }} id="box">
       <div className="pack-page page0">
         <QueueAnim className="home-title">
           <div className="page-title" key="title">
@@ -29,7 +28,9 @@ class Demo extends React.Component {
       </div>
       <ScrollOverPack
         id="page1"
-        className="page1" replay
+        className="page1"
+        replay
+        targetId="box"
       >
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
           默认进入与出场, 顶部出场
@@ -46,6 +47,8 @@ class Demo extends React.Component {
         id="page4"
         className="page1"
         appear={false}
+        style={{ backgroundColor: '#0098CE' }}
+        targetId="box"
       >
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
           默认出场直接出现
@@ -58,47 +61,6 @@ class Demo extends React.Component {
         </QueueAnim>
       </ScrollOverPack>
 
-      <ScrollOverPack
-        scrollEvent={this.scrollEvent}
-        className="pack-page page2"
-        style={{ backgroundColor: '#0098CE' }} always={false}
-        id="page2"
-      >
-        <TweenOne key="title" animation={{ opacity: 0, type: 'from' }} className="page2-title">
-          只进入一次
-        </TweenOne>
-        <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo2"></div>
-        </Animate>
-        <TweenOne className="demo2" animation={{ y: 0, opacity: 1 }} key="1"
-          style={{ transform: 'translateY(100px)', opacity: 0 }}
-        />
-      </ScrollOverPack>
-
-      <ScrollOverPack
-        id="page3"
-        className="pack-page page3"
-        style={{ backgroundColor: '#174270' }}
-        playScale={0.8} id="page3"
-      >
-        <TweenOne
-          animation={{ opacity: 1 }}
-          style={{ opacity: 0 }}
-          key="title"
-          className="page2-title"
-        >
-          在页面80％时进入
-        </TweenOne>
-        <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo"></div>
-        </Animate>
-        <TweenOne
-          className="demo"
-          animation={{ y: 0, opacity: 1 }}
-          key="1"
-          style={{ transform: 'translateY(100px)', opacity: 0 }}
-        />
-      </ScrollOverPack>
     </div>);
   }
 }

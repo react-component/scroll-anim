@@ -3,9 +3,10 @@ function EventDispatcher(target) {
   this._listeners = {};
   this._eventTarget = target || {};
   this.recoverLists = [];
+  this._listFun = {};
 }
 EventDispatcher.prototype = {
-  addEventListener(type, callback) {
+  addEventListener(type, callback, target) {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
@@ -26,16 +27,19 @@ EventDispatcher.prototype = {
         index = i + 1;
       }
     }
-    const func = this.dispatchEvent.bind(this, _type);
-    list.splice(index, 0, { c: callback, n: namespaces, t: _type, func });
-    if (this._eventTarget.addEventListener) {
-      this._eventTarget.addEventListener(_type, func, false);
-    } else if (this._eventTarget.attachEvent) {
-      this._eventTarget.attachEvent(`on${_type}`, func);
+
+    list.splice(index, 0, { c: callback, n: namespaces, t: _type });
+    if (!this._listFun[_type]) {
+      this._listFun[_type] = this._listFun[_type] || this.dispatchEvent.bind(this, _type);
+      if (this._eventTarget.addEventListener) {
+        (target || this._eventTarget).addEventListener(_type, this._listFun[_type], false);
+      } else if (this._eventTarget.attachEvent) {
+        (target || this._eventTarget).attachEvent(`on${_type}`, this._listFun[_type]);
+      }
     }
   },
 
-  removeEventListener(type, callback, force) {
+  removeEventListener(type, callback, target, force) {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
@@ -49,12 +53,17 @@ EventDispatcher.prototype = {
       i = list.length;
       while (--i > -1) {
         if (list[i].c === callback && (_force || list[i].n === namespaces)) {
-          if (this._eventTarget.removeEventListener) {
-            this._eventTarget.removeEventListener(list[i].t, list[i].func);
-          } else if (this._eventTarget.detachEvent) {
-            this._eventTarget.detachEvent(`on${list[i].t}`, list[i].func);
-          }
           list.splice(i, 1);
+          if (!list.length) {
+            const func = this._listFun[_type];
+            delete this._listeners[_type];
+            delete this._listFun[_type];
+            if (this._eventTarget.removeEventListener) {
+              (target || this._eventTarget).removeEventListener(_type, func);
+            } else if (this._eventTarget.detachEvent) {
+              (target || this._eventTarget).detachEvent(`on${_type}`, func);
+            }
+          }
           if (!_force) {
             return;
           }
@@ -80,7 +89,7 @@ EventDispatcher.prototype = {
       }
     }
   },
-  removeAllType(type) {
+  removeAllType(type, target) {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
@@ -89,16 +98,16 @@ EventDispatcher.prototype = {
       item.n && item.n.match(namespaces)
     ));
     this.recoverLists.forEach(item => {
-      this.removeEventListener(`${item.t}.${item.n}`, item.c);
+      this.removeEventListener(`${item.t}.${item.n}`, item.c, target);
     });
   },
-  reAllType(type) {
+  reAllType(type, target) {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
     this.recoverLists = this.recoverLists.map(item => {
       if (item.t === _type && item.n.match(namespaces)) {
-        this.addEventListener(`${item.t}.${item.n}`, item.c);
+        this.addEventListener(`${item.t}.${item.n}`, item.c, target);
         return null;
       }
       return item;
