@@ -95,7 +95,6 @@ class Demo extends React.Component {
           className="page1"
           playScale={1}
           replay
-          hideProps={{ 0: { reverse: true } }}
           location="page1"
           style={{ marginTop: 150 }}
         >
@@ -116,7 +115,6 @@ class Demo extends React.Component {
         style={{ backgroundColor: '#174270', height: 500 }}
         id="page2"
         playScale={1}
-        hideProps={{ t: { reverse: true }, 1: { reverse: true } }}
       >
         <TweenOne className="tween-one" animation={{ opacity: 1 }} key="t">
           只从上往下时播放
@@ -138,7 +136,6 @@ class Demo extends React.Component {
         always={false}
         id="page3"
         playScale={1}
-        hideProps={{ t: { reverse: true }, 1: { reverse: true } }}
       >
         <TweenOne
           animation={{ opacity: 1 }}

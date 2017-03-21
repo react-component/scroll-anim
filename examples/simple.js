@@ -30,10 +30,25 @@ class Demo extends React.Component {
       <ScrollOverPack
         id="page1"
         className="page1" replay
-        hideProps={{ 0: { reverse: true } }}
       >
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
-          默认进入与出场
+          默认进入与出场, 顶部出场
+        </TweenOne>
+        <QueueAnim key="1">
+          <div key="0" className="demo"></div>
+          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }}></div>
+          <div key="2" className="demo"></div>
+          <div key="3" className="demo"></div>
+        </QueueAnim>
+      </ScrollOverPack>
+
+      <ScrollOverPack
+        id="page4"
+        className="page1"
+        appear={false}
+      >
+        <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
+          默认出场直接出现
         </TweenOne>
         <QueueAnim key="1">
           <div key="0" className="demo"></div>
@@ -48,7 +63,6 @@ class Demo extends React.Component {
         className="pack-page page2"
         style={{ backgroundColor: '#0098CE' }} always={false}
         id="page2"
-        hideProps={{ title: { reverse: true } }}
       >
         <TweenOne key="title" animation={{ opacity: 0, type: 'from' }} className="page2-title">
           只进入一次
@@ -66,7 +80,6 @@ class Demo extends React.Component {
         className="pack-page page3"
         style={{ backgroundColor: '#174270' }}
         playScale={0.8} id="page3"
-        hideProps={{ title: { reverse: true }, 1: { reverse: true } }}
       >
         <TweenOne
           animation={{ opacity: 1 }}
