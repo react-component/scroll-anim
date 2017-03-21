@@ -22,7 +22,8 @@ class ScrollElement extends React.Component {
     }
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = `scroll.scrollEvent${date}${length}`;
-    EventListener.addEventListener(this.eventType, this.scrollEventListener);
+    this.target = this.props.targetId && document.getElementById(this.props.targetId);
+    EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,15 +34,15 @@ class ScrollElement extends React.Component {
 
   componentWillUnmount() {
     mapped.unRegister(this.props.id);
-    EventListener.removeEventListener(this.eventType, this.scrollEventListener);
+    EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
   }
 
   getParam = (e) => {
-    this.clientHeight = windowHeight();
-    const scrollTop = currentScrollTop();
-    // 屏幕缩放时的响应，所以放回这里，这个是pack，只处理子级里面的动画，所以marginTop无关系，所以不需减掉；
+    this.clientHeight = this.target ? this.target.getBoundingClientRect().height : windowHeight();
+    const windowScrollTop = this.target ? currentScrollTop() : 0;
+    const scrollTop = this.target ? this.target.scrollTop : currentScrollTop();
     const domRect = this.dom.getBoundingClientRect();
-    const offsetTop = domRect.top + scrollTop;
+    const offsetTop = domRect.top + scrollTop + windowScrollTop;
     this.elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const playScale = transformArguments(this.props.playScale);
     this.playHeight = this.clientHeight * playScale[0];
@@ -63,7 +64,7 @@ class ScrollElement extends React.Component {
 
   render() {
     const { ...props } = this.props;
-    ['component', 'playScale', 'location'].forEach(key => delete props[key]);
+    ['component', 'playScale', 'location', 'targetId'].forEach(key => delete props[key]);
     return React.createElement(this.props.component, { ...props });
   }
 }
@@ -74,6 +75,7 @@ ScrollElement.propTypes = {
   id: React.PropTypes.string,
   onChange: React.PropTypes.func,
   location: React.PropTypes.string,
+  targetId: React.PropTypes.string,
 };
 
 ScrollElement.defaultProps = {
