@@ -6524,7 +6524,8 @@ webpackJsonp([4],{
 	        ScrollOverPack,
 	        {
 	          id: 'page1',
-	          className: 'page1', replay: true
+	          className: 'page1', replay: true,
+	          playScale: '50vh'
 	        },
 	        _react2.default.createElement(
 	          _rcTweenOne2.default,

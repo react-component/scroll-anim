@@ -1704,17 +1704,14 @@
 	    } else {
 	      if (!this.state.show) {
 	        this.children = this.children.map(function (item) {
-	          if (!item || !item.key) {
+	          if (!item) {
 	            return null;
 	          }
-	          var element = void 0;
 	          // 判断 TweenOne;
 	          if (item.type.TweenOneGroup && item.type.easing && item.type.plugins) {
-	            element = _react2.default.cloneElement(item, { reverse: true });
-	            return element;
+	            return _react2.default.cloneElement(item, { reverse: true });
 	          }
-	          element = _react2.default.cloneElement(item, {}, null);
-	          return element;
+	          return _react2.default.cloneElement(item, {}, null);
 	        });
 	      } else {
 	        this.children = this.state.children;
@@ -6198,9 +6195,23 @@
 	      var offsetTop = domRect.top + scrollTop + windowScrollTop;
 	      _this.elementShowHeight = scrollTop - offsetTop + _this.clientHeight;
 	      var playScale = (0, _util.transformArguments)(_this.props.playScale);
-	      _this.playHeight = _this.clientHeight * playScale[0];
+	      var playScaleEnterArray = /([\+\-]?[0-9#\.]+)(px|vh)?/.exec(String(playScale[0]));
+	      if (!playScaleEnterArray[2]) {
+	        _this.playHeight = _this.clientHeight * parseFloat(playScale[0]);
+	      } else if (playScaleEnterArray[2] === 'px') {
+	        _this.playHeight = parseFloat(playScaleEnterArray[1]);
+	      } else {
+	        _this.playHeight = _this.clientHeight * parseFloat(playScaleEnterArray[1]) / 100;
+	      }
 	      var leaveHeight = domRect.height;
-	      _this.leavePlayHeight = leaveHeight * playScale[1];
+	      var playScaleLeaveArray = /([\+\-]?[0-9#\.]+)(px|vh)?/.exec(String(playScale[1]));
+	      if (!playScaleLeaveArray[2]) {
+	        _this.leavePlayHeight = leaveHeight * parseFloat(playScale[1]);
+	      } else if (playScaleLeaveArray[2] === 'px') {
+	        _this.leavePlayHeight = parseFloat(playScaleLeaveArray[1]);
+	      } else {
+	        _this.leavePlayHeight = leaveHeight * parseFloat(playScaleLeaveArray[1]) / 100;
+	      }
 	      var enter = _this.elementShowHeight >= _this.playHeight && _this.elementShowHeight <= _this.clientHeight + _this.leavePlayHeight;
 	      var enterOrLeave = enter ? 'enter' : 'leave';
 	      var mode = _this.enter !== enter || typeof _this.enter !== 'boolean' ? enterOrLeave : null;
@@ -23624,7 +23635,7 @@
 	
 	    // 第一次进入;
 	    this.timeout = setTimeout(function () {
-	      _this2.timeline = new _TimeLine2.default(_this2.dom, _this2.defaultTweenData);
+	      _this2.timeline = new _TimeLine2.default(_this2.dom, _this2.defaultTweenData, {});
 	      // 预注册;
 	      _this2.timeline.frame(0);
 	      _this2.scrollEventListener();
@@ -27065,7 +27076,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
