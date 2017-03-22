@@ -64,17 +64,14 @@ class ScrollOverPack extends ScrollElement {
     } else {
       if (!this.state.show) {
         this.children = this.children.map(item => {
-          if (!item || !item.key) {
+          if (!item) {
             return null;
           }
-          let element;
           // 判断 TweenOne;
           if (item.type.TweenOneGroup && item.type.easing && item.type.plugins) {
-            element = React.cloneElement(item, { reverse: true });
-            return element;
+            return React.cloneElement(item, { reverse: true });
           }
-          element = React.cloneElement(item, {}, null);
-          return element;
+          return React.cloneElement(item, {}, null);
         });
       } else {
         this.children = this.state.children;

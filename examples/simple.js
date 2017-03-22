@@ -30,6 +30,7 @@ class Demo extends React.Component {
       <ScrollOverPack
         id="page1"
         className="page1" replay
+        playScale="50vh"
       >
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
           默认进入与出场, 顶部出场

@@ -45,9 +45,23 @@ class ScrollElement extends React.Component {
     const offsetTop = domRect.top + scrollTop + windowScrollTop;
     this.elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const playScale = transformArguments(this.props.playScale);
-    this.playHeight = this.clientHeight * playScale[0];
+    const playScaleEnterArray = /([\+\-]?[0-9#\.]+)(px|vh)?/.exec(String(playScale[0]));
+    if (!playScaleEnterArray[2]) {
+      this.playHeight = this.clientHeight * parseFloat(playScale[0]);
+    } else if (playScaleEnterArray[2] === 'px') {
+      this.playHeight = parseFloat(playScaleEnterArray[1]);
+    } else {
+      this.playHeight = this.clientHeight * parseFloat(playScaleEnterArray[1]) / 100;
+    }
     const leaveHeight = domRect.height;
-    this.leavePlayHeight = leaveHeight * playScale[1];
+    const playScaleLeaveArray = /([\+\-]?[0-9#\.]+)(px|vh)?/.exec(String(playScale[1]));
+    if (!playScaleLeaveArray[2]) {
+      this.leavePlayHeight = leaveHeight * parseFloat(playScale[1]);
+    } else if (playScaleLeaveArray[2] === 'px') {
+      this.leavePlayHeight = parseFloat(playScaleLeaveArray[1]);
+    } else {
+      this.leavePlayHeight = leaveHeight * parseFloat(playScaleLeaveArray[1]) / 100;
+    }
     const enter = this.elementShowHeight >= this.playHeight
       && this.elementShowHeight <= this.clientHeight + this.leavePlayHeight;
     const enterOrLeave = enter ? 'enter' : 'leave';
