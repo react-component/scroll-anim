@@ -1,5 +1,4 @@
 import React, { createElement } from 'react';
-import TweenOne from 'rc-tween-one';
 import EventListener from './EventDispatcher';
 import ScrollElement from './ScrollElement';
 import { toArrayChildren } from './util';
@@ -69,7 +68,8 @@ class ScrollOverPack extends ScrollElement {
             return null;
           }
           let element;
-          if (item.type === TweenOne) {
+          // 判断 TweenOne;
+          if (item.type.TweenOneGroup && item.type.easing && item.type.plugins) {
             element = React.cloneElement(item, { reverse: true });
             return element;
           }
