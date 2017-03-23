@@ -219,6 +219,6 @@ ScrollLink.defaultProps = {
   onFocus: noop,
   onBlur: noop,
 };
-
+ScrollLink.isScrollLink = true;
 
 export default ScrollLink;

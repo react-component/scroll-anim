@@ -203,5 +203,5 @@ ScrollParallax.defaultProps = {
   component: 'div',
   always: true,
 };
-
+ScrollParallax.isScrollParallax = true;
 export default ScrollParallax;

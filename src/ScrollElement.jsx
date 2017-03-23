@@ -16,13 +16,14 @@ class ScrollElement extends React.Component {
       mapped.register(this.props.id, this.dom);
     }
     const date = Date.now();
+    this.target = this.props.targetId && document.getElementById(this.props.targetId);
+
     const scrollTop = currentScrollTop();
     if (!scrollTop) {
       this.scrollEventListener();
     }
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = `scroll.scrollEvent${date}${length}`;
-    this.target = this.props.targetId && document.getElementById(this.props.targetId);
     EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
   }
 
@@ -38,14 +39,14 @@ class ScrollElement extends React.Component {
   }
 
   getParam = (e) => {
-    this.clientHeight = this.target ? this.target.getBoundingClientRect().height : windowHeight();
-    const windowScrollTop = this.target ? currentScrollTop() : 0;
+    this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
     const scrollTop = this.target ? this.target.scrollTop : currentScrollTop();
     const domRect = this.dom.getBoundingClientRect();
-    const offsetTop = domRect.top + scrollTop + windowScrollTop;
+    const targetTop = this.target ? this.target.getBoundingClientRect().top : 0;
+    const offsetTop = domRect.top + scrollTop - targetTop;
     this.elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const playScale = transformArguments(this.props.playScale);
-    const playScaleEnterArray = /([\+\-]?[0-9#\.]+)(px|vh)?/.exec(String(playScale[0]));
+    const playScaleEnterArray = /([\+\-]?[0-9#\.]+)(px|vh|%)?/.exec(String(playScale[0]));
     if (!playScaleEnterArray[2]) {
       this.playHeight = this.clientHeight * parseFloat(playScale[0]);
     } else if (playScaleEnterArray[2] === 'px') {
@@ -54,7 +55,7 @@ class ScrollElement extends React.Component {
       this.playHeight = this.clientHeight * parseFloat(playScaleEnterArray[1]) / 100;
     }
     const leaveHeight = domRect.height;
-    const playScaleLeaveArray = /([\+\-]?[0-9#\.]+)(px|vh)?/.exec(String(playScale[1]));
+    const playScaleLeaveArray = /([\+\-]?[0-9#\.]+)(px|vh|%)?/.exec(String(playScale[1]));
     if (!playScaleLeaveArray[2]) {
       this.leavePlayHeight = leaveHeight * parseFloat(playScale[1]);
     } else if (playScaleLeaveArray[2] === 'px') {
@@ -97,4 +98,5 @@ ScrollElement.defaultProps = {
   onChange: noop,
   playScale: 0.5,
 };
+ScrollElement.isScrollElement = true;
 export default ScrollElement;

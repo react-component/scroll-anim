@@ -103,5 +103,6 @@ ScrollOverPack.defaultProps = {
   onChange: noop,
   appear: true,
 };
+ScrollOverPack.isScrollOverPack = true;
 
 export default ScrollOverPack;
