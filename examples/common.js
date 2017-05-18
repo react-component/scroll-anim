@@ -1632,6 +1632,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _propTypes = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"prop-types\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _EventDispatcher = __webpack_require__(122);
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
@@ -1725,16 +1729,16 @@
 	}(_ScrollElement3.default);
 	
 	ScrollOverPack.propTypes = {
-	  component: _react2.default.PropTypes.string,
-	  playScale: _react2.default.PropTypes.any,
-	  always: _react2.default.PropTypes.bool,
-	  scrollEvent: _react2.default.PropTypes.func,
-	  children: _react2.default.PropTypes.any,
-	  className: _react2.default.PropTypes.string,
-	  style: _react2.default.PropTypes.any,
-	  replay: _react2.default.PropTypes.bool,
-	  onChange: _react2.default.PropTypes.func,
-	  appear: _react2.default.PropTypes.bool
+	  component: _propTypes2.default.string,
+	  playScale: _propTypes2.default.any,
+	  always: _propTypes2.default.bool,
+	  scrollEvent: _propTypes2.default.func,
+	  children: _propTypes2.default.any,
+	  className: _propTypes2.default.string,
+	  style: _propTypes2.default.any,
+	  replay: _propTypes2.default.bool,
+	  onChange: _propTypes2.default.func,
+	  appear: _propTypes2.default.bool
 	};
 	
 	ScrollOverPack.defaultProps = {
@@ -6162,6 +6166,10 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _propTypes = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"prop-types\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _Mapped = __webpack_require__(264);
 	
 	var _Mapped2 = _interopRequireDefault(_Mapped);
@@ -6269,12 +6277,12 @@
 	}(_react2.default.Component);
 	
 	ScrollElement.propTypes = {
-	  component: _react2.default.PropTypes.any,
-	  playScale: _react2.default.PropTypes.any,
-	  id: _react2.default.PropTypes.string,
-	  onChange: _react2.default.PropTypes.func,
-	  location: _react2.default.PropTypes.string,
-	  targetId: _react2.default.PropTypes.string
+	  component: _propTypes2.default.any,
+	  playScale: _propTypes2.default.any,
+	  id: _propTypes2.default.string,
+	  onChange: _propTypes2.default.func,
+	  location: _propTypes2.default.string,
+	  targetId: _propTypes2.default.string
 	};
 	
 	ScrollElement.defaultProps = {
@@ -23479,6 +23487,10 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _propTypes = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"prop-types\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _EventDispatcher = __webpack_require__(122);
 	
 	var _EventDispatcher2 = _interopRequireDefault(_EventDispatcher);
@@ -23690,14 +23702,14 @@
 	}(_react2.default.Component);
 	
 	ScrollParallax.propTypes = {
-	  component: _react2.default.PropTypes.string,
-	  animation: _react2.default.PropTypes.any,
-	  always: _react2.default.PropTypes.bool,
-	  location: _react2.default.PropTypes.string,
-	  children: _react2.default.PropTypes.any,
-	  className: _react2.default.PropTypes.string,
-	  style: _react2.default.PropTypes.any,
-	  id: _react2.default.PropTypes.string
+	  component: _propTypes2.default.string,
+	  animation: _propTypes2.default.any,
+	  always: _propTypes2.default.bool,
+	  location: _propTypes2.default.string,
+	  children: _propTypes2.default.any,
+	  className: _propTypes2.default.string,
+	  style: _propTypes2.default.any,
+	  id: _propTypes2.default.string
 	};
 	
 	ScrollParallax.defaultProps = {
@@ -26618,6 +26630,10 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _propTypes = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"prop-types\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _tweenFunctions = __webpack_require__(266);
 	
 	var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
@@ -26634,10 +26650,10 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/**
-	 * Created by jljsj on 16/1/13.
-	 */
-	function noop() {}
+	function noop() {} /**
+	                    * Created by jljsj on 16/1/13.
+	                    */
+	
 	
 	var scrollLinkLists = [];
 	
@@ -26812,23 +26828,23 @@
 	}(_react2.default.Component);
 	
 	ScrollLink.propTypes = {
-	  component: _react2.default.PropTypes.string,
-	  children: _react2.default.PropTypes.any,
-	  className: _react2.default.PropTypes.string,
-	  style: _react2.default.PropTypes.any,
-	  offsetTop: _react2.default.PropTypes.number,
-	  duration: _react2.default.PropTypes.number,
-	  active: _react2.default.PropTypes.string,
-	  location: _react2.default.PropTypes.string,
-	  to: _react2.default.PropTypes.string,
-	  showHeightActive: _react2.default.PropTypes.any,
-	  toShowHeight: _react2.default.PropTypes.bool,
-	  ease: _react2.default.PropTypes.string,
-	  onClick: _react2.default.PropTypes.func,
-	  onFocus: _react2.default.PropTypes.func,
-	  onBlur: _react2.default.PropTypes.func,
-	  onAsynchronousAddEvent: _react2.default.PropTypes.func,
-	  toHash: _react2.default.PropTypes.bool
+	  component: _propTypes2.default.string,
+	  children: _propTypes2.default.any,
+	  className: _propTypes2.default.string,
+	  style: _propTypes2.default.any,
+	  offsetTop: _propTypes2.default.number,
+	  duration: _propTypes2.default.number,
+	  active: _propTypes2.default.string,
+	  location: _propTypes2.default.string,
+	  to: _propTypes2.default.string,
+	  showHeightActive: _propTypes2.default.any,
+	  toShowHeight: _propTypes2.default.bool,
+	  ease: _propTypes2.default.string,
+	  onClick: _propTypes2.default.func,
+	  onFocus: _propTypes2.default.func,
+	  onBlur: _propTypes2.default.func,
+	  onAsynchronousAddEvent: _propTypes2.default.func,
+	  toHash: _propTypes2.default.bool
 	};
 	
 	ScrollLink.defaultProps = {
@@ -27080,7 +27096,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "1.0.3",
+		"version": "1.0.4",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
@@ -27128,20 +27144,21 @@
 		"devDependencies": {
 			"expect.js": "0.3.x",
 			"pre-commit": "1.x",
+			"rc-animate": "2.x",
+			"rc-queue-anim": "^1.0.1",
 			"rc-tools": "5.x",
-			"react": "~15.2.0",
-			"react-addons-test-utils": "~15.2.0",
-			"react-dom": "~15.2.0",
-			"rc-queue-anim": "0.11.x",
-			"rc-animate": "2.x"
+			"react": "~15.5.0",
+			"react-addons-test-utils": "~15.5.0",
+			"react-dom": "~15.5.0"
 		},
 		"pre-commit": [
 			"lint"
 		],
 		"dependencies": {
 			"babel-runtime": "6.x",
+			"prop-types": "^15.5.10",
 			"raf": "3.x",
-			"rc-tween-one": "~1.1.2",
+			"rc-tween-one": "~1.2.5",
 			"tween-functions": "1.x"
 		}
 	};
