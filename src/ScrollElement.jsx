@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import mapped from './Mapped';
 import EventListener from './EventDispatcher';
 import { currentScrollTop, transformArguments, windowHeight, toArrayChildren } from './util';
@@ -85,12 +86,12 @@ class ScrollElement extends React.Component {
 }
 
 ScrollElement.propTypes = {
-  component: React.PropTypes.any,
-  playScale: React.PropTypes.any,
-  id: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  location: React.PropTypes.string,
-  targetId: React.PropTypes.string,
+  component: PropTypes.any,
+  playScale: PropTypes.any,
+  id: PropTypes.string,
+  onChange: PropTypes.func,
+  location: PropTypes.string,
+  targetId: PropTypes.string,
 };
 
 ScrollElement.defaultProps = {

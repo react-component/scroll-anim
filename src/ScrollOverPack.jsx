@@ -1,4 +1,5 @@
 import React, { createElement } from 'react';
+import PropTypes from 'prop-types';
 import EventListener from './EventDispatcher';
 import ScrollElement from './ScrollElement';
 import { toArrayChildren } from './util';
@@ -82,16 +83,16 @@ class ScrollOverPack extends ScrollElement {
   }
 }
 ScrollOverPack.propTypes = {
-  component: React.PropTypes.string,
-  playScale: React.PropTypes.any,
-  always: React.PropTypes.bool,
-  scrollEvent: React.PropTypes.func,
-  children: React.PropTypes.any,
-  className: React.PropTypes.string,
-  style: React.PropTypes.any,
-  replay: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
-  appear: React.PropTypes.bool,
+  component: PropTypes.string,
+  playScale: PropTypes.any,
+  always: PropTypes.bool,
+  scrollEvent: PropTypes.func,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  style: PropTypes.any,
+  replay: PropTypes.bool,
+  onChange: PropTypes.func,
+  appear: PropTypes.bool,
 };
 
 ScrollOverPack.defaultProps = {

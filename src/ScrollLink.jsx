@@ -3,6 +3,7 @@
  */
 import React, { createElement } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
@@ -188,23 +189,23 @@ class ScrollLink extends React.Component {
 }
 
 ScrollLink.propTypes = {
-  component: React.PropTypes.string,
-  children: React.PropTypes.any,
-  className: React.PropTypes.string,
-  style: React.PropTypes.any,
-  offsetTop: React.PropTypes.number,
-  duration: React.PropTypes.number,
-  active: React.PropTypes.string,
-  location: React.PropTypes.string,
-  to: React.PropTypes.string,
-  showHeightActive: React.PropTypes.any,
-  toShowHeight: React.PropTypes.bool,
-  ease: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  onFocus: React.PropTypes.func,
-  onBlur: React.PropTypes.func,
-  onAsynchronousAddEvent: React.PropTypes.func,
-  toHash: React.PropTypes.bool,
+  component: PropTypes.string,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  style: PropTypes.any,
+  offsetTop: PropTypes.number,
+  duration: PropTypes.number,
+  active: PropTypes.string,
+  location: PropTypes.string,
+  to: PropTypes.string,
+  showHeightActive: PropTypes.any,
+  toShowHeight: PropTypes.bool,
+  ease: PropTypes.string,
+  onClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onAsynchronousAddEvent: PropTypes.func,
+  toHash: PropTypes.bool,
 };
 
 ScrollLink.defaultProps = {
