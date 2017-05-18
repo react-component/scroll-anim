@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import PropTypes from 'prop-types';
 import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Timeline from 'rc-tween-one/lib/TimeLine';
@@ -189,14 +190,14 @@ class ScrollParallax extends React.Component {
 }
 
 ScrollParallax.propTypes = {
-  component: React.PropTypes.string,
-  animation: React.PropTypes.any,
-  always: React.PropTypes.bool,
-  location: React.PropTypes.string,
-  children: React.PropTypes.any,
-  className: React.PropTypes.string,
-  style: React.PropTypes.any,
-  id: React.PropTypes.string,
+  component: PropTypes.string,
+  animation: PropTypes.any,
+  always: PropTypes.bool,
+  location: PropTypes.string,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  style: PropTypes.any,
+  id: PropTypes.string,
 };
 
 ScrollParallax.defaultProps = {
