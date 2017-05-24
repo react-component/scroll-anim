@@ -1,15 +1,15 @@
 webpackJsonp([2],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(301);
+	module.exports = __webpack_require__(320);
 
 
-/***/ },
+/***/ }),
 
-/***/ 301:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 320:
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -35,7 +35,7 @@ webpackJsonp([2],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(125);
+	var _reactDom = __webpack_require__(130);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -45,7 +45,7 @@ webpackJsonp([2],{
 	
 	var ScrollParallax = _rcScrollAnim2.default.Parallax;
 	var ScrollElement = _rcScrollAnim2.default.Element;
-	var _package = __webpack_require__(299);
+	var _package = __webpack_require__(318);
 	
 	var Demo = function (_React$Component) {
 	  (0, _inherits3.default)(Demo, _React$Component);
@@ -347,7 +347,7 @@ webpackJsonp([2],{
 	
 	_reactDom2.default.render(_react2.default.createElement(Demo, null), document.getElementById('__react-content'));
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=parallax.js.map

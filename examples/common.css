@@ -137,7 +137,6 @@ p {
   line-height: 58px;
   text-align: center;
   cursor: pointer;
-  -webkit-transition: background .45s;
   transition: background .45s;
 }
 .nav .nav-bar {
@@ -147,7 +146,6 @@ p {
   left: 0;
   height: 2px;
   background: #fff;
-  -webkit-transition: left .3s;
   transition: left .3s;
 }
 .page0 {
