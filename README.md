@@ -114,6 +114,8 @@ ScrollAnim.scrollScreen.unMount();
 
 ### Element 
 
+> `Element` or `OverPack` must set height;
+
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | component | string         | `div`   | -            |
