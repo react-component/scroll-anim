@@ -1775,7 +1775,7 @@
 	}(_ScrollElement3.default);
 	
 	ScrollOverPack.propTypes = {
-	  component: _propTypes2.default.string,
+	  component: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
 	  playScale: _propTypes2.default.any,
 	  always: _propTypes2.default.bool,
 	  scrollEvent: _propTypes2.default.func,
@@ -6625,7 +6625,7 @@
 	}(_react2.default.Component);
 	
 	ScrollElement.propTypes = {
-	  component: _propTypes2.default.any,
+	  component: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
 	  playScale: _propTypes2.default.any,
 	  id: _propTypes2.default.string,
 	  onChange: _propTypes2.default.func,
@@ -24031,7 +24031,7 @@
 	}(_react2.default.Component);
 	
 	ScrollParallax.propTypes = {
-	  component: _propTypes2.default.string,
+	  component: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
 	  animation: _propTypes2.default.any,
 	  always: _propTypes2.default.bool,
 	  location: _propTypes2.default.string,
@@ -27167,7 +27167,7 @@
 	}(_react2.default.Component);
 	
 	ScrollLink.propTypes = {
-	  component: _propTypes2.default.string,
+	  component: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
 	  children: _propTypes2.default.any,
 	  className: _propTypes2.default.string,
 	  style: _propTypes2.default.any,
@@ -27442,7 +27442,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "1.0.5",
+		"version": "1.0.6",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
