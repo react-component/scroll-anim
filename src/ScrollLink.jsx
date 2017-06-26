@@ -189,7 +189,7 @@ class ScrollLink extends React.Component {
 }
 
 ScrollLink.propTypes = {
-  component: PropTypes.string,
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   children: PropTypes.any,
   className: PropTypes.string,
   style: PropTypes.any,

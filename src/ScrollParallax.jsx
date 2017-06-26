@@ -190,7 +190,7 @@ class ScrollParallax extends React.Component {
 }
 
 ScrollParallax.propTypes = {
-  component: PropTypes.string,
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   animation: PropTypes.any,
   always: PropTypes.bool,
   location: PropTypes.string,

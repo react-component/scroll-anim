@@ -86,7 +86,7 @@ class ScrollElement extends React.Component {
 }
 
 ScrollElement.propTypes = {
-  component: PropTypes.any,
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   playScale: PropTypes.any,
   id: PropTypes.string,
   onChange: PropTypes.func,

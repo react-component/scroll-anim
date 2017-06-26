@@ -83,7 +83,7 @@ class ScrollOverPack extends ScrollElement {
   }
 }
 ScrollOverPack.propTypes = {
-  component: PropTypes.string,
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   playScale: PropTypes.any,
   always: PropTypes.bool,
   scrollEvent: PropTypes.func,
