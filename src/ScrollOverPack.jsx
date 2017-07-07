@@ -28,8 +28,8 @@ class ScrollOverPack extends ScrollElement {
           show: true,
         });
       }
-      if (!this.props.always) {
-        this.eventType && EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
+      if (!this.props.always && this.eventType) {
+        EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
       }
     } else {
       const bottomLeave = this.elementShowHeight < this.playHeight;
