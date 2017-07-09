@@ -28,7 +28,7 @@ class ScrollOverPack extends ScrollElement {
           show: true,
         });
       }
-      if (!this.props.always) {
+      if (!this.props.always && this.eventType) {
         EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
       }
     } else {
