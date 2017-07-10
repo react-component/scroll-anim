@@ -1713,7 +1713,7 @@
 	            show: true
 	          });
 	        }
-	        if (!_this.props.always) {
+	        if (!_this.props.always && _this.eventType) {
 	          _EventDispatcher2.default.removeEventListener(_this.eventType, _this.scrollEventListener, _this.target);
 	        }
 	      } else {
@@ -6592,13 +6592,14 @@
 	    var date = Date.now();
 	    this.target = this.props.targetId && document.getElementById(this.props.targetId);
 	
+	    var length = _EventDispatcher2.default._listeners.scroll ? _EventDispatcher2.default._listeners.scroll.length : 0;
+	    this.eventType = 'scroll.scrollEvent' + date + length;
+	    _EventDispatcher2.default.addEventListener(this.eventType, this.scrollEventListener, this.target);
+	
 	    var scrollTop = (0, _util.currentScrollTop)();
 	    if (!scrollTop) {
 	      this.scrollEventListener();
 	    }
-	    var length = _EventDispatcher2.default._listeners.scroll ? _EventDispatcher2.default._listeners.scroll.length : 0;
-	    this.eventType = 'scroll.scrollEvent' + date + length;
-	    _EventDispatcher2.default.addEventListener(this.eventType, this.scrollEventListener, this.target);
 	  };
 	
 	  ScrollElement.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
@@ -27442,7 +27443,7 @@
 
 	module.exports = {
 		"name": "rc-scroll-anim",
-		"version": "1.0.6",
+		"version": "1.0.7",
 		"description": "scroll-anim anim component for react",
 		"keywords": [
 			"react",
