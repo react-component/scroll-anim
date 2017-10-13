@@ -29,11 +29,7 @@ class ScrollLink extends React.Component {
   componentDidMount() {
     this.dom = ReactDOM.findDOMNode(this);
     scrollLinkLists.push(this);
-    if (this.props.onAsynchronousAddEvent) {
-      this.props.onAsynchronousAddEvent(this.addScrollEventListener);
-    } else {
-      this.addScrollEventListener();
-    }
+    this.addScrollEventListener();
   }
 
   componentWillUnmount() {
@@ -44,11 +40,12 @@ class ScrollLink extends React.Component {
 
   onClick = (e) => {
     e.preventDefault();
-    if (this.rafID !== -1) {
-      return;
-    }
+    this.clientHeight = windowHeight();
     const docRect = document.documentElement.getBoundingClientRect();
     const elementDom = document.getElementById(this.props.to);
+    if (this.rafID !== -1 || !elementDom) {
+      return;
+    }
     const elementRect = elementDom.getBoundingClientRect();
     this.scrollTop = currentScrollTop();
     const toTop = Math.round(elementRect.top) - Math.round(docRect.top) - this.props.offsetTop;
@@ -137,7 +134,8 @@ class ScrollLink extends React.Component {
     this.clientHeight = windowHeight();
     const elementDom = document.getElementById(this.props.to);
     if (!elementDom) {
-      throw new Error(`There is no to(${this.props.to}) in the element.`);
+      // throw new Error(`There is no to(${this.props.to}) in the element.`);
+      return;
     }
     const elementRect = elementDom.getBoundingClientRect();
     const elementClientHeight = elementDom.clientHeight;
@@ -177,7 +175,6 @@ class ScrollLink extends React.Component {
       'toShowHeight',
       'offsetTop',
       'to',
-      'onAsynchronousAddEvent',
       'toHash',
     ].forEach(key => delete props[key]);
     const reg = new RegExp(active, 'ig');
@@ -204,7 +201,6 @@ ScrollLink.propTypes = {
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  onAsynchronousAddEvent: PropTypes.func,
   toHash: PropTypes.bool,
 };
 

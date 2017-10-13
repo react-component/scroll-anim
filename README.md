@@ -161,6 +161,9 @@ OverPack inherit Element; `component` `playScale` `onChange` `location` refer to
 > animation = [{},{}] is timeline;
 
 ### Link
+
+> v1.1.0 remove onAsynchronousAddEvent. [Asynchronous demo](http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html)
+
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | to  | string         | `null`  | need; Specifies the element to top; `Element` the id  |
@@ -173,7 +176,6 @@ OverPack inherit Element; `component` `playScale` `onChange` `location` refer to
 | offsetTop |  number        |  0      | scroll to elem top offset   |
 | onFocus   | func           | null    | check callback,onFocus({target,to}) |
 | onBlur    | func           | null    | blur callback |
-| onAsynchronousAddEvent | func | null | Asynchronous add onScroll; callback(function) [refs](http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html) |
 | component | string         | `div`   | -            |
 
 ### ScrollAnim.scrollScreen.init(vars)

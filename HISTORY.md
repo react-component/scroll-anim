@@ -1,3 +1,7 @@
+## 1.1.0
+1. 升级 react 到 16;
+2. 去除 onAsynchronousAddEvent， 可查看异步 [deom](http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html);
+
 ## 0.5.0
 
 1. scrollElement 将支持 onChange, 进入与出去时触发.

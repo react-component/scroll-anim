@@ -23,18 +23,16 @@ class Demo extends React.Component {
 
   componentDidMount() {
     // 添加改变窗口事件,可加setTimeout
+    this.barAnimate();
     EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
+    setTimeout(() => {
+      this.setState({ show: true });
+    }, 1500);
   }
 
   onFocus = (e) => {
     this.dom = e.target;
     this.barAnimate();
-  }
-
-  onDataLoadEnd = (func) => {
-    setTimeout(() => {
-      this.setState({ show: true }, func);
-    }, 1500);
   }
 
   barAnimate() {
@@ -54,25 +52,24 @@ class Demo extends React.Component {
         <div className="nav-wap">
           <Link className="nav-list" to="page0" showHeightActive={['50%', '10%']}
             onFocus={this.onFocus}
-            onAsynchronousAddEvent={this.onDataLoadEnd}
+            ref={(c) => {
+              this.dom = ReactDOM.findDOMNode(c);
+            }}
           >
             Example
           </Link>
           <Link className="nav-list" to="page1" showHeightActive={['10%', '60%']} toShowHeight
             onFocus={this.onFocus}
-            onAsynchronousAddEvent={this.onDataLoadEnd}
           >
             Example2
           </Link>
           <Link className="nav-list" to="page2" showHeightActive={['60%', '50%']} toShowHeight
             onFocus={this.onFocus}
-            onAsynchronousAddEvent={this.onDataLoadEnd}
           >
             Example3
           </Link>
           <Link className="nav-list" to="page3" offsetTop={100}
             onFocus={this.onFocus}
-            onAsynchronousAddEvent={this.onDataLoadEnd}
           >
             Example4
           </Link>
@@ -109,7 +106,7 @@ class Demo extends React.Component {
           id="page2"
           key="2"
         >
-          <div className="page2-title">只进入一次</div>
+          <div className="page2-title" key="title">只进入一次</div>
           <Animate key="0" transitionName="fade" transitionAppear>
             <div className="demo2"></div>
           </Animate>
