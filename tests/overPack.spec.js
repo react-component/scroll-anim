@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
@@ -25,7 +25,6 @@ describe('rc-scroll-anim', () => {
           <ScrollAnim.OverPack
             {...this.props}
             style={{ height: 1000 }}
-            hideProps={{ one: { reverse: true } }}
           >
             <TweenOne
               key="one"

@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
 require('./link.spec.less');
 
@@ -32,7 +32,7 @@ describe('rc-scroll-anim', () => {
           <div className="nav">
             <ScrollAnim.Link
               className="nav-list"
-              location="page0"
+              to="page0"
               {...this.props}
               onFocus={this.onFocus.bind(this)}
             >
@@ -40,7 +40,7 @@ describe('rc-scroll-anim', () => {
             </ScrollAnim.Link>
             <ScrollAnim.Link
               className="nav-list"
-              location="page1"
+              to="page1"
               {...this.props}
               onFocus={this.onFocus.bind(this)}
             >
@@ -48,10 +48,10 @@ describe('rc-scroll-anim', () => {
             </ScrollAnim.Link>
             <div ref="bar" className="nav-bar"></div>
           </div>
-          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page0" className="page">
+          <ScrollAnim.Element style={{ height: 1000 }} id="page0" className="page">
             示例
           </ScrollAnim.Element>
-          <ScrollAnim.Element style={{ height: 1000 }} scrollName="page1" className="page">
+          <ScrollAnim.Element style={{ height: 1000 }} id="page1" className="page">
             示例
           </ScrollAnim.Element>
         </div>);
@@ -78,7 +78,7 @@ describe('rc-scroll-anim', () => {
     return parseFloat(str);
   }
 
-  it.only('link bar and active', (done) => {
+  it('link bar and active', (done) => {
     document.body.scrollTop = 0;
     instance = createScrollLink();
     const listChild = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'nav-list');

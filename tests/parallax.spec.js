@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
 
 describe('rc-scroll-anim', () => {
@@ -92,25 +92,27 @@ describe('rc-scroll-anim', () => {
     // 窗口高度 300, 其它样式高度: 145, parallax里的高为 1200,
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
     expect(getFloat(child[0].style.opacity)).to.be(0);
-    window.scrollTo(0, startHeight);
     ticker.timeout(() => {
-      console.log('current scroll top:', window.pageYOffset);
-      console.log('scroll to start:', child[0].style.opacity);
-      expect(getFloat(child[0].style.opacity)).to.be(0);
-      window.scrollTo(0, startHeight + 0.1 * windowHeight);
+      window.scrollTo(0, startHeight);
       ticker.timeout(() => {
         console.log('current scroll top:', window.pageYOffset);
-        console.log('scroll update access start:', child[0].style.opacity);
-        expect(getFloat(child[0].style.opacity)).to.above(0).below(0.5);
-        window.scrollTo(0, endHeight);
+        console.log('scroll to start:', child[0].style.opacity);
+        expect(getFloat(child[0].style.opacity)).to.be(0);
+        window.scrollTo(0, startHeight + 0.1 * windowHeight);
         ticker.timeout(() => {
           console.log('current scroll top:', window.pageYOffset);
-          console.log('scroll update access end:', child[0].style.opacity);
-          expect(getFloat(child[0].style.opacity)).to.be(1);
-          done();
-        }, 300);
+          console.log('scroll update access start:', child[0].style.opacity);
+          expect(getFloat(child[0].style.opacity)).to.above(0).below(0.5);
+          window.scrollTo(0, endHeight);
+          ticker.timeout(() => {
+            console.log('current scroll top:', window.pageYOffset);
+            console.log('scroll update access end:', child[0].style.opacity);
+            expect(getFloat(child[0].style.opacity)).to.be(1);
+            done();
+          }, 350);
+        }, 100);
       }, 100);
-    }, 100);
+    }, 17);
   });
 
   it('parallax playScale', (done) => {
@@ -141,7 +143,7 @@ describe('rc-scroll-anim', () => {
         console.log('scroll to end:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.be(1);
         done();
-      }, 100);
+      }, 350);
     }, 100);
   });
 });

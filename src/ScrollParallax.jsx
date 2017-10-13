@@ -160,7 +160,7 @@ class ScrollParallax extends React.Component {
 
     this.scrollTop = scrollTop;
     // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
-    if (this.defaultData.every(c => c.onComplete.only) && !this.props.always) {
+    if (this.onCompleteBool && !this.props.always) {
       EventListener.removeEventListener(this.eventType, this.scrollEventListener);
     }
   }
