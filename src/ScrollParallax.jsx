@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
-import Timeline from 'rc-tween-one/lib/TimeLine';
+import Timeline from 'rc-tween-one/lib/Tween';
 import ticker from 'rc-tween-one/lib/ticker';
 import { dataToArray, objectEqual, currentScrollTop, windowHeight } from './util';
 
