@@ -1,6 +1,9 @@
-## 1.1.0
+## 2.0.0
 1. 升级 react 到 16;
 2. 去除 onAsynchronousAddEvent， 可查看异步 [demo](http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html);
+3. 增加用例使用。
+4. 增加全部组件的 `targetId`, 可定位到指定的 dom 进行滚动。
+5. 去除 parallax 的延时渲染。
 
 ## 0.5.0
 

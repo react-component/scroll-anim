@@ -145,6 +145,7 @@ OverPack inherit Element; `component` `playScale` `onChange` `location` refer to
 | animation      | object / array | `null`  | animation data     |
 | location  | string         | `null`  | location, the parent id |
 | always    | boolean        | `true`  | -            |
+| targetId  |  string        | null    | refer Element `targetId` |
 | component | string         | `div`   | -            |
 
 #### animation = { }
@@ -174,6 +175,7 @@ OverPack inherit Element; `component` `playScale` `onChange` `location` refer to
 | showHeightActive| string / number / array | `50%` | enter: the element offset top `50%` add `active`, leave: the element in the window `50%` remove `active`; is array [enter, leave]; |
 | toShowHeight | boolean     | false   | scroll to `showHeightActive` |
 | offsetTop |  number        |  0      | scroll to elem top offset   |
+| targetId  |  string        | null    | refer Element `targetId` |
 | onFocus   | func           | null    | check callback,onFocus({target,to}) |
 | onBlur    | func           | null    | blur callback |
 | component | string         | `div`   | -            |

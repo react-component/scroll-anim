@@ -21,41 +21,43 @@ class ScrollLink extends React.Component {
     this.state = {
       active: false,
     };
-    if (this.props.location) {
-      throw new Error('ScrollLink "location" was abandoned, please use "to"');
-    }
   }
 
   componentDidMount() {
     this.dom = ReactDOM.findDOMNode(this);
+    this.target = this.props.targetId && document.getElementById(this.props.targetId);
     scrollLinkLists.push(this);
-    this.addScrollEventListener();
+    const date = Date.now();
+    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
+    this.eventType = `scroll.scrollAnchorEvent${date}${length}`;
+    EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
+    // 第一次进入；等全部渲染完成后执行;
+    setTimeout(() => {
+      this.scrollEventListener();
+    });
   }
 
   componentWillUnmount() {
     scrollLinkLists = scrollLinkLists.filter(item => item !== this);
-    EventListener.removeEventListener(this.eventType, this.scrollEventListener);
+    EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
     this.cancelRequestAnimationFrame();
   }
 
   onClick = (e) => {
     e.preventDefault();
-    this.clientHeight = windowHeight();
-    const docRect = document.documentElement.getBoundingClientRect();
-    const elementDom = document.getElementById(this.props.to);
+    EventListener.removeAllType('scroll.scrollAnchorEvent');
+    const { elementDom, elementRect } = this.getElement();
     if (this.rafID !== -1 || !elementDom) {
       return;
     }
-    const elementRect = elementDom.getBoundingClientRect();
-    this.scrollTop = currentScrollTop();
-    const toTop = Math.round(elementRect.top) - Math.round(docRect.top) - this.props.offsetTop;
+    this.scrollTop = this.target ? this.target.scrollTop : currentScrollTop();
+    const toTop = Math.round(elementRect.top + this.scrollTop) - this.props.offsetTop;
     const t = transformArguments(this.props.showHeightActive)[0];
     const toShow = t.match('%') ? this.clientHeight * parseFloat(t) / 100 : t;
     this.toTop = this.props.toShowHeight ?
-    toTop - toShow + 0.5 : toTop;
+      toTop - toShow + 0.5 : toTop;
     this.initTime = Date.now();
     this.rafID = requestAnimationFrame(this.raf);
-    EventListener.removeAllType('scroll.scrollAnchorEvent');
     scrollLinkLists.forEach(item => {
       if (item !== this) {
         item.remActive();
@@ -64,33 +66,11 @@ class ScrollLink extends React.Component {
     this.addActive();
   }
 
-  addScrollEventListener = () => {
-    const date = Date.now();
-    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-    this.eventType = `scroll.scrollAnchorEvent${date}${length}`;
-    EventListener.addEventListener(this.eventType, this.scrollEventListener);
-    // 第一次进入；等全部渲染完成后执行;
-    setTimeout(() => {
-      this.scrollEventListener();
-    });
-  }
-
-  raf = () => {
-    if (this.rafID === -1) {
-      return;
-    }
-    const duration = this.props.duration;
-    const now = Date.now();
-    const progressTime = now - this.initTime > duration ? duration : now - this.initTime;
-    const easeValue = easingTypes[this.props.ease](progressTime, this.scrollTop,
-      this.toTop, duration);
-    window.scrollTo(window.scrollX, easeValue);
-    if (progressTime === duration) {
-      this.cancelRequestAnimationFrame();
-      EventListener.reAllType('scroll.scrollAnchorEvent');
-    } else {
-      this.rafID = requestAnimationFrame(this.raf);
-    }
+  getElement = () => {
+    this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
+    const elementDom = document.getElementById(this.props.to);
+    const elementRect = elementDom.getBoundingClientRect();
+    return { elementDom, elementRect };
   }
 
   cancelRequestAnimationFrame = () => {
@@ -116,6 +96,28 @@ class ScrollLink extends React.Component {
     }
   };
 
+  raf = () => {
+    if (this.rafID === -1) {
+      return;
+    }
+    const duration = this.props.duration;
+    const now = Date.now();
+    const progressTime = now - this.initTime > duration ? duration : now - this.initTime;
+    const easeValue = easingTypes[this.props.ease](progressTime, this.scrollTop,
+      this.toTop, duration);
+    if (this.target) {
+      this.target.scrollTop = easeValue;
+    } else {
+      window.scrollTo(window.scrollX, easeValue);
+    }
+    if (progressTime === duration) {
+      this.cancelRequestAnimationFrame();
+      EventListener.reAllType('scroll.scrollAnchorEvent');
+    } else {
+      this.rafID = requestAnimationFrame(this.raf);
+    }
+  }
+
   remActive = () => {
     if (this.state.active) {
       const obj = {
@@ -130,25 +132,21 @@ class ScrollLink extends React.Component {
   }
 
   scrollEventListener = () => {
-    const docRect = document.documentElement.getBoundingClientRect();
-    this.clientHeight = windowHeight();
-    const elementDom = document.getElementById(this.props.to);
+    const { elementDom, elementRect } = this.getElement();
     if (!elementDom) {
-      // throw new Error(`There is no to(${this.props.to}) in the element.`);
       return;
     }
-    const elementRect = elementDom.getBoundingClientRect();
     const elementClientHeight = elementDom.clientHeight;
-    const scrollTop = currentScrollTop();
-    const top = Math.round(docRect.top - elementRect.top + scrollTop);
+    const top = Math.round(- elementRect.top);
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
-    parseFloat(showHeightActive[0]) / 100 * this.clientHeight :
+      parseFloat(showHeightActive[0]) / 100 * this.clientHeight :
       parseFloat(showHeightActive[0]);
     const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ?
-    parseFloat(showHeightActive[1]) / 100 * this.clientHeight :
+      parseFloat(showHeightActive[1]) / 100 * this.clientHeight :
       parseFloat(showHeightActive[1]);
-    if (top >= -startShowHeight && top < elementClientHeight - endShowHeight) {
+    if (top >= Math.round(-startShowHeight)
+      && top < Math.round(elementClientHeight - endShowHeight)) {
       this.addActive();
     } else {
       this.remActive();
@@ -169,11 +167,11 @@ class ScrollLink extends React.Component {
       'component',
       'duration',
       'active',
-      'location',
       'showHeightActive',
       'ease',
       'toShowHeight',
       'offsetTop',
+      'targetId',
       'to',
       'toHash',
     ].forEach(key => delete props[key]);
@@ -193,8 +191,8 @@ ScrollLink.propTypes = {
   offsetTop: PropTypes.number,
   duration: PropTypes.number,
   active: PropTypes.string,
-  location: PropTypes.string,
   to: PropTypes.string,
+  targetId: PropTypes.string,
   showHeightActive: PropTypes.any,
   toShowHeight: PropTypes.bool,
   ease: PropTypes.string,
