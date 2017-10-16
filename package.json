@@ -58,16 +58,16 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "rc-animate": "2.x",
-    "rc-queue-anim": "^1.0.1"
+    "rc-queue-anim": "^1.3.0"
   },
   "pre-commit": [
     "lint"
   ],
   "dependencies": {
     "babel-runtime": "6.x",
-    "prop-types": "^15.5.10",
+    "prop-types": "^15.6.0",
     "raf": "3.x",
-    "rc-tween-one": "~1.2.5",
+    "rc-tween-one": "~1.3.0",
     "tween-functions": "1.x"
   }
 }
