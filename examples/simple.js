@@ -1,30 +1,30 @@
 webpackJsonp([0],{
 
-/***/ 127:
+/***/ 128:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim_assets_index_less__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim_assets_index_less__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim_assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rc_scroll_anim__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rc_scroll_anim__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_dom__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_queue_anim__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rc_tween_one__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rc_animate__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rc_animate__ = __webpack_require__(68);
 
 
 
@@ -39,7 +39,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var _package = __webpack_require__(81);
+var _package = __webpack_require__(79);
 var ScrollOverPack = __WEBPACK_IMPORTED_MODULE_6_rc_scroll_anim__["a" /* default */].OverPack;
 
 var Demo = function (_React$Component) {
@@ -228,493 +228,6 @@ p.push = function (plugin) {
 
 "use strict";
 
-/* globals Symbol: true, Uint8Array: true, WeakMap: true */
-/*!
- * deep-eql
- * Copyright(c) 2013 Jake Luer <jake@alogicalparadox.com>
- * MIT Licensed
- */
-
-/*!
- * Module dependencies
- */
-
-var type = __webpack_require__(55);
-function FakeMap() {
-  this.clear();
-}
-FakeMap.prototype = {
-  clear: function clearMap() {
-    this.keys = [];
-    this.values = [];
-    return this;
-  },
-  set: function setMap(key, value) {
-    var index = this.keys.indexOf(key);
-    if (index >= 0) {
-      this.values[index] = value;
-    } else {
-      this.keys.push(key);
-      this.values.push(value);
-    }
-    return this;
-  },
-  get: function getMap(key) {
-    return this.values[this.keys.indexOf(key)];
-  },
-  delete: function deleteMap(key) {
-    var index = this.keys.indexOf(key);
-    if (index >= 0) {
-      this.values = this.values.slice(0, index).concat(this.values.slice(index + 1));
-      this.keys = this.keys.slice(0, index).concat(this.keys.slice(index + 1));
-    }
-    return this;
-  },
-};
-
-var MemoizeMap = null;
-if (typeof WeakMap === 'function') {
-  MemoizeMap = WeakMap;
-} else {
-  MemoizeMap = FakeMap;
-}
-
-/*!
- * Check to see if the MemoizeMap has recorded a result of the two operands
- *
- * @param {Mixed} leftHandOperand
- * @param {Mixed} rightHandOperand
- * @param {MemoizeMap} memoizeMap
- * @returns {Boolean|null} result
-*/
-function memoizeCompare(leftHandOperand, rightHandOperand, memoizeMap) {
-  // Technically, WeakMap keys can *only* be objects, not primitives.
-  if (!memoizeMap || isPrimitive(leftHandOperand) || isPrimitive(rightHandOperand)) {
-    return null;
-  }
-  var leftHandMap = memoizeMap.get(leftHandOperand);
-  if (leftHandMap) {
-    var result = leftHandMap.get(rightHandOperand);
-    if (typeof result === 'boolean') {
-      return result;
-    }
-  }
-  return null;
-}
-
-/*!
- * Set the result of the equality into the MemoizeMap
- *
- * @param {Mixed} leftHandOperand
- * @param {Mixed} rightHandOperand
- * @param {MemoizeMap} memoizeMap
- * @param {Boolean} result
-*/
-function memoizeSet(leftHandOperand, rightHandOperand, memoizeMap, result) {
-  // Technically, WeakMap keys can *only* be objects, not primitives.
-  if (!memoizeMap || isPrimitive(leftHandOperand) || isPrimitive(rightHandOperand)) {
-    return;
-  }
-  var leftHandMap = memoizeMap.get(leftHandOperand);
-  if (leftHandMap) {
-    leftHandMap.set(rightHandOperand, result);
-  } else {
-    leftHandMap = new MemoizeMap();
-    leftHandMap.set(rightHandOperand, result);
-    memoizeMap.set(leftHandOperand, leftHandMap);
-  }
-}
-
-/*!
- * Primary Export
- */
-
-module.exports = deepEqual;
-module.exports.MemoizeMap = MemoizeMap;
-
-/**
- * Assert deeply nested sameValue equality between two objects of any type.
- *
- * @param {Mixed} leftHandOperand
- * @param {Mixed} rightHandOperand
- * @param {Object} [options] (optional) Additional options
- * @param {Array} [options.comparator] (optional) Override default algorithm, determining custom equality.
- * @param {Array} [options.memoize] (optional) Provide a custom memoization object which will cache the results of
-    complex objects for a speed boost. By passing `false` you can disable memoization, but this will cause circular
-    references to blow the stack.
- * @return {Boolean} equal match
- */
-function deepEqual(leftHandOperand, rightHandOperand, options) {
-  // If we have a comparator, we can't assume anything; so bail to its check first.
-  if (options && options.comparator) {
-    return extensiveDeepEqual(leftHandOperand, rightHandOperand, options);
-  }
-
-  var simpleResult = simpleEqual(leftHandOperand, rightHandOperand);
-  if (simpleResult !== null) {
-    return simpleResult;
-  }
-
-  // Deeper comparisons are pushed through to a larger function
-  return extensiveDeepEqual(leftHandOperand, rightHandOperand, options);
-}
-
-/**
- * Many comparisons can be canceled out early via simple equality or primitive checks.
- * @param {Mixed} leftHandOperand
- * @param {Mixed} rightHandOperand
- * @return {Boolean|null} equal match
- */
-function simpleEqual(leftHandOperand, rightHandOperand) {
-  // Equal references (except for Numbers) can be returned early
-  if (leftHandOperand === rightHandOperand) {
-    // Handle +-0 cases
-    return leftHandOperand !== 0 || 1 / leftHandOperand === 1 / rightHandOperand;
-  }
-
-  // handle NaN cases
-  if (
-    leftHandOperand !== leftHandOperand && // eslint-disable-line no-self-compare
-    rightHandOperand !== rightHandOperand // eslint-disable-line no-self-compare
-  ) {
-    return true;
-  }
-
-  // Anything that is not an 'object', i.e. symbols, functions, booleans, numbers,
-  // strings, and undefined, can be compared by reference.
-  if (isPrimitive(leftHandOperand) || isPrimitive(rightHandOperand)) {
-    // Easy out b/c it would have passed the first equality check
-    return false;
-  }
-  return null;
-}
-
-/*!
- * The main logic of the `deepEqual` function.
- *
- * @param {Mixed} leftHandOperand
- * @param {Mixed} rightHandOperand
- * @param {Object} [options] (optional) Additional options
- * @param {Array} [options.comparator] (optional) Override default algorithm, determining custom equality.
- * @param {Array} [options.memoize] (optional) Provide a custom memoization object which will cache the results of
-    complex objects for a speed boost. By passing `false` you can disable memoization, but this will cause circular
-    references to blow the stack.
- * @return {Boolean} equal match
-*/
-function extensiveDeepEqual(leftHandOperand, rightHandOperand, options) {
-  options = options || {};
-  options.memoize = options.memoize === false ? false : options.memoize || new MemoizeMap();
-  var comparator = options && options.comparator;
-
-  // Check if a memoized result exists.
-  var memoizeResultLeft = memoizeCompare(leftHandOperand, rightHandOperand, options.memoize);
-  if (memoizeResultLeft !== null) {
-    return memoizeResultLeft;
-  }
-  var memoizeResultRight = memoizeCompare(rightHandOperand, leftHandOperand, options.memoize);
-  if (memoizeResultRight !== null) {
-    return memoizeResultRight;
-  }
-
-  // If a comparator is present, use it.
-  if (comparator) {
-    var comparatorResult = comparator(leftHandOperand, rightHandOperand);
-    // Comparators may return null, in which case we want to go back to default behavior.
-    if (comparatorResult === false || comparatorResult === true) {
-      memoizeSet(leftHandOperand, rightHandOperand, options.memoize, comparatorResult);
-      return comparatorResult;
-    }
-    // To allow comparators to override *any* behavior, we ran them first. Since it didn't decide
-    // what to do, we need to make sure to return the basic tests first before we move on.
-    var simpleResult = simpleEqual(leftHandOperand, rightHandOperand);
-    if (simpleResult !== null) {
-      // Don't memoize this, it takes longer to set/retrieve than to just compare.
-      return simpleResult;
-    }
-  }
-
-  var leftHandType = type(leftHandOperand);
-  if (leftHandType !== type(rightHandOperand)) {
-    memoizeSet(leftHandOperand, rightHandOperand, options.memoize, false);
-    return false;
-  }
-
-  // Temporarily set the operands in the memoize object to prevent blowing the stack
-  memoizeSet(leftHandOperand, rightHandOperand, options.memoize, true);
-
-  var result = extensiveDeepEqualByType(leftHandOperand, rightHandOperand, leftHandType, options);
-  memoizeSet(leftHandOperand, rightHandOperand, options.memoize, result);
-  return result;
-}
-
-function extensiveDeepEqualByType(leftHandOperand, rightHandOperand, leftHandType, options) {
-  switch (leftHandType) {
-    case 'String':
-    case 'Number':
-    case 'Boolean':
-    case 'Date':
-      // If these types are their instance types (e.g. `new Number`) then re-deepEqual against their values
-      return deepEqual(leftHandOperand.valueOf(), rightHandOperand.valueOf());
-    case 'Promise':
-    case 'Symbol':
-    case 'function':
-    case 'WeakMap':
-    case 'WeakSet':
-    case 'Error':
-      return leftHandOperand === rightHandOperand;
-    case 'Arguments':
-    case 'Int8Array':
-    case 'Uint8Array':
-    case 'Uint8ClampedArray':
-    case 'Int16Array':
-    case 'Uint16Array':
-    case 'Int32Array':
-    case 'Uint32Array':
-    case 'Float32Array':
-    case 'Float64Array':
-    case 'Array':
-      return iterableEqual(leftHandOperand, rightHandOperand, options);
-    case 'RegExp':
-      return regexpEqual(leftHandOperand, rightHandOperand);
-    case 'Generator':
-      return generatorEqual(leftHandOperand, rightHandOperand, options);
-    case 'DataView':
-      return iterableEqual(new Uint8Array(leftHandOperand.buffer), new Uint8Array(rightHandOperand.buffer), options);
-    case 'ArrayBuffer':
-      return iterableEqual(new Uint8Array(leftHandOperand), new Uint8Array(rightHandOperand), options);
-    case 'Set':
-      return entriesEqual(leftHandOperand, rightHandOperand, options);
-    case 'Map':
-      return entriesEqual(leftHandOperand, rightHandOperand, options);
-    default:
-      return objectEqual(leftHandOperand, rightHandOperand, options);
-  }
-}
-
-/*!
- * Compare two Regular Expressions for equality.
- *
- * @param {RegExp} leftHandOperand
- * @param {RegExp} rightHandOperand
- * @return {Boolean} result
- */
-
-function regexpEqual(leftHandOperand, rightHandOperand) {
-  return leftHandOperand.toString() === rightHandOperand.toString();
-}
-
-/*!
- * Compare two Sets/Maps for equality. Faster than other equality functions.
- *
- * @param {Set} leftHandOperand
- * @param {Set} rightHandOperand
- * @param {Object} [options] (Optional)
- * @return {Boolean} result
- */
-
-function entriesEqual(leftHandOperand, rightHandOperand, options) {
-  // IE11 doesn't support Set#entries or Set#@@iterator, so we need manually populate using Set#forEach
-  if (leftHandOperand.size !== rightHandOperand.size) {
-    return false;
-  }
-  if (leftHandOperand.size === 0) {
-    return true;
-  }
-  var leftHandItems = [];
-  var rightHandItems = [];
-  leftHandOperand.forEach(function gatherEntries(key, value) {
-    leftHandItems.push([ key, value ]);
-  });
-  rightHandOperand.forEach(function gatherEntries(key, value) {
-    rightHandItems.push([ key, value ]);
-  });
-  return iterableEqual(leftHandItems.sort(), rightHandItems.sort(), options);
-}
-
-/*!
- * Simple equality for flat iterable objects such as Arrays, TypedArrays or Node.js buffers.
- *
- * @param {Iterable} leftHandOperand
- * @param {Iterable} rightHandOperand
- * @param {Object} [options] (Optional)
- * @return {Boolean} result
- */
-
-function iterableEqual(leftHandOperand, rightHandOperand, options) {
-  var length = leftHandOperand.length;
-  if (length !== rightHandOperand.length) {
-    return false;
-  }
-  if (length === 0) {
-    return true;
-  }
-  var index = -1;
-  while (++index < length) {
-    if (deepEqual(leftHandOperand[index], rightHandOperand[index], options) === false) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/*!
- * Simple equality for generator objects such as those returned by generator functions.
- *
- * @param {Iterable} leftHandOperand
- * @param {Iterable} rightHandOperand
- * @param {Object} [options] (Optional)
- * @return {Boolean} result
- */
-
-function generatorEqual(leftHandOperand, rightHandOperand, options) {
-  return iterableEqual(getGeneratorEntries(leftHandOperand), getGeneratorEntries(rightHandOperand), options);
-}
-
-/*!
- * Determine if the given object has an @@iterator function.
- *
- * @param {Object} target
- * @return {Boolean} `true` if the object has an @@iterator function.
- */
-function hasIteratorFunction(target) {
-  return typeof Symbol !== 'undefined' &&
-    typeof target === 'object' &&
-    typeof Symbol.iterator !== 'undefined' &&
-    typeof target[Symbol.iterator] === 'function';
-}
-
-/*!
- * Gets all iterator entries from the given Object. If the Object has no @@iterator function, returns an empty array.
- * This will consume the iterator - which could have side effects depending on the @@iterator implementation.
- *
- * @param {Object} target
- * @returns {Array} an array of entries from the @@iterator function
- */
-function getIteratorEntries(target) {
-  if (hasIteratorFunction(target)) {
-    try {
-      return getGeneratorEntries(target[Symbol.iterator]());
-    } catch (iteratorError) {
-      return [];
-    }
-  }
-  return [];
-}
-
-/*!
- * Gets all entries from a Generator. This will consume the generator - which could have side effects.
- *
- * @param {Generator} target
- * @returns {Array} an array of entries from the Generator.
- */
-function getGeneratorEntries(generator) {
-  var generatorResult = generator.next();
-  var accumulator = [ generatorResult.value ];
-  while (generatorResult.done === false) {
-    generatorResult = generator.next();
-    accumulator.push(generatorResult.value);
-  }
-  return accumulator;
-}
-
-/*!
- * Gets all own and inherited enumerable keys from a target.
- *
- * @param {Object} target
- * @returns {Array} an array of own and inherited enumerable keys from the target.
- */
-function getEnumerableKeys(target) {
-  var keys = [];
-  for (var key in target) {
-    keys.push(key);
-  }
-  return keys;
-}
-
-/*!
- * Determines if two objects have matching values, given a set of keys. Defers to deepEqual for the equality check of
- * each key. If any value of the given key is not equal, the function will return false (early).
- *
- * @param {Mixed} leftHandOperand
- * @param {Mixed} rightHandOperand
- * @param {Array} keys An array of keys to compare the values of leftHandOperand and rightHandOperand against
- * @param {Object} [options] (Optional)
- * @return {Boolean} result
- */
-function keysEqual(leftHandOperand, rightHandOperand, keys, options) {
-  var length = keys.length;
-  if (length === 0) {
-    return true;
-  }
-  for (var i = 0; i < length; i += 1) {
-    if (deepEqual(leftHandOperand[keys[i]], rightHandOperand[keys[i]], options) === false) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/*!
- * Recursively check the equality of two Objects. Once basic sameness has been established it will defer to `deepEqual`
- * for each enumerable key in the object.
- *
- * @param {Mixed} leftHandOperand
- * @param {Mixed} rightHandOperand
- * @param {Object} [options] (Optional)
- * @return {Boolean} result
- */
-
-function objectEqual(leftHandOperand, rightHandOperand, options) {
-  var leftHandKeys = getEnumerableKeys(leftHandOperand);
-  var rightHandKeys = getEnumerableKeys(rightHandOperand);
-  if (leftHandKeys.length && leftHandKeys.length === rightHandKeys.length) {
-    leftHandKeys.sort();
-    rightHandKeys.sort();
-    if (iterableEqual(leftHandKeys, rightHandKeys) === false) {
-      return false;
-    }
-    return keysEqual(leftHandOperand, rightHandOperand, leftHandKeys, options);
-  }
-
-  var leftHandEntries = getIteratorEntries(leftHandOperand);
-  var rightHandEntries = getIteratorEntries(rightHandOperand);
-  if (leftHandEntries.length && leftHandEntries.length === rightHandEntries.length) {
-    leftHandEntries.sort();
-    rightHandEntries.sort();
-    return iterableEqual(leftHandEntries, rightHandEntries, options);
-  }
-
-  if (leftHandKeys.length === 0 &&
-      leftHandEntries.length === 0 &&
-      rightHandKeys.length === 0 &&
-      rightHandEntries.length === 0) {
-    return true;
-  }
-
-  return false;
-}
-
-/*!
- * Returns true if the argument is a primitive.
- *
- * This intentionally returns true for all objects that can be compared by reference,
- * including functions and symbols.
- *
- * @param {Mixed} value
- * @return {Boolean} result
- */
-function isPrimitive(value) {
-  return value === null || typeof value !== 'object';
-}
-
-
-/***/ }),
-
-/***/ 17:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -750,13 +263,13 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _util = __webpack_require__(8);
 
-var _styleUtils = __webpack_require__(6);
+var _styleUtils = __webpack_require__(7);
 
 var _Tween = __webpack_require__(47);
 
 var _Tween2 = _interopRequireDefault(_Tween);
 
-var _ticker = __webpack_require__(19);
+var _ticker = __webpack_require__(18);
 
 var _ticker2 = _interopRequireDefault(_ticker);
 
@@ -1059,7 +572,7 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 18:
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1069,7 +582,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tweenFunctions = __webpack_require__(24);
+var _tweenFunctions = __webpack_require__(22);
 
 var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
 
@@ -1104,7 +617,7 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 19:
+/***/ 18:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1229,15 +742,7 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 190:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(127);
-
-
-/***/ }),
-
-/***/ 20:
+/***/ 19:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1245,7 +750,7 @@ module.exports = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
@@ -1258,10 +763,10 @@ module.exports = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_style_utils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Tween__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ticker__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ticker__ = __webpack_require__(21);
 
 
 
@@ -1580,11 +1085,19 @@ TweenOne.isTweenOne = true;
 
 /***/ }),
 
-/***/ 21:
+/***/ 195:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(128);
+
+
+/***/ }),
+
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tween_functions__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(9);
 
@@ -1616,7 +1129,7 @@ __WEBPACK_IMPORTED_MODULE_0_tween_functions___default.a.path = function (_path, 
 
 /***/ }),
 
-/***/ 22:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1732,7 +1245,7 @@ p.interval = function (fn, time) {
 
 /***/ }),
 
-/***/ 27:
+/***/ 26:
 /***/ (function(module, exports) {
 
 module.exports = function(arr, obj){
@@ -1811,7 +1324,7 @@ exports.default = function (arr) {
 /***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(79);
+__webpack_require__(77);
 __webpack_require__(42);
 module.exports = __webpack_require__(15).Array.from;
 
@@ -1822,7 +1335,7 @@ module.exports = __webpack_require__(15).Array.from;
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(61);
+var cof = __webpack_require__(60);
 var TAG = __webpack_require__(10)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -1853,7 +1366,7 @@ module.exports = function (it) {
 
 "use strict";
 
-var $defineProperty = __webpack_require__(25);
+var $defineProperty = __webpack_require__(24);
 var createDesc = __webpack_require__(40);
 
 module.exports = function (object, index, value) {
@@ -1947,12 +1460,12 @@ module.exports = __webpack_require__(15).getIteratorMethod = function (it) {
 
 "use strict";
 
-var ctx = __webpack_require__(62);
-var $export = __webpack_require__(28);
-var toObject = __webpack_require__(65);
+var ctx = __webpack_require__(61);
+var $export = __webpack_require__(27);
+var toObject = __webpack_require__(64);
 var call = __webpack_require__(38);
 var isArrayIter = __webpack_require__(37);
-var toLength = __webpack_require__(78);
+var toLength = __webpack_require__(76);
 var createProperty = __webpack_require__(36);
 var getIterFn = __webpack_require__(41);
 
@@ -1993,13 +1506,13 @@ $export($export.S + $export.F * !__webpack_require__(39)(function (iter) { Array
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__);
@@ -2619,7 +2132,7 @@ var _extends2 = __webpack_require__(1);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _easing = __webpack_require__(18);
+var _easing = __webpack_require__(17);
 
 var _easing2 = _interopRequireDefault(_easing);
 
@@ -2631,7 +2144,7 @@ var _StylePlugin = __webpack_require__(50);
 
 var _StylePlugin2 = _interopRequireDefault(_StylePlugin);
 
-var _styleUtils = __webpack_require__(6);
+var _styleUtils = __webpack_require__(7);
 
 var _util = __webpack_require__(8);
 
@@ -3027,7 +2540,7 @@ var _propTypes = __webpack_require__(5);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _TweenOne = __webpack_require__(17);
+var _TweenOne = __webpack_require__(16);
 
 var _TweenOne2 = _interopRequireDefault(_TweenOne);
 
@@ -3238,11 +2751,11 @@ module.exports = exports['default'];
 "use strict";
 
 
-var TweenOne = __webpack_require__(17);
+var TweenOne = __webpack_require__(16);
 TweenOne.TweenOneGroup = __webpack_require__(48);
-TweenOne.easing = __webpack_require__(18);
+TweenOne.easing = __webpack_require__(17);
 TweenOne.plugins = __webpack_require__(13);
-TweenOne.ticker = __webpack_require__(19);
+TweenOne.ticker = __webpack_require__(18);
 TweenOne.isTweenOne = true;
 module.exports = TweenOne;
 
@@ -3262,7 +2775,7 @@ var _extends2 = __webpack_require__(1);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _styleUtils = __webpack_require__(6);
+var _styleUtils = __webpack_require__(7);
 
 var _styleUtils2 = _interopRequireDefault(_styleUtils);
 
@@ -3569,10 +3082,10 @@ module.exports = exports['default'];
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easing__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easing__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugin_StylePlugin__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_style_utils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_js__ = __webpack_require__(9);
 
@@ -3944,7 +3457,7 @@ p.onChange = noop;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
@@ -3954,7 +3467,7 @@ p.onChange = noop;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TweenOne__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TweenOne__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(9);
 
 
@@ -4175,11 +3688,11 @@ TweenOneGroup.isTweenOneGroup = true;
 /* unused harmony export easing */
 /* unused harmony export plugins */
 /* unused harmony export ticker */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenOne__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenOne__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__easing__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__easing__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ticker__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ticker__ = __webpack_require__(21);
 // export this package's api
 
 
@@ -4210,7 +3723,7 @@ var ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_style_utils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_js__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(14);
@@ -4511,391 +4024,11 @@ p.setRatio = function (ratio, tween) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-/* !
- * type-detect
- * Copyright(c) 2013 jake luer <jake@alogicalparadox.com>
- * MIT Licensed
- */
-var getPrototypeOfExists = typeof Object.getPrototypeOf === 'function';
-var promiseExists = typeof Promise === 'function';
-var globalObject = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : self; // eslint-disable-line
-var isDom = 'location' in globalObject && 'document' in globalObject;
-var htmlElementExists = typeof HTMLElement !== 'undefined';
-var isArrayExists = typeof Array.isArray === 'function';
-var symbolExists = typeof Symbol !== 'undefined';
-var mapExists = typeof Map !== 'undefined';
-var setExists = typeof Set !== 'undefined';
-var weakMapExists = typeof WeakMap !== 'undefined';
-var weakSetExists = typeof WeakSet !== 'undefined';
-var dataViewExists = typeof DataView !== 'undefined';
-var symbolIteratorExists = symbolExists && typeof Symbol.iterator !== 'undefined';
-var symbolToStringTagExists = symbolExists && typeof Symbol.toStringTag !== 'undefined';
-var setEntriesExists = setExists && typeof Set.prototype.entries === 'function';
-var mapEntriesExists = mapExists && typeof Map.prototype.entries === 'function';
-var setIteratorPrototype = getPrototypeOfExists && setEntriesExists && Object.getPrototypeOf(new Set().entries());
-var mapIteratorPrototype = getPrototypeOfExists && mapEntriesExists && Object.getPrototypeOf(new Map().entries());
-var arrayIteratorExists = symbolIteratorExists && typeof Array.prototype[Symbol.iterator] === 'function';
-var arrayIteratorPrototype = arrayIteratorExists && Object.getPrototypeOf([][Symbol.iterator]());
-var stringIteratorExists = symbolIteratorExists && typeof Array.prototype[Symbol.iterator] === 'function';
-var stringIteratorPrototype = stringIteratorExists && Object.getPrototypeOf(''[Symbol.iterator]());
-var toStringLeftSliceLength = 8;
-var toStringRightSliceLength = -1;
-/**
- * ### typeOf (obj)
- *
- * Uses `Object.prototype.toString` to determine the type of an object,
- * normalising behaviour across engine versions & well optimised.
- *
- * @param {Mixed} object
- * @return {String} object type
- * @api public
- */
-module.exports = function typeDetect(obj) {
-  /* ! Speed optimisation
-   * Pre:
-   *   string literal     x 3,039,035 ops/sec ±1.62% (78 runs sampled)
-   *   boolean literal    x 1,424,138 ops/sec ±4.54% (75 runs sampled)
-   *   number literal     x 1,653,153 ops/sec ±1.91% (82 runs sampled)
-   *   undefined          x 9,978,660 ops/sec ±1.92% (75 runs sampled)
-   *   function           x 2,556,769 ops/sec ±1.73% (77 runs sampled)
-   * Post:
-   *   string literal     x 38,564,796 ops/sec ±1.15% (79 runs sampled)
-   *   boolean literal    x 31,148,940 ops/sec ±1.10% (79 runs sampled)
-   *   number literal     x 32,679,330 ops/sec ±1.90% (78 runs sampled)
-   *   undefined          x 32,363,368 ops/sec ±1.07% (82 runs sampled)
-   *   function           x 31,296,870 ops/sec ±0.96% (83 runs sampled)
-   */
-  var typeofObj = typeof obj;
-  if (typeofObj !== 'object') {
-    return typeofObj;
-  }
-
-  /* ! Speed optimisation
-   * Pre:
-   *   null               x 28,645,765 ops/sec ±1.17% (82 runs sampled)
-   * Post:
-   *   null               x 36,428,962 ops/sec ±1.37% (84 runs sampled)
-   */
-  if (obj === null) {
-    return 'null';
-  }
-
-  /* ! Spec Conformance
-   * Test: `Object.prototype.toString.call(window)``
-   *  - Node === "[object global]"
-   *  - Chrome === "[object global]"
-   *  - Firefox === "[object Window]"
-   *  - PhantomJS === "[object Window]"
-   *  - Safari === "[object Window]"
-   *  - IE 11 === "[object Window]"
-   *  - IE Edge === "[object Window]"
-   * Test: `Object.prototype.toString.call(this)``
-   *  - Chrome Worker === "[object global]"
-   *  - Firefox Worker === "[object DedicatedWorkerGlobalScope]"
-   *  - Safari Worker === "[object DedicatedWorkerGlobalScope]"
-   *  - IE 11 Worker === "[object WorkerGlobalScope]"
-   *  - IE Edge Worker === "[object WorkerGlobalScope]"
-   */
-  if (obj === globalObject) {
-    return 'global';
-  }
-
-  /* ! Speed optimisation
-   * Pre:
-   *   array literal      x 2,888,352 ops/sec ±0.67% (82 runs sampled)
-   * Post:
-   *   array literal      x 22,479,650 ops/sec ±0.96% (81 runs sampled)
-   */
-  if (isArrayExists && Array.isArray(obj)) {
-    return 'Array';
-  }
-
-  if (isDom) {
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/multipage/browsers.html#location)
-     * WhatWG HTML$7.7.3 - The `Location` interface
-     * Test: `Object.prototype.toString.call(window.location)``
-     *  - IE <=11 === "[object Object]"
-     *  - IE Edge <=13 === "[object Object]"
-     */
-    if (obj === globalObject.location) {
-      return 'Location';
-    }
-
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/#document)
-     * WhatWG HTML$3.1.1 - The `Document` object
-     * Note: Most browsers currently adher to the W3C DOM Level 2 spec
-     *       (https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-26809268)
-     *       which suggests that browsers should use HTMLTableCellElement for
-     *       both TD and TH elements. WhatWG separates these.
-     *       WhatWG HTML states:
-     *         > For historical reasons, Window objects must also have a
-     *         > writable, configurable, non-enumerable property named
-     *         > HTMLDocument whose value is the Document interface object.
-     * Test: `Object.prototype.toString.call(document)``
-     *  - Chrome === "[object HTMLDocument]"
-     *  - Firefox === "[object HTMLDocument]"
-     *  - Safari === "[object HTMLDocument]"
-     *  - IE <=10 === "[object Document]"
-     *  - IE 11 === "[object HTMLDocument]"
-     *  - IE Edge <=13 === "[object HTMLDocument]"
-     */
-    if (obj === globalObject.document) {
-      return 'Document';
-    }
-
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/multipage/webappapis.html#mimetypearray)
-     * WhatWG HTML$8.6.1.5 - Plugins - Interface MimeTypeArray
-     * Test: `Object.prototype.toString.call(navigator.mimeTypes)``
-     *  - IE <=10 === "[object MSMimeTypesCollection]"
-     */
-    if (obj === (globalObject.navigator || {}).mimeTypes) {
-      return 'MimeTypeArray';
-    }
-
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/multipage/webappapis.html#pluginarray)
-     * WhatWG HTML$8.6.1.5 - Plugins - Interface PluginArray
-     * Test: `Object.prototype.toString.call(navigator.plugins)``
-     *  - IE <=10 === "[object MSPluginsCollection]"
-     */
-    if (obj === (globalObject.navigator || {}).plugins) {
-      return 'PluginArray';
-    }
-
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/multipage/webappapis.html#pluginarray)
-     * WhatWG HTML$4.4.4 - The `blockquote` element - Interface `HTMLQuoteElement`
-     * Test: `Object.prototype.toString.call(document.createElement('blockquote'))``
-     *  - IE <=10 === "[object HTMLBlockElement]"
-     */
-    if (htmlElementExists && obj instanceof HTMLElement && obj.tagName === 'BLOCKQUOTE') {
-      return 'HTMLQuoteElement';
-    }
-
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/#htmltabledatacellelement)
-     * WhatWG HTML$4.9.9 - The `td` element - Interface `HTMLTableDataCellElement`
-     * Note: Most browsers currently adher to the W3C DOM Level 2 spec
-     *       (https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-82915075)
-     *       which suggests that browsers should use HTMLTableCellElement for
-     *       both TD and TH elements. WhatWG separates these.
-     * Test: Object.prototype.toString.call(document.createElement('td'))
-     *  - Chrome === "[object HTMLTableCellElement]"
-     *  - Firefox === "[object HTMLTableCellElement]"
-     *  - Safari === "[object HTMLTableCellElement]"
-     */
-    if (htmlElementExists && obj instanceof HTMLElement && obj.tagName === 'TD') {
-      return 'HTMLTableDataCellElement';
-    }
-
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/#htmltableheadercellelement)
-     * WhatWG HTML$4.9.9 - The `td` element - Interface `HTMLTableHeaderCellElement`
-     * Note: Most browsers currently adher to the W3C DOM Level 2 spec
-     *       (https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-82915075)
-     *       which suggests that browsers should use HTMLTableCellElement for
-     *       both TD and TH elements. WhatWG separates these.
-     * Test: Object.prototype.toString.call(document.createElement('th'))
-     *  - Chrome === "[object HTMLTableCellElement]"
-     *  - Firefox === "[object HTMLTableCellElement]"
-     *  - Safari === "[object HTMLTableCellElement]"
-     */
-    if (htmlElementExists && obj instanceof HTMLElement && obj.tagName === 'TH') {
-      return 'HTMLTableHeaderCellElement';
-    }
-  }
-
-  /* ! Speed optimisation
-  * Pre:
-  *   Float64Array       x 625,644 ops/sec ±1.58% (80 runs sampled)
-  *   Float32Array       x 1,279,852 ops/sec ±2.91% (77 runs sampled)
-  *   Uint32Array        x 1,178,185 ops/sec ±1.95% (83 runs sampled)
-  *   Uint16Array        x 1,008,380 ops/sec ±2.25% (80 runs sampled)
-  *   Uint8Array         x 1,128,040 ops/sec ±2.11% (81 runs sampled)
-  *   Int32Array         x 1,170,119 ops/sec ±2.88% (80 runs sampled)
-  *   Int16Array         x 1,176,348 ops/sec ±5.79% (86 runs sampled)
-  *   Int8Array          x 1,058,707 ops/sec ±4.94% (77 runs sampled)
-  *   Uint8ClampedArray  x 1,110,633 ops/sec ±4.20% (80 runs sampled)
-  * Post:
-  *   Float64Array       x 7,105,671 ops/sec ±13.47% (64 runs sampled)
-  *   Float32Array       x 5,887,912 ops/sec ±1.46% (82 runs sampled)
-  *   Uint32Array        x 6,491,661 ops/sec ±1.76% (79 runs sampled)
-  *   Uint16Array        x 6,559,795 ops/sec ±1.67% (82 runs sampled)
-  *   Uint8Array         x 6,463,966 ops/sec ±1.43% (85 runs sampled)
-  *   Int32Array         x 5,641,841 ops/sec ±3.49% (81 runs sampled)
-  *   Int16Array         x 6,583,511 ops/sec ±1.98% (80 runs sampled)
-  *   Int8Array          x 6,606,078 ops/sec ±1.74% (81 runs sampled)
-  *   Uint8ClampedArray  x 6,602,224 ops/sec ±1.77% (83 runs sampled)
-  */
-  var stringTag = (symbolToStringTagExists && obj[Symbol.toStringTag]);
-  if (typeof stringTag === 'string') {
-    return stringTag;
-  }
-
-  if (getPrototypeOfExists) {
-    var objPrototype = Object.getPrototypeOf(obj);
-    /* ! Speed optimisation
-    * Pre:
-    *   regex literal      x 1,772,385 ops/sec ±1.85% (77 runs sampled)
-    *   regex constructor  x 2,143,634 ops/sec ±2.46% (78 runs sampled)
-    * Post:
-    *   regex literal      x 3,928,009 ops/sec ±0.65% (78 runs sampled)
-    *   regex constructor  x 3,931,108 ops/sec ±0.58% (84 runs sampled)
-    */
-    if (objPrototype === RegExp.prototype) {
-      return 'RegExp';
-    }
-
-    /* ! Speed optimisation
-    * Pre:
-    *   date               x 2,130,074 ops/sec ±4.42% (68 runs sampled)
-    * Post:
-    *   date               x 3,953,779 ops/sec ±1.35% (77 runs sampled)
-    */
-    if (objPrototype === Date.prototype) {
-      return 'Date';
-    }
-
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-promise.prototype-@@tostringtag)
-     * ES6$25.4.5.4 - Promise.prototype[@@toStringTag] should be "Promise":
-     * Test: `Object.prototype.toString.call(Promise.resolve())``
-     *  - Chrome <=47 === "[object Object]"
-     *  - Edge <=20 === "[object Object]"
-     *  - Firefox 29-Latest === "[object Promise]"
-     *  - Safari 7.1-Latest === "[object Promise]"
-     */
-    if (promiseExists && objPrototype === Promise.prototype) {
-      return 'Promise';
-    }
-
-    /* ! Speed optimisation
-    * Pre:
-    *   set                x 2,222,186 ops/sec ±1.31% (82 runs sampled)
-    * Post:
-    *   set                x 4,545,879 ops/sec ±1.13% (83 runs sampled)
-    */
-    if (setExists && objPrototype === Set.prototype) {
-      return 'Set';
-    }
-
-    /* ! Speed optimisation
-    * Pre:
-    *   map                x 2,396,842 ops/sec ±1.59% (81 runs sampled)
-    * Post:
-    *   map                x 4,183,945 ops/sec ±6.59% (82 runs sampled)
-    */
-    if (mapExists && objPrototype === Map.prototype) {
-      return 'Map';
-    }
-
-    /* ! Speed optimisation
-    * Pre:
-    *   weakset            x 1,323,220 ops/sec ±2.17% (76 runs sampled)
-    * Post:
-    *   weakset            x 4,237,510 ops/sec ±2.01% (77 runs sampled)
-    */
-    if (weakSetExists && objPrototype === WeakSet.prototype) {
-      return 'WeakSet';
-    }
-
-    /* ! Speed optimisation
-    * Pre:
-    *   weakmap            x 1,500,260 ops/sec ±2.02% (78 runs sampled)
-    * Post:
-    *   weakmap            x 3,881,384 ops/sec ±1.45% (82 runs sampled)
-    */
-    if (weakMapExists && objPrototype === WeakMap.prototype) {
-      return 'WeakMap';
-    }
-
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-dataview.prototype-@@tostringtag)
-     * ES6$24.2.4.21 - DataView.prototype[@@toStringTag] should be "DataView":
-     * Test: `Object.prototype.toString.call(new DataView(new ArrayBuffer(1)))``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (dataViewExists && objPrototype === DataView.prototype) {
-      return 'DataView';
-    }
-
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%mapiteratorprototype%-@@tostringtag)
-     * ES6$23.1.5.2.2 - %MapIteratorPrototype%[@@toStringTag] should be "Map Iterator":
-     * Test: `Object.prototype.toString.call(new Map().entries())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (mapExists && objPrototype === mapIteratorPrototype) {
-      return 'Map Iterator';
-    }
-
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%setiteratorprototype%-@@tostringtag)
-     * ES6$23.2.5.2.2 - %SetIteratorPrototype%[@@toStringTag] should be "Set Iterator":
-     * Test: `Object.prototype.toString.call(new Set().entries())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (setExists && objPrototype === setIteratorPrototype) {
-      return 'Set Iterator';
-    }
-
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%arrayiteratorprototype%-@@tostringtag)
-     * ES6$22.1.5.2.2 - %ArrayIteratorPrototype%[@@toStringTag] should be "Array Iterator":
-     * Test: `Object.prototype.toString.call([][Symbol.iterator]())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (arrayIteratorExists && objPrototype === arrayIteratorPrototype) {
-      return 'Array Iterator';
-    }
-
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%stringiteratorprototype%-@@tostringtag)
-     * ES6$21.1.5.2.2 - %StringIteratorPrototype%[@@toStringTag] should be "String Iterator":
-     * Test: `Object.prototype.toString.call(''[Symbol.iterator]())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (stringIteratorExists && objPrototype === stringIteratorPrototype) {
-      return 'String Iterator';
-    }
-
-    /* ! Speed optimisation
-    * Pre:
-    *   object from null   x 2,424,320 ops/sec ±1.67% (76 runs sampled)
-    * Post:
-    *   object from null   x 5,838,000 ops/sec ±0.99% (84 runs sampled)
-    */
-    if (objPrototype === null) {
-      return 'Object';
-    }
-  }
-
-  return Object
-    .prototype
-    .toString
-    .call(obj)
-    .slice(toStringLeftSliceLength, toStringRightSliceLength);
-};
-
-module.exports.typeDetect = module.exports;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(72)))
-
-/***/ }),
-
-/***/ 56:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(82);
+var _defineProperty = __webpack_require__(80);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -4918,493 +4051,7 @@ exports.default = function (obj, key, value) {
 
 /***/ }),
 
-/***/ 6:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.toFixed = toFixed;
-exports.createMatrix = createMatrix;
-exports.checkStyleName = checkStyleName;
-exports.getGsapType = getGsapType;
-exports.parseColor = parseColor;
-exports.parseShadow = parseShadow;
-exports.getColor = getColor;
-exports.isTransform = isTransform;
-exports.isConvert = isConvert;
-exports.splitFilterToObject = splitFilterToObject;
-exports.getMatrix = getMatrix;
-exports.getTransform = getTransform;
-exports.stylesToCss = stylesToCss;
-exports.getUnit = getUnit;
-exports.getValues = getValues;
-exports.findStyleByName = findStyleByName;
-exports.mergeStyle = mergeStyle;
-var isUnitlessNumber = {
-  animationIterationCount: true,
-  borderImageOutset: true,
-  borderImageSlice: true,
-  borderImageWidth: true,
-  boxFlex: true,
-  boxFlexGroup: true,
-  boxOrdinalGroup: true,
-  columnCount: true,
-  flex: true,
-  flexGrow: true,
-  flexPositive: true,
-  flexShrink: true,
-  flexNegative: true,
-  flexOrder: true,
-  gridRow: true,
-  gridColumn: true,
-  fontWeight: true,
-  lineClamp: true,
-  lineHeight: true,
-  opacity: true,
-  order: true,
-  orphans: true,
-  tabSize: true,
-  widows: true,
-  zIndex: true,
-  zoom: true,
-
-  // SVG-related properties
-  fillOpacity: true,
-  floodOpacity: true,
-  stopOpacity: true,
-  strokeDasharray: true,
-  strokeDashoffset: true,
-  strokeMiterlimit: true,
-  strokeOpacity: true,
-  strokeWidth: true
-};
-var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
-
-function prefixKey(prefix, key) {
-  return prefix + key.charAt(0).toUpperCase() + key.substring(1);
-}
-
-Object.keys(isUnitlessNumber).forEach(function (prop) {
-  prefixes.forEach(function (prefix) {
-    isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
-  });
-});
-
-var unquotedContentValueRegex = /^(normal|none|(\b(url\([^)]*\)|chapter_counter|attr\([^)]*\)|(no-)?(open|close)-quote|inherit)((\b\s*)|$|\s+))+)$/;
-
-var IE = function () {
-  if (typeof document === 'undefined') {
-    return false;
-  }
-  if (navigator && (navigator.userAgent.indexOf("MSIE 8.0") > 0 || navigator.userAgent.indexOf("MSIE 9.0") > 0)) {
-    return true;
-  }
-  return false;
-}();
-
-var rnd = 100000;
-
-var colorLookup = {
-  aqua: [0, 255, 255],
-  lime: [0, 255, 0],
-  silver: [192, 192, 192],
-  black: [0, 0, 0],
-  maroon: [128, 0, 0],
-  teal: [0, 128, 128],
-  blue: [0, 0, 255],
-  navy: [0, 0, 128],
-  white: [255, 255, 255],
-  fuchsia: [255, 0, 255],
-  olive: [128, 128, 0],
-  yellow: [255, 255, 0],
-  orange: [255, 165, 0],
-  gray: [128, 128, 128],
-  purple: [128, 0, 128],
-  green: [0, 128, 0],
-  red: [255, 0, 0],
-  pink: [255, 192, 203],
-  cyan: [0, 255, 255],
-  transparent: [255, 255, 255, 0]
-};
-var _hue = function _hue(hh, m1, m2) {
-  var h = hh > 1 ? hh - 1 : hh;
-  h = hh < 0 ? hh + 1 : h;
-  var a = h * 3 < 2 ? m1 + (m2 - m1) * (2 / 3 - h) * 6 : m1;
-  var b = h < 0.5 ? m2 : a;
-  var c = h * 6 < 1 ? m1 + (m2 - m1) * h * 6 : b;
-  return c * 255 + 0.5 | 0;
-};
-var DEG2RAD = Math.PI / 180;
-var RAD2DEG = 180 / Math.PI;
-
-var cssList = {
-  _lists: {
-    transformsBase: ['translate', 'translateX', 'translateY', 'scale', 'scaleX', 'scaleY', 'skewX', 'skewY', 'rotateZ', 'rotate'],
-    transforms3D: ['translate3d', 'translateZ', 'scaleZ', 'rotateX', 'rotateY', 'perspective']
-  },
-  transformGroup: { translate: 1, translate3d: 1, scale: 1, scale3d: 1, rotate: 1, rotate3d: 1 },
-  filter: ['grayScale', 'sepia', 'hueRotate', 'invert', 'brightness', 'contrast', 'blur'],
-  filterConvert: { grayScale: 'grayscale', hueRotate: 'hue-rotate' }
-};
-cssList._lists.transformsBase = !IE ? cssList._lists.transformsBase.concat(cssList._lists.transforms3D) : cssList._lists.transformsBase;
-
-function toFixed(num, length) {
-  var _rnd = length ? Math.pow(10, length) : rnd;
-  var n = num | 0;
-  var dec = num - n;
-  return dec ? (dec * _rnd + (num < 0 ? -0.5 : 0.5) | 0) / _rnd + n : num;
-}
-
-function createMatrix(style) {
-  return window.WebKitCSSMatrix && new window.WebKitCSSMatrix(style) || window.MozCSSMatrix && new window.MozCSSMatrix(style) || window.DOMMatrix && new window.DOMMatrix(style) || window.MsCSSMatrix && new window.MsCSSMatrix(style) || window.OCSSMatrix && new window.OCSSMatrix(style) || window.CSSMatrix && new window.CSSMatrix(style) || null;
-}
-
-function checkStyleName(p) {
-  var a = ['O', 'Moz', 'ms', 'Ms', 'Webkit'];
-  if (p !== 'filter' && p in document.body.style) {
-    return p;
-  }
-  var _p = p.charAt(0).toUpperCase() + p.substr(1);
-  var prefixCss = a.filter(function (key) {
-    return '' + key + _p in document.body.style;
-  });
-  return prefixCss[0] ? '' + prefixCss[0] + _p : null;
-}
-
-function getGsapType(_p) {
-  var p = _p;
-  p = p === 'x' ? 'translateX' : p;
-  p = p === 'y' ? 'translateY' : p;
-  p = p === 'z' ? 'translateZ' : p;
-  // p = p === 'r' ? 'rotate' : p;
-  return p;
-}
-
-function parseColor(_v) {
-  var a = void 0;
-  var r = void 0;
-  var g = void 0;
-  var b = void 0;
-  var h = void 0;
-  var s = void 0;
-  var l = void 0;
-  var v = _v;
-  var _numExp = /(?:\d|\-\d|\.\d|\-\.\d)+/g;
-  if (!v) {
-    a = colorLookup.black;
-  } else if (typeof v === 'number') {
-    a = [v >> 16, v >> 8 & 255, v & 255];
-  } else {
-    if (v.charAt(v.length - 1) === ',') {
-      v = v.substr(0, v.length - 1);
-    }
-    if (colorLookup[v]) {
-      a = colorLookup[v];
-    } else if (v.charAt(0) === '#') {
-      // is #FFF
-      if (v.length === 4) {
-        r = v.charAt(1);
-        g = v.charAt(2);
-        b = v.charAt(3);
-        v = '#' + r + r + g + g + b + b;
-      }
-      v = parseInt(v.substr(1), 16);
-      a = [v >> 16, v >> 8 & 255, v & 255];
-    } else if (v.substr(0, 3) === 'hsl') {
-      a = v.match(_numExp);
-      h = Number(a[0]) % 360 / 360;
-      s = Number(a[1]) / 100;
-      l = Number(a[2]) / 100;
-      g = l <= 0.5 ? l * (s + 1) : l + s - l * s;
-      r = l * 2 - g;
-      if (a.length > 3) {
-        a[3] = Number(a[3]);
-      }
-      a[0] = _hue(h + 1 / 3, r, g);
-      a[1] = _hue(h, r, g);
-      a[2] = _hue(h - 1 / 3, r, g);
-    } else {
-      a = v.match(_numExp) || colorLookup.transparent;
-    }
-    a[0] = Number(a[0]);
-    a[1] = Number(a[1]);
-    a[2] = Number(a[2]);
-
-    if (a.length > 3) {
-      a[3] = Number(a[3]);
-    }
-  }
-  return a;
-}
-
-function parseShadow(v) {
-  if (!v) {
-    return [0, 0, 0, 0, 0, 0, 0];
-  }
-  var inset = void 0;
-  if (v.indexOf('rgb') >= 0) {
-    var t = v.match(/rgb+(?:a)?\((.*)\)/);
-    var s = v.replace(t[0], '').trim().split(/\s+/);
-    inset = s.indexOf('inset');
-    if (inset >= 0) {
-      s.splice(inset, 1);
-    }
-    var c = t[1].replace(/\s+/g, '').split(',');
-    if (c.length === 3) {
-      c.push(1);
-    }
-    return s.concat(c, inset >= 0 ? ['inset'] : []);
-  }
-  var vArr = v.split(/\s+/);
-  inset = vArr.indexOf('inset');
-  if (inset >= 0) {
-    vArr.splice(inset, 1);
-  }
-  var color = parseColor(vArr[vArr.length - 1]);
-  color[3] = typeof color[3] === 'number' ? color[3] : 1;
-  vArr = vArr.splice(0, vArr.length - 1);
-  return vArr.concat(color, inset >= 0 ? ['inset'] : []);
-}
-
-function getColor(v) {
-  var rgba = v.length === 4 ? 'rgba' : 'rgb';
-  var _vars = v.map(function (d, i) {
-    return i < 3 ? Math.round(d) : d;
-  });
-  return rgba + '(' + _vars.join(',') + ')';
-}
-
-function isTransform(p) {
-  return cssList._lists.transformsBase.indexOf(p) >= 0 ? 'transform' : p;
-}
-
-function isConvert(p) {
-  var cssName = isTransform(p);
-  return cssList.filter.indexOf(cssName) >= 0 ? 'filter' : cssName;
-}
-
-function splitFilterToObject(data) {
-  if (data === 'none' || !data || data === '') {
-    return null;
-  }
-  var filter = data.replace(' ', '').split(')').filter(function (item) {
-    return item;
-  });
-  var startData = {};
-  filter.forEach(function (item) {
-    var dataArr = item.split('(');
-    startData[dataArr[0]] = dataArr[1];
-  });
-  return startData;
-}
-
-function getMatrix(t) {
-  var arr = t.match(/(?:\-|\b)[\d\-\.e]+\b/gi);
-  var m = {};
-  if (arr.length === 6) {
-    m.m11 = parseFloat(arr[0]);
-    m.m12 = parseFloat(arr[1]);
-    m.m13 = 0;
-    m.m14 = 0;
-    m.m21 = parseFloat(arr[2]);
-    m.m22 = parseFloat(arr[3]);
-    m.m23 = 0;
-    m.m24 = 0;
-    m.m31 = 0;
-    m.m32 = 0;
-    m.m33 = 1;
-    m.m34 = 0;
-    m.m41 = parseFloat(arr[4]);
-    m.m42 = parseFloat(arr[5]);
-    m.m43 = 0;
-    m.m44 = 0;
-  } else {
-    arr.forEach(function (item, i) {
-      var ii = i % 4 + 1;
-      var j = Math.floor(i / 4) + 1;
-      m['m' + j + ii] = parseFloat(item);
-    });
-  }
-  return m;
-}
-
-function getTransform(transform) {
-  var _transform = transform === 'none' || transform === '' ? 'matrix(1, 0, 0, 1, 0, 0)' : transform;
-  var m = getMatrix(_transform);
-  var m11 = m.m11;
-  var m12 = m.m12;
-  var m13 = m.m13;
-  var m14 = m.m14;
-  var m21 = m.m21;
-  var m22 = m.m22;
-  var m23 = m.m23;
-  var m24 = m.m24;
-  var m31 = m.m31;
-  var m32 = m.m32;
-  var m33 = m.m33;
-  var m34 = m.m34;
-  var m43 = m.m43;
-  var t1 = void 0;
-  var t2 = void 0;
-  var t3 = void 0;
-  var tm = {};
-  tm.perspective = m34 ? toFixed(m33 / (m34 < 0 ? -m34 : m34)) : 0;
-  tm.rotateX = toFixed(Math.asin(m23) * RAD2DEG);
-  var angle = tm.rotateX * DEG2RAD;
-  var skewX = Math.tan(m21);
-  var skewY = Math.tan(m12);
-  var cos = m34 * tm.perspective;
-  var sin = void 0;
-  // rotateX
-  if (angle) {
-    cos = Math.cos(-angle);
-    sin = Math.sin(-angle);
-    t1 = m21 * cos + m31 * sin;
-    t2 = m22 * cos + m32 * sin;
-    t3 = m23 * cos + m33 * sin;
-    m31 = m21 * -sin + m31 * cos;
-    m32 = m22 * -sin + m32 * cos;
-    m33 = m23 * -sin + m33 * cos;
-    m34 = m24 * -sin + m34 * cos;
-    m21 = t1;
-    m22 = t2;
-    m23 = t3;
-  }
-  // rotateY
-  angle = Math.atan2(m31, m33);
-  tm.rotateY = toFixed(angle * RAD2DEG);
-  if (angle) {
-    cos = Math.cos(-angle);
-    sin = Math.sin(-angle);
-    t1 = m11 * cos - m31 * sin;
-    t2 = m12 * cos - m32 * sin;
-    t3 = m13 * cos - m33 * sin;
-    m32 = m12 * sin + m32 * cos;
-    m33 = m13 * sin + m33 * cos;
-    m34 = m14 * sin + m34 * cos;
-    m11 = t1;
-    m12 = t2;
-    m13 = t3;
-  }
-  // rotateZ
-  angle = Math.atan2(m12, m11);
-  tm.rotate = toFixed(angle * RAD2DEG);
-  if (angle) {
-    cos = Math.cos(-angle);
-    sin = Math.sin(-angle);
-    m11 = m11 * cos + m21 * sin;
-    t2 = m12 * cos + m22 * sin;
-    m22 = m12 * -sin + m22 * cos;
-    m23 = m13 * -sin + m23 * cos;
-    m12 = t2;
-  }
-
-  if (tm.rotateX && Math.abs(tm.rotateX) + Math.abs(tm.rotate) > 359.9) {
-    tm.rotateX = tm.rotate = 0;
-    tm.rotateY += 180;
-  }
-  tm.scaleX = toFixed(Math.sqrt(m11 * m11 + m12 * m12));
-  tm.scaleY = toFixed(Math.sqrt(m22 * m22 + m32 * m32));
-  tm.scaleZ = toFixed(Math.sqrt(m23 * m23 + m33 * m33));
-  // 不管 skewX skewY了；
-  tm.skewX = skewX === -skewY ? 0 : skewX;
-  tm.skewY = skewY === -skewX ? 0 : skewY;
-  tm.perspective = m34 ? 1 / (m34 < 0 ? -m34 : m34) : 0;
-  tm.translateX = m.m41;
-  tm.translateY = m.m42;
-  tm.translateZ = m43;
-  return tm;
-}
-
-function stylesToCss(key, value) {
-  var _value = void 0;
-  if (!isUnitlessNumber[key] && typeof value === 'number') {
-    _value = ' ' + value + 'px';
-  } else if (key === 'content' && !unquotedContentValueRegex.test(value)) {
-    _value = '\'' + value.replace(/'/g, "\\'") + '\'';
-  }
-  return _value || value;
-}
-
-function getUnit(p, v) {
-  var currentUnit = v && v.toString().replace(/[^a-z|%]/ig, '');
-  var unit = '';
-  if (p.indexOf('translate') >= 0 || p.indexOf('perspective') >= 0 || p.indexOf('blur') >= 0) {
-    unit = 'px';
-  } else if (p.indexOf('skew') >= 0 || p.indexOf('rotate') >= 0) {
-    unit = 'deg';
-  }
-  return currentUnit || unit;
-}
-
-function getValues(p, d, u) {
-  return p + '(' + d + (u || '') + ')';
-}
-
-function findStyleByName(cssArray, name) {
-  var ret = null;
-  if (cssArray) {
-    cssArray.forEach(function (_cname) {
-      if (ret) {
-        return;
-      }
-      var cName = _cname.split('(')[0];
-      var a = cName in cssList.transformGroup && name.substring(0, name.length - 1).indexOf(cName) >= 0;
-      var b = name in cssList.transformGroup && cName.substring(0, cName.length - 1).indexOf(name) >= 0;
-      var c = cName in cssList.transformGroup && name in cssList.transformGroup && (cName.substring(0, cName.length - 2) === name || name.substring(0, name.length - 2) === cName);
-      if (cName === name || a || b || c) {
-        ret = _cname;
-      }
-    });
-  }
-  return ret;
-}
-
-function mergeStyle(current, change) {
-  if (!current || current === '') {
-    return change;
-  }
-  if (!change || change === '') {
-    return current;
-  }
-  var _current = current.replace(/\s/g, '').split(')').filter(function (item) {
-    return item !== '' && item;
-  }).map(function (item) {
-    return item + ')';
-  });
-  var _change = change.replace(/\s/g, '').split(')').filter(function (item) {
-    return item !== '' && item;
-  });
-  _change.forEach(function (changeOnly) {
-    var changeArr = changeOnly.split('(');
-    var changeName = changeArr[0];
-    var currentSame = findStyleByName(_current, changeName);
-    if (!currentSame) {
-      _current.push(changeOnly + ')');
-    } else {
-      var index = _current.indexOf(currentSame);
-      _current[index] = changeOnly + ')';
-    }
-  });
-  _current.forEach(function (item, i) {
-    if (item.indexOf('perspective') >= 0 && i) {
-      _current.splice(i, 1);
-      _current.unshift(item);
-    }
-  });
-  return _current.join(' ').trim();
-}
-
-exports.default = cssList;
-
-
-/***/ }),
-
-/***/ 60:
+/***/ 59:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -5412,9 +4059,9 @@ exports.default = cssList;
  */
 
 try {
-  var index = __webpack_require__(27);
+  var index = __webpack_require__(26);
 } catch (err) {
-  var index = __webpack_require__(27);
+  var index = __webpack_require__(26);
 }
 
 /**
@@ -5602,7 +4249,7 @@ ClassList.prototype.contains = function(name){
 
 /***/ }),
 
-/***/ 66:
+/***/ 65:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5691,15 +4338,15 @@ var TransitionEvents = {
 
 /***/ }),
 
-/***/ 67:
+/***/ 66:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isCssAnimationSupported; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_component_classes__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_component_classes__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_component_classes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_component_classes__);
 
 
@@ -5879,17 +4526,17 @@ cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
 
 /***/ }),
 
-/***/ 69:
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__);
@@ -5899,8 +4546,8 @@ cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ChildrenUtils__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__AnimateChild__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ChildrenUtils__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__AnimateChild__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__util__ = __webpack_require__(30);
 
 
@@ -6255,7 +4902,7 @@ var _initialiseProps = function _initialiseProps() {
 
 /***/ }),
 
-/***/ 70:
+/***/ 69:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6263,7 +4910,7 @@ var _initialiseProps = function _initialiseProps() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
@@ -6275,7 +4922,7 @@ var _initialiseProps = function _initialiseProps() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_css_animation__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_css_animation__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util__ = __webpack_require__(30);
 
 
@@ -6392,7 +5039,7 @@ AnimateChild.propTypes = {
 
 /***/ }),
 
-/***/ 71:
+/***/ 70:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6537,7 +5184,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _deepEql = __webpack_require__(16);
+var _deepEql = __webpack_require__(28);
 
 var _deepEql2 = _interopRequireDefault(_deepEql);
 
@@ -6788,7 +5435,7 @@ function getTransformValue(t, supports3D) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_deep_eql__);
 
 
@@ -7021,5 +5668,5 @@ function getTransformValue(t, supports3D) {
 
 /***/ })
 
-},[190]);
+},[195]);
 //# sourceMappingURL=simple.js.map
