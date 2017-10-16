@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>linkAsynchronous.js - example - rc-scroll-anim@1.0.7</title>
+  <title>linkAsynchronous.js - example - rc-scroll-anim@2.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,13 +257,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
   }
   </script>
-  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="../common.css" />
 </head>
 
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-scroll-anim@1.0.7</h1>
+      <h1>rc-scroll-anim@2.0.0</h1>
 
       <p>scroll-anim anim component for react</p>
     </div>
@@ -294,18 +294,16 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
   componentDidMount() {
     <span class="hljs-comment">// 添加改变窗口事件,可加setTimeout</span>
+    <span class="hljs-keyword">this</span>.barAnimate();
     EventListener.addEventListener(<span class="hljs-string">'resize.userResize'</span>, <span class="hljs-keyword">this</span>.barAnimate.bind(<span class="hljs-keyword">this</span>));
+    setTimeout(() =&gt; {
+      <span class="hljs-keyword">this</span>.setState({ show: <span class="hljs-literal">true</span> });
+    }, <span class="hljs-number">1500</span>);
   }
 
   onFocus = (e) =&gt; {
     <span class="hljs-keyword">this</span>.dom = e.target;
     <span class="hljs-keyword">this</span>.barAnimate();
-  }
-
-  onDataLoadEnd = (func) =&gt; {
-    setTimeout(() =&gt; {
-      <span class="hljs-keyword">this</span>.setState({ show: <span class="hljs-literal">true</span> }, func);
-    }, <span class="hljs-number">1500</span>);
   }
 
   barAnimate() {
@@ -325,25 +323,24 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-wap"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"page0"</span> <span class="hljs-attribute">showHeightActive</span>=<span class="hljs-value">{['50%',</span> '<span class="hljs-attribute">10</span>%']}
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
-            <span class="hljs-attribute">onAsynchronousAddEvent</span>=<span class="hljs-value">{this.onDataLoadEnd}</span>
-          &gt;</span>
+            <span class="hljs-attribute">ref</span>=<span class="hljs-value">{(c)</span> =&gt;</span> {
+              this.dom = ReactDOM.findDOMNode(c);
+            }}
+          &gt;
             Example
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"page1"</span> <span class="hljs-attribute">showHeightActive</span>=<span class="hljs-value">{['10%',</span> '<span class="hljs-attribute">60</span>%']} <span class="hljs-attribute">toShowHeight</span>
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
-            <span class="hljs-attribute">onAsynchronousAddEvent</span>=<span class="hljs-value">{this.onDataLoadEnd}</span>
           &gt;</span>
             Example2
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"page2"</span> <span class="hljs-attribute">showHeightActive</span>=<span class="hljs-value">{['60%',</span> '<span class="hljs-attribute">50</span>%']} <span class="hljs-attribute">toShowHeight</span>
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
-            <span class="hljs-attribute">onAsynchronousAddEvent</span>=<span class="hljs-value">{this.onDataLoadEnd}</span>
           &gt;</span>
             Example3
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-list"</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"page3"</span> <span class="hljs-attribute">offsetTop</span>=<span class="hljs-value">{100}</span>
             <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{this.onFocus}</span>
-            <span class="hljs-attribute">onAsynchronousAddEvent</span>=<span class="hljs-value">{this.onDataLoadEnd}</span>
           &gt;</span>
             Example4
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
@@ -380,7 +377,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-attribute">id</span>=<span class="hljs-value">"page2"</span>
           <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>
         &gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"page2-title"</span>&gt;</span>只进入一次<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"page2-title"</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"title"</span>&gt;</span>只进入一次<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"0"</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"fade"</span> <span class="hljs-attribute">transitionAppear</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
@@ -429,7 +426,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
          data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
   </a>
   <script>FastClick.attach(document.body);</script>
-  <script src="common.js?nowrap"></script>
+  <script src="../common.js?nowrap"></script>
   <script src="linkAsynchronous.js?nowrap"></script>
 </body>
 
