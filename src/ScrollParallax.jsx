@@ -30,28 +30,25 @@ class ScrollParallax extends React.Component {
     this.scrollTop = 0;
     this.defaultTweenData = [];
     this.defaultData = [];
-    this.timeout = null;
     this.state = {};
   }
 
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
     this.scrollTop = currentScrollTop();
-    this.clientHeight = window.innerHeight ||
-      document.documentElement.clientHeight || document.body.clientHeight;
+    this.target = this.props.targetId && document.getElementById(this.props.targetId);
+    this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
     this.setDefaultData(this.props.animation || {});
 
     // 第一次进入;
-    this.timeout = setTimeout(() => {
-      this.timeline = new Timeline(this.dom, this.defaultTweenData, {});
-      // 预注册;
-      this.timeline.frame(0);
-      this.scrollEventListener();
-      const date = Date.now();
-      const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
-      this.eventType = `scroll.scrollEvent${date}${length}`;
-      EventListener.addEventListener(this.eventType, this.scrollEventListener);
-    });
+    this.timeline = new Timeline(this.dom, this.defaultTweenData, {});
+    // 预注册;
+    this.timeline.frame(0);
+    const date = Date.now();
+    const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
+    this.eventType = `scroll.scrollEvent${date}${length}`;
+    this.scrollEventListener();
+    EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,12 +61,7 @@ class ScrollParallax extends React.Component {
   }
 
   componentWillUnmount() {
-    if (!this.eventType && this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
-    } else {
-      EventListener.removeEventListener(this.eventType, this.scrollEventListener);
-    }
+    EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
   }
 
   setDefaultData = _vars => {
@@ -97,13 +89,14 @@ class ScrollParallax extends React.Component {
   }
 
   scrollEventListener = () => {
-    const scrollTop = currentScrollTop();
-    this.clientHeight = windowHeight();
+    const scrollTop = this.target ? this.target.scrollTop : currentScrollTop();
+    this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
     const dom = this.props.location ? document.getElementById(this.props.location) : this.dom;
     if (!dom) {
       throw new Error('"location" is null');
     }
-    const offsetTop = dom.getBoundingClientRect().top + scrollTop;
+    const targetTop = this.target ? this.target.getBoundingClientRect().top : 0;
+    const offsetTop = dom.getBoundingClientRect().top + scrollTop - targetTop;
     const elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const currentShow = this.scrollTop - offsetTop + this.clientHeight;
     this.defaultData.forEach(item => {
@@ -160,8 +153,8 @@ class ScrollParallax extends React.Component {
 
     this.scrollTop = scrollTop;
     // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
-    if (this.defaultData.every(c => c.onComplete.only) && !this.props.always) {
-      EventListener.removeEventListener(this.eventType, this.scrollEventListener);
+    if (this.onCompleteBool && this.eventType && !this.props.always) {
+      EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
     }
   }
 
@@ -173,6 +166,7 @@ class ScrollParallax extends React.Component {
       'component',
       'location',
       'id',
+      'targetId',
     ].forEach(key => delete props[key]);
     const style = { ...props.style };
     for (const p in style) {
@@ -198,6 +192,7 @@ ScrollParallax.propTypes = {
   className: PropTypes.string,
   style: PropTypes.any,
   id: PropTypes.string,
+  targetId: PropTypes.string,
 };
 
 ScrollParallax.defaultProps = {

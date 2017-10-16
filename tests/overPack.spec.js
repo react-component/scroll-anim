@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import ScrollAnim from '../index';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
@@ -20,12 +20,15 @@ describe('rc-scroll-anim', () => {
       }
 
       render() {
-        return (<div>
+        return (<div
+          style={{ height: 500, overflow: 'scroll', position: 'absolute', width: '100%', top: 0 }}
+          id="c-div"
+        >
           <div style={{ height: 1000 }}></div>
           <ScrollAnim.OverPack
             {...this.props}
             style={{ height: 1000 }}
-            hideProps={{ one: { reverse: true } }}
+            targetId="c-div"
           >
             <TweenOne
               key="one"
@@ -66,8 +69,10 @@ describe('rc-scroll-anim', () => {
   }
 
   it('single overPack', () => {
-    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
     instance = createScrollOverPack();
+    const cDom = document.getElementById('c-div');
+    cDom.scrollTop = 0;
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     console.log('overPack child length is 3', child.length);
     expect(child.length).to.be(3);
@@ -78,6 +83,8 @@ describe('rc-scroll-anim', () => {
     instance = createScrollOverPack({
       always: false,
     });
+    const cDom = document.getElementById('c-div');
+    cDom.scrollTop = 0;
     const _tickerId = `scrollText${Date.now()}`;
     tickerId++;
     if (tickerId >= Number.MAX_VALUE) {
@@ -87,7 +94,7 @@ describe('rc-scroll-anim', () => {
     ticker.wake(_tickerId, () => {
       const moment = (ticker.frame - startFrame) * ticker.perFrame;
       const ratio = moment / 300 * 3000;
-      window.scrollTo(0, ratio);
+      cDom.scrollTop = ratio;
       if (moment >= 300) {
         ticker.clear(_tickerId);
       }
@@ -96,7 +103,7 @@ describe('rc-scroll-anim', () => {
       let child;
       ticker.timeout(() => {
         ticker.timeout(() => {
-          console.log('window.pageYOffset:', window.pageYOffset);
+          console.log('scrollTop:', cDom.scrollTop);
           child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
           console.log('always = false -> TweenOne end opacity:', child[0].style.opacity);
           expect(getFloat(child[0].style.opacity)).to.be(1);
@@ -112,19 +119,19 @@ describe('rc-scroll-anim', () => {
   it('overPack enter leave', (done) => {
     window.scrollTo(0, 0);
     instance = createScrollOverPack();
-    window.scrollTo(0, 3000);
+    const cDom = document.getElementById('c-div');
+    cDom.scrollTop = 3000;
     ticker.timeout(() => {
-      let child;
-      console.log('current scroll top:', window.pageYOffset);
-      child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
+      console.log('scrollTop:', cDom.scrollTop);
+      let child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
       console.log('enter -> TweenOne start opacity:', child[0].style.opacity);
       expect(getFloat(child[0].style.opacity)).to.be(1);
       child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'p');
       console.log('enter -> QueueAnim start child length:', child.length);
       expect(child.length).to.be(2);
-      window.scrollTo(0, 0);
+      cDom.scrollTop = 0;
       ticker.timeout(() => {
-        console.log('current scroll top:', window.pageYOffset);
+        console.log('scrollTop:', cDom.scrollTop);
         child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'i');
         console.log('leave -> TweenOne end opacity:', child[0].style.opacity);
         expect(getFloat(child[0].style.opacity)).to.be(0);

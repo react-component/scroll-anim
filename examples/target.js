@@ -8,15 +8,58 @@ import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 const _package = require('../package.json');
 const ScrollOverPack = ScrollAnim.OverPack;
-
+const Link = ScrollAnim.Link;
 class Demo extends React.Component {
   constructor() {
     super(...arguments);
   }
 
+  onFocus = (e) => {
+    console.log(e, 'focus');
+    this.dom = e.target;
+    this.barAnimate();
+  }
+
+  barAnimate = () => {
+    if (!this.dom) {
+      return;
+    }
+    const bar = this.refs.bar;
+    bar.style.left = `${this.dom.getBoundingClientRect().left}px`;
+  }
+
   render() {
     return (<div style={{ height: '100vh', overflow: 'scroll' }} id="box">
-      <div className="pack-page page0">
+      <div className="nav">
+        <div className="logo">
+          <p>Ant Motion</p>
+        </div>
+        <div className="nav-wap">
+          <Link className="nav-list" to="page0" showHeightActive={['50%', '10%']}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            targetId="box"
+          >
+            Example
+          </Link>
+          <Link className="nav-list" to="page1" showHeightActive={['10%', '60%']} toShowHeight
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            targetId="box"
+          >
+            Example2
+          </Link>
+          <Link className="nav-list" to="page2" showHeightActive={['60%', '50%']} toShowHeight
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            targetId="box"
+          >
+            Example3
+          </Link>
+          <div ref="bar" className="nav-bar" />
+        </div>
+      </div>
+      <div className="pack-page page0" id="page0">
         <QueueAnim className="home-title">
           <div className="page-title" key="title">
             <p>{_package.name}@{_package.version}</p>
@@ -44,7 +87,7 @@ class Demo extends React.Component {
       </ScrollOverPack>
 
       <ScrollOverPack
-        id="page4"
+        id="page2"
         className="page1"
         appear={false}
         style={{ backgroundColor: '#0098CE' }}
