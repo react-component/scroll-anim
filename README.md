@@ -153,7 +153,7 @@ OverPack inherit Element; `component` `playScale` `onChange` `location` refer to
 |-----------|----------------|---------|----------------|
 | playScale | array          | `[0, 1]`| play area, [start, end]<br/> timeline: `[{playScale: [0, 0.2]}, {playScale: [0, 0.8]}]]`, Second will increase by 0.2, The second end is 1  |
 | ease      | string         | `easeInOutQuad`| animation easing string |
-| onUpdate  | function       |    -    |  animate updates, callback: onUpdate(easeValue})   |
+| onUpdate  | function       |    -    |  animate updates, callback: onUpdate(percent)   |
 | onStart   | function       |    -    |  scroll down animate start (playScale[0]) callback; |
 | onComplete| function       |    -    |  scroll down animate completed (playScale[1]) callback |
 | onStartBack   | function       |    -    |   scroll up animate start (playScale[1]) callback; |

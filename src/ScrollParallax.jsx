@@ -80,6 +80,7 @@ class ScrollParallax extends React.Component {
       cItem.onRepeat = null;
       aItem.onStart = aItem.onStart || noop;
       aItem.onComplete = aItem.onComplete || noop;
+      aItem.onUpdate = aItem.onUpdate || noop;
       aItem.onStartBack = aItem.onStartBack || noop;
       aItem.onCompleteBack = aItem.onCompleteBack || noop;
       this.defaultTweenData[i] = cItem;
@@ -100,9 +101,11 @@ class ScrollParallax extends React.Component {
     const elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const currentShow = this.scrollTop - offsetTop + this.clientHeight;
     this.defaultData.forEach(item => {
+      let noUpdate;
       if (elementShowHeight <= item.delay) {
         if (!this.onCompleteBackBool && this.onStartBool) {
           this.onCompleteBackBool = true;
+          noUpdate = true;
           item.onCompleteBack();
         }
       } else {
@@ -111,6 +114,7 @@ class ScrollParallax extends React.Component {
       if (elementShowHeight >= item.delay) {
         if (!this.onStartBool) {
           this.onStartBool = true;
+          noUpdate = true;
           item.onStart();
         }
       } else {
@@ -120,6 +124,7 @@ class ScrollParallax extends React.Component {
       if (elementShowHeight <= item.delay + item.duration) {
         if (!this.onStartBackBool && this.onCompleteBool) {
           this.onStartBackBool = true;
+          noUpdate = true;
           item.onStartBack();
         }
       } else {
@@ -129,10 +134,17 @@ class ScrollParallax extends React.Component {
       if (elementShowHeight >= item.delay + item.duration) {
         if (!this.onCompleteBool) {
           this.onCompleteBool = true;
+          noUpdate = true;
           item.onComplete();
         }
       } else {
         this.onCompleteBool = false;
+      }
+      if (elementShowHeight >= item.delay &&
+        elementShowHeight <= item.delay + item.duration &&
+        !noUpdate
+      ) {
+        item.onUpdate(elementShowHeight / (item.delay + item.duration));
       }
     });
     ticker.clear(this.tickerId);

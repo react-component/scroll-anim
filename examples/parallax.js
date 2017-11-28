@@ -74,7 +74,11 @@ class Demo extends React.Component {
           默认显示位置[0 ,1]
         </ScrollParallax>
         <ScrollParallax
-          animation={{ scaleX: 1, scaleY: 1 }}
+          animation={{
+            scaleX: 1, scaleY: 1, onUpdate: (percent) => {
+              console.log('scale anim percent:', percent);
+            },
+          }}
           style={{ transform: 'scale(0)', color: '#fff' }}
           className="demo parallax-shape"
         >
