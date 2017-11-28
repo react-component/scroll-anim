@@ -138,7 +138,11 @@ var Demo = function (_React$Component) {
           __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
             ScrollParallax,
             {
-              animation: { scaleX: 1, scaleY: 1 },
+              animation: {
+                scaleX: 1, scaleY: 1, onUpdate: function onUpdate(percent) {
+                  console.log('scale anim percent:', percent);
+                }
+              },
               style: { transform: 'scale(0)', color: '#fff' },
               className: 'demo parallax-shape'
             },
