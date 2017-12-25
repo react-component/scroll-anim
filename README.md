@@ -81,7 +81,7 @@ React.render(<ScrollOverPack>
 
 ```js
 var ScrollParallax = ScrollAnim.Parallax;
-React.render(<ScrollParallax vars={{x:100}}>Parallax</ScrollParallax>,container);
+React.render(<ScrollParallax animation={{x:100}}>Parallax</ScrollParallax>,container);
 ```
 
 #### Link, Element
