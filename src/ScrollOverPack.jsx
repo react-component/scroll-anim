@@ -59,7 +59,12 @@ class ScrollOverPack extends ScrollElement {
     ].forEach(key => delete placeholderProps[key]);
     let childToRender;
     if (!this.oneEnter) {
-      const children = !this.props.appear && this.props.children;
+      const show = !this.props.appear;
+      const children = toArrayChildren(this.props.children).map(item => (
+        item.type.isTweenOne ?
+          React.cloneElement(item, { ...item.props, paused: !show }) :
+          React.cloneElement(item, item.props, show && item.props.children)
+      ));
       childToRender = createElement(this.props.component, { ...placeholderProps }, children);
       this.oneEnter = true;
     } else {

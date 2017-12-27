@@ -74,8 +74,8 @@ describe('rc-scroll-anim', () => {
     const cDom = document.getElementById('c-div');
     cDom.scrollTop = 0;
     const child = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    console.log('overPack child length is 3', child.length);
-    expect(child.length).to.be(3);
+    console.log('overPack child length is 2 + wrapper 2', child.length);
+    expect(child.length).to.be(4);
   });
 
   it('overPack always false', (done) => {
