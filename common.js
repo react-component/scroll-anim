@@ -2629,7 +2629,7 @@ __webpack_require__(111)(String, 'String', function (iterated) {
 /* 79 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.1.0","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll-anim"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^1.5.0","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.2.0","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll-anim"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^1.5.0","tween-functions":"1.x"}}
 
 /***/ }),
 /* 80 */
@@ -4600,7 +4600,10 @@ var ScrollOverPack = function (_ScrollElement) {
       });
       var childToRender = void 0;
       if (!this.oneEnter) {
-        var children = !this.props.appear && this.props.children;
+        var show = !this.props.appear;
+        var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(this.props.children).map(function (item) {
+          return item.type.isTweenOne ? __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, item.props, { paused: !show })) : __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, item.props, show && item.props.children);
+        });
         childToRender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_react__["createElement"])(this.props.component, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, placeholderProps), children);
         this.oneEnter = true;
       } else {
@@ -4610,7 +4613,7 @@ var ScrollOverPack = function (_ScrollElement) {
               return null;
             }
             // 判断 TweenOne;
-            if (item.type.TweenOneGroup && item.type.easing && item.type.plugins) {
+            if (item.type.isTweenOne) {
               return __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, { reverse: true });
             }
             return __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, {}, null);
