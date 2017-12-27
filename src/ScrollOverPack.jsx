@@ -74,7 +74,7 @@ class ScrollOverPack extends ScrollElement {
             return null;
           }
           // 判断 TweenOne;
-          if (item.type.TweenOneGroup && item.type.easing && item.type.plugins) {
+          if (item.type.isTweenOne) {
             return React.cloneElement(item, { reverse: true });
           }
           return React.cloneElement(item, {}, null);
