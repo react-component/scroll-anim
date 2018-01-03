@@ -105,7 +105,7 @@ class Demo extends React.Component {
         </ScrollParallax>
         <ScrollParallax
           animation={{ rotateY: 360 }}
-          style={{ transform: 'perspective(100px) rotateY(0)', backgroundColor: '#0098CE' }}
+          style={{ transform: 'perspective(200px) rotateY(0)', backgroundColor: '#0098CE' }}
           className="demo2 parallax-shape"
         >
           rotateY

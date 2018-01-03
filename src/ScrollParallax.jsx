@@ -35,18 +35,15 @@ class ScrollParallax extends React.Component {
 
   componentDidMount() {
     this.dom = ReactDom.findDOMNode(this);
-    this.scrollTop = currentScrollTop();
-    this.target = this.props.targetId && document.getElementById(this.props.targetId);
-    this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
-    this.setDefaultData(this.props.animation || {});
-
-    // 第一次进入;
-    this.timeline = new Timeline(this.dom, this.defaultTweenData, {});
-    // 预注册;
-    this.timeline.frame(0);
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = `scroll.scrollEvent${date}${length}`;
+    this.eventResize = `resize.resizeEvent${date}${length}`;
+    this.resizeEventListener();
+    EventListener.addEventListener(this.eventResize, this.resizeEventListener, this.target);
+    // 预注册;
+    this.timeline.frame(0);
+
     this.scrollEventListener();
     EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
   }
@@ -62,6 +59,7 @@ class ScrollParallax extends React.Component {
 
   componentWillUnmount() {
     EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
+    EventListener.removeEventListener(this.eventResize, this.resizeEventListener, this.target);
   }
 
   setDefaultData = _vars => {
@@ -87,6 +85,18 @@ class ScrollParallax extends React.Component {
       this.defaultData[i] = aItem;
     };
     vars.forEach(varsForIn);
+  }
+
+  resizeEventListener = () => {
+    this.scrollTop = currentScrollTop();
+    this.target = this.props.targetId && document.getElementById(this.props.targetId);
+    this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
+    this.setDefaultData(this.props.animation || {});
+    if (this.timeline) {
+      this.timeline.resetDefaultStyle();
+    }
+    this.timeline = new Timeline(this.dom, this.defaultTweenData, {});
+    this.scrollEventListener();
   }
 
   scrollEventListener = () => {
