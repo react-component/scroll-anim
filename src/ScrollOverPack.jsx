@@ -19,6 +19,14 @@ class ScrollOverPack extends ScrollElement {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      children: toArrayChildren(nextProps.children),
+    }, () => {
+      this.scrollEventListener();
+    });
+  }
+
   scrollEventListener = (e) => {
     this.getParam(e);
     const isTop = this.elementShowHeight > this.clientHeight + this.leavePlayHeight;

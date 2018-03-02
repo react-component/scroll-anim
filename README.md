@@ -165,10 +165,12 @@ OverPack inherit Element; `component` `playScale` `onChange` `location` refer to
 
 > v1.1.0 remove onAsynchronousAddEvent. [Asynchronous demo](http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html)
 
+> v2.3.0 toHash default is false;
+
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
 | to  | string         | `null`  | need; Specifies the element to top; `Element` the id  |
-| toHash | boolean     | true    | add `to` to the `location.hash` |
+| toHash | boolean     | false    | add `to` to the `location.hash` |
 | duration  | number         | `450`   | scroll animate duration |
 | ease      | string         | `easeInOutQuad` | animation easing string | 
 | active    | string         | `active`| selected className  |

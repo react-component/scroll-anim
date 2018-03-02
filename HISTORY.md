@@ -1,3 +1,7 @@
+## 2.3.0
+1. componentWillReceiveProps 时增加解发滚动事件，解决块景模块跳动时不出现动画。
+2. ScrollLink 的 toHash 改为默认为 false;
+
 ## 2.0.0
 1. 升级 react 到 16;
 2. 去除 onAsynchronousAddEvent， 可查看异步 [demo](http://react-component.github.io/scroll-anim/examples/linkAsynchronous.html);

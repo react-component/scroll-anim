@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import mapped from './Mapped';
 import EventListener from './EventDispatcher';
-import { currentScrollTop, transformArguments, windowHeight, toArrayChildren } from './util';
+import { currentScrollTop, transformArguments, windowHeight } from './util';
 
 const noop = () => {
 };
@@ -29,10 +29,8 @@ class ScrollElement extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      children: toArrayChildren(nextProps.children),
-    });
+  componentWillReceiveProps() {
+    this.scrollEventListener();
   }
 
   componentWillUnmount() {

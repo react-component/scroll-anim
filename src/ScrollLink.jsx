@@ -209,7 +209,7 @@ ScrollLink.defaultProps = {
   active: 'active',
   showHeightActive: '50%',
   ease: 'easeInOutQuad',
-  toHash: true,
+  toHash: false,
   onClick: noop,
   onFocus: noop,
   onBlur: noop,
