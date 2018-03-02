@@ -2447,10 +2447,10 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["e"] = toArrayChildren;
+/* harmony export (immutable) */ __webpack_exports__["f"] = toArrayChildren;
 /* harmony export (immutable) */ __webpack_exports__["b"] = dataToArray;
 /* harmony export (immutable) */ __webpack_exports__["c"] = transformArguments;
-/* harmony export (immutable) */ __webpack_exports__["f"] = objectEqual;
+/* harmony export (immutable) */ __webpack_exports__["e"] = objectEqual;
 /* harmony export (immutable) */ __webpack_exports__["a"] = currentScrollTop;
 /* harmony export (immutable) */ __webpack_exports__["d"] = windowHeight;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(12);
@@ -2629,7 +2629,7 @@ __webpack_require__(111)(String, 'String', function (iterated) {
 /* 79 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.2.1","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll-anim"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^1.5.0","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.3.0","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll-anim"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^1.5.0","tween-functions":"1.x"}}
 
 /***/ }),
 /* 80 */
@@ -3611,10 +3611,8 @@ var ScrollElement = function (_React$Component) {
     }
   }, {
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      this.setState({
-        children: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util__["e" /* toArrayChildren */])(nextProps.children)
-      });
+    value: function componentWillReceiveProps() {
+      this.scrollEventListener();
     }
   }, {
     key: 'componentWillUnmount',
@@ -4499,7 +4497,7 @@ ScrollLink.defaultProps = {
   active: 'active',
   showHeightActive: '50%',
   ease: 'easeInOutQuad',
-  toHash: true,
+  toHash: false,
   onClick: noop,
   onFocus: noop,
   onBlur: noop
@@ -4580,17 +4578,28 @@ var ScrollOverPack = function (_ScrollElement) {
       }
     };
 
-    _this.children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children);
+    _this.children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(props.children);
     _this.oneEnter = false;
     _this.enter = false;
     _this.state = {
       show: false,
-      children: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children)
+      children: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(props.children)
     };
     return _this;
   }
 
   __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default()(ScrollOverPack, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      this.setState({
+        children: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(nextProps.children)
+      }, function () {
+        _this2.scrollEventListener();
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var placeholderProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(this.props, []);
@@ -4601,7 +4610,7 @@ var ScrollOverPack = function (_ScrollElement) {
       var childToRender = void 0;
       if (!this.oneEnter) {
         var show = !this.props.appear;
-        var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(this.props.children).map(function (item) {
+        var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(this.props.children).map(function (item) {
           return item.type.isTweenOne ? __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, item.props, { paused: !show })) : __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, item.props, show && item.props.children);
         });
         childToRender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_react__["createElement"])(this.props.component, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, placeholderProps), children);
@@ -4866,7 +4875,7 @@ var ScrollParallax = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      var equal = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__util__["f" /* objectEqual */])(this.props.animation, nextProps.animation);
+      var equal = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__util__["e" /* objectEqual */])(this.props.animation, nextProps.animation);
       if (!equal) {
         this.setDefaultData(nextProps.animation || {});
         this.timeline.resetAnimData();
