@@ -20,6 +20,9 @@ class ScrollOverPack extends ScrollElement {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.always !== nextProps.always && nextProps.always) {
+      this.startScroll();
+    }
     this.setState({
       children: toArrayChildren(nextProps.children),
     }, () => {

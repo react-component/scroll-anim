@@ -21,12 +21,7 @@ class ScrollElement extends React.Component {
 
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = `scroll.scrollEvent${date}${length}`;
-    EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
-
-    const scrollTop = currentScrollTop();
-    if (!scrollTop) {
-      this.scrollEventListener();
-    }
+    this.startScroll();
   }
 
   componentWillReceiveProps() {
@@ -71,6 +66,14 @@ class ScrollElement extends React.Component {
       this.props.onChange({ mode, id: this.props.id }, e);
     }
     this.enter = enter;
+  }
+
+  startScroll = () => {
+    EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
+    const scrollTop = currentScrollTop();
+    if (!scrollTop) {
+      this.scrollEventListener();
+    }
   }
 
   scrollEventListener = (e) => {
