@@ -20,13 +20,16 @@ class ScrollOverPack extends ScrollElement {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.always !== nextProps.always && nextProps.always) {
-      this.startScroll();
-    }
     this.setState({
       children: toArrayChildren(nextProps.children),
     }, () => {
-      this.scrollEventListener();
+      const inListener = EventListener._listeners.scroll &&
+        EventListener._listeners.scroll.some(c => c.n === this.eventType.split('.')[1]);
+      if (nextProps.always && !inListener) {
+        this.addScrollEvent();
+      } else {
+        this.scrollEventListener();
+      }
     });
   }
 
