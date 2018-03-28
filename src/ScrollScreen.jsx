@@ -158,9 +158,6 @@ const ScrollScreen = {
         this.num = this.num <= -startManyScale ? -startManyScale : this.num;
         this.num = this.num >= maxNum ? maxNum : this.num;
       }
-      if (this.num === this.currentNum) {
-        return;
-      }
       this.initTime = Date.now();
       const currentDom = mapped.get(mapped.getMapped().__arr[this.num]);
       this.toHeight = currentDom ? currentDom.offsetTop : null;
