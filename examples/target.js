@@ -1,6 +1,6 @@
 webpackJsonp([4],{
 
-/***/ 129:
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,15 +13,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim_assets_index_less__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim_assets_index_less__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim_assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rc_queue_anim__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rc_queue_anim__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__ = __webpack_require__(14);
 
 
 
@@ -34,7 +34,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var _package = __webpack_require__(79);
+var _package = __webpack_require__(52);
 var ScrollOverPack = __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim__["a" /* default */].OverPack;
 var Link = __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim__["a" /* default */].Link;
 
@@ -198,560 +198,7 @@ __WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 13:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/* eslint-disable func-names */
-var Plugins = function Plugins() {};
-var p = Plugins.prototype;
-p.push = function (plugin) {
-  this[plugin.prototype.name] = plugin;
-};
-exports["default"] = new Plugins();
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 14:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* eslint-disable func-names */
-var Plugins = function Plugins() {};
-var p = Plugins.prototype;
-p.push = function (plugin) {
-  this[plugin.prototype.name] = plugin;
-};
-/* harmony default export */ __webpack_exports__["a"] = (new Plugins());
-
-/***/ }),
-
-/***/ 16:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(1);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _classCallCheck2 = __webpack_require__(2);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _possibleConstructorReturn2 = __webpack_require__(4);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(3);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(5);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(11);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _util = __webpack_require__(8);
-
-var _styleUtils = __webpack_require__(7);
-
-var _Tween = __webpack_require__(47);
-
-var _Tween2 = _interopRequireDefault(_Tween);
-
-var _ticker = __webpack_require__(18);
-
-var _ticker2 = _interopRequireDefault(_ticker);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function noop() {}
-
-var perFrame = Math.round(1000 / 60);
-
-var TweenOne = function (_Component) {
-  (0, _inherits3["default"])(TweenOne, _Component);
-
-  function TweenOne(props) {
-    (0, _classCallCheck3["default"])(this, TweenOne);
-
-    var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.call(this, props));
-
-    _initialiseProps.call(_this);
-
-    _this.rafID = -1;
-    _this.moment = props.moment || 0;
-    _this.startMoment = props.moment || 0;
-    _this.startFrame = _ticker2["default"].frame;
-    _this.paused = props.paused;
-    _this.reverse = props.reverse;
-    _this.onChange = props.onChange;
-    _this.newMomentAnim = false;
-    _this.updateAnim = null;
-    _this.forced = {};
-    _this.setForcedJudg(props);
-    return _this;
-  }
-
-  TweenOne.prototype.componentDidMount = function componentDidMount() {
-    this.dom = _reactDom2["default"].findDOMNode(this);
-    this.start();
-  };
-
-  TweenOne.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var _this2 = this;
-
-    if (nextProps.resetStyleBool && this.tween && this.rafID === -1) {
-      this.tween.resetDefaultStyle();
-    }
-    this.onChange = nextProps.onChange;
-    // 跳帧事件 moment;
-    var newMoment = nextProps.moment;
-    this.newMomentAnim = false;
-    if (typeof newMoment === 'number' && newMoment !== this.moment) {
-      this.startMoment = newMoment;
-      this.startFrame = _ticker2["default"].frame;
-      if (this.rafID === -1 && !nextProps.paused) {
-        this.tween.resetAnimData();
-        var style = nextProps.style;
-        this.dom.setAttribute('style', '');
-        if (style) {
-          Object.keys(style).forEach(function (key) {
-            _this2.dom.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
-          });
-        }
-        this.play();
-      } else {
-        this.newMomentAnim = true;
-      }
-    }
-    // 动画处理
-    var newAnimation = nextProps.animation;
-    var currentAnimation = this.props.animation;
-    var equal = (0, _util.objectEqual)(currentAnimation, newAnimation);
-    var styleEqual = (0, _util.objectEqual)(this.props.style, nextProps.style);
-    // 如果 animation 不同， 在下一帧重新动画
-    if (!equal) {
-      if (this.rafID !== -1) {
-        this.updateAnim = 'update';
-      } else if (nextProps.updateReStart) {
-        this.startFrame = _ticker2["default"].frame;
-        this.updateAnim = 'start';
-      }
-      // 只做动画，不做回调处理。。。
-      if (this.tween) {
-        this.tween.updateAnim = this.updateAnim;
-      }
-    }
-
-    if (!styleEqual) {
-      // 在动画时更改了 style, 作为更改开始数值。
-      if (this.rafID !== -1) {
-        this.updateStartStyle = true;
-      }
-    }
-
-    // 暂停倒放
-    if (this.paused !== nextProps.paused || this.reverse !== nextProps.reverse) {
-      this.paused = nextProps.paused;
-      this.reverse = nextProps.reverse;
-      if (this.paused) {
-        this.cancelRequestAnimationFrame();
-      } else {
-        if (this.reverse && nextProps.reverseDelay) {
-          this.cancelRequestAnimationFrame();
-          _ticker2["default"].timeout(this.restart, nextProps.reverseDelay);
-        } else {
-          this.restart();
-        }
-      }
-    }
-
-    this.setForcedJudg(nextProps);
-  };
-
-  TweenOne.prototype.componentDidUpdate = function componentDidUpdate() {
-    if (this.updateStartStyle && !this.updateAnim) {
-      this.tween.reStart(this.props.style);
-      this.updateStartStyle = false;
-    }
-
-    if (this.newMomentAnim) {
-      this.raf();
-    }
-
-    // 样式更新了后再执行动画；
-    if (this.updateAnim === 'start') {
-      this.start();
-    }
-  };
-
-  TweenOne.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.cancelRequestAnimationFrame();
-  };
-
-  /**
-   * @method setForcedJudg
-   * @param props
-   * QueueAnim 套在组件下面后导至子级变化。
-   * <QueueAnim component={Menu} >
-   *   <SubMenu key="a" title="导航">
-   *     <Item />
-   *   </SubMenu>
-   * </QueueAnim>
-   * rc-Menu 里是以 isXXX 来判断是 rc-Menu 的子级;
-   * 如: 用 isSubMenu 来处理 hover 事件
-   * 地址: https://github.com/react-component/menu/blob/master/src/MenuMixin.js#L172
-   * 暂时方案: 在组件里添加判断用的值。
-   */
-
-  TweenOne.prototype.render = function render() {
-    var props = (0, _extends3["default"])({}, this.props);
-    ['animation', 'component', 'componentProps', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool', 'updateReStart', 'forcedJudg'].forEach(function (key) {
-      return delete props[key];
-    });
-    props.style = (0, _extends3["default"])({}, this.props.style);
-    Object.keys(props.style).forEach(function (p) {
-      if (p.match(/filter/i)) {
-        ['Webkit', 'Moz', 'Ms', 'ms'].forEach(function (prefix) {
-          return props.style[prefix + 'Filter'] = props.style[p];
-        });
-      }
-    });
-    // component 为空时调用子级的。。
-    if (!this.props.component) {
-      var childrenProps = this.props.children.props;
-      var style = childrenProps.style,
-          className = childrenProps.className;
-      // 合并 style 与 className。
-
-      var newStyle = (0, _extends3["default"])({}, style, props.style);
-      var newClassName = props.className ? props.className + ' ' + className : className;
-      return _react2["default"].cloneElement(this.props.children, { style: newStyle, className: newClassName });
-    }
-    return _react2["default"].createElement(this.props.component, (0, _extends3["default"])({}, props, this.props.componentProps));
-  };
-
-  return TweenOne;
-}(_react.Component);
-
-var _initialiseProps = function _initialiseProps() {
-  var _this3 = this;
-
-  this.setForcedJudg = function (props) {
-    Object.keys(_this3.forced).forEach(function (key) {
-      delete _this3[key];
-      delete _this3.forced[key];
-    });
-    if (props.forcedJudg) {
-      Object.keys(props.forcedJudg).forEach(function (key) {
-        if (!_this3[key]) {
-          _this3[key] = props.forcedJudg[key];
-          _this3.forced[key] = 1;
-        }
-      });
-    }
-  };
-
-  this.restart = function () {
-    if (!_this3.tween) {
-      return;
-    }
-    _this3.startMoment = _this3.tween.progressTime;
-    _this3.startFrame = _ticker2["default"].frame;
-    _this3.tween.reverse = _this3.reverse;
-    _this3.tween.reverseStartTime = _this3.startMoment;
-    _this3.play();
-  };
-
-  this.start = function () {
-    _this3.updateAnim = null;
-    var props = _this3.props;
-    if (props.animation && Object.keys(props.animation).length) {
-      _this3.tween = new _Tween2["default"](_this3.dom, (0, _util.dataToArray)(props.animation), { attr: props.attr });
-      // 预先注册 raf, 初始动画数值。
-      _this3.raf();
-      // 开始动画
-      _this3.play();
-    }
-  };
-
-  this.play = function () {
-    _this3.cancelRequestAnimationFrame();
-    if (_this3.paused) {
-      return;
-    }
-    _this3.rafID = _ticker2["default"].add(_this3.raf);
-  };
-
-  this.updateAnimFunc = function () {
-    _this3.cancelRequestAnimationFrame();
-    _this3.startFrame = _ticker2["default"].frame;
-    if (_this3.updateAnim === 'update') {
-      if (_this3.props.resetStyleBool && _this3.tween) {
-        _this3.tween.resetDefaultStyle();
-      }
-      _this3.startMoment = 0;
-    }
-  };
-
-  this.frame = function () {
-    var moment = (_ticker2["default"].frame - _this3.startFrame) * perFrame + _this3.startMoment;
-    if (_this3.reverse) {
-      moment = (_this3.startMoment || 0) - (_ticker2["default"].frame - _this3.startFrame) * perFrame;
-    }
-    moment = moment > _this3.tween.totalTime ? _this3.tween.totalTime : moment;
-    moment = moment <= 0 ? 0 : moment;
-    if (moment < _this3.moment && !_this3.reverse) {
-      _this3.tween.resetDefaultStyle();
-    }
-    _this3.moment = moment;
-    _this3.tween.onChange = _this3.onChange;
-    _this3.tween.frame(moment);
-  };
-
-  this.raf = function () {
-    _this3.frame();
-    if (_this3.updateAnim) {
-      if (_this3.updateStartStyle) {
-        _this3.tween.reStart(_this3.props.style);
-      }
-      _this3.updateAnimFunc();
-      _this3.start();
-    }
-    if (_this3.moment >= _this3.tween.totalTime && !_this3.reverse || _this3.paused || _this3.reverse && _this3.moment === 0) {
-      return _this3.cancelRequestAnimationFrame();
-    }
-  };
-
-  this.cancelRequestAnimationFrame = function () {
-    _ticker2["default"].clear(_this3.rafID);
-    _this3.rafID = -1;
-  };
-};
-
-var objectOrArray = _propTypes2["default"].oneOfType([_propTypes2["default"].object, _propTypes2["default"].array]);
-
-TweenOne.propTypes = {
-  component: _propTypes2["default"].any,
-  componentProps: _propTypes2["default"].any,
-  animation: objectOrArray,
-  children: _propTypes2["default"].any,
-  style: _propTypes2["default"].object,
-  paused: _propTypes2["default"].bool,
-  reverse: _propTypes2["default"].bool,
-  reverseDelay: _propTypes2["default"].number,
-  moment: _propTypes2["default"].number,
-  attr: _propTypes2["default"].string,
-  onChange: _propTypes2["default"].func,
-  resetStyleBool: _propTypes2["default"].bool,
-  updateReStart: _propTypes2["default"].bool,
-  forcedJudg: _propTypes2["default"].object
-};
-
-TweenOne.defaultProps = {
-  component: 'div',
-  componentProps: {},
-  reverseDelay: 0,
-  attr: 'style',
-  onChange: noop,
-  updateReStart: true
-};
-exports["default"] = TweenOne;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 17:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _tweenFunctions = __webpack_require__(22);
-
-var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
-
-var _util = __webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-_tweenFunctions2["default"].path = function (_path, _param) {
-  var param = _param || {};
-  var pathNode = (0, _util.parsePath)(_path);
-  var pathLength = pathNode.getTotalLength();
-  var rect = param.rect || 100; // path 的大小，100 * 100，
-  var lengthPixel = param.lengthPixel || 200; // 线上取点像素，默认分为 200 段。。
-  var points = [];
-  for (var i = 0; i < lengthPixel - 1; i++) {
-    points.push(pathNode.getPointAtLength(pathLength / (lengthPixel - 1) * i));
-  }
-  points.push(pathNode.getPointAtLength(lengthPixel));
-  return function path(t, b, _c, d) {
-    var p = _tweenFunctions2["default"].linear(t, b, _c, d);
-    var timePointX = rect * p; // X 轴的百分比;
-    // 取出 x 轴百分比上的点;
-    var point = points.filter(function (item) {
-      return item.x >= timePointX;
-    })[0] || pathNode.getPointAtLength(p * pathLength);
-    return 1 - point.y / rect;
-  };
-};
-
-exports["default"] = _tweenFunctions2["default"];
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 18:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _raf = __webpack_require__(29);
-
-var _raf2 = _interopRequireDefault(_raf);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var getTime = Date.now || function () {
-  return new Date().getTime();
-}; /* eslint-disable func-names */
-
-var Ticker = function Ticker() {};
-
-var p = Ticker.prototype = {
-  tickFnArray: [],
-  tickKeyObject: {},
-  id: -1,
-  tweenId: 0,
-  frame: 0,
-  perFrame: Math.round(1000 / 60),
-  elapsed: 0,
-  lastUpdate: getTime()
-};
-p.add = function (fn) {
-  var key = 'TweenOneTicker' + this.tweenId;
-  this.tweenId++;
-  this.wake(key, fn);
-  return key;
-};
-p.wake = function (key, fn) {
-  var _this = this;
-
-  this.tickKeyObject[key] = fn;
-  this.tickFnArray = Object.keys(this.tickKeyObject).map(function (k) {
-    return _this.tickKeyObject[k];
-  });
-  if (this.id === -1) {
-    this.id = (0, _raf2["default"])(this.tick);
-  }
-};
-p.clear = function (key) {
-  var _this2 = this;
-
-  delete this.tickKeyObject[key];
-  this.tickFnArray = Object.keys(this.tickKeyObject).map(function (k) {
-    return _this2.tickKeyObject[k];
-  });
-};
-p.sleep = function () {
-  _raf2["default"].cancel(this.id);
-  this.id = -1;
-  this.frame = 0;
-};
-var ticker = new Ticker();
-p.tick = function (a) {
-  ticker.elapsed = getTime() - ticker.lastUpdate;
-  ticker.lastUpdate += ticker.elapsed;
-  ticker.tickFnArray.forEach(function (func) {
-    return func(a);
-  });
-  // 如果 object 里没对象了，自动杀掉；
-  if (!ticker.tickFnArray.length) {
-    ticker.sleep();
-    return;
-  }
-  if (!ticker.frame) {
-    ticker.frame++;
-  } else {
-    ticker.frame += Math.round(ticker.elapsed / ticker.perFrame);
-  }
-  ticker.id = (0, _raf2["default"])(ticker.tick);
-};
-var timeoutIdNumber = 0;
-p.timeout = function (fn, time) {
-  var _this3 = this;
-
-  if (!(typeof fn === 'function')) {
-    return console.warn('not function'); // eslint-disable-line
-  }
-  var timeoutID = 'timeout' + Date.now() + '-' + timeoutIdNumber;
-  var startFrame = this.frame;
-  this.wake(timeoutID, function () {
-    var moment = (_this3.frame - startFrame) * _this3.perFrame;
-    if (moment >= (time || 0)) {
-      _this3.clear(timeoutID);
-      fn();
-    }
-  });
-  timeoutIdNumber++;
-  return timeoutID;
-};
-var intervalIdNumber = 0;
-p.interval = function (fn, time) {
-  var _this4 = this;
-
-  if (!(typeof fn === 'function')) {
-    console.warn('not function'); // eslint-disable-line
-    return null;
-  }
-  var intervalID = 'interval' + Date.now() + '-' + intervalIdNumber;
-  var starFrame = this.frame;
-  this.wake(intervalID, function () {
-    var moment = (_this4.frame - starFrame) * _this4.perFrame;
-    if (moment >= (time || 0)) {
-      starFrame = _this4.frame;
-      fn();
-    }
-  });
-  intervalIdNumber++;
-  return intervalID;
-};
-exports["default"] = ticker;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 19:
+/***/ 12:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -767,15 +214,15 @@ module.exports = exports['default'];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_style_utils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Tween__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ticker__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Tween__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ticker__ = __webpack_require__(15);
 
 
 
@@ -828,9 +275,6 @@ var TweenOne = function (_Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      if (nextProps.resetStyleBool && this.tween && this.rafID === -1) {
-        this.tween.resetDefaultStyle();
-      }
       this.onChange = nextProps.onChange;
       // 跳帧事件 moment;
       var newMoment = nextProps.moment;
@@ -859,6 +303,10 @@ var TweenOne = function (_Component) {
       var styleEqual = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["h" /* objectEqual */])(this.props.style, nextProps.style);
       // 如果 animation 不同， 在下一帧重新动画
       if (!equal) {
+        // 在有动画的情况下才可以执行 resetDefaultStyle; 避免无动画时也把 style 刷成默认状态。
+        if (nextProps.resetStyleBool && this.tween && this.rafID === -1) {
+          this.tween.resetDefaultStyle();
+        }
         if (this.rafID !== -1) {
           this.updateAnim = 'update';
         } else if (nextProps.updateReStart) {
@@ -1094,26 +542,21 @@ TweenOne.isTweenOne = true;
 
 /***/ }),
 
-/***/ 196:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(129);
-
-
-/***/ }),
-
-/***/ 20:
+/***/ 13:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tween_functions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(5);
 
 
 
 __WEBPACK_IMPORTED_MODULE_0_tween_functions___default.a.path = function (_path, _param) {
   var param = _param || {};
+  if (typeof window === 'undefined') {
+    return 'linear';
+  }
   var pathNode = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util__["a" /* parsePath */])(_path);
   var pathLength = pathNode.getTotalLength();
   var rect = param.rect || 100; // path 的大小，100 * 100，
@@ -1138,11 +581,48 @@ __WEBPACK_IMPORTED_MODULE_0_tween_functions___default.a.path = function (_path, 
 
 /***/ }),
 
-/***/ 21:
+/***/ 14:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(29);
+/* unused harmony export TweenOneGroup */
+/* unused harmony export easing */
+/* unused harmony export plugins */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ticker; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenOne__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__easing__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ticker__ = __webpack_require__(15);
+// export this package's api
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].TweenOneGroup = __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].easing = __WEBPACK_IMPORTED_MODULE_2__easing__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].plugins = __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */]);
+
+var TweenOneGroup = __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__["a" /* default */];
+
+var easing = __WEBPACK_IMPORTED_MODULE_2__easing__["a" /* default */];
+
+var plugins = __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */];
+
+var ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_raf__);
 /* eslint-disable func-names */
 
@@ -1254,248 +734,35 @@ p.interval = function (fn, time) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(34), __esModule: true };
-
-/***/ }),
-
-/***/ 33:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __webpack_require__(32);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
-
-/***/ }),
-
-/***/ 34:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(77);
-__webpack_require__(42);
-module.exports = __webpack_require__(15).Array.from;
+module.exports = __webpack_require__(106);
 
 
 /***/ }),
 
-/***/ 35:
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(60);
-var TAG = __webpack_require__(10)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-
-/***/ 36:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $defineProperty = __webpack_require__(24);
-var createDesc = __webpack_require__(40);
-
-module.exports = function (object, index, value) {
-  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
-  else object[index] = value;
-};
-
-
-/***/ }),
-
-/***/ 37:
-/***/ (function(module, exports, __webpack_require__) {
-
-// check on default Array iterator
-var Iterators = __webpack_require__(23);
-var ITERATOR = __webpack_require__(10)('iterator');
-var ArrayProto = Array.prototype;
-
-module.exports = function (it) {
-  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-};
-
-
-/***/ }),
-
-/***/ 38:
-/***/ (function(module, exports, __webpack_require__) {
-
-// call something on iterator step with safe closing on error
-var anObject = __webpack_require__(31);
-module.exports = function (iterator, fn, value, entries) {
-  try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-  // 7.4.6 IteratorClose(iterator, completion)
-  } catch (e) {
-    var ret = iterator['return'];
-    if (ret !== undefined) anObject(ret.call(iterator));
-    throw e;
-  }
-};
-
-
-/***/ }),
-
-/***/ 39:
-/***/ (function(module, exports, __webpack_require__) {
-
-var ITERATOR = __webpack_require__(10)('iterator');
-var SAFE_CLOSING = false;
-
-try {
-  var riter = [7][ITERATOR]();
-  riter['return'] = function () { SAFE_CLOSING = true; };
-  // eslint-disable-next-line no-throw-literal
-  Array.from(riter, function () { throw 2; });
-} catch (e) { /* empty */ }
-
-module.exports = function (exec, skipClosing) {
-  if (!skipClosing && !SAFE_CLOSING) return false;
-  var safe = false;
-  try {
-    var arr = [7];
-    var iter = arr[ITERATOR]();
-    iter.next = function () { return { done: safe = true }; };
-    arr[ITERATOR] = function () { return iter; };
-    exec(arr);
-  } catch (e) { /* empty */ }
-  return safe;
-};
-
-
-/***/ }),
-
-/***/ 41:
-/***/ (function(module, exports, __webpack_require__) {
-
-var classof = __webpack_require__(35);
-var ITERATOR = __webpack_require__(10)('iterator');
-var Iterators = __webpack_require__(23);
-module.exports = __webpack_require__(15).getIteratorMethod = function (it) {
-  if (it != undefined) return it[ITERATOR]
-    || it['@@iterator']
-    || Iterators[classof(it)];
-};
-
-
-/***/ }),
-
-/***/ 42:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ctx = __webpack_require__(61);
-var $export = __webpack_require__(27);
-var toObject = __webpack_require__(64);
-var call = __webpack_require__(38);
-var isArrayIter = __webpack_require__(37);
-var toLength = __webpack_require__(76);
-var createProperty = __webpack_require__(36);
-var getIterFn = __webpack_require__(41);
-
-$export($export.S + $export.F * !__webpack_require__(39)(function (iter) { Array.from(iter); }), 'Array', {
-  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-    var O = toObject(arrayLike);
-    var C = typeof this == 'function' ? this : Array;
-    var aLen = arguments.length;
-    var mapfn = aLen > 1 ? arguments[1] : undefined;
-    var mapping = mapfn !== undefined;
-    var index = 0;
-    var iterFn = getIterFn(O);
-    var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-    // if object isn't iterable or it's array with default iterator - use simple case
-    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
-      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
-        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-      }
-    } else {
-      length = toLength(O.length);
-      for (result = new C(length); length > index; index++) {
-        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-      }
-    }
-    result.length = index;
-    return result;
-  }
-});
-
-
-/***/ }),
-
-/***/ 43:
+/***/ 19:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rc_tween_one__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__animTypes__ = __webpack_require__(44);
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rc_tween_one__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__animTypes__ = __webpack_require__(20);
 
 
 
@@ -1512,24 +779,23 @@ var noop = function noop() {};
 var typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps', 'childContextTypes', 'contextTypes'];
 
 var QueueAnim = function (_React$Component) {
-  __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default()(QueueAnim, _React$Component);
+  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(QueueAnim, _React$Component);
 
   function QueueAnim(props) {
-    __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default()(this, QueueAnim);
+    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default()(this, QueueAnim);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (QueueAnim.__proto__ || Object.getPrototypeOf(QueueAnim)).call(this, props));
+    var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, _React$Component.call(this, props));
 
     _initialiseProps.call(_this);
 
     _this.oneEnter = false;
-    _this.tweenKeyType = {};
+    _this.tweenToShow = {};
     _this.keysToEnter = [];
     _this.keysToLeave = [];
-    _this.saveTweenAnim = {};
     _this.keysToEnterPaused = {};
     _this.placeholderTimeoutIds = {};
     // 第一次进入，默认进场
-    var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(props));
+    var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["b" /* getChildrenFromProps */])(props));
     var childrenShow = {};
     children.forEach(function (child) {
       if (!child || !child.key) {
@@ -1541,8 +807,8 @@ var QueueAnim = function (_React$Component) {
         childrenShow[child.key] = true;
       }
     });
-    _this.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(_this.keysToEnter));
-    _this.originalChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(props));
+    _this.keysToEnterToCallback = [].concat(_this.keysToEnter);
+    _this.originalChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["b" /* getChildrenFromProps */])(props));
     _this.state = {
       children: children,
       childrenShow: childrenShow
@@ -1550,33 +816,37 @@ var QueueAnim = function (_React$Component) {
     return _this;
   }
 
-  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(QueueAnim, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      if (this.props.appear) {
-        this.componentDidUpdate();
-      }
-      this.oneEnter = true;
+  QueueAnim.prototype.componentDidMount = function componentDidMount() {
+    if (this.props.appear) {
+      this.componentDidUpdate();
     }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      var _this2 = this;
+    this.oneEnter = true;
+  };
 
-      var nextChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* toArrayChildren */])(nextProps.children);
-      var currentChildren = this.originalChildren;
-      if (!nextChildren.length && !currentChildren.length && this.state.children.length) {
-        /**
-         * 多次刷新空子级处理
-         * 如果 state.children 里还有元素，元素还在动画，当前子级设回 state.children;
-         */
-        currentChildren = this.state.children;
-      }
-      var newChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["c" /* mergeChildren */])(currentChildren, nextChildren);
+  QueueAnim.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var _this2 = this;
 
-      var childrenShow = !newChildren.length ? {} : this.state.childrenShow;
-      this.keysToEnterPaused = {};
-      // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+    var nextChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["a" /* toArrayChildren */])(nextProps.children).filter(function (item) {
+      return item;
+    });
+    var currentChildren = this.originalChildren.filter(function (item) {
+      return item;
+    });
+    var emptyBool = !nextChildren.length && !currentChildren.length && this.state.children.length;
+    if (emptyBool) {
+      /**
+       * 多次刷新空子级处理
+       * 如果 state.children 里还有元素，元素还在动画，当前子级设回 state.children;
+       */
+      currentChildren = this.state.children;
+    }
+    var newChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["c" /* mergeChildren */])(currentChildren, nextChildren);
+
+    var childrenShow = !newChildren.length ? {} : this.state.childrenShow;
+    this.keysToEnterPaused = {};
+    // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+    if (!emptyBool) {
+      // 空子级状态下刷新不做处理
       this.keysToLeave.forEach(function (key) {
         // 将所有在出场里的停止掉。避免间隔性出现
         _this2.keysToEnterPaused[key] = true;
@@ -1585,121 +855,115 @@ var QueueAnim = function (_React$Component) {
           delete childrenShow[key];
         }
       });
-
-      this.keysToEnter = [];
-      this.keysToLeave = [];
-
-      // need render to avoid update
-      this.setState({
-        childrenShow: childrenShow,
-        children: newChildren
-      });
-
-      nextChildren.forEach(function (c) {
-        if (!c) {
-          return;
-        }
-        var key = c.key;
-        var hasPrev = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* findChildInChildrenByKey */])(currentChildren, key);
-        if (!hasPrev && key) {
-          _this2.keysToEnter.push(key);
-        }
-      });
-
-      currentChildren.forEach(function (c) {
-        if (!c) {
-          return;
-        }
-        var key = c.key;
-        var hasNext = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* findChildInChildrenByKey */])(nextChildren, key);
-        if (!hasNext && key) {
-          _this2.keysToLeave.push(key);
-        }
-      });
-      this.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToEnter));
     }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      this.originalChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(this.props));
-      var keysToEnter = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToEnter));
-      var keysToLeave = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToLeave));
-      keysToEnter.forEach(this.performEnter);
-      keysToLeave.forEach(this.performLeave);
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      var _this3 = this;
 
-      Object.keys(this.placeholderTimeoutIds).forEach(function (key) {
-        __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].clear(_this3.placeholderTimeoutIds[key]);
-      });
-      this.keysToEnter = [];
-      this.keysToLeave = [];
-    }
-  }, {
-    key: 'getTweenType',
-    value: function getTweenType(type, num) {
-      var data = __WEBPACK_IMPORTED_MODULE_11__animTypes__["a" /* default */][type];
-      return this.getTweenAnimConfig(data, num);
-    }
-  }, {
-    key: 'getTweenSingleConfig',
-    value: function getTweenSingleConfig(data, num, enterOrLeave) {
-      var obj = {};
-      Object.keys(data).forEach(function (key) {
-        if (Array.isArray(data[key])) {
-          obj[key] = data[key][num];
-        } else if (!enterOrLeave && !num || enterOrLeave && num) {
-          obj[key] = data[key];
-        }
-      });
-      return obj;
-    }
-  }, {
-    key: 'getTweenAnimConfig',
-    value: function getTweenAnimConfig(data, num, enterOrLeave) {
-      var _this4 = this;
+    this.keysToEnter = [];
+    this.keysToLeave = [];
 
-      if (Array.isArray(data)) {
-        return data.map(function (item) {
-          return _this4.getTweenSingleConfig(item, num, enterOrLeave);
-        });
+    // need render to avoid update
+    this.setState({
+      childrenShow: childrenShow,
+      children: newChildren
+    });
+
+    nextChildren.forEach(function (c) {
+      if (!c) {
+        return;
       }
-      return this.getTweenSingleConfig(data, num, enterOrLeave);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var tagProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(this.props, []);
+      var key = c.key;
+      var hasPrev = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["d" /* findChildInChildrenByKey */])(currentChildren, key);
+      if (!hasPrev && key) {
+        _this2.keysToEnter.push(key);
+      }
+    });
 
-      ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd', 'appear'].forEach(function (key) {
-        return delete tagProps[key];
+    currentChildren.forEach(function (c) {
+      if (!c) {
+        return;
+      }
+      var key = c.key;
+      var hasNext = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["d" /* findChildInChildrenByKey */])(nextChildren, key);
+      if (!hasNext && key) {
+        _this2.keysToLeave.push(key);
+      }
+    });
+    this.keysToEnterToCallback = [].concat(this.keysToEnter);
+  };
+
+  QueueAnim.prototype.componentDidUpdate = function componentDidUpdate() {
+    this.originalChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["b" /* getChildrenFromProps */])(this.props));
+    var keysToEnter = [].concat(this.keysToEnter);
+    var keysToLeave = [].concat(this.keysToLeave);
+    keysToEnter.forEach(this.performEnter);
+    keysToLeave.forEach(this.performLeave);
+  };
+
+  QueueAnim.prototype.componentWillUnmount = function componentWillUnmount() {
+    var _this3 = this;
+
+    Object.keys(this.placeholderTimeoutIds).forEach(function (key) {
+      __WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["b" /* ticker */].clear(_this3.placeholderTimeoutIds[key]);
+    });
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+  };
+
+  QueueAnim.prototype.getTweenType = function getTweenType(type, num) {
+    var data = __WEBPACK_IMPORTED_MODULE_9__animTypes__["a" /* default */][type];
+    return this.getTweenAnimConfig(data, num);
+  };
+
+  QueueAnim.prototype.getTweenSingleConfig = function getTweenSingleConfig(data, num, enterOrLeave) {
+    var obj = {};
+    Object.keys(data).forEach(function (key) {
+      if (Array.isArray(data[key])) {
+        obj[key] = data[key][num];
+      } else if (!enterOrLeave && !num || enterOrLeave && num) {
+        obj[key] = data[key];
+      }
+    });
+    return obj;
+  };
+
+  QueueAnim.prototype.getTweenAnimConfig = function getTweenAnimConfig(data, num, enterOrLeave) {
+    var _this4 = this;
+
+    if (Array.isArray(data)) {
+      return data.map(function (item) {
+        return _this4.getTweenSingleConfig(item, num, enterOrLeave);
       });
-      var childrenToRender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* toArrayChildren */])(this.state.children).map(this.getChildrenToRender);
-      var props = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, tagProps, this.props.componentProps);
-      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_react__["createElement"])(this.props.component, props, childrenToRender);
     }
-  }]);
+    return this.getTweenSingleConfig(data, num, enterOrLeave);
+  };
+
+  QueueAnim.prototype.render = function render() {
+    var tagProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(this.props, []);
+
+    ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd', 'appear'].forEach(function (key) {
+      return delete tagProps[key];
+    });
+    var childrenToRender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["a" /* toArrayChildren */])(this.state.children).map(this.getChildrenToRender);
+    var props = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, tagProps, this.props.componentProps);
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(this.props.component, props, childrenToRender);
+  };
 
   return QueueAnim;
-}(__WEBPACK_IMPORTED_MODULE_7_react___default.a.Component);
+}(__WEBPACK_IMPORTED_MODULE_5_react___default.a.Component);
 
 QueueAnim.propTypes = {
-  component: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.any,
-  componentProps: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.object,
-  interval: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.any,
-  duration: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.any,
-  delay: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.any,
-  type: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.any,
-  animConfig: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.any,
-  ease: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.any,
-  leaveReverse: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.bool,
-  enterForcedRePlay: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.bool,
-  animatingClassName: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.array,
-  onEnd: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.func,
-  appear: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.bool
+  component: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  componentProps: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object,
+  interval: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  duration: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  delay: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  type: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  animConfig: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  ease: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  leaveReverse: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  enterForcedRePlay: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  animatingClassName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.array,
+  onEnd: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func,
+  appear: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool
 };
 QueueAnim.defaultProps = {
   component: 'div',
@@ -1727,18 +991,14 @@ var _initialiseProps = function _initialiseProps() {
     var end = type === 'enter' ? 0 : 1;
     var startAnim = _this5.getAnimData(props, key, i, enterOrLeave, start);
     var animate = _this5.getAnimData(props, key, i, enterOrLeave, end);
-    /**
-     * 如果 this.tweenKeyType[key] 为空时，为第一次触发，需要设置开始。
-     * 如果 this.tweenKeyType[key] 有值时，说明正在动画，此时切换不需要开始。
-     */
-    startAnim = props.enterForcedRePlay || !_this5.tweenKeyType[key] || !_this5.saveTweenAnim[key] ? startAnim : {};
-    var ease = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.ease, key, i)[enterOrLeave];
-    var duration = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.duration, key, i)[enterOrLeave];
+    startAnim = type === 'enter' && props.enterForcedRePlay || !_this5.tweenToShow[key] ? startAnim : {};
+    var ease = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(props.ease, key, i)[enterOrLeave];
+    var duration = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
       ease = ease.map(function (num) {
         return num * 100;
       });
-      ease = __WEBPACK_IMPORTED_MODULE_9_rc_tween_one___default.a.easing.path('M0,100C' + ease[0] + ',' + (100 - ease[1]) + ',' + ease[2] + ',' + (100 - ease[3]) + ',100,0', { lengthPixel: duration / 16.6667 });
+      ease = __WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["a" /* default */].easing.path('M0,100C' + ease[0] + ',' + (100 - ease[1]) + ',' + ease[2] + ',' + (100 - ease[3]) + ',100,0', { lengthPixel: duration / 16.6667 });
     }
     return { startAnim: startAnim, animate: animate, ease: ease, duration: duration, isArray: Array.isArray(animate) };
   };
@@ -1794,7 +1054,7 @@ var _initialiseProps = function _initialiseProps() {
      * getTweenAnimConfig or getTweenType 第一个为到达的位置， 第二个为开始的位置。
      * 用 tween-one 的数组来实现老的动画逻辑。。。
      */
-    return props.animConfig ? _this5.getTweenAnimConfig(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.animConfig, key, i)[enterOrLeave], startOrEnd, enterOrLeave) : _this5.getTweenType(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.type, key, i)[enterOrLeave], startOrEnd);
+    return props.animConfig ? _this5.getTweenAnimConfig(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(props.animConfig, key, i)[enterOrLeave], startOrEnd, enterOrLeave) : _this5.getTweenType(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(props.type, key, i)[enterOrLeave], startOrEnd);
   };
 
   this.getChildrenToRender = function (child) {
@@ -1802,70 +1062,63 @@ var _initialiseProps = function _initialiseProps() {
       return child;
     }
     var key = child.key;
-    var i = _this5.keysToLeave.indexOf(key);
-    if (i >= 0 && _this5.state.childrenShow[key] || _this5.state.childrenShow[key]) {
-      var animation = void 0;
-      if (i >= 0) {
-        if (_this5.tweenKeyType[key] === 'leave' && _this5.saveTweenAnim[key]) {
-          animation = _this5.saveTweenAnim[key];
-        } else {
-          var interval = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[1];
-          var delay = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[1];
-          var order = _this5.props.leaveReverse ? _this5.keysToLeave.length - i - 1 : i;
-          delay = interval * order + delay;
-          animation = _this5.getTweenEnterOrLeaveData(key, i, delay, 'leave');
-          _this5.saveTweenAnim[key] = animation;
-        }
-      } else {
-        i = _this5.keysToEnterToCallback.indexOf(key);
-        if (!_this5.oneEnter && !_this5.props.appear) {
-          animation = _this5.getTweenAppearData(key, i);
-        } else if (_this5.tweenKeyType[key] === 'enter' && _this5.saveTweenAnim[key]) {
-          animation = _this5.saveTweenAnim[key];
-        } else {
-          animation = _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
-          _this5.saveTweenAnim[key] = animation;
-        }
-      }
-      var paused = _this5.keysToEnterPaused[key] && !(_this5.keysToLeave.indexOf(key) >= 0 && _this5.state.childrenShow[key]);
-      animation = paused ? null : animation;
-      var isFunc = typeof child.type === 'function';
-      var forcedJudg = isFunc ? {} : null;
-      if (isFunc) {
-        Object.keys(child.type).forEach(function (name) {
-          if (typeDefault.indexOf(name) === -1) {
-            forcedJudg[name] = child.type[name];
-          }
-        });
-      }
-      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_9_rc_tween_one___default.a, { key: key, component: child.type, componentProps: child.props, forcedJudg: forcedJudg, animation: animation });
+    if (!_this5.state.childrenShow[key]) {
+      return null;
     }
-    return null;
+    var i = _this5.keysToLeave.indexOf(key);
+    var animation = void 0;
+    // 处理出场
+    if (i >= 0) {
+      var interval = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[1];
+      var delay = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[1];
+      var order = _this5.props.leaveReverse ? _this5.keysToLeave.length - i - 1 : i;
+      delay = interval * order + delay;
+      animation = _this5.getTweenEnterOrLeaveData(key, i, delay, 'leave');
+    } else {
+      // 处理进场;
+      i = _this5.keysToEnterToCallback.indexOf(key);
+      if (!_this5.oneEnter && !_this5.props.appear) {
+        animation = _this5.getTweenAppearData(key, i);
+      } else {
+        animation = _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
+      }
+    }
+    var paused = _this5.keysToEnterPaused[key] && !_this5.keysToLeave.indexOf(key) >= 0;
+
+    animation = paused ? null : animation;
+    var isFunc = typeof child.type === 'function';
+    var forcedJudg = isFunc ? {} : null;
+    if (isFunc) {
+      Object.keys(child.type).forEach(function (name) {
+        if (typeDefault.indexOf(name) === -1) {
+          forcedJudg[name] = child.type[name];
+        }
+      });
+    }
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["a" /* default */], { key: key, component: child.type, componentProps: child.props, forcedJudg: forcedJudg, animation: animation });
   };
 
   this.performEnter = function (key, i) {
-    var interval = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[0];
-    var delay = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[0];
-    _this5.placeholderTimeoutIds[key] = __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].timeout(_this5.performEnterBegin.bind(_this5, key), interval * i + delay);
+    var interval = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[0];
+    var delay = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[0];
+    _this5.placeholderTimeoutIds[key] = __WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["b" /* ticker */].timeout(_this5.performEnterBegin.bind(_this5, key), interval * i + delay);
     if (_this5.keysToEnter.indexOf(key) >= 0) {
       _this5.keysToEnter.splice(_this5.keysToEnter.indexOf(key), 1);
     }
-    _this5.tweenKeyType[key] = 'enter';
   };
 
   this.performEnterBegin = function (key) {
     var childrenShow = _this5.state.childrenShow;
     childrenShow[key] = true;
     delete _this5.keysToEnterPaused[key];
-    __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].clear(_this5.placeholderTimeoutIds[key]);
+    __WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["b" /* ticker */].clear(_this5.placeholderTimeoutIds[key]);
     delete _this5.placeholderTimeoutIds[key];
     _this5.setState({ childrenShow: childrenShow });
   };
 
   this.performLeave = function (key) {
-    __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].clear(_this5.placeholderTimeoutIds[key]);
+    __WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["b" /* ticker */].clear(_this5.placeholderTimeoutIds[key]);
     delete _this5.placeholderTimeoutIds[key];
-    _this5.tweenKeyType[key] = 'leave';
   };
 
   this.enterBegin = function (key, e) {
@@ -1873,18 +1126,18 @@ var _initialiseProps = function _initialiseProps() {
     var animatingClassName = _this5.props.animatingClassName;
     elem.className = elem.className.replace(animatingClassName[1], '');
     if (elem.className.indexOf(animatingClassName[0]) === -1) {
-      elem.className += '' + (elem.className ? ' ' : '') + animatingClassName[0];
+      elem.className = (elem.className + ' ' + animatingClassName[0]).trim();
     }
+    _this5.tweenToShow[key] = true;
   };
 
   this.enterComplete = function (key, e) {
-    if (_this5.keysToEnterPaused[key]) {
+    if (_this5.keysToEnterPaused[key] || _this5.keysToLeave.indexOf(key) >= 0) {
       return;
     }
     var elem = e.target;
     elem.className = elem.className.replace(_this5.props.animatingClassName[0], '').trim();
     _this5.props.onEnd({ key: key, type: 'enter' });
-    delete _this5.tweenKeyType[key];
   };
 
   this.leaveBegin = function (key, e) {
@@ -1892,7 +1145,7 @@ var _initialiseProps = function _initialiseProps() {
     var animatingClassName = _this5.props.animatingClassName;
     elem.className = elem.className.replace(animatingClassName[0], '');
     if (elem.className.indexOf(animatingClassName[1]) === -1) {
-      elem.className += ' ' + animatingClassName[1];
+      elem.className = (elem.className + ' ' + animatingClassName[1]).trim();
     }
   };
 
@@ -1905,14 +1158,13 @@ var _initialiseProps = function _initialiseProps() {
     delete childrenShow[key];
     if (_this5.keysToLeave.indexOf(key) >= 0) {
       _this5.keysToLeave.splice(_this5.keysToLeave.indexOf(key), 1);
-      delete _this5.saveTweenAnim[key];
-      delete _this5.tweenKeyType[key];
+      delete _this5.tweenToShow[key];
     }
     var needLeave = _this5.keysToLeave.some(function (c) {
       return childrenShow[c];
     });
     if (!needLeave) {
-      var currentChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(_this5.props));
+      var currentChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["a" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__utils__["b" /* getChildrenFromProps */])(_this5.props));
       _this5.setState({
         children: currentChildren,
         childrenShow: childrenShow
@@ -1929,7 +1181,7 @@ QueueAnim.isQueueAnim = true;
 
 /***/ }),
 
-/***/ 44:
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1973,11 +1225,11 @@ QueueAnim.isQueueAnim = true;
 
 /***/ }),
 
-/***/ 45:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QueueAnim__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QueueAnim__ = __webpack_require__(19);
 // export this package's api
 
 
@@ -1985,7 +1237,7 @@ QueueAnim.isQueueAnim = true;
 
 /***/ }),
 
-/***/ 46:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2086,976 +1338,18 @@ function getChildrenFromProps(props) {
 
 /***/ }),
 
-/***/ 47:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(1);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _easing = __webpack_require__(17);
-
-var _easing2 = _interopRequireDefault(_easing);
-
-var _plugins = __webpack_require__(13);
-
-var _plugins2 = _interopRequireDefault(_plugins);
-
-var _StylePlugin = __webpack_require__(50);
-
-var _StylePlugin2 = _interopRequireDefault(_StylePlugin);
-
-var _styleUtils = __webpack_require__(7);
-
-var _util = __webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var DEFAULT_EASING = 'easeInOutQuad'; /* eslint-disable func-names */
-/**
- * Created by jljsj on 16/1/27.
- */
-
-var DEFAULT_DURATION = 450;
-var DEFAULT_DELAY = 0;
-function noop() {}
-_plugins2["default"].push(_StylePlugin2["default"]);
-// 设置默认数据
-function defaultData(vars, now) {
-  return {
-    duration: vars.duration || vars.duration === 0 ? vars.duration : DEFAULT_DURATION,
-    delay: vars.delay || DEFAULT_DELAY,
-    ease: typeof vars.ease === 'function' ? vars.ease : _easing2["default"][vars.ease || DEFAULT_EASING],
-    onUpdate: vars.onUpdate || noop,
-    onComplete: vars.onComplete || noop,
-    onStart: vars.onStart || noop,
-    onRepeat: vars.onRepeat || noop,
-    repeat: vars.repeat || 0,
-    repeatDelay: vars.repeatDelay || 0,
-    yoyo: vars.yoyo || false,
-    type: vars.type || 'to',
-    initTime: now,
-    appearTo: typeof vars.appearTo === 'number' ? vars.appearTo : null,
-    perTime: 0,
-    currentRepeat: 0
-  };
-}
-
-var Tween = function Tween(target, toData, props) {
-  this.target = target;
-  this.attr = props.attr || 'style';
-  // 记录总时间;
-  this.totalTime = 0;
-  // 记录当前时间;
-  this.progressTime = 0;
-  // 记录时间轴数据;
-  this.defaultData = [];
-  // 每个的开始数据；
-  this.start = {};
-  // 开始默认的数据；
-  this.startDefaultData = {};
-  // 动画过程
-  this.tween = {};
-  // toData;
-  this.data = toData;
-  // 每帧的时间;
-  this.perFrame = Math.round(1000 / 60);
-  // 注册，第一次进入执行注册
-  this.register = false;
-  // 设置 style
-  var data = this.setAttrIsStyle();
-  // 设置默认动画数据;
-  this.setDefaultData(data);
-};
-var p = Tween.prototype;
-p.setAttrIsStyle = function () {
-  var _this = this;
-
-  var data = [];
-  this.data.forEach(function (d, i) {
-    var _d = (0, _extends3["default"])({}, d);
-    if (_this.attr === 'style') {
-      data[i] = {};
-      Object.keys(_d).forEach(function (key) {
-        if (key in defaultData({}, 0)) {
-          data[i][key] = _d[key];
-          delete _d[key];
-        }
-      });
-      data[i].style = _d;
-      _this.startDefaultData.style = _this.target.getAttribute('style');
-    } else if (_this.attr === 'attr') {
-      Object.keys(_d).forEach(function (key) {
-        if (key === 'style' && Array.isArray(d[key])) {
-          throw new Error('Style should be the object.');
-        }
-        if (key === 'bezier') {
-          _d.style = (0, _extends3["default"])({}, _d.style, { bezier: _d[key] });
-          delete _d[key];
-          _this.startDefaultData.style = _this.target.getAttribute('style');
-        } else {
-          _this.startDefaultData[key] = _this.target.getAttribute(key);
-        }
-      });
-      data[i] = _d;
-    }
-  });
-  return data;
-};
-p.setDefaultData = function (_vars) {
-  var _this2 = this;
-
-  var now = 0;
-  var repeatMax = false;
-  var data = _vars.map(function (item) {
-    var appearToBool = typeof item.appearTo === 'number';
-    // 加上延时，在没有播放过时；
-    if (!appearToBool) {
-      now += item.delay || 0;
-    }
-    var appearToTime = (item.appearTo || 0) + (item.delay || 0);
-    // 获取默认数据
-    var tweenData = defaultData(item, appearToBool ? appearToTime : now);
-    tweenData.vars = {};
-    Object.keys(item).forEach(function (_key) {
-      if (!(_key in tweenData)) {
-        var _data = item[_key];
-        if (_key in _plugins2["default"]) {
-          tweenData.vars[_key] = new _plugins2["default"][_key](_this2.target, _data, tweenData.type);
-        } else if (_key.match(/color/i) || _key === 'stroke' || _key === 'fill') {
-          tweenData.vars[_key] = { type: 'color', vars: (0, _styleUtils.parseColor)(_data) };
-        } else if (typeof _data === 'number' || _data.split(/[,|\s]/g).length <= 1) {
-          var vars = parseFloat(_data);
-          var unit = _data.toString().replace(/[^a-z|%]/g, '');
-          var count = _data.toString().replace(/[^+|=|-]/g, '');
-          tweenData.vars[_key] = { unit: unit, vars: vars, count: count };
-        } else if ((_key === 'd' || _key === 'points') && 'SVGMorph' in _plugins2["default"]) {
-          tweenData.vars[_key] = new _plugins2["default"].SVGMorph(_this2.target, _data, _key);
-        }
-      }
-    });
-    if (tweenData.yoyo && !tweenData.repeat) {
-      console.warn('Warning: yoyo must be used together with repeat;'); // eslint-disable-line
-    }
-    if (tweenData.repeat === -1) {
-      repeatMax = true;
-    }
-    var repeat = tweenData.repeat === -1 ? 0 : tweenData.repeat;
-    if (appearToBool) {
-      // 如果有 appearTo 且这条时间比 now 大时，，总时间用这条；
-      var appearNow = item.appearTo + (item.delay || 0) + tweenData.duration * (repeat + 1) + tweenData.repeatDelay * repeat;
-      now = appearNow >= now ? appearNow : now;
-    } else {
-      if (tweenData.delay < -tweenData.duration) {
-        // 如果延时小于 负时间时,,不加,再减回延时;
-        now -= tweenData.delay;
-      } else {
-        // repeat 为 -1 只记录一次。不能跟 reverse 同时使用;
-        now += tweenData.duration * (repeat + 1) + tweenData.repeatDelay * repeat;
-      }
-    }
-    tweenData.mode = '';
-    return tweenData;
-  });
-  this.totalTime = repeatMax ? Number.MAX_VALUE : now;
-  this.defaultData = data;
-};
-p.getComputedStyle = function () {
-  return document.defaultView ? document.defaultView.getComputedStyle(this.target) : {};
-};
-p.getAnimStartData = function (item) {
-  var _this3 = this;
-
-  var start = {};
-  this.computedStyle = this.computedStyle || this.getComputedStyle();
-  Object.keys(item).forEach(function (_key) {
-    if (_key in _plugins2["default"] || _this3.attr === 'attr' && (_key === 'd' || _key === 'points')) {
-      start[_key] = item[_key].getAnimStart(_this3.computedStyle);
-      return;
-    }
-    if (_this3.attr === 'attr') {
-      // 除了d和这points外的标签动画；
-      var attribute = _this3.target.getAttribute(_key);
-      var data = attribute === 'null' || !attribute ? 0 : attribute;
-      if (_key.match(/color/i) || _key === 'stroke' || _key === 'fill') {
-        data = !data && _key === 'stroke' ? 'rgba(255, 255, 255, 0)' : data;
-        data = (0, _styleUtils.parseColor)(data);
-        start[_key] = data;
-      } else if (parseFloat(data) || parseFloat(data) === 0 || data === 0) {
-        var unit = data.toString().replace(/[^a-z|%]/g, '');
-        start[_key] = unit !== item[_key].unit ? (0, _util.startConvertToEndUnit)(_this3.target, _key, parseFloat(data), unit, item[_key].unit) : parseFloat(data);
-      }
-      return;
-    }
-    start[_key] = _this3.target[_key] || 0;
-  });
-  return start;
-};
-p.setAnimData = function (data) {
-  var _this4 = this;
-
-  Object.keys(data).forEach(function (key) {
-    if (key in _plugins2["default"] || _this4.attr === 'attr' && (key === 'd' || key === 'points')) {
-      return;
-    }
-    _this4.target[key] = data[key];
-  });
-};
-p.setRatio = function (ratio, endData, i) {
-  var _this5 = this;
-
-  Object.keys(endData.vars).forEach(function (_key) {
-    if (_key in _plugins2["default"] || _this5.attr === 'attr' && (_key === 'd' || _key === 'points')) {
-      endData.vars[_key].setRatio(ratio, _this5.tween);
-      return;
-    }
-    var endVars = endData.vars[_key];
-    var startVars = _this5.start[i][_key];
-    var data = void 0;
-    if (_this5.attr === 'attr') {
-      // 除了d和这points外的标签动画；
-      if (!endVars.type) {
-        data = endVars.unit.charAt(1) === '=' ? startVars + endVars.vars * ratio + endVars.unit : (endVars.vars - startVars) * ratio + startVars + endVars.unit;
-        _this5.target.setAttribute(_key, data);
-      } else if (endVars.type === 'color') {
-        if (endVars.vars.length === 3 && startVars.length === 4) {
-          endVars.vars[3] = 1;
-        }
-        data = endVars.vars.map(function (_endData, _i) {
-          var startData = startVars[_i] || 0;
-          return (_endData - startData) * ratio + startData;
-        });
-        _this5.target.setAttribute(_key, (0, _styleUtils.getColor)(data));
-      }
-    }
-  });
-  this.setAnimData(this.tween);
-};
-p.render = function () {
-  var _this6 = this;
-
-  var reverse = this.reverse;
-  this.defaultData.forEach(function (item, i) {
-    var initTime = item.initTime;
-    var duration = (0, _styleUtils.toFixed)(item.duration);
-    // 处理 yoyo 和 repeat; yoyo 是在时间轴上的, 并不是倒放
-    var repeatNum = Math.ceil((_this6.progressTime - initTime) / (duration + item.repeatDelay)) - 1;
-    repeatNum = repeatNum < 0 ? 0 : repeatNum;
-    if (item.repeat) {
-      if (item.repeat < repeatNum && item.repeat !== -1) {
-        return;
-      }
-      if (item.repeat || item.repeat <= repeatNum) {
-        initTime = initTime + repeatNum * (duration + item.repeatDelay);
-      }
-    }
-    var startData = item.yoyo && repeatNum % 2 ? 1 : 0;
-    var endData = item.yoyo && repeatNum % 2 ? 0 : 1;
-    startData = item.type === 'from' ? 1 - startData : startData;
-    endData = item.type === 'from' ? 1 - endData : endData;
-    //  精度损失，只取小数点后10位。
-    var progressTime = (0, _styleUtils.toFixed)(_this6.progressTime - initTime);
-
-    var ratio = void 0;
-
-    // 开始注册;
-    // from 时需先执行参数位置;
-    var fromDelay = item.type === 'from' ? item.delay : 0;
-    if (progressTime + fromDelay > -_this6.perFrame) {
-      if (!_this6.start[i]) {
-        // 设置 start
-        _this6.start[i] = _this6.getAnimStartData(item.vars);
-        if (progressTime < _this6.perFrame) {
-          ratio = !item.duration && !item.delay ? item.ease(1, startData, endData, 1) : item.ease(0, startData, endData, 1);
-          _this6.setRatio((0, _styleUtils.toFixed)(ratio), item, i);
-        } else if (progressTime > duration) {
-          ratio = item.ease(1, startData, endData, 1);
-          _this6.setRatio(ratio, item, i);
-        }
-        if (!_this6.register) {
-          _this6.register = true;
-          if (progressTime === 0) {
-            return;
-          }
-        }
-      }
-    }
-
-    var e = {
-      index: i,
-      target: _this6.target
-    };
-
-    if (progressTime > -_this6.perFrame && !(progressTime > duration && item.mode === 'onComplete')) {
-      var updateAnim = _this6.updateAnim === 'update';
-      if (progressTime >= duration && !reverse || reverse && progressTime <= 0) {
-        // onReveresComplete 和 onComplete 统一用 onComplete;
-        ratio = item.ease(reverse ? 0 : 1, startData, endData, 1);
-        _this6.setRatio((0, _styleUtils.toFixed)(ratio), item, i);
-        if (item.mode !== 'reset' && !updateAnim) {
-          item.onComplete(e);
-        }
-        item.mode = 'onComplete';
-      } else if (duration) {
-        ratio = item.ease(progressTime < 0 ? 0 : progressTime, startData, endData, duration);
-        _this6.setRatio(ratio, item, i);
-        if (!updateAnim) {
-          if (item.repeat && repeatNum > 0 && item.currentRepeat !== repeatNum) {
-            item.mode = 'onRepeat';
-            item.currentRepeat = repeatNum;
-            item.onRepeat((0, _extends3["default"])({}, e, { repeatNum: repeatNum }));
-          } else if (!item.perTime || reverse && item.perTime >= _this6.reverseStartTime - initTime) {
-            // onReveresStart 和 onStart 统一用 onStart;
-            item.mode = 'onStart';
-            item.onStart(e);
-          } else {
-            item.mode = 'onUpdate';
-            item.onUpdate((0, _extends3["default"])({ ratio: ratio }, e));
-          }
-        }
-      }
-
-      if (!updateAnim) {
-        _this6.onChange((0, _extends3["default"])({
-          moment: _this6.progressTime,
-          mode: item.mode
-        }, e));
-      }
-      item.perTime = progressTime;
-    }
-  });
-};
-// 播放帧
-p.frame = function (moment) {
-  this.progressTime = moment;
-  this.render();
-};
-p.resetAnimData = function () {
-  this.tween = {};
-  this.start = {};
-};
-
-p.resetDefaultStyle = function () {
-  var _this7 = this;
-
-  this.tween = {};
-  this.defaultData = this.defaultData.map(function (item) {
-    item.mode = 'reset';
-    return item;
-  });
-  Object.keys(this.startDefaultData).forEach(function (key) {
-    if (!(key in defaultData({}, 0))) {
-      _this7.target.setAttribute(key, _this7.startDefaultData[key]);
-    }
-  });
-};
-
-p.reStart = function (style) {
-  var _this8 = this;
-
-  this.start = {};
-  Object.keys(style).forEach(function (key) {
-    _this8.target.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
-  });
-  this.setAttrIsStyle();
-  this.resetDefaultStyle();
-};
-
-p.onChange = noop;
-exports["default"] = Tween;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 48:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(1);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _classCallCheck2 = __webpack_require__(2);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _possibleConstructorReturn2 = __webpack_require__(4);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(3);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(5);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _TweenOne = __webpack_require__(16);
-
-var _TweenOne2 = _interopRequireDefault(_TweenOne);
-
-var _util = __webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function noop() {}
-
-var TweenOneGroup = function (_Component) {
-  (0, _inherits3["default"])(TweenOneGroup, _Component);
-
-  function TweenOneGroup() {
-    (0, _classCallCheck3["default"])(this, TweenOneGroup);
-
-    var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.apply(this, arguments));
-
-    _initialiseProps.call(_this);
-
-    _this.keysToEnter = [];
-    _this.keysToLeave = [];
-    _this.saveTweenTag = {};
-    _this.onEnterBool = false;
-    _this.isTween = {};
-    // 第一进入，appear 为 true 时默认用 enter 或 tween-one 上的效果
-    var children = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(_this.props));
-    _this.state = {
-      children: children
-    };
-    return _this;
-  }
-
-  TweenOneGroup.prototype.componentDidMount = function componentDidMount() {
-    this.onEnterBool = true;
-  };
-
-  TweenOneGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var _this2 = this;
-
-    var nextChildren = (0, _util.toArrayChildren)(nextProps.children);
-    var currentChildren = (0, _util.toArrayChildren)(this.state.children);
-    var newChildren = (0, _util.mergeChildren)(currentChildren, nextChildren);
-
-    this.keysToEnter = [];
-    this.keysToLeave = [];
-    nextChildren.forEach(function (c) {
-      if (!c) {
-        return;
-      }
-      var key = c.key;
-      var hasPrev = (0, _util.findChildInChildrenByKey)(currentChildren, key);
-      // 如果当前 key 已存在 saveTweenTag 里，，刷新 child;
-      if (_this2.saveTweenTag[key]) {
-        _this2.saveTweenTag[key] = _react2["default"].cloneElement(_this2.saveTweenTag[key], {}, c);
-      }
-      if (!hasPrev && key) {
-        _this2.keysToEnter.push(key);
-      }
-    });
-
-    currentChildren.forEach(function (c) {
-      if (!c) {
-        return;
-      }
-      var key = c.key;
-      var hasNext = (0, _util.findChildInChildrenByKey)(nextChildren, key);
-      if (!hasNext && key) {
-        _this2.keysToLeave.push(key);
-        delete _this2.saveTweenTag[key];
-      }
-    });
-    this.setState({
-      children: newChildren
-    });
-  };
-
-  TweenOneGroup.prototype.render = function render() {
-    var childrenToRender = this.getChildrenToRender(this.state.children);
-    if (!this.props.component) {
-      return childrenToRender[0] || null;
-    }
-    var componentProps = (0, _extends3["default"])({}, this.props);
-    ['component', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd', 'resetStyleBool'].forEach(function (key) {
-      return delete componentProps[key];
-    });
-    return (0, _react.createElement)(this.props.component, componentProps, childrenToRender);
-  };
-
-  return TweenOneGroup;
-}(_react.Component);
-
-var _initialiseProps = function _initialiseProps() {
-  var _this3 = this;
-
-  this.onChange = function (animation, key, type, obj) {
-    var length = (0, _util.dataToArray)(animation).length;
-    var animatingClassName = _this3.props.animatingClassName;
-    var tag = obj.target;
-    var isEnter = type === 'enter' || type === 'appear';
-    if (obj.mode === 'onStart') {
-      tag.className = tag.className.replace(animatingClassName[isEnter ? 1 : 0], '').trim();
-      if (tag.className.indexOf(animatingClassName[isEnter ? 0 : 1]) === -1) {
-        tag.className = (tag.className + ' ' + animatingClassName[isEnter ? 0 : 1]).trim();
-      }
-    } else if (obj.index === length - 1 && obj.mode === 'onComplete') {
-      if (type === 'enter') {
-        _this3.keysToEnter.splice(_this3.keysToEnter.indexOf(key), 1);
-      } else if (type === 'leave') {
-        var children = _this3.state.children.filter(function (child) {
-          return key !== child.key;
-        });
-        _this3.keysToLeave.splice(_this3.keysToLeave.indexOf(key), 1);
-        delete _this3.saveTweenTag[key];
-        _this3.setState({
-          children: children
-        });
-      }
-      tag.className = tag.className.replace(animatingClassName[isEnter ? 0 : 1], '').trim();
-      delete _this3.isTween[key];
-      var _obj = { key: key, type: type };
-      _this3.props.onEnd(_obj);
-    }
-  };
-
-  this.getTweenChild = function (child) {
-    var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    var key = child.key;
-    _this3.saveTweenTag[key] = _react2["default"].createElement(_TweenOne2["default"], (0, _extends3["default"])({}, props, {
-      key: key,
-      component: null
-    }), child);
-    return _this3.saveTweenTag[key];
-  };
-
-  this.getCoverAnimation = function (child, i, type) {
-    var animation = void 0;
-    var onChange = void 0;
-    animation = type === 'leave' ? _this3.props.leave : _this3.props.enter;
-    if (type === 'appear') {
-      var appear = (0, _util.transformArguments)(_this3.props.appear, child.key, i);
-      animation = appear && _this3.props.enter || null;
-    }
-    onChange = _this3.onChange.bind(_this3, animation, child.key, type);
-    var animate = (0, _util.transformArguments)(animation, child.key, i);
-    var props = {
-      key: child.key,
-      animation: animate,
-      onChange: onChange,
-      resetStyleBool: _this3.props.resetStyleBool
-    };
-    var children = _this3.getTweenChild(child, props);
-    if (_this3.keysToEnter.concat(_this3.keysToLeave).indexOf(child.key) >= 0 || !_this3.onEnterBool && animation) {
-      _this3.isTween[child.key] = type;
-    }
-    return children;
-  };
-
-  this.getChildrenToRender = function (children) {
-    return children.map(function (child, i) {
-      if (!child || !child.key) {
-        return child;
-      }
-      var key = child.key;
-
-      if (_this3.keysToLeave.indexOf(key) >= 0) {
-        return _this3.getCoverAnimation(child, i, 'leave');
-      } else if (_this3.keysToEnter.indexOf(key) >= 0 || _this3.isTween[key] && _this3.keysToLeave.indexOf(key) === -1) {
-        return _this3.getCoverAnimation(child, i, 'enter');
-      } else if (!_this3.onEnterBool) {
-        return _this3.getCoverAnimation(child, i, 'appear');
-      }
-      return _this3.saveTweenTag[key];
-    });
-  };
-};
-
-TweenOneGroup.propTypes = {
-  component: _propTypes2["default"].any,
-  children: _propTypes2["default"].any,
-  style: _propTypes2["default"].object,
-  appear: _propTypes2["default"].bool,
-  enter: _propTypes2["default"].any,
-  leave: _propTypes2["default"].any,
-  animatingClassName: _propTypes2["default"].array,
-  onEnd: _propTypes2["default"].func,
-  resetStyleBool: _propTypes2["default"].bool
-};
-
-TweenOneGroup.defaultProps = {
-  component: 'div',
-  appear: true,
-  animatingClassName: ['tween-one-entering', 'tween-one-leaving'],
-  enter: { x: 50, opacity: 0, type: 'from' },
-  leave: { x: -50, opacity: 0 },
-  onEnd: noop,
-  resetStyleBool: true
-};
-TweenOneGroup.isTweenOneGroup = true;
-exports["default"] = TweenOneGroup;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 49:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var TweenOne = __webpack_require__(16);
-TweenOne.TweenOneGroup = __webpack_require__(48);
-TweenOne.easing = __webpack_require__(17);
-TweenOne.plugins = __webpack_require__(13);
-TweenOne.ticker = __webpack_require__(18);
-TweenOne.isTweenOne = true;
-module.exports = TweenOne;
-
-/***/ }),
-
-/***/ 50:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(1);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _styleUtils = __webpack_require__(7);
-
-var _styleUtils2 = _interopRequireDefault(_styleUtils);
-
-var _util = __webpack_require__(8);
-
-var _plugins = __webpack_require__(13);
-
-var _plugins2 = _interopRequireDefault(_plugins);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var StylePlugin = function StylePlugin(target, vars, type) {
-  this.target = target;
-  this.vars = vars;
-  this.type = type;
-  this.propsData = {};
-  this.setDefaultData();
-}; /* eslint-disable func-names, no-console */
-
-var p = StylePlugin.prototype = {
-  name: 'style'
-};
-p.getTweenData = function (key, vars) {
-  var data = {
-    data: {},
-    dataType: {},
-    dataUnit: {},
-    dataCount: {},
-    dataSplitStr: {}
-  };
-  if (key.match(/colo|fill|storker/i)) {
-    data.data[key] = (0, _styleUtils.parseColor)(vars);
-    data.dataType[key] = 'color';
-  } else if (key.match(/shadow/i)) {
-    data.data[key] = (0, _styleUtils.parseShadow)(vars);
-    data.dataType[key] = 'shadow';
-  } else if (typeof vars === 'string' && vars.split(/[\s|,]/).length > 1) {
-    data.data[key] = vars.split(/[\s|,]/);
-    data.dataSplitStr[key] = vars.replace(/[^\s|,]/g, '');
-    data.dataType[key] = 'string';
-  } else {
-    data.data[key] = vars;
-    data.dataType[key] = 'other';
-  }
-  if (Array.isArray(data.data[key])) {
-    data.dataUnit[key] = data.data[key].map(function (_item) {
-      return _item.toString().replace(/[^a-z|%]/g, '');
-    });
-    data.dataCount[key] = data.data[key].map(function (_item) {
-      return _item.toString().replace(/[^+|=|-]/g, '');
-    });
-
-    data.data[key] = data.data[key].map(function (_item) {
-      return !parseFloat(_item) && parseFloat(_item) !== 0 ? _item : parseFloat(_item);
-    });
-  } else {
-    data.dataUnit[key] = data.data[key].toString().replace(/[^a-z|%]/g, '');
-    data.dataCount[key] = data.data[key].toString().replace(/[^+|=|-]/g, '');
-    var d = parseFloat(data.data[key].toString().replace(/[a-z|%|=]/g, ''));
-    data.data[key] = !d && d !== 0 ? data.data[key] : d;
-  }
-  return data;
-};
-p.setDefaultData = function () {
-  var _this = this;
-
-  this.propsData.data = {};
-  this.propsData.dataType = {};
-  this.propsData.dataUnit = {};
-  this.propsData.dataCount = {};
-  this.propsData.dataSplitStr = {};
-  Object.keys(this.vars).forEach(function (_key) {
-    if (_key in _plugins2["default"]) {
-      _this.propsData.data[_key] = new _plugins2["default"][_key](_this.target, _this.vars[_key]);
-      return;
-    }
-    var key = (0, _styleUtils.getGsapType)(_key);
-    var _data = _this.getTweenData(key, _this.vars[_key]);
-    _this.propsData.data[key] = _data.data[key];
-    _this.propsData.dataType[key] = _data.dataType[key];
-    _this.propsData.dataUnit[key] = _data.dataUnit[key];
-    _this.propsData.dataCount[key] = _data.dataCount[key];
-    if (_data.dataSplitStr[key]) {
-      _this.propsData.dataSplitStr[key] = _data.dataSplitStr[key];
-    }
-  });
-};
-p.convertToMarksArray = function (unit, key, data, i) {
-  var startUnit = data.toString().replace(/[^a-z|%]/g, '');
-  var endUnit = unit[i];
-  if (startUnit === endUnit) {
-    return parseFloat(data);
-  } else if (!parseFloat(data) && parseFloat(data) !== 0) {
-    return data;
-  }
-  return (0, _util.startConvertToEndUnit)(this.target, key, data, startUnit, endUnit, null, key === 'transformOrigin' && !i);
-};
-p.getAnimStart = function (computedStyle) {
-  var _this2 = this;
-
-  var style = {};
-  this.supports3D = (0, _styleUtils.checkStyleName)('perspective');
-  Object.keys(this.propsData.data).forEach(function (key) {
-    var cssName = (0, _styleUtils.isConvert)(key);
-    var startData = computedStyle[cssName];
-    var fixed = computedStyle.position === 'fixed';
-    if (!startData || startData === 'none' || startData === 'auto') {
-      startData = '';
-    }
-    var transform = void 0;
-    var endUnit = void 0;
-    var startUnit = void 0;
-    if (key in _plugins2["default"]) {
-      if (key === 'bezier') {
-        _this2.transform = (0, _styleUtils.checkStyleName)('transform');
-        startData = computedStyle[_this2.transform];
-        style.transform = style.transform || (0, _styleUtils.getTransform)(startData);
-      }
-      _this2.propsData.data[key].getAnimStart(computedStyle);
-    } else if (cssName === 'transform') {
-      _this2.transform = (0, _styleUtils.checkStyleName)('transform');
-      startData = computedStyle[_this2.transform];
-      endUnit = _this2.propsData.dataUnit[key];
-      transform = style.transform || (0, _styleUtils.getTransform)(startData);
-      if (endUnit && endUnit.match(/%|vw|vh|em|rem/i)) {
-        var percent = key === 'translateX' ? 'xPercent' : 'yPercent';
-        transform[percent] = (0, _util.startConvertToEndUnit)(_this2.target, key, transform[key], null, endUnit);
-        transform[key] = 0;
-      }
-      style.transform = transform;
-    } else if (cssName === 'filter') {
-      _this2.filterName = (0, _styleUtils.checkStyleName)('filter') || 'filter';
-      startData = computedStyle[_this2.filterName];
-      _this2.filterObject = (0, _extends3["default"])({}, _this2.filterObject, (0, _styleUtils.splitFilterToObject)(startData));
-      startData = _this2.filterObject[key] || 0;
-      startUnit = startData.toString().replace(/[^a-z|%]/g, '');
-      endUnit = _this2.propsData.dataUnit[key];
-      if (endUnit !== startUnit) {
-        startData = (0, _util.startConvertToEndUnit)(_this2.target, cssName, parseFloat(startData), startUnit, endUnit, fixed);
-      }
-      style[key] = parseFloat(startData);
-    } else if (key.match(/color|fill/i) || key === 'stroke') {
-      startData = !startData && key === 'stroke' ? 'rgba(255, 255, 255, 0)' : startData;
-      style[cssName] = (0, _styleUtils.parseColor)(startData);
-    } else if (key.match(/shadow/i)) {
-      startData = (0, _styleUtils.parseShadow)(startData);
-      endUnit = _this2.propsData.dataUnit[key];
-      startData = startData.map(_this2.convertToMarksArray.bind(_this2, endUnit, key));
-      style[cssName] = startData;
-    } else if (Array.isArray(_this2.propsData.data[key])) {
-      startData = startData.split(/[\s|,]/);
-      endUnit = _this2.propsData.dataUnit[key];
-      startData = startData.map(_this2.convertToMarksArray.bind(_this2, endUnit, key));
-      style[cssName] = startData;
-    } else {
-      // 计算单位
-      endUnit = _this2.propsData.dataUnit[cssName];
-      startUnit = startData.toString().replace(/[^a-z|%]/g, '');
-      if (endUnit !== startUnit) {
-        startData = (0, _util.startConvertToEndUnit)(_this2.target, cssName, parseFloat(startData), startUnit, endUnit, fixed);
-      }
-      style[cssName] = parseFloat(startData || 0);
-    }
-  });
-  this.start = style;
-  return style;
-};
-p.setArrayRatio = function (ratio, start, vars, unit, type) {
-  if (type === 'color' && start.length === 4 && vars.length === 3) {
-    vars[3] = 1;
-  }
-  var startInset = start.indexOf('inset') >= 0;
-  var endInset = vars.indexOf('inset') >= 0;
-  if (startInset && !endInset || endInset && !startInset) {
-    throw console.error('Error: "box-shadow" inset have to exist');
-  }
-  var length = endInset ? 9 : 8;
-  if (start.length === length && vars.length === length - 1) {
-    vars.splice(3, 0, 0);
-    unit.splice(3, 0, '');
-  } else if (vars.length === length && start.length === length - 1) {
-    start.splice(3, 0, 0);
-  }
-  var _vars = vars.map(function (endData, i) {
-    var startIsAlpha = type === 'color' && i === 3 && !start[i] ? 1 : 0;
-    var startData = typeof start[i] === 'number' ? start[i] : startIsAlpha;
-    if (typeof endData === 'string') {
-      return endData;
-    }
-    return (endData - startData) * ratio + startData + (unit[i] || 0);
-  });
-  if (type === 'color') {
-    return (0, _styleUtils.getColor)(_vars);
-  } else if (type === 'shadow') {
-    var l = _vars.length === length ? 4 : 3;
-    var s = _vars.slice(0, l).map(function (item) {
-      if (typeof item === 'number') {
-        return item + 'px';
-      }
-      return item;
-    });
-    var c = _vars.slice(l, endInset ? _vars.length - 1 : _vars.length);
-    var color = (0, _styleUtils.getColor)(c);
-    return (s.join(' ') + ' ' + color + ' ' + (endInset ? 'inset' : '')).trim();
-  }
-  return _vars;
-};
-
-p.setRatio = function (ratio, tween) {
-  var _this3 = this;
-
-  tween.style = tween.style || {};
-  if (this.start.transform) {
-    tween.style.transform = tween.style.transform || (0, _extends3["default"])({}, this.start.transform);
-  }
-  var style = this.target.style;
-  Object.keys(this.propsData.data).forEach(function (key) {
-    var _isTransform = (0, _styleUtils.isTransform)(key) === 'transform';
-    var startVars = _isTransform ? _this3.start.transform[key] : _this3.start[key];
-    var endVars = _this3.propsData.data[key];
-    var unit = _this3.propsData.dataUnit[key];
-    var count = _this3.propsData.dataCount[key];
-    if (key in _plugins2["default"]) {
-      _this3.propsData.data[key].setRatio(ratio, tween);
-      if (key === 'bezier') {
-        style[_this3.transform] = (0, _util.getTransformValue)(tween.style.transform, _this3.supports3D);
-      } else {
-        Object.keys(tween.style).forEach(function (css) {
-          return style[css] = tween.style[css];
-        });
-      }
-      return;
-    } else if (_isTransform) {
-      if (unit && unit.match(/%|vw|vh|em|rem/i)) {
-        var pName = key === 'translateX' ? 'xPercent' : 'yPercent';
-        startVars = _this3.start.transform[pName];
-        if (count.charAt(1) === '=') {
-          tween.style.transform[pName] = startVars + endVars * ratio + unit;
-        } else {
-          tween.style.transform[pName] = (endVars - startVars) * ratio + startVars + unit;
-        }
-      } else if (key === 'scale') {
-        var xStart = _this3.start.transform.scaleX;
-        var yStart = _this3.start.transform.scaleY;
-        if (count.charAt(1) === '=') {
-          tween.style.transform.scaleX = xStart + endVars * ratio;
-          tween.style.transform.scaleY = yStart + endVars * ratio;
-        } else {
-          tween.style.transform.scaleX = (endVars - xStart) * ratio + xStart;
-          tween.style.transform.scaleY = (endVars - yStart) * ratio + yStart;
-        }
-      }
-      if (count.charAt(1) === '=') {
-        tween.style.transform[key] = startVars + endVars * ratio;
-      } else {
-        tween.style.transform[key] = (endVars - startVars) * ratio + startVars;
-      }
-      style[_this3.transform] = (0, _util.getTransformValue)(tween.style.transform, _this3.supports3D);
-      return;
-    } else if (Array.isArray(endVars)) {
-      var _type = _this3.propsData.dataType[key];
-      tween.style[key] = _this3.setArrayRatio(ratio, startVars, endVars, unit, _type);
-      if (_type === 'string') {
-        tween.style[key] = tween.style[key].join(_this3.propsData.dataSplitStr[key]);
-      }
-    } else {
-      var styleUnit = (0, _styleUtils.stylesToCss)(key, 0);
-      styleUnit = typeof styleUnit === 'number' ? '' : styleUnit.replace(/[^a-z|%]/g, '');
-      unit = unit || (_styleUtils2["default"].filter.indexOf(key) >= 0 ? '' : styleUnit);
-      if (typeof endVars === 'string') {
-        tween.style[key] = endVars;
-      } else {
-        if (count.charAt(1) === '=') {
-          tween.style[key] = startVars + endVars * ratio + unit;
-        } else {
-          var value = (endVars - startVars) * ratio + startVars;
-          tween.style[key] = unit ? '' + value + unit : value;
-        }
-      }
-    }
-    if (_styleUtils2["default"].filter.indexOf(key) >= 0) {
-      if (!_this3.filterObject) {
-        return;
-      }
-      _this3.filterObject[key] = tween.style[key];
-      var filterStyle = '';
-      Object.keys(_this3.filterObject).forEach(function (filterKey) {
-        filterStyle += ' ' + filterKey + '(' + _this3.filterObject[filterKey] + ')';
-      });
-      style[_this3.filterName] = filterStyle.trim();
-      return;
-    }
-    style[key] = tween.style[key];
-  });
-};
-exports["default"] = StylePlugin;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 51:
+/***/ 23:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easing__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugin_StylePlugin__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easing__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugin_StylePlugin__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_style_utils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_js__ = __webpack_require__(5);
 
 /* eslint-disable func-names */
 /**
@@ -3113,6 +1407,8 @@ var Tween = function Tween(target, toData, props) {
   this.perFrame = Math.round(1000 / 60);
   // 注册，第一次进入执行注册
   this.register = false;
+  // svg元素
+  this.isSvg = this.target.ownerSVGElement;
   // 设置 style
   var data = this.setAttrIsStyle();
   // 设置默认动画数据;
@@ -3212,7 +1508,26 @@ p.setDefaultData = function (_vars) {
   this.defaultData = data;
 };
 p.getComputedStyle = function () {
-  return document.defaultView ? document.defaultView.getComputedStyle(this.target) : {};
+  var style = typeof window !== 'undefined' && document.defaultView ? document.defaultView.getComputedStyle(this.target) : {};
+  // 如果是 SVG, 样式全部提出为 transformSVG, 兼容 safari 不能获取 transform;
+  if (this.isSvg) {
+    var transform = style[__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["checkStyleName"])('transform')] || 'none';
+    if (transform === 'none') {
+      var attrStyle = this.target.getAttribute('style');
+      if (attrStyle && attrStyle.indexOf('transform:') >= 0) {
+        transform = attrStyle.split(';').filter(function (k) {
+          return k.indexOf('transform:') >= 0;
+        }).map(function (item) {
+          return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["createMatrix"])(item.split(':')[1].trim()).toString();
+        })[0];
+      } else if (this.target.getAttribute('transform')) {
+        // 暂时不支持标签上的 transform，后期增加;
+        console.warn('Do not add transform on the label, otherwise it will be invalid.');
+      }
+    }
+    style.transformSVG = transform;
+  }
+  return style;
 };
 p.getAnimStartData = function (item) {
   var _this3 = this;
@@ -3221,7 +1536,7 @@ p.getAnimStartData = function (item) {
   this.computedStyle = this.computedStyle || this.getComputedStyle();
   Object.keys(item).forEach(function (_key) {
     if (_key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */] || _this3.attr === 'attr' && (_key === 'd' || _key === 'points')) {
-      start[_key] = item[_key].getAnimStart(_this3.computedStyle);
+      start[_key] = item[_key].getAnimStart(_this3.computedStyle, _this3.isSvg);
       return;
     }
     if (_this3.attr === 'attr') {
@@ -3257,7 +1572,7 @@ p.setRatio = function (ratio, endData, i) {
 
   Object.keys(endData.vars).forEach(function (_key) {
     if (_key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */] || _this5.attr === 'attr' && (_key === 'd' || _key === 'points')) {
-      endData.vars[_key].setRatio(ratio, _this5.tween);
+      endData.vars[_key].setRatio(ratio, _this5.tween, _this5.isSvg && _this5.computedStyle);
       return;
     }
     var endVars = endData.vars[_key];
@@ -3312,7 +1627,7 @@ p.render = function () {
     // 开始注册;
     // from 时需先执行参数位置;
     var fromDelay = item.type === 'from' ? item.delay : 0;
-    if (progressTime + fromDelay > -_this6.perFrame) {
+    if (progressTime + fromDelay >= 0) {
       if (!_this6.start[i]) {
         // 设置 start
         _this6.start[i] = _this6.getAnimStartData(item.vars);
@@ -3325,7 +1640,7 @@ p.render = function () {
         }
         if (!_this6.register) {
           _this6.register = true;
-          if (progressTime === 0) {
+          if (progressTime === 0 && item.duration) {
             return;
           }
         }
@@ -3337,7 +1652,7 @@ p.render = function () {
       target: _this6.target
     };
 
-    if (progressTime > -_this6.perFrame && !(progressTime > duration && item.mode === 'onComplete')) {
+    if (progressTime > -_this6.perFrame && !(progressTime > duration && item.mode === 'onComplete') && _this6.start[i]) {
       var updateAnim = _this6.updateAnim === 'update';
       if (progressTime >= duration && !reverse || reverse && progressTime <= 0) {
         // onReveresComplete 和 onComplete 统一用 onComplete;
@@ -3355,7 +1670,7 @@ p.render = function () {
             item.mode = 'onRepeat';
             item.currentRepeat = repeatNum;
             item.onRepeat(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, e, { repeatNum: repeatNum }));
-          } else if (!item.perTime || reverse && item.perTime >= _this6.reverseStartTime - initTime) {
+          } else if ((!item.perTime || reverse && item.perTime >= _this6.reverseStartTime - initTime) && item.mode !== 'onStart') {
             // onReveresStart 和 onStart 统一用 onStart;
             item.mode = 'onStart';
             item.onStart(e);
@@ -3417,26 +1732,29 @@ p.onChange = noop;
 
 /***/ }),
 
-/***/ 52:
+/***/ 24:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TweenOne__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__TweenOne__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util__ = __webpack_require__(5);
+
 
 
 
@@ -3450,12 +1768,12 @@ p.onChange = noop;
 function noop() {}
 
 var TweenOneGroup = function (_Component) {
-  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(TweenOneGroup, _Component);
+  __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits___default()(TweenOneGroup, _Component);
 
   function TweenOneGroup() {
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, TweenOneGroup);
+    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default()(this, TweenOneGroup);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (TweenOneGroup.__proto__ || Object.getPrototypeOf(TweenOneGroup)).apply(this, arguments));
+    var _this = __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default()(this, (TweenOneGroup.__proto__ || Object.getPrototypeOf(TweenOneGroup)).apply(this, arguments));
 
     _initialiseProps.call(_this);
 
@@ -3465,14 +1783,14 @@ var TweenOneGroup = function (_Component) {
     _this.onEnterBool = false;
     _this.isTween = {};
     // 第一进入，appear 为 true 时默认用 enter 或 tween-one 上的效果
-    var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["c" /* getChildrenFromProps */])(_this.props));
+    var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["b" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["c" /* getChildrenFromProps */])(_this.props));
     _this.state = {
       children: children
     };
     return _this;
   }
 
-  __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(TweenOneGroup, [{
+  __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default()(TweenOneGroup, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.onEnterBool = true;
@@ -3482,9 +1800,9 @@ var TweenOneGroup = function (_Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      var nextChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* toArrayChildren */])(nextProps.children);
-      var currentChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* toArrayChildren */])(this.state.children);
-      var newChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["d" /* mergeChildren */])(currentChildren, nextChildren);
+      var nextChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["b" /* toArrayChildren */])(nextProps.children);
+      var currentChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["b" /* toArrayChildren */])(this.state.children);
+      var newChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["d" /* mergeChildren */])(currentChildren, nextChildren);
 
       this.keysToEnter = [];
       this.keysToLeave = [];
@@ -3493,10 +1811,10 @@ var TweenOneGroup = function (_Component) {
           return;
         }
         var key = c.key;
-        var hasPrev = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["e" /* findChildInChildrenByKey */])(currentChildren, key);
+        var hasPrev = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["e" /* findChildInChildrenByKey */])(currentChildren, key);
         // 如果当前 key 已存在 saveTweenTag 里，，刷新 child;
         if (_this2.saveTweenTag[key]) {
-          _this2.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_5_react___default.a.cloneElement(_this2.saveTweenTag[key], {}, c);
+          _this2.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(_this2.saveTweenTag[key], {}, c);
         }
         if (!hasPrev && key) {
           _this2.keysToEnter.push(key);
@@ -3508,7 +1826,7 @@ var TweenOneGroup = function (_Component) {
           return;
         }
         var key = c.key;
-        var hasNext = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["e" /* findChildInChildrenByKey */])(nextChildren, key);
+        var hasNext = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["e" /* findChildInChildrenByKey */])(nextChildren, key);
         if (!hasNext && key) {
           _this2.keysToLeave.push(key);
           delete _this2.saveTweenTag[key];
@@ -3525,29 +1843,30 @@ var TweenOneGroup = function (_Component) {
       if (!this.props.component) {
         return childrenToRender[0] || null;
       }
-      var componentProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props);
-      ['component', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd', 'resetStyleBool'].forEach(function (key) {
+      var componentProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, this.props);
+      ['component', 'componentProps', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd', 'resetStyleBool'].forEach(function (key) {
         return delete componentProps[key];
       });
-      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(this.props.component, componentProps, childrenToRender);
+      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_react__["createElement"])(this.props.component, __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, componentProps, this.props.componentProps), childrenToRender);
     }
   }]);
 
   return TweenOneGroup;
-}(__WEBPACK_IMPORTED_MODULE_5_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_6_react__["Component"]);
 
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
   this.onChange = function (animation, key, type, obj) {
-    var length = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["f" /* dataToArray */])(animation).length;
-    var animatingClassName = _this3.props.animatingClassName;
+    var length = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["f" /* dataToArray */])(animation).length;
     var tag = obj.target;
+    var classIsSvg = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(tag.className) === 'object' && 'baseVal' in tag.className;
     var isEnter = type === 'enter' || type === 'appear';
     if (obj.mode === 'onStart') {
-      tag.className = tag.className.replace(animatingClassName[isEnter ? 1 : 0], '').trim();
-      if (tag.className.indexOf(animatingClassName[isEnter ? 0 : 1]) === -1) {
-        tag.className = (tag.className + ' ' + animatingClassName[isEnter ? 0 : 1]).trim();
+      if (classIsSvg) {
+        tag.className.baseVal = _this3.setClassName(tag.className.baseVal, isEnter);
+      } else {
+        tag.className = _this3.setClassName(tag.className, isEnter);
       }
     } else if (obj.index === length - 1 && obj.mode === 'onComplete') {
       if (type === 'enter') {
@@ -3562,18 +1881,30 @@ var _initialiseProps = function _initialiseProps() {
           children: children
         });
       }
-      tag.className = tag.className.replace(animatingClassName[isEnter ? 0 : 1], '').trim();
+      if (classIsSvg) {
+        tag.className.baseVal = tag.className.baseVal.replace(_this3.props.animatingClassName[isEnter ? 0 : 1], '').trim();
+      } else {
+        tag.className = tag.className.replace(_this3.props.animatingClassName[isEnter ? 0 : 1], '').trim();
+      }
       delete _this3.isTween[key];
       var _obj = { key: key, type: type };
       _this3.props.onEnd(_obj);
     }
   };
 
+  this.setClassName = function (name, isEnter) {
+    var className = name.replace(_this3.props.animatingClassName[isEnter ? 1 : 0], '').trim();
+    if (className.indexOf(_this3.props.animatingClassName[isEnter ? 0 : 1]) === -1) {
+      className = (className + ' ' + _this3.props.animatingClassName[isEnter ? 0 : 1]).trim();
+    }
+    return className;
+  };
+
   this.getTweenChild = function (child) {
     var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var key = child.key;
-    _this3.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TweenOne__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, props, {
+    _this3.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__TweenOne__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, props, {
       key: key,
       component: null
     }), child);
@@ -3585,11 +1916,11 @@ var _initialiseProps = function _initialiseProps() {
     var onChange = void 0;
     animation = type === 'leave' ? _this3.props.leave : _this3.props.enter;
     if (type === 'appear') {
-      var appear = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["g" /* transformArguments */])(_this3.props.appear, child.key, i);
+      var appear = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["g" /* transformArguments */])(_this3.props.appear, child.key, i);
       animation = appear && _this3.props.enter || null;
     }
     onChange = _this3.onChange.bind(_this3, animation, child.key, type);
-    var animate = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["g" /* transformArguments */])(animation, child.key, i);
+    var animate = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util__["g" /* transformArguments */])(animation, child.key, i);
     var props = {
       key: child.key,
       animation: animate,
@@ -3612,7 +1943,12 @@ var _initialiseProps = function _initialiseProps() {
 
       if (_this3.keysToLeave.indexOf(key) >= 0) {
         return _this3.getCoverAnimation(child, i, 'leave');
-      } else if (_this3.keysToEnter.indexOf(key) >= 0 || _this3.isTween[key] && _this3.keysToLeave.indexOf(key) === -1) {
+      } else if ((_this3.keysToEnter.indexOf(key) >= 0 || _this3.isTween[key] && _this3.keysToLeave.indexOf(key) === -1) && !(_this3.isTween[key] === 'enter' && _this3.saveTweenTag[key])) {
+        /**
+        * 1. 在 key 在 enter 里。
+        * 2. 出场未结束，触发进场, this.isTween[key] 为 leave, key 在 enter 里。
+        * 3. 状态为 enter 且 tweenTag 里有值时，不执行重载动画属性，直接调用 tweenTag 里的。
+        */
         return _this3.getCoverAnimation(child, i, 'enter');
       } else if (!_this3.onEnterBool) {
         return _this3.getCoverAnimation(child, i, 'appear');
@@ -3623,19 +1959,21 @@ var _initialiseProps = function _initialiseProps() {
 };
 
 TweenOneGroup.propTypes = {
-  component: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  children: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  style: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object,
-  appear: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
-  enter: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  leave: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  animatingClassName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.array,
-  onEnd: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func,
-  resetStyleBool: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool
+  component: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  componentProps: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.object,
+  children: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  style: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.object,
+  appear: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.bool,
+  enter: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  leave: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  animatingClassName: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.array,
+  onEnd: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.func,
+  resetStyleBool: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.bool
 };
 
 TweenOneGroup.defaultProps = {
   component: 'div',
+  componentProps: {},
   appear: true,
   animatingClassName: ['tween-one-entering', 'tween-one-leaving'],
   enter: { x: 50, opacity: 0, type: 'from' },
@@ -3648,53 +1986,16 @@ TweenOneGroup.isTweenOneGroup = true;
 
 /***/ }),
 
-/***/ 53:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export TweenOneGroup */
-/* unused harmony export easing */
-/* unused harmony export plugins */
-/* unused harmony export ticker */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenOne__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__easing__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ticker__ = __webpack_require__(21);
-// export this package's api
-
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].TweenOneGroup = __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].easing = __WEBPACK_IMPORTED_MODULE_2__easing__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].plugins = __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
-
-/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */]);
-
-var TweenOneGroup = __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__["a" /* default */];
-
-var easing = __WEBPACK_IMPORTED_MODULE_2__easing__["a" /* default */];
-
-var plugins = __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */];
-
-var ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
-
-/***/ }),
-
-/***/ 54:
+/***/ 25:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_style_utils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(9);
 
 /* eslint-disable func-names, no-console */
 
@@ -3786,7 +2087,7 @@ p.convertToMarksArray = function (unit, key, data, i) {
   }
   return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["i" /* startConvertToEndUnit */])(this.target, key, data, startUnit, endUnit, null, key === 'transformOrigin' && !i);
 };
-p.getAnimStart = function (computedStyle) {
+p.getAnimStart = function (computedStyle, isSvg) {
   var _this2 = this;
 
   var style = {};
@@ -3804,13 +2105,13 @@ p.getAnimStart = function (computedStyle) {
     if (key in __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]) {
       if (key === 'bezier') {
         _this2.transform = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('transform');
-        startData = computedStyle[_this2.transform];
+        startData = computedStyle[isSvg ? 'transformSVG' : _this2.transform];
         style.transform = style.transform || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getTransform"])(startData);
       }
-      _this2.propsData.data[key].getAnimStart(computedStyle);
+      _this2.propsData.data[key].getAnimStart(computedStyle, isSvg);
     } else if (cssName === 'transform') {
       _this2.transform = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('transform');
-      startData = computedStyle[_this2.transform];
+      startData = computedStyle[isSvg ? 'transformSVG' : _this2.transform];
       endUnit = _this2.propsData.dataUnit[key];
       transform = style.transform || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getTransform"])(startData);
       if (endUnit && endUnit.match(/%|vw|vh|em|rem/i)) {
@@ -3897,7 +2198,7 @@ p.setArrayRatio = function (ratio, start, vars, unit, type) {
   return _vars;
 };
 
-p.setRatio = function (ratio, tween) {
+p.setRatio = function (ratio, tween, computedStyle) {
   var _this3 = this;
 
   tween.style = tween.style || {};
@@ -3912,7 +2213,7 @@ p.setRatio = function (ratio, tween) {
     var unit = _this3.propsData.dataUnit[key];
     var count = _this3.propsData.dataCount[key];
     if (key in __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]) {
-      _this3.propsData.data[key].setRatio(ratio, tween);
+      _this3.propsData.data[key].setRatio(ratio, tween, computedStyle);
       if (key === 'bezier') {
         style[_this3.transform] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["j" /* getTransformValue */])(tween.style.transform, _this3.supports3D);
       } else {
@@ -3947,6 +2248,9 @@ p.setRatio = function (ratio, tween) {
         tween.style.transform[key] = (endVars - startVars) * ratio + startVars;
       }
       style[_this3.transform] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["j" /* getTransformValue */])(tween.style.transform, _this3.supports3D);
+      if (computedStyle) {
+        computedStyle.transformSVG = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["createMatrix"])(style[_this3.transform]).toString();
+      }
       return;
     } else if (Array.isArray(endVars)) {
       var _type = _this3.propsData.dataType[key];
@@ -3988,269 +2292,7 @@ p.setRatio = function (ratio, tween) {
 
 /***/ }),
 
-/***/ 8:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof2 = __webpack_require__(12);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-exports.toArrayChildren = toArrayChildren;
-exports.dataToArray = dataToArray;
-exports.objectEqual = objectEqual;
-exports.findChildInChildrenByKey = findChildInChildrenByKey;
-exports.mergeChildren = mergeChildren;
-exports.transformArguments = transformArguments;
-exports.getChildrenFromProps = getChildrenFromProps;
-exports.startConvertToEndUnit = startConvertToEndUnit;
-exports.parsePath = parsePath;
-exports.getTransformValue = getTransformValue;
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _deepEql = __webpack_require__(28);
-
-var _deepEql2 = _interopRequireDefault(_deepEql);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function toArrayChildren(children) {
-  var ret = [];
-  _react2["default"].Children.forEach(children, function (c) {
-    ret.push(c);
-  });
-  return ret;
-}
-
-function dataToArray(vars) {
-  if (!vars && vars !== 0) {
-    return [];
-  }
-  if (Array.isArray(vars)) {
-    return vars;
-  }
-  return [vars];
-}
-
-function objectEqual(obj1, obj2) {
-  if (obj1 === obj2 || (0, _deepEql2["default"])(obj1, obj2)) {
-    return true;
-  }
-  if (!obj1 || !obj2) {
-    return false;
-  }
-  // animation 写在标签上的进行判断是否相等， 判断每个参数有没有 function;
-  var equalBool = true;
-  if (Array.isArray(obj1) && Array.isArray(obj2)) {
-    if (obj1.length !== obj2.length) {
-      return false;
-    }
-    for (var i = 0; i < obj1.length; i++) {
-      var currentObj = obj1[i];
-      var nextObj = obj2[i];
-      for (var p in currentObj) {
-        if (currentObj[p] !== nextObj[p]) {
-          if ((0, _typeof3["default"])(currentObj[p]) === 'object' && (0, _typeof3["default"])(nextObj[p]) === 'object') {
-            equalBool = objectEqual(currentObj[p], nextObj[p]);
-          } else if (typeof currentObj[p] === 'function' && typeof nextObj[p] === 'function') {
-            if (currentObj[p].name !== nextObj[p].name) {
-              equalBool = false;
-            }
-          } else {
-            equalBool = false;
-            return false;
-          }
-        }
-      }
-    }
-  }
-
-  var setEqualBool = function setEqualBool(objA, objB) {
-    Object.keys(objA).forEach(function (key) {
-      if (!(key in objB)) {
-        equalBool = false;
-      }
-
-      if ((0, _typeof3["default"])(objA[key]) === 'object' && (0, _typeof3["default"])(objB[key]) === 'object') {
-        equalBool = objectEqual(objA[key], objB[key]);
-      } else if (typeof objA[key] === 'function' && typeof objB[key] === 'function') {
-        if (objA[key].name !== objB[key].name) {
-          equalBool = false;
-        }
-      } else if (objA[key] !== objB[key]) {
-        equalBool = false;
-      }
-    });
-  };
-
-  setEqualBool(obj1, obj2);
-  setEqualBool(obj2, obj1);
-  return equalBool;
-}
-
-function findChildInChildrenByKey(children, key) {
-  var ret = null;
-  if (children) {
-    children.forEach(function (c) {
-      if (ret || !c) {
-        return;
-      }
-      if (c.key === key) {
-        ret = c;
-      }
-    });
-  }
-  return ret;
-}
-
-function mergeChildren(prev, next) {
-  var ret = [];
-  // For each key of `next`, the list of keys to insert before that key in
-  // the combined list
-  var nextChildrenPending = {};
-  var pendingChildren = [];
-  var followChildrenKey = void 0;
-  prev.forEach(function (c) {
-    if (!c) {
-      return;
-    }
-    if (findChildInChildrenByKey(next, c.key)) {
-      if (pendingChildren.length) {
-        nextChildrenPending[c.key] = pendingChildren;
-        pendingChildren = [];
-      }
-      followChildrenKey = c.key;
-    } else if (c.key) {
-      pendingChildren.push(c);
-    }
-  });
-  if (!followChildrenKey) {
-    ret = ret.concat(pendingChildren);
-  }
-
-  next.forEach(function (c) {
-    if (!c) {
-      return;
-    }
-    if (nextChildrenPending.hasOwnProperty(c.key)) {
-      ret = ret.concat(nextChildrenPending[c.key]);
-    }
-    ret.push(c);
-    if (c.key === followChildrenKey) {
-      ret = ret.concat(pendingChildren);
-    }
-  });
-
-  return ret;
-}
-
-function transformArguments(arg, key, i) {
-  var result = void 0;
-  if (typeof arg === 'function') {
-    result = arg({
-      key: key,
-      index: i
-    });
-  } else {
-    result = arg;
-  }
-  return result;
-}
-
-function getChildrenFromProps(props) {
-  return props && props.children;
-}
-
-function startConvertToEndUnit(target, style, num, unit, dataUnit, fixed, isOriginWidth) {
-  var horiz = /(?:Left|Right|Width|X)/i.test(style) || isOriginWidth;
-  var t = style.indexOf('border') !== -1 ? target : target.parentNode || document.body;
-  t = fixed ? document.body : t;
-  var pix = void 0;
-
-  if (unit === '%') {
-    pix = parseFloat(num) / 100 * (horiz ? t.clientWidth : t.clientHeight);
-  } else if (unit === 'vw') {
-    pix = parseFloat(num) * document.body.clientWidth / 100;
-  } else if (unit === 'vh') {
-    pix = parseFloat(num) * document.body.clientHeight / 100;
-  } else if (unit && unit.match(/em/i)) {
-    pix = parseFloat(num) * 16;
-  } else {
-    pix = parseFloat(num);
-  }
-  if (dataUnit === '%') {
-    pix = pix * 100 / (horiz ? t.clientWidth : t.clientHeight);
-  } else if (dataUnit === 'vw') {
-    pix = parseFloat(num) / document.body.clientWidth * 100;
-  } else if (dataUnit === 'vh') {
-    pix = parseFloat(num) / document.body.clientHeight * 100;
-  } else if (dataUnit && dataUnit.match(/em/i)) {
-    pix = parseFloat(num) / 16;
-  }
-  return pix;
-}
-var domPath = void 0;
-function parsePath(path) {
-  if (typeof path === 'string') {
-    if (path.charAt(0).match(/m/i)) {
-      domPath = domPath || document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      domPath.setAttributeNS(null, 'd', path);
-      return domPath;
-    }
-    return document.querySelector(path);
-  } else if (path.style) {
-    return path;
-  }
-  throw new Error('Error while parsing the path');
-}
-
-function getTransformValue(t, supports3D) {
-  if (typeof t === 'string') {
-    return t;
-  }
-  var perspective = t.perspective;
-  var angle = t.rotate;
-  var rotateX = t.rotateX;
-  var rotateY = t.rotateY;
-  var sx = t.scaleX;
-  var sy = t.scaleY;
-  var sz = t.scaleZ;
-  var skx = t.skewX;
-  var sky = t.skewY;
-  var xPercent = t.xPercent || 0;
-  var yPercent = t.yPercent || 0;
-  var translateX = xPercent ? 0 : t.translateX;
-  var translateY = yPercent ? 0 : t.translateY;
-  var translateZ = t.translateZ || 0;
-  var percent = xPercent || yPercent ? 'translate(' + (xPercent || translateX + 'px') + ',' + (yPercent || translateY + 'px') + ')' : '';
-  var sk = skx || sky ? 'skew(' + skx + 'deg,' + sky + 'deg)' : '';
-  var an = angle ? 'rotate(' + angle + 'deg)' : '';
-  var ss = void 0;
-  if (!perspective && !rotateX && !rotateY && !translateZ && sz === 1 || !supports3D) {
-    ss = sx !== 1 || sy !== 1 ? 'scale(' + sx + ',' + sy + ')' : '';
-    var translate = percent || 'translate(' + translateX + 'px,' + translateY + 'px)';
-    return translate + ' ' + an + ' ' + ss + ' ' + sk;
-  }
-  ss = sx !== 1 || sy !== 1 || sz !== 1 ? 'scale3d(' + sx + ',' + sy + ',' + sz + ')' : '';
-  var rX = rotateX ? 'rotateX(' + rotateX + 'deg)' : '';
-  var rY = rotateY ? 'rotateY(' + rotateY + 'deg)' : '';
-  var per = perspective ? 'perspective(' + perspective + 'px)' : '';
-  var translate3d = percent ? percent + ' translate3d(0,0,' + translateZ + 'px)' : 'translate3d(' + translateX + 'px,' + translateY + 'px,' + translateZ + 'px)';
-  return per + ' ' + translate3d + ' ' + ss + ' ' + an + ' ' + rX + ' ' + rY + ' ' + sk;
-}
-
-/***/ }),
-
-/***/ 9:
+/***/ 5:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4264,11 +2306,11 @@ function getTransformValue(t, supports3D) {
 /* harmony export (immutable) */ __webpack_exports__["i"] = startConvertToEndUnit;
 /* harmony export (immutable) */ __webpack_exports__["a"] = parsePath;
 /* harmony export (immutable) */ __webpack_exports__["j"] = getTransformValue;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_deep_eql__);
 
 
@@ -4439,7 +2481,7 @@ function startConvertToEndUnit(target, style, num, unit, dataUnit, fixed, isOrig
     pix = parseFloat(num);
   }
   if (dataUnit === '%') {
-    pix = pix * 100 / (horiz ? t.clientWidth : t.clientHeight);
+    pix = pix ? pix * 100 / (horiz ? t.clientWidth : t.clientHeight) : 0;
   } else if (dataUnit === 'vw') {
     pix = parseFloat(num) / document.body.clientWidth * 100;
   } else if (dataUnit === 'vh') {
@@ -4499,7 +2541,21 @@ function getTransformValue(t, supports3D) {
   return per + ' ' + translate3d + ' ' + ss + ' ' + an + ' ' + rX + ' ' + rY + ' ' + sk;
 }
 
+/***/ }),
+
+/***/ 9:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* eslint-disable func-names */
+var Plugins = function Plugins() {};
+var p = Plugins.prototype;
+p.push = function (plugin) {
+  this[plugin.prototype.name] = plugin;
+};
+/* harmony default export */ __webpack_exports__["a"] = (new Plugins());
+
 /***/ })
 
-},[196]);
+},[174]);
 //# sourceMappingURL=target.js.map
