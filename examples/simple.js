@@ -89,7 +89,8 @@ var Demo = function (_React$Component) {
           ScrollOverPack,
           {
             id: 'page1',
-            className: 'page1', replay: true,
+            className: 'page1',
+            replay: true,
             playScale: '50vh'
           },
           __WEBPACK_IMPORTED_MODULE_7_react___default.a.createElement(
