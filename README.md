@@ -131,7 +131,7 @@ ScrollAnim.scrollScreen.unMount();
 
 ### OverPack 
 
-OverPack inherit Element; `component` `playScale` `onChange` `location` `replay` refer to  `Element`;
+OverPack inherit Element; `component` `playScale` `onChange`  `onScroll` `location` `replay` refer to  `Element`;
 
 > 1.0.0 remove hideProps;
 
