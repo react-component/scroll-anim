@@ -1,12 +1,22 @@
 {
   "name": "rc-scroll-anim",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "scroll-anim anim component for react",
   "keywords": [
     "react",
     "react-component",
     "react-scroll-anim",
-    "scroll-anim"
+    "scroll",
+    "parallax",
+    "rc-parallax",
+    "scroll-anim",
+    "animation",
+    "animate",
+    "rc-animation",
+    "rc-animate",
+    "motion",
+    "rc-motion",
+    "ant-motion"
   ],
   "homepage": "https://github.com/react-component/scroll-anim",
   "author": "155259966@qq.com",

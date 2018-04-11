@@ -1,3 +1,7 @@
+## 2.4.0
+1. 将 replay 迁至 scrollElement， replay 为 false 时， 上出场和上进场将不触发。
+2. 增加 onScroll 事件。
+
 ## 2.3.0
 1. componentWillReceiveProps 时增加解发滚动事件，解决块景模块跳动时不出现动画。
 2. ScrollLink 的 toHash 改为默认为 false;

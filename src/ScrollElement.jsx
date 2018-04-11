@@ -58,13 +58,21 @@ class ScrollElement extends React.Component {
     } else {
       this.leavePlayHeight = leaveHeight * parseFloat(playScaleLeaveArray[1]) / 100;
     }
-    const enter = this.elementShowHeight >= this.playHeight
-      && this.elementShowHeight <= this.clientHeight + this.leavePlayHeight;
+    const enter = this.props.replay ? this.elementShowHeight >= this.playHeight
+      && this.elementShowHeight <= this.clientHeight + this.leavePlayHeight :
+      this.elementShowHeight >= this.playHeight;
     const enterOrLeave = enter ? 'enter' : 'leave';
     const mode = this.enter !== enter || typeof this.enter !== 'boolean' ? enterOrLeave : null;
     if (mode) {
-      this.props.onChange({ mode, id: this.props.id }, e);
+      this.props.onChange({ mode, id: this.props.id });
     }
+    this.props.onScroll({
+      domEvent: e,
+      scrollTop,
+      showHeight: this.elementShowHeight,
+      offsetTop,
+      id: this.props.id,
+    });
     this.enter = enter;
   }
 
@@ -82,7 +90,14 @@ class ScrollElement extends React.Component {
 
   render() {
     const { ...props } = this.props;
-    ['component', 'playScale', 'location', 'targetId'].forEach(key => delete props[key]);
+    [
+      'component',
+      'playScale',
+      'location',
+      'targetId',
+      'onScroll',
+      'replay',
+    ].forEach(key => delete props[key]);
     return React.createElement(this.props.component, { ...props });
   }
 }
@@ -92,14 +107,18 @@ ScrollElement.propTypes = {
   playScale: PropTypes.any,
   id: PropTypes.string,
   onChange: PropTypes.func,
+  onScroll: PropTypes.func,
   location: PropTypes.string,
   targetId: PropTypes.string,
+  replay: PropTypes.bool,
 };
 
 ScrollElement.defaultProps = {
   component: 'div',
   onChange: noop,
+  onScroll: noop,
   playScale: 0.5,
+  replay: false,
 };
 ScrollElement.isScrollElement = true;
 export default ScrollElement;

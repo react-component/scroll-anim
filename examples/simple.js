@@ -29,7 +29,8 @@ class Demo extends React.Component {
       </div>
       <ScrollOverPack
         id="page1"
-        className="page1" replay
+        className="page1"
+        replay
         playScale="50vh"
       >
         <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>

@@ -70,6 +70,7 @@ class ScrollOverPack extends ScrollElement {
       'appear',
       'location',
       'targetId',
+      'onScroll',
     ].forEach(key => delete placeholderProps[key]);
     let childToRender;
     if (!this.oneEnter) {
@@ -111,6 +112,7 @@ ScrollOverPack.propTypes = {
   style: PropTypes.any,
   replay: PropTypes.bool,
   onChange: PropTypes.func,
+  onScroll: PropTypes.func,
   appear: PropTypes.bool,
 };
 
@@ -121,6 +123,7 @@ ScrollOverPack.defaultProps = {
   scrollEvent: noop,
   replay: false,
   onChange: noop,
+  onScroll: noop,
   appear: true,
 };
 ScrollOverPack.isScrollOverPack = true;
