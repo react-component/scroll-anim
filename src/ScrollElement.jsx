@@ -96,6 +96,7 @@ class ScrollElement extends React.Component {
       'location',
       'targetId',
       'onScroll',
+      'onChange',
       'replay',
     ].forEach(key => delete props[key]);
     return React.createElement(this.props.component, { ...props });
