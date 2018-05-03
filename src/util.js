@@ -98,3 +98,6 @@ export function windowHeight() {
   return window.innerHeight ||
     document.documentElement.clientHeight || document.body.clientHeight;
 }
+
+export function noop() {
+}

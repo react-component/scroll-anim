@@ -2,12 +2,35 @@ import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import EventListener from './EventDispatcher';
 import ScrollElement from './ScrollElement';
-import { toArrayChildren } from './util';
-
-function noop() {
-}
+import { toArrayChildren, noop } from './util';
 
 class ScrollOverPack extends ScrollElement {
+  static propTypes = {
+    component: PropTypes.any,
+    playScale: PropTypes.any,
+    always: PropTypes.bool,
+    scrollEvent: PropTypes.func,
+    children: PropTypes.any,
+    className: PropTypes.string,
+    style: PropTypes.any,
+    replay: PropTypes.bool,
+    onChange: PropTypes.func,
+    onScroll: PropTypes.func,
+    appear: PropTypes.bool,
+    componentProps: PropTypes.object,
+  }
+  static defaultProps = {
+    component: 'div',
+    playScale: 0.5,
+    always: true,
+    scrollEvent: noop,
+    replay: false,
+    onChange: noop,
+    onScroll: noop,
+    appear: true,
+    componentProps: {},
+  }
+
   constructor(props) {
     super(props);
     this.children = toArrayChildren(props.children);
@@ -60,7 +83,8 @@ class ScrollOverPack extends ScrollElement {
   }
 
   render() {
-    const { ...placeholderProps } = this.props;
+    const { ...props } = this.props;
+    const { componentProps, appear, component } = props;
     [
       'playScale',
       'replay',
@@ -72,16 +96,17 @@ class ScrollOverPack extends ScrollElement {
       'targetId',
       'onScroll',
       'onChange',
-    ].forEach(key => delete placeholderProps[key]);
+      'componentProps',
+    ].forEach(key => delete props[key]);
     let childToRender;
     if (!this.oneEnter) {
-      const show = !this.props.appear;
-      const children = toArrayChildren(this.props.children).map(item => (
+      const show = !appear;
+      const children = toArrayChildren(props.children).map(item => (
         item.type.isTweenOne ?
           React.cloneElement(item, { ...item.props, paused: !show }) :
           React.cloneElement(item, item.props, show && item.props.children)
       ));
-      childToRender = createElement(this.props.component, { ...placeholderProps }, children);
+      childToRender = createElement(component, { ...props, ...componentProps }, children);
       this.oneEnter = true;
     } else {
       if (!this.state.show) {
@@ -98,35 +123,11 @@ class ScrollOverPack extends ScrollElement {
       } else {
         this.children = this.state.children;
       }
-      childToRender = createElement(this.props.component, { ...placeholderProps }, this.children);
+      childToRender = createElement(component, { ...props, ...componentProps }, this.children);
     }
     return childToRender;
   }
 }
-ScrollOverPack.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  playScale: PropTypes.any,
-  always: PropTypes.bool,
-  scrollEvent: PropTypes.func,
-  children: PropTypes.any,
-  className: PropTypes.string,
-  style: PropTypes.any,
-  replay: PropTypes.bool,
-  onChange: PropTypes.func,
-  onScroll: PropTypes.func,
-  appear: PropTypes.bool,
-};
-
-ScrollOverPack.defaultProps = {
-  component: 'div',
-  playScale: 0.5,
-  always: true,
-  scrollEvent: noop,
-  replay: false,
-  onChange: noop,
-  onScroll: noop,
-  appear: true,
-};
 ScrollOverPack.isScrollOverPack = true;
 
 export default ScrollOverPack;

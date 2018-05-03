@@ -2,7 +2,7 @@ let __mapped = {
   __arr: [],
 };
 
-export default{
+export default {
   unMount() {
     __mapped = { __arr: [] };
   },

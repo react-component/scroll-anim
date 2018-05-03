@@ -1,3 +1,6 @@
+## 2.5.0
+1. 全系列增加 componentProps.
+
 ## 2.4.0
 1. 将 replay 迁至 scrollElement， replay 为 false 时， 上出场和上进场将不触发。
 2. 增加 onScroll 事件。

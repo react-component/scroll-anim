@@ -7,14 +7,44 @@ import PropTypes from 'prop-types';
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
-import { transformArguments, currentScrollTop, windowHeight } from './util';
-
-function noop() {
-}
+import { noop, transformArguments, currentScrollTop, windowHeight } from './util';
 
 let scrollLinkLists = [];
 
 class ScrollLink extends React.Component {
+  static propTypes = {
+    component: PropTypes.any,
+    children: PropTypes.any,
+    className: PropTypes.string,
+    style: PropTypes.any,
+    offsetTop: PropTypes.number,
+    duration: PropTypes.number,
+    active: PropTypes.string,
+    to: PropTypes.string,
+    targetId: PropTypes.string,
+    showHeightActive: PropTypes.any,
+    toShowHeight: PropTypes.bool,
+    ease: PropTypes.string,
+    onClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    toHash: PropTypes.bool,
+    componentProps: PropTypes.object,
+  }
+  static defaultProps = {
+    component: 'div',
+    offsetTop: 0,
+    duration: 450,
+    active: 'active',
+    showHeightActive: '50%',
+    ease: 'easeInOutQuad',
+    toHash: false,
+    onClick: noop,
+    onFocus: noop,
+    onBlur: noop,
+    componentProps: {},
+  }
+
   constructor() {
     super(...arguments);
     this.rafID = -1;
@@ -155,7 +185,7 @@ class ScrollLink extends React.Component {
 
   render() {
     const active = this.state.active ? this.props.active : '';
-    const onClick = this.props.onClick;
+    const { onClick, componentProps } = this.props;
     const props = {
       ...this.props,
       onClick: (e) => {
@@ -174,46 +204,15 @@ class ScrollLink extends React.Component {
       'targetId',
       'to',
       'toHash',
+      'componentProps',
     ].forEach(key => delete props[key]);
     const reg = new RegExp(active, 'ig');
     const className = props.className || '';
     props.className = className.indexOf(active) === -1 ?
       `${className} ${active}`.trim() : className.replace(reg, '').trim();
-    return createElement(this.props.component, props);
+    return createElement(this.props.component, { ...props, ...componentProps });
   }
 }
-
-ScrollLink.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  children: PropTypes.any,
-  className: PropTypes.string,
-  style: PropTypes.any,
-  offsetTop: PropTypes.number,
-  duration: PropTypes.number,
-  active: PropTypes.string,
-  to: PropTypes.string,
-  targetId: PropTypes.string,
-  showHeightActive: PropTypes.any,
-  toShowHeight: PropTypes.bool,
-  ease: PropTypes.string,
-  onClick: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  toHash: PropTypes.bool,
-};
-
-ScrollLink.defaultProps = {
-  component: 'div',
-  offsetTop: 0,
-  duration: 450,
-  active: 'active',
-  showHeightActive: '50%',
-  ease: 'easeInOutQuad',
-  toHash: false,
-  onClick: noop,
-  onFocus: noop,
-  onBlur: noop,
-};
 ScrollLink.isScrollLink = true;
 
 export default ScrollLink;

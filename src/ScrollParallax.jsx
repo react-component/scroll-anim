@@ -5,12 +5,9 @@ import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Timeline from 'rc-tween-one/lib/Tween';
 import ticker from 'rc-tween-one/lib/ticker';
-import { dataToArray, objectEqual, currentScrollTop, windowHeight } from './util';
+import { noop, dataToArray, objectEqual, currentScrollTop, windowHeight } from './util';
 
 let tickerId = 0;
-
-function noop() {
-}
 
 function playScaleToArray(playScale) {
   if (Array.isArray(playScale)) {
@@ -25,6 +22,24 @@ function playScaleToArray(playScale) {
 }
 
 class ScrollParallax extends React.Component {
+  static propTypes = {
+    component: PropTypes.any,
+    animation: PropTypes.any,
+    always: PropTypes.bool,
+    location: PropTypes.string,
+    children: PropTypes.any,
+    className: PropTypes.string,
+    style: PropTypes.any,
+    id: PropTypes.string,
+    targetId: PropTypes.string,
+    componentProps: PropTypes.object,
+  }
+  static defaultProps = {
+    component: 'div',
+    always: true,
+    componentProps: {},
+  }
+
   constructor(props) {
     super(props);
     this.scrollTop = 0;
@@ -182,6 +197,7 @@ class ScrollParallax extends React.Component {
 
   render() {
     const props = { ...this.props };
+    const { componentProps } = props;
     [
       'animation',
       'always',
@@ -189,6 +205,7 @@ class ScrollParallax extends React.Component {
       'location',
       'id',
       'targetId',
+      'componentProps',
     ].forEach(key => delete props[key]);
     const style = { ...props.style };
     for (const p in style) {
@@ -201,25 +218,9 @@ class ScrollParallax extends React.Component {
       }
     }
     props.style = style;
-    return React.createElement(this.props.component, props);
+    return React.createElement(this.props.component, { ...props, ...componentProps });
   }
 }
 
-ScrollParallax.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  animation: PropTypes.any,
-  always: PropTypes.bool,
-  location: PropTypes.string,
-  children: PropTypes.any,
-  className: PropTypes.string,
-  style: PropTypes.any,
-  id: PropTypes.string,
-  targetId: PropTypes.string,
-};
-
-ScrollParallax.defaultProps = {
-  component: 'div',
-  always: true,
-};
 ScrollParallax.isScrollParallax = true;
 export default ScrollParallax;

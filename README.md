@@ -126,6 +126,7 @@ ScrollAnim.scrollScreen.unMount();
 | onChange  | func           | null     | change callback({ mode, id }); mode: `enter` or `leave` |
 | onScroll  | func           | null     | scroll callback({ domEvent, showHeight, offsetTop, scrollTop, id }). |
 | location  | string         | null     |  v0.6.0 above have,location, the parent id; |
+| componentProps | object | null | component props. |
 
 > Note: if the element is not the above component, you need to location this element; please use the `Element`
 
@@ -139,6 +140,7 @@ OverPack inherit Element; `component` `playScale` `onChange`  `onScroll` `locati
 |-----------|----------------|---------|----------------|
 | always    | boolean        | `true`  | back to top, enter replay，as `false` will only play it again, leave does not play |
 | appear | boolean         | `true`  | whether support appear the operation |
+| componentProps | object | null | component props. |
 
 ### Parallax
 | name      | type           | default | description    |
@@ -148,6 +150,7 @@ OverPack inherit Element; `component` `playScale` `onChange`  `onScroll` `locati
 | always    | boolean        | `true`  | -            |
 | targetId  |  string        | null    | refer Element `targetId` |
 | component | string         | `div`   | -            |
+| componentProps | object | null | component props. |
 
 #### animation = { }
 | name      | type           | default | description    |
@@ -182,6 +185,7 @@ OverPack inherit Element; `component` `playScale` `onChange`  `onScroll` `locati
 | onFocus   | func           | null    | check callback,onFocus({target,to}) |
 | onBlur    | func           | null    | blur callback |
 | component | string         | `div`   | -            |
+| componentProps | object | null | component props. |
 
 ### ScrollAnim.scrollScreen.init(vars)
 Use: scroll a screen window;

@@ -3,11 +3,28 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import mapped from './Mapped';
 import EventListener from './EventDispatcher';
-import { currentScrollTop, transformArguments, windowHeight } from './util';
+import { noop, currentScrollTop, transformArguments, windowHeight } from './util';
 
-const noop = () => {
-};
 class ScrollElement extends React.Component {
+  static propTypes = {
+    component: PropTypes.any,
+    playScale: PropTypes.any,
+    id: PropTypes.string,
+    onChange: PropTypes.func,
+    onScroll: PropTypes.func,
+    location: PropTypes.string,
+    targetId: PropTypes.string,
+    replay: PropTypes.bool,
+    componentProps: PropTypes.object,
+  }
+  static defaultProps = {
+    component: 'div',
+    onChange: noop,
+    onScroll: noop,
+    playScale: 0.5,
+    replay: false,
+    componentProps: {},
+  }
   componentDidMount() {
     this.dom = ReactDOM.findDOMNode(this);
     if (this.props.location) {
@@ -90,6 +107,7 @@ class ScrollElement extends React.Component {
 
   render() {
     const { ...props } = this.props;
+    const { componentProps, component } = props;
     [
       'component',
       'playScale',
@@ -98,28 +116,10 @@ class ScrollElement extends React.Component {
       'onScroll',
       'onChange',
       'replay',
+      'componentProps',
     ].forEach(key => delete props[key]);
-    return React.createElement(this.props.component, { ...props });
+    return React.createElement(component, { ...props, ...componentProps });
   }
 }
-
-ScrollElement.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  playScale: PropTypes.any,
-  id: PropTypes.string,
-  onChange: PropTypes.func,
-  onScroll: PropTypes.func,
-  location: PropTypes.string,
-  targetId: PropTypes.string,
-  replay: PropTypes.bool,
-};
-
-ScrollElement.defaultProps = {
-  component: 'div',
-  onChange: noop,
-  onScroll: noop,
-  playScale: 0.5,
-  replay: false,
-};
 ScrollElement.isScrollElement = true;
 export default ScrollElement;
