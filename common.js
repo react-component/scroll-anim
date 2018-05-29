@@ -2439,7 +2439,7 @@ function isPrimitive(value) {
 /* 52 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.5.1","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^1.7.0","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.5.2","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^1.7.0","tween-functions":"1.x"}}
 
 /***/ }),
 /* 53 */
@@ -4980,6 +4980,12 @@ var ScrollScreen = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export OverPack */
+/* unused harmony export Parallax */
+/* unused harmony export Element */
+/* unused harmony export Link */
+/* unused harmony export Event */
+/* unused harmony export scrollScreen */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ScrollOverPack__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ScrollParallax__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ScrollLink__ = __webpack_require__(107);
@@ -4993,6 +4999,13 @@ var ScrollScreen = {
 
 
 
+
+var OverPack = __WEBPACK_IMPORTED_MODULE_0__ScrollOverPack__["a" /* default */];
+var Parallax = __WEBPACK_IMPORTED_MODULE_1__ScrollParallax__["a" /* default */];
+var Element = __WEBPACK_IMPORTED_MODULE_3__ScrollElement__["a" /* default */];
+var Link = __WEBPACK_IMPORTED_MODULE_2__ScrollLink__["a" /* default */];
+var Event = __WEBPACK_IMPORTED_MODULE_4__EventDispatcher__["a" /* default */];
+var scrollScreen = __WEBPACK_IMPORTED_MODULE_5__ScrollScreen__["a" /* default */];
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   OverPack: __WEBPACK_IMPORTED_MODULE_0__ScrollOverPack__["a" /* default */],
