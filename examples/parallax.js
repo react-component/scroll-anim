@@ -185,7 +185,7 @@ class Demo extends React.Component {
           />
         </ScrollParallax>
         <ScrollParallax
-          animation={{ translateY: -100, opacity: 1, ease: 'linear', playScale: [0, 1] }}
+          animation={{ translateY: -100, opacity: 1, ease: 'linear', playScale: [0, 1.2] }}
           style={{ transform: 'translateY(320px)', color: '#fff' }}
         >
           <img
