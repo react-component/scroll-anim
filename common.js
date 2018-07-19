@@ -1577,12 +1577,13 @@ EventDispatcher.prototype = {
     var types = type.split('.');
     var _type = types[0];
     var namespaces = types[1];
-    var list = this._listeners[_type];
+    var listName = '' + _type + (target ? '_' + target.getAttribute('id') : '');
+    var list = this._listeners[listName];
     var index = 0;
     var listener = void 0;
     var i = void 0;
     if (!list) {
-      this._listeners[_type] = list = [];
+      this._listeners[listName] = list = [];
     }
     i = list.length;
 
@@ -1594,14 +1595,14 @@ EventDispatcher.prototype = {
         index = i + 1;
       }
     }
-
+    var $target = target || this._eventTarget;
     list.splice(index, 0, { c: callback, n: namespaces, t: _type });
-    if (!this._listFun[_type]) {
-      this._listFun[_type] = this._listFun[_type] || this.dispatchEvent.bind(this, _type);
-      if (this._eventTarget.addEventListener) {
-        (target || this._eventTarget).addEventListener(_type, this._listFun[_type], false);
-      } else if (this._eventTarget.attachEvent) {
-        (target || this._eventTarget).attachEvent('on' + _type, this._listFun[_type]);
+    if (!this._listFun[listName]) {
+      this._listFun[listName] = this._listFun[listName] || this.dispatchEvent.bind(this, _type);
+      if ($target.addEventListener) {
+        $target.addEventListener(_type, this._listFun[listName], false);
+      } else if ($target.attachEvent) {
+        $target.attachEvent('on' + _type, this._listFun[listName]);
       }
     }
   },
@@ -1609,7 +1610,8 @@ EventDispatcher.prototype = {
     var types = type.split('.');
     var _type = types[0];
     var namespaces = types[1];
-    var list = this._listeners[_type];
+    var listName = '' + _type + (target ? '_' + target.getAttribute('id') : '');
+    var list = this._listeners[listName];
     var i = void 0;
     var _force = force;
     if (!namespaces) {
@@ -1617,17 +1619,18 @@ EventDispatcher.prototype = {
     }
     if (list) {
       i = list.length;
+      var $target = target || this._eventTarget;
       while (--i > -1) {
         if (list[i].c === callback && (_force || list[i].n === namespaces)) {
           list.splice(i, 1);
           if (!list.length) {
-            var func = this._listFun[_type];
-            delete this._listeners[_type];
-            delete this._listFun[_type];
-            if (this._eventTarget.removeEventListener) {
-              (target || this._eventTarget).removeEventListener(_type, func);
-            } else if (this._eventTarget.detachEvent) {
-              (target || this._eventTarget).detachEvent('on' + _type, func);
+            var func = this._listFun[listName];
+            delete this._listeners[listName];
+            delete this._listFun[listName];
+            if ($target.removeEventListener) {
+              $target.removeEventListener(_type, func);
+            } else if ($target.detachEvent) {
+              $target.detachEvent('on' + _type, func);
             }
           }
           if (!_force) {
@@ -1638,7 +1641,9 @@ EventDispatcher.prototype = {
     }
   },
   dispatchEvent: function dispatchEvent(type, e) {
-    var list = this._listeners[type];
+    var target = e.target;
+    var listName = '' + type + (target.getAttribute ? '_' + target.getAttribute('id') : '');
+    var list = this._listeners[listName];
     var i = void 0;
     var t = void 0;
     var listener = void 0;
@@ -1660,7 +1665,8 @@ EventDispatcher.prototype = {
     var types = type.split('.');
     var _type = types[0];
     var namespaces = types[1];
-    var list = this._listeners[_type];
+    var listName = '' + _type + (target ? '_' + target.getAttribute('id') : '');
+    var list = this._listeners[listName];
     this.recoverLists = this.recoverLists.concat(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["b" /* dataToArray */])(list).filter(function (item) {
       return item.n && item.n.match(namespaces);
     }));
@@ -2403,7 +2409,7 @@ function isPrimitive(value) {
 /* 51 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.5.3","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.1.0","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.5.4","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.1.0","tween-functions":"1.x"}}
 
 /***/ }),
 /* 52 */
@@ -4085,18 +4091,19 @@ var ScrollLink = function (_React$Component) {
         return;
       }
       _this.scrollTop = _this.target ? _this.target.scrollTop : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util__["a" /* currentScrollTop */])();
-      var toTop = Math.round(elementRect.top + _this.scrollTop) - _this.props.offsetTop;
+      var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
+      var toTop = Math.round(elementRect.top + _this.scrollTop) - _this.props.offsetTop - targetTop;
       var t = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util__["c" /* transformArguments */])(_this.props.showHeightActive)[0];
       var toShow = t.match('%') ? _this.clientHeight * parseFloat(t) / 100 : t;
       _this.toTop = _this.props.toShowHeight ? toTop - toShow + 0.5 : toTop;
       _this.initTime = Date.now();
       _this.rafID = __WEBPACK_IMPORTED_MODULE_9_raf___default()(_this.raf);
-      scrollLinkLists.forEach(function (item) {
-        if (item !== _this) {
+      /* scrollLinkLists.forEach(item => {
+        if (item !== this) {
           item.remActive();
         }
       });
-      _this.addActive();
+      this.addActive(); */
     };
 
     _this.getElement = function () {
@@ -4172,7 +4179,8 @@ var ScrollLink = function (_React$Component) {
         return;
       }
       var elementClientHeight = elementDom.clientHeight;
-      var top = Math.round(-elementRect.top);
+      var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
+      var top = Math.round(-elementRect.top + targetTop);
       var showHeightActive = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util__["c" /* transformArguments */])(_this.props.showHeightActive);
       var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * _this.clientHeight : parseFloat(showHeightActive[0]);
       var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * _this.clientHeight : parseFloat(showHeightActive[1]);
