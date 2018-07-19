@@ -10,12 +10,13 @@ EventDispatcher.prototype = {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
-    let list = this._listeners[_type];
+    const listName = `${_type}${target ? target.getAttribute('id') : ''}`;
+    let list = this._listeners[listName];
     let index = 0;
     let listener;
     let i;
     if (!list) {
-      this._listeners[_type] = list = [];
+      this._listeners[listName] = list = [];
     }
     i = list.length;
 
@@ -29,12 +30,12 @@ EventDispatcher.prototype = {
     }
 
     list.splice(index, 0, { c: callback, n: namespaces, t: _type });
-    if (!this._listFun[_type]) {
-      this._listFun[_type] = this._listFun[_type] || this.dispatchEvent.bind(this, _type);
+    if (!this._listFun[listName]) {
+      this._listFun[listName] = this._listFun[listName] || this.dispatchEvent.bind(this, _type, target);
       if (this._eventTarget.addEventListener) {
-        (target || this._eventTarget).addEventListener(_type, this._listFun[_type], false);
+        (target || this._eventTarget).addEventListener(_type, this._listFun[listName], false);
       } else if (this._eventTarget.attachEvent) {
-        (target || this._eventTarget).attachEvent(`on${_type}`, this._listFun[_type]);
+        (target || this._eventTarget).attachEvent(`on${_type}`, this._listFun[listName]);
       }
     }
   },
@@ -43,7 +44,8 @@ EventDispatcher.prototype = {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
-    const list = this._listeners[_type];
+    const listName = `${_type}${target ? target.getAttribute('id') : ''}`;
+    const list = this._listeners[listName];
     let i;
     let _force = force;
     if (!namespaces) {
@@ -55,9 +57,9 @@ EventDispatcher.prototype = {
         if (list[i].c === callback && (_force || list[i].n === namespaces)) {
           list.splice(i, 1);
           if (!list.length) {
-            const func = this._listFun[_type];
-            delete this._listeners[_type];
-            delete this._listFun[_type];
+            const func = this._listFun[listName];
+            delete this._listeners[listName];
+            delete this._listFun[listName];
             if (this._eventTarget.removeEventListener) {
               (target || this._eventTarget).removeEventListener(_type, func);
             } else if (this._eventTarget.detachEvent) {
@@ -72,8 +74,9 @@ EventDispatcher.prototype = {
     }
   },
 
-  dispatchEvent(type, e) {
-    const list = this._listeners[type];
+  dispatchEvent(type, target, e) {
+    const listName = `${type}${target ? target.getAttribute('id') : ''}`;
+    const list = this._listeners[listName];
     let i;
     let t;
     let listener;
@@ -93,7 +96,8 @@ EventDispatcher.prototype = {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
-    const list = this._listeners[_type];
+    const listName = `${type}${target ? target.getAttribute('id') : ''}`;
+    const list = this._listeners[listName];
     this.recoverLists = this.recoverLists.concat(dataToArray(list).filter(item =>
       item.n && item.n.match(namespaces)
     ));
