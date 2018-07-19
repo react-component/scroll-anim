@@ -81,19 +81,20 @@ class ScrollLink extends React.Component {
       return;
     }
     this.scrollTop = this.target ? this.target.scrollTop : currentScrollTop();
-    const toTop = Math.round(elementRect.top + this.scrollTop) - this.props.offsetTop;
+    const targetTop = this.target ? this.target.getBoundingClientRect().top : 0;
+    const toTop = Math.round(elementRect.top + this.scrollTop) - this.props.offsetTop - targetTop;
     const t = transformArguments(this.props.showHeightActive)[0];
     const toShow = t.match('%') ? this.clientHeight * parseFloat(t) / 100 : t;
     this.toTop = this.props.toShowHeight ?
       toTop - toShow + 0.5 : toTop;
     this.initTime = Date.now();
     this.rafID = requestAnimationFrame(this.raf);
-    scrollLinkLists.forEach(item => {
+    /* scrollLinkLists.forEach(item => {
       if (item !== this) {
         item.remActive();
       }
     });
-    this.addActive();
+    this.addActive(); */
   }
 
   getElement = () => {
@@ -167,7 +168,8 @@ class ScrollLink extends React.Component {
       return;
     }
     const elementClientHeight = elementDom.clientHeight;
-    const top = Math.round(- elementRect.top);
+    const targetTop = this.target ? this.target.getBoundingClientRect().top : 0;
+    const top = Math.round(- elementRect.top + targetTop);
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
       parseFloat(showHeightActive[0]) / 100 * this.clientHeight :
