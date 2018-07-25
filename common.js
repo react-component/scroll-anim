@@ -2409,7 +2409,7 @@ function isPrimitive(value) {
 /* 51 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.5.4","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.1.0","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.5.5","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage"},"devDependencies":{"core-js":"^2.5.1","expect.js":"0.3.x","pre-commit":"1.x","rc-test":"6.x","rc-tools":"6.x","react":"^16.0.0","react-dom":"^16.0.0","rc-animate":"2.x","rc-queue-anim":"^1.3.0"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.1.0","tween-functions":"1.x"}}
 
 /***/ }),
 /* 52 */
@@ -4098,18 +4098,18 @@ var ScrollLink = function (_React$Component) {
       _this.toTop = _this.props.toShowHeight ? toTop - toShow + 0.5 : toTop;
       _this.initTime = Date.now();
       _this.rafID = __WEBPACK_IMPORTED_MODULE_9_raf___default()(_this.raf);
-      /* scrollLinkLists.forEach(item => {
-        if (item !== this) {
+      scrollLinkLists.forEach(function (item) {
+        if (item !== _this) {
           item.remActive();
         }
       });
-      this.addActive(); */
+      _this.addActive();
     };
 
     _this.getElement = function () {
       _this.clientHeight = _this.target ? _this.target.clientHeight : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util__["d" /* windowHeight */])();
       var elementDom = document.getElementById(_this.props.to);
-      var elementRect = elementDom.getBoundingClientRect();
+      var elementRect = elementDom && elementDom.getBoundingClientRect();
       return { elementDom: elementDom, elementRect: elementRect };
     };
 
@@ -4409,7 +4409,8 @@ var ScrollOverPack = function (_ScrollElement) {
           if (!item) {
             return null;
           }
-          return item.type.isTweenOne ? __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, item.props, { paused: !show })) : __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, item.props, show && item.props.children);
+          var key = item.key || (Date.now() + Math.random()).toString(16).replace('.', '');
+          return item.type.isTweenOne ? __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, item.props, { key: key, paused: !show })) : __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, item.props, { key: key }), show && item.props.children);
         });
         childToRender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_react__["createElement"])(component, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, props, componentProps), children);
         this.oneEnter = true;
@@ -4419,11 +4420,12 @@ var ScrollOverPack = function (_ScrollElement) {
             if (!item) {
               return null;
             }
+            var key = item.key || (Date.now() + Math.random()).toString(16).replace('.', '');
             // 判断 TweenOne;
             if (item.type.isTweenOne) {
-              return __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, { reverse: true });
+              return __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, { key: key, reverse: true });
             }
-            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, {}, null);
+            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(item, { key: key }, null);
           });
         } else {
           this.children = this.state.children;
