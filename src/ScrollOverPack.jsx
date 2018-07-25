@@ -105,10 +105,11 @@ class ScrollOverPack extends ScrollElement {
         if (!item) {
           return null;
         }
+        const key = item.key || (Date.now() + Math.random()).toString(16).replace('.', '');
         return (
           item.type.isTweenOne ?
-            React.cloneElement(item, { ...item.props, paused: !show }) :
-            React.cloneElement(item, item.props, show && item.props.children)
+            React.cloneElement(item, { ...item.props, key, paused: !show }) :
+            React.cloneElement(item, { ...item.props, key }, show && item.props.children)
         );
       });
       childToRender = createElement(component, { ...props, ...componentProps }, children);
@@ -119,11 +120,12 @@ class ScrollOverPack extends ScrollElement {
           if (!item) {
             return null;
           }
+          const key = item.key || (Date.now() + Math.random()).toString(16).replace('.', '');
           // 判断 TweenOne;
           if (item.type.isTweenOne) {
-            return React.cloneElement(item, { reverse: true });
+            return React.cloneElement(item, { key, reverse: true });
           }
-          return React.cloneElement(item, {}, null);
+          return React.cloneElement(item, { key }, null);
         });
       } else {
         this.children = this.state.children;

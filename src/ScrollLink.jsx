@@ -89,18 +89,18 @@ class ScrollLink extends React.Component {
       toTop - toShow + 0.5 : toTop;
     this.initTime = Date.now();
     this.rafID = requestAnimationFrame(this.raf);
-    /* scrollLinkLists.forEach(item => {
+    scrollLinkLists.forEach(item => {
       if (item !== this) {
         item.remActive();
       }
     });
-    this.addActive(); */
+    this.addActive();
   }
 
   getElement = () => {
     this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
     const elementDom = document.getElementById(this.props.to);
-    const elementRect = elementDom.getBoundingClientRect();
+    const elementRect = elementDom && elementDom.getBoundingClientRect();
     return { elementDom, elementRect };
   }
 
