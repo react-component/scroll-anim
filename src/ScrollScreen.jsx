@@ -22,14 +22,12 @@ const ScrollScreen = {
     this.toHeight = -1;
     this.num = 0;
     // this.currentNum = 0;
-    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll', 'isScroll']
-      .forEach((method) => this[method] = this[method].bind(this));
     EventListener.addEventListener('wheel.scrollWheel', this.onWheel);
     // 刚进入时滚动条位置
     setTimeout(this.startScroll);
   },
 
-  startScroll() {
+  startScroll: () => {
     const _mapped = mapped.getMapped();
     const _arr = _mapped.__arr;
     if (!_arr.length) {
@@ -64,7 +62,7 @@ const ScrollScreen = {
       this.toHeight = -1;
     }
   },
-  raf() {
+  raf: () => {
     const duration = this.vars.duration;
     const now = Date.now();
     const progressTime = now - this.initTime > duration ? duration : now - this.initTime;
@@ -80,14 +78,14 @@ const ScrollScreen = {
       this.rafID = requestAnimationFrame(this.raf);
     }
   },
-  cancelRequestAnimationFrame() {
+  cancelRequestAnimationFrame: () => {
     requestAnimationFrame.cancel(this.rafID);
     this.rafID = -1;
   },
-  getComputedStyle(dom) {
+  getComputedStyle: (dom) => {
     return document.defaultView ? document.defaultView.getComputedStyle(dom) : {};
   },
-  isScroll(dom) {
+  isScroll: (dom) => {
     const style = this.getComputedStyle(dom);
     const overflow = style.overflow;
     const overflowY = style.overflowY;
@@ -102,7 +100,7 @@ const ScrollScreen = {
     }
     return this.isScroll(dom.parentNode);
   },
-  onWheel(e) {
+  onWheel: (e) => {
     const _mapped = mapped.getMapped();
     if (!_mapped.__arr.length) {
       EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
@@ -162,7 +160,7 @@ const ScrollScreen = {
       const currentDom = mapped.get(mapped.getMapped().__arr[this.num]);
       this.toHeight = currentDom ? currentDom.offsetTop : null;
       this.toHeight = typeof this.toHeight !== 'number' ?
-      endDom.offsetTop + endDom.getBoundingClientRect().height +
+        endDom.offsetTop + endDom.getBoundingClientRect().height +
       windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
       this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
       this.toHeight = this.toHeight > docHeight - windowHeight ?
@@ -171,7 +169,7 @@ const ScrollScreen = {
       this.currentNum = this.num;
     }
   },
-  unMount() {
+  unMount: () => {
     EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
   },
 };

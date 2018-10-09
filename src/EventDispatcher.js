@@ -1,4 +1,5 @@
 import { dataToArray } from './util';
+
 function EventDispatcher(target) {
   this._listeners = {};
   this._eventTarget = target || {};
@@ -16,7 +17,8 @@ EventDispatcher.prototype = {
     let listener;
     let i;
     if (!list) {
-      this._listeners[listName] = list = [];
+      this._listeners[listName] = [];
+      list = [];
     }
     i = list.length;
 
@@ -120,10 +122,5 @@ EventDispatcher.prototype = {
     }).filter(item => item);
   },
 };
-let event;
-if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-  event = new EventDispatcher(window);
-} else {
-  event = new EventDispatcher();
-}
-export default event;
+export default new EventDispatcher(typeof window !== 'undefined'
+  && typeof document !== 'undefined' && window);;

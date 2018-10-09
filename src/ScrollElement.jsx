@@ -58,7 +58,7 @@ class ScrollElement extends React.Component {
     const offsetTop = domRect.top + scrollTop - targetTop;
     this.elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const playScale = transformArguments(this.props.playScale);
-    const playScaleEnterArray = /([\+\-]?[0-9#\.]+)(px|vh|%)?/.exec(String(playScale[0]));
+    const playScaleEnterArray = /([\+\-]?[0-9#\.]+)(px|vh|%)?/.exec(String(playScale[0]));// eslint-disable-line
     if (!playScaleEnterArray[2]) {
       this.playHeight = this.clientHeight * parseFloat(playScale[0]);
     } else if (playScaleEnterArray[2] === 'px') {
@@ -67,7 +67,7 @@ class ScrollElement extends React.Component {
       this.playHeight = this.clientHeight * parseFloat(playScaleEnterArray[1]) / 100;
     }
     const leaveHeight = domRect.height;
-    const playScaleLeaveArray = /([\+\-]?[0-9#\.]+)(px|vh|%)?/.exec(String(playScale[1]));
+    const playScaleLeaveArray = /([\+\-]?[0-9#\.]+)(px|vh|%)?/.exec(String(playScale[1]));// eslint-disable-line
     if (!playScaleLeaveArray[2]) {
       this.leavePlayHeight = leaveHeight * parseFloat(playScale[1]);
     } else if (playScaleLeaveArray[2] === 'px') {

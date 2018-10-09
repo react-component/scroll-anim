@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
+
 const _package = require('../package.json');
 
 const Link = ScrollAnim.Link;
@@ -37,7 +38,7 @@ class Demo extends React.Component {
     if (!this.dom) {
       return;
     }
-    const bar = this.refs.bar;
+    const bar = this.bar;
     bar.style.left = `${this.dom.getBoundingClientRect().left}px`;
   }
 
@@ -72,7 +73,7 @@ class Demo extends React.Component {
           >
             Example4
           </Link>
-          <div ref="bar" className="nav-bar" />
+          <div ref={(c) => { this.bar = c; }} className="nav-bar" />
         </div>
       </div>
       <Element className="pack-page page0" id="page0" onChange={this.onChange}>
@@ -90,10 +91,10 @@ class Demo extends React.Component {
           默认进入与出场
         </TweenOne>
         <QueueAnim key="1">
-          <div key="0" className="demo"></div>
-          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }}></div>
-          <div key="2" className="demo"></div>
-          <div key="3" className="demo"></div>
+          <div key="0" className="demo" />
+          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }} />
+          <div key="2" className="demo" />
+          <div key="3" className="demo" />
         </QueueAnim>
       </ScrollOverPack>
 
@@ -105,7 +106,7 @@ class Demo extends React.Component {
       >
         <div className="page2-title">只进入一次</div>
         <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo2"></div>
+          <div className="demo2" />
         </Animate>
         <TweenOne
           className="demo2"
@@ -127,7 +128,7 @@ class Demo extends React.Component {
           在页面80％时进入
         </TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo"></div>
+          <div className="demo" />
         </Animate>
         <TweenOne
           className="demo"

@@ -45,8 +45,8 @@ class ScrollLink extends React.Component {
     componentProps: {},
   }
 
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.rafID = -1;
     this.state = {
       active: false,
@@ -121,7 +121,7 @@ class ScrollLink extends React.Component {
       }, () => {
         if (this.props.toHash) {
           const link = `#${this.props.to}`;
-          history.pushState(null, window.title, link);
+          history.pushState(null, window.title, link);// eslint-disable-line
         }
       });
     }

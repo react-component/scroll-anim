@@ -2,9 +2,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
-import ScrollAnim from '../index';
 import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
+import ScrollAnim from '../index';
+
 require('./link.spec.less');
 
 describe('rc-scroll-anim', () => {
@@ -12,18 +13,15 @@ describe('rc-scroll-anim', () => {
   let instance;
 
   function createScrollLink(props) {
-    class LinkDemo extends React.Component {
-      constructor() {
-        super(...arguments);
-      }
+    class LinkDemo extends React.PureComponent {
 
-      onFocus(e) {
+      onFocus = (e) => {
         const dom = e.target;
         this.barAnimate(dom);
       }
 
-      barAnimate(dom) {
-        const bar = this.refs.bar;
+      barAnimate = (dom) => {
+        const bar = this.bar;
         bar.style.left = `${dom.getBoundingClientRect().left}px`;
       }
 
@@ -38,7 +36,7 @@ describe('rc-scroll-anim', () => {
               to="page0"
               {...this.props}
               targetId="c-div"
-              onFocus={this.onFocus.bind(this)}
+              onFocus={this.onFocus}
             >
               page0
             </ScrollAnim.Link>
@@ -47,11 +45,11 @@ describe('rc-scroll-anim', () => {
               to="page1"
               {...this.props}
               targetId="c-div"
-              onFocus={this.onFocus.bind(this)}
+              onFocus={this.onFocus}
             >
               page1
             </ScrollAnim.Link>
-            <div ref="bar" className="nav-bar"></div>
+            <div ref={(c) => { this.bar = c; }} className="nav-bar" />
           </div>
           <ScrollAnim.Element style={{ height: 1000 }} id="page0" className="page" targetId="c-div">
             示例

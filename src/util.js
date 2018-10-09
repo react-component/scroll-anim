@@ -29,6 +29,8 @@ export function transformArguments(arg) {
   return [arg, arg];
 }
 
+
+
 export function objectEqual(obj1, obj2) {
   if (!obj1 || !obj2) {
     return false;
@@ -37,27 +39,30 @@ export function objectEqual(obj1, obj2) {
     return true;
   }
   let equalBool = true;
+  function forEachData(current, next) {
+    Object.keys(current).forEach(p => {
+      if (current[p] !== next[p]) {
+        if (typeof current[p] === 'object' && typeof next[p] === 'object') {
+          equalBool = objectEqual(current[p], next[p]);
+        } else {
+          equalBool = false;
+          
+        }
+      }
+    });
+  }
   if (Array.isArray(obj1) && Array.isArray(obj2)) {
     for (let i = 0; i < obj1.length; i++) {
       const currentObj = obj1[i];
       const nextObj = obj2[i];
-      for (const p in currentObj) {
-        if (currentObj[p] !== nextObj[p]) {
-          if (typeof currentObj[p] === 'object' && typeof nextObj[p] === 'object') {
-            equalBool = objectEqual(currentObj[p], nextObj[p]);
-          } else {
-            equalBool = false;
-            return false;
-          }
-        }
-      }
+      forEachData(currentObj, nextObj);
     }
   }
 
   Object.keys(obj1).forEach(key => {
     if (!(key in obj2)) {
       equalBool = false;
-      return false;
+      return;
     }
 
     if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
@@ -74,7 +79,7 @@ export function objectEqual(obj1, obj2) {
   Object.keys(obj2).forEach(key => {
     if (!(key in obj1)) {
       equalBool = false;
-      return false;
+      return;
     }
     if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
       equalBool = objectEqual(obj2[key], obj1[key]);

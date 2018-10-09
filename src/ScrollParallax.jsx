@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
-import EventListener from './EventDispatcher';
 import easingTypes from 'tween-functions';
 import Timeline from 'rc-tween-one/lib/Tween';
 import ticker from 'rc-tween-one/lib/ticker';
+import EventListener from './EventDispatcher';
 import { noop, dataToArray, objectEqual, currentScrollTop, windowHeight } from './util';
 
 let tickerId = 0;
@@ -85,8 +85,10 @@ class ScrollParallax extends React.Component {
       delete aItem.playScale;
       const cItem = { ...item };
       delete cItem.playScale;
-      cItem.delay = aItem.delay = playScale[0];
-      cItem.duration = aItem.duration = playScale[1] - playScale[0];
+      cItem.delay = playScale[0];
+      aItem.delay = playScale[0];
+      cItem.duration = playScale[1] - playScale[0];
+      aItem.duration = playScale[1] - playScale[0];
       cItem.onStart = null;
       cItem.onUpdate = null;
       cItem.onComplete = null;
@@ -208,7 +210,7 @@ class ScrollParallax extends React.Component {
       'componentProps',
     ].forEach(key => delete props[key]);
     const style = { ...props.style };
-    for (const p in style) {
+    Object.keys(style).forEach(p => {
       if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {
         // ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix=> style[`${prefix}Filter`] = style[p]);
         const transformArr = ['Webkit', 'Moz', 'Ms', 'ms'];
@@ -216,7 +218,7 @@ class ScrollParallax extends React.Component {
           style[`${transformArr[i]}Filter`] = style[p];
         }
       }
-    }
+    });
     props.style = style;
     return React.createElement(this.props.component, { ...props, ...componentProps });
   }

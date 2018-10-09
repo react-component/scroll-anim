@@ -6,13 +6,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
+
 const _package = require('../package.json');
+
 const ScrollOverPack = ScrollAnim.OverPack;
 const Link = ScrollAnim.Link;
 class Demo extends React.Component {
-  constructor() {
-    super(...arguments);
-  }
 
   onFocus = (e) => {
     console.log(e, 'focus');
@@ -24,7 +23,7 @@ class Demo extends React.Component {
     if (!this.dom) {
       return;
     }
-    const bar = this.refs.bar;
+    const bar = this.bar;
     bar.style.left = `${this.dom.getBoundingClientRect().left}px`;
   }
 
@@ -56,7 +55,7 @@ class Demo extends React.Component {
           >
             Example3
           </Link>
-          <div ref="bar" className="nav-bar" />
+          <div ref={(c) => { this.bar = c; }} className="nav-bar" />
         </div>
       </div>
       <div className="pack-page page0" id="page0">
@@ -79,10 +78,10 @@ class Demo extends React.Component {
           默认进入与出场, 顶部出场
         </TweenOne>
         <QueueAnim key="1">
-          <div key="0" className="demo"></div>
-          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }}></div>
-          <div key="2" className="demo"></div>
-          <div key="3" className="demo"></div>
+          <div key="0" className="demo" />
+          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }} />
+          <div key="2" className="demo" />
+          <div key="3" className="demo" />
         </QueueAnim>
       </ScrollOverPack>
 
@@ -97,10 +96,10 @@ class Demo extends React.Component {
           默认出场直接出现
         </TweenOne>
         <QueueAnim key="1">
-          <div key="0" className="demo"></div>
-          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }}></div>
-          <div key="2" className="demo"></div>
-          <div key="3" className="demo"></div>
+          <div key="0" className="demo" />
+          <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }} />
+          <div key="2" className="demo" />
+          <div key="3" className="demo" />
         </QueueAnim>
       </ScrollOverPack>
 

@@ -2,9 +2,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
-import ScrollAnim from '../index';
 import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
+
+import ScrollAnim from '../index';
 
 const windowHeight = 500;
 const docHeight = 2000;
@@ -13,29 +14,23 @@ const endHeight = startHeight + windowHeight;
 describe('rc-scroll-anim', () => {
   let div;
   let instance;
-  function createScrollParallax(props) {
-    class ParallaxDemo extends React.Component {
-      constructor() {
-        super(...arguments);
-      }
-
-      render() {
-        return (<div
-          style={{ height: 500, overflow: 'scroll', position: 'absolute', width: '100%', top: 0 }}
-          id="c-div"
-        >
-          <div style={{ height: 1000 }}></div>
-          <div style={{ height: 1000 }}>
+  function createScrollParallax(cProps) {
+    function ParallaxDemo (props) {
+      return (<div
+        style={{ height: 500, overflow: 'scroll', position: 'absolute', width: '100%', top: 0 }}
+        id="c-div"
+      >
+        <div style={{ height: 1000 }} />
+        <div style={{ height: 1000 }}>
             -------------
-            <ScrollAnim.Parallax {...this.props} targetId="c-div">
+          <ScrollAnim.Parallax {...props} targetId="c-div">
               demo
-            </ScrollAnim.Parallax>
+          </ScrollAnim.Parallax>
             -------------
-          </div>
-        </div>);
-      }
+        </div>
+      </div>);
     }
-    return ReactDom.render(<ParallaxDemo {...props} />, div);
+    return ReactDom.render(<ParallaxDemo {...cProps} />, div);
   }
 
   beforeEach(() => {

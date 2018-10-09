@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
+
 const _package = require('../package.json');
 
 const Link = ScrollAnim.Link;
@@ -15,29 +16,21 @@ const ScrollOverPack = ScrollAnim.OverPack;
 const EventListener = ScrollAnim.Event;
 ScrollAnim.scrollScreen.init({ loop: true });
 class Demo extends React.Component {
-  constructor() {
-    super(...arguments);
-    [
-      'barAnimate',
-      'onFocus',
-    ].forEach((method) => this[method] = this[method].bind(this));
-  }
-
   componentDidMount() {
     // 添加改变窗口事件,可加setTimeout
     EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
   }
 
-  onFocus(e) {
+  onFocus = (e) => {
     this.dom = e.target;
     this.barAnimate();
   }
 
-  barAnimate() {
+  barAnimate = () => {
     if (!this.dom) {
       return;
     }
-    const bar = this.refs.bar;
+    const bar = this.bar;
     bar.style.left = `${this.dom.getBoundingClientRect().left}px`;
   }
 
@@ -77,7 +70,7 @@ class Demo extends React.Component {
           >
             Page3
           </Link>
-          <div ref="bar" className="nav-bar"></div>
+          <div ref={(c) => { this.bar = c; }} className="nav-bar" />
         </div>
       </div>
       <Element className="pack-page page0" id="page0">
@@ -102,10 +95,10 @@ class Demo extends React.Component {
             每次进入都启动播放
           </TweenOne>
           <QueueAnim key="1" style={{ height: 100 }}>
-            <div key="0" className="demo"></div>
-            <div key="1" className="demo"></div>
-            <div key="2" className="demo"></div>
-            <div key="3" className="demo"></div>
+            <div key="0" className="demo" />
+            <div key="1" className="demo" />
+            <div key="2" className="demo" />
+            <div key="3" className="demo" />
           </QueueAnim>
         </ScrollOverPack>
       </div>
@@ -120,7 +113,7 @@ class Demo extends React.Component {
           只从上往下时播放
         </TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo2"></div>
+          <div className="demo2" />
         </Animate>
         <TweenOne
           className="demo2"
@@ -145,7 +138,7 @@ class Demo extends React.Component {
         >
           只进入一次</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo"></div>
+          <div className="demo" />
         </Animate>
         <TweenOne
           className="demo"

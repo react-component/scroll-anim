@@ -10,8 +10,8 @@ const ScrollElement = ScrollAnim.Element;
 const _package = require('../package.json');
 
 class Demo extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.state = {
       css: { backgroundColor: '#174270', height: 920 },
       cssNoPosition: true,
@@ -173,6 +173,7 @@ class Demo extends React.Component {
           <img
             src="https://os.alipayobjects.com/rmsportal/CrVCkwvtTQQvQHL.png"
             style={{ width: 100 }}
+            alt="img"
           />
         </ScrollParallax>
         <ScrollParallax
@@ -182,6 +183,7 @@ class Demo extends React.Component {
           <img
             src="https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png"
             style={{ width: 150 }}
+            alt="img"
           />
         </ScrollParallax>
         <ScrollParallax
@@ -191,6 +193,7 @@ class Demo extends React.Component {
           <img
             src="https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png"
             style={{ width: 200 }}
+            alt="img"
           />
         </ScrollParallax>
       </div>

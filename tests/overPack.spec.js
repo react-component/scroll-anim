@@ -2,11 +2,11 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
-import ScrollAnim from '../index';
 import TestUtils from 'react-dom/test-utils';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
+import ScrollAnim from '../index';
 
 describe('rc-scroll-anim', () => {
   let div;
@@ -14,17 +14,13 @@ describe('rc-scroll-anim', () => {
   let tickerId = 0;
 
   function createScrollOverPack(props) {
-    class OverPackDemo extends React.Component {
-      constructor() {
-        super(...arguments);
-      }
-
+    class OverPackDemo extends React.PureComponent {
       render() {
         return (<div
           style={{ height: 500, overflow: 'scroll', position: 'absolute', width: '100%', top: 0 }}
           id="c-div"
         >
-          <div style={{ height: 1000 }}></div>
+          <div style={{ height: 1000 }} />
           <ScrollAnim.OverPack
             {...this.props}
             style={{ height: 1000 }}
