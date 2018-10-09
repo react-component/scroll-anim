@@ -1,12 +1,11 @@
 // use jsx to render html, do not modify simple.html
-
-import 'rc-scroll-anim/assets/index.less';
 import ScrollAnim from 'rc-scroll-anim';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
+import './assets/index.less';
 
 const _package = require('../package.json');
 
@@ -76,7 +75,7 @@ class Demo extends React.Component {
       <Element className="pack-page page0" id="page0">
         <QueueAnim className="home-title">
           <div className="page-title" key="title" style={{ height: 100, overflow: 'auto' }}>
-            <p style={{ height: 600 }}>{_package.name}@{_package.version}</p>
+            <p>{_package.name}@{_package.version}</p>
           </div>
           <div className="page-description" key="c">
             <p>A scrollScreen demo</p>
@@ -89,16 +88,15 @@ class Demo extends React.Component {
           playScale={1}
           replay
           location="page1"
-          style={{ marginTop: 150 }}
         >
           <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
             每次进入都启动播放
           </TweenOne>
           <QueueAnim key="1" style={{ height: 100 }}>
-            <div key="0" className="demo" />
-            <div key="1" className="demo" />
-            <div key="2" className="demo" />
-            <div key="3" className="demo" />
+            <div key="0" className="demo-content" />
+            <div key="1" className="demo-content" />
+            <div key="2" className="demo-content" />
+            <div key="3" className="demo-content" />
           </QueueAnim>
         </ScrollOverPack>
       </div>
@@ -113,10 +111,10 @@ class Demo extends React.Component {
           只从上往下时播放
         </TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo2" />
+          <div className="demo-content2" />
         </Animate>
         <TweenOne
-          className="demo2"
+          className="demo-content2"
           animation={{ y: 0, opacity: 1 }}
           key="1"
           style={{ transform: 'translateY(100px)', opacity: 0 }}
@@ -138,10 +136,10 @@ class Demo extends React.Component {
         >
           只进入一次</TweenOne>
         <Animate key="0" transitionName="fade" transitionAppear>
-          <div className="demo" />
+          <div className="demo-content" />
         </Animate>
         <TweenOne
-          className="demo"
+          className="demo-content"
           animation={{ y: 0, opacity: 1 }}
           key="1"
           style={{ transform: 'translateY(100px)', opacity: 0 }}

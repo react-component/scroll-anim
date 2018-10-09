@@ -1,12 +1,12 @@
 // use jsx to render html, do not modify simple.html
 
-import 'rc-scroll-anim/assets/index.less';
 import ScrollAnim from 'rc-scroll-anim';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
+import './assets/index.less';
 
 const _package = require('../package.json');
 
@@ -34,10 +34,10 @@ function Demo() {
           默认进入与出场, 顶部出场
       </TweenOne>
       <QueueAnim key="1">
-        <div key="0" className="demo" />
-        <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }} />
-        <div key="2" className="demo" />
-        <div key="3" className="demo" />
+        <div key="0" className="demo-content" />
+        <div key="1" className="demo-content" style={{ backgroundColor: '#F38EAD' }} />
+        <div key="2" className="demo-content" />
+        <div key="3" className="demo-content" />
       </QueueAnim>
     </ScrollOverPack>
 
@@ -50,15 +50,14 @@ function Demo() {
           默认出场直接出现
       </TweenOne>
       <QueueAnim key="1">
-        <div key="0" className="demo" />
-        <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }} />
-        <div key="2" className="demo" />
-        <div key="3" className="demo" />
+        <div key="0" className="demo-content" />
+        <div key="1" className="demo-content" style={{ backgroundColor: '#F38EAD' }} />
+        <div key="2" className="demo-content" />
+        <div key="3" className="demo-content" />
       </QueueAnim>
     </ScrollOverPack>
 
     <ScrollOverPack
-      scrollEvent={this.scrollEvent}
       className="pack-page page2"
       style={{ backgroundColor: '#0098CE' }} always={false}
       id="page2"
@@ -67,9 +66,9 @@ function Demo() {
           只进入一次
       </TweenOne>
       <Animate key="0" transitionName="fade" transitionAppear>
-        <div className="demo2" />
+        <div className="demo-content2" />
       </Animate>
-      <TweenOne className="demo2" animation={{ y: 0, opacity: 1 }} key="1"
+      <TweenOne className="demo-content2" animation={{ y: 0, opacity: 1 }} key="1"
         style={{ transform: 'translateY(100px)', opacity: 0 }}
       />
     </ScrollOverPack>
@@ -89,10 +88,10 @@ function Demo() {
           在页面80％时进入
       </TweenOne>
       <Animate key="0" transitionName="fade" transitionAppear>
-        <div className="demo" />
+        <div className="demo-content" />
       </Animate>
       <TweenOne
-        className="demo"
+        className="demo-content"
         animation={{ y: 0, opacity: 1 }}
         key="1"
         style={{ transform: 'translateY(100px)', opacity: 0 }}

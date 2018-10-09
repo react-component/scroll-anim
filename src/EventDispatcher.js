@@ -1,5 +1,7 @@
 import { dataToArray } from './util';
 
+const scrollId = 'scroll-id';
+
 function EventDispatcher(target) {
   this._listeners = {};
   this._eventTarget = target || {};
@@ -11,17 +13,19 @@ EventDispatcher.prototype = {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
-    const listName = `${_type}${target ? `_${target.getAttribute('id')}` : ''}`;
+    if (target && !target.getAttribute(scrollId)) {
+      target.setAttribute(scrollId, (Date.now() + Math.random()).toString(32).replace('.', ''));
+    }
+    const listName = `${_type}${target ? `_${target.getAttribute(scrollId)}` : ''}`;
     let list = this._listeners[listName];
     let index = 0;
     let listener;
     let i;
     if (!list) {
-      this._listeners[listName] = [];
       list = [];
+      this._listeners[listName] = list;
     }
     i = list.length;
-
     while (--i > -1) {
       listener = list[i];
       if (listener.n === namespaces && listener.c === callback) {
@@ -33,7 +37,7 @@ EventDispatcher.prototype = {
     const $target = target || this._eventTarget;
     list.splice(index, 0, { c: callback, n: namespaces, t: _type });
     if (!this._listFun[listName]) {
-      this._listFun[listName] = this._listFun[listName] || this.dispatchEvent.bind(this, _type);
+      this._listFun[listName] = this._listFun[listName] || this.dispatchEvent.bind(this, { type: _type, target });
       if ($target.addEventListener) {
         $target.addEventListener(_type, this._listFun[listName], false);
       } else if ($target.attachEvent) {
@@ -46,7 +50,7 @@ EventDispatcher.prototype = {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
-    const listName = `${_type}${target ? `_${target.getAttribute('id')}` : ''}`;
+    const listName = `${_type}${target ? `_${target.getAttribute(scrollId)}` : ''}`;
     const list = this._listeners[listName];
     let i;
     let _force = force;
@@ -77,9 +81,8 @@ EventDispatcher.prototype = {
     }
   },
 
-  dispatchEvent(type, e) {
-    const target = e.target;
-    const listName = `${type}${target.getAttribute ? `_${target.getAttribute('id')}` : ''}`;
+  dispatchEvent({ type, target }, e) {
+    const listName = `${type}${target ? `_${target.getAttribute(scrollId)}` : ''}`;
     const list = this._listeners[listName];
     let i;
     let t;
@@ -100,7 +103,7 @@ EventDispatcher.prototype = {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
-    const listName = `${_type}${target ? `_${target.getAttribute('id')}` : ''}`;
+    const listName = `${_type}${target ? `_${target.getAttribute(scrollId)}` : ''}`;
     const list = this._listeners[listName];
     this.recoverLists = this.recoverLists.concat(dataToArray(list).filter(item =>
       item.n && item.n.match(namespaces)

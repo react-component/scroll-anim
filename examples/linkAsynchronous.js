@@ -1,11 +1,11 @@
 // use jsx to render html, do not modify simple.html
-import 'rc-scroll-anim/assets/index.less';
 import ScrollAnim from 'rc-scroll-anim';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
+import './assets/index.less';
 
 const _package = require('../package.json');
 
@@ -93,10 +93,10 @@ class Demo extends React.Component {
             默认进入与出场
           </TweenOne>
           <QueueAnim key="1">
-            <div key="0" className="demo" />
-            <div key="1" className="demo" style={{ backgroundColor: '#F38EAD' }} />
-            <div key="2" className="demo" />
-            <div key="3" className="demo" />
+            <div key="0" className="demo-content" />
+            <div key="1" className="demo-content" style={{ backgroundColor: '#F38EAD' }} />
+            <div key="2" className="demo-content" />
+            <div key="3" className="demo-content" />
           </QueueAnim>
         </ScrollOverPack>,
 
@@ -109,10 +109,10 @@ class Demo extends React.Component {
         >
           <div className="page2-title" key="title">只进入一次</div>
           <Animate key="0" transitionName="fade" transitionAppear>
-            <div className="demo2" />
+            <div className="demo-content2" />
           </Animate>
           <TweenOne
-            className="demo2"
+            className="demo-content2"
             animation={{ y: 0, opacity: 1 }}
             key="1"
             style={{ transform: 'translateY(100px)', opacity: 0 }}
@@ -132,10 +132,10 @@ class Demo extends React.Component {
             在页面80％时进入
           </TweenOne>
           <Animate key="0" transitionName="fade" transitionAppear>
-            <div className="demo" />
+            <div className="demo-content" />
           </Animate>
           <TweenOne
-            className="demo"
+            className="demo-content"
             animation={{ y: 0, opacity: 1 }}
             key="1"
             style={{ transform: 'translateY(100px)', opacity: 0 }}

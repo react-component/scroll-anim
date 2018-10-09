@@ -1,9 +1,9 @@
 // use jsx to render html, do not modify simple.html
 
-import 'rc-scroll-anim/assets/index.less';
 import ScrollAnim from 'rc-scroll-anim';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './assets/index.less';
 
 const ScrollParallax = ScrollAnim.Parallax;
 const ScrollElement = ScrollAnim.Element;
@@ -80,14 +80,14 @@ class Demo extends React.Component {
             },
           }}
           style={{ transform: 'scale(0)', color: '#fff' }}
-          className="demo parallax-shape"
+          className="demo-content parallax-shape"
         >
           Scale
         </ScrollParallax>
         <ScrollParallax
           animation={{ rotate: 360 }}
           style={{ transform: 'rotate(0)' }}
-          className="demo2 parallax-shape"
+          className="demo-content2 parallax-shape"
         >
           rotate
         </ScrollParallax>
@@ -99,14 +99,14 @@ class Demo extends React.Component {
             backgroundColor: '#133252',
             color: '#fff',
           }}
-          className="demo2 parallax-shape"
+          className="demo-content2 parallax-shape"
         >
           X
         </ScrollParallax>
         <ScrollParallax
           animation={{ rotateY: 360 }}
           style={{ transform: 'perspective(200px) rotateY(0)', backgroundColor: '#0098CE' }}
-          className="demo2 parallax-shape"
+          className="demo-content2 parallax-shape"
         >
           rotateY
         </ScrollParallax>
@@ -120,14 +120,14 @@ class Demo extends React.Component {
         <ScrollParallax
           animation={{ blur: '0px', playScale: [0.5, 0.8], opacity: 1 }}
           style={{ filter: 'blur(20px)', opacity: 0, color: '#fff' }}
-          className="demo parallax-shape"
+          className="demo-content parallax-shape"
         >
           blur
         </ScrollParallax>
         <ScrollParallax
           animation={{ color: '#fff000', backgroundColor: '#F38EAD', playScale: [0.3, 0.8] }}
           style={{ filter: 'blur(0px)', color: '#fff' }}
-          className="demo parallax-shape"
+          className="demo-content parallax-shape"
         >
           color
         </ScrollParallax>
@@ -152,7 +152,7 @@ class Demo extends React.Component {
             { translateX: 0, playScale: [0, 0.2] },
           ]}
           style={{ filter: 'blur(10px)', transform: 'translateX(0px)', opacity: 0, color: '#fff' }}
-          className="demo parallax-shape"
+          className="demo-content parallax-shape"
         >
           timeline
         </ScrollParallax>
