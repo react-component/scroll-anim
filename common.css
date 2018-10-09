@@ -145,7 +145,7 @@ p {
   padding-top: 160px;
   padding-bottom: 50px;
 }
-.demo {
+.demo-content {
   margin: 0 auto;
   width: 600px;
   height: 80px;
@@ -153,7 +153,7 @@ p {
   margin-bottom: 30px;
   border-radius: 4px;
 }
-.demo2 {
+.demo-content2 {
   margin: 0 auto;
   width: 600px;
   height: 80px;
@@ -178,6 +178,15 @@ p {
   height: 120px;
   text-align: center;
   font-size: 24px;
+}
+#main {
+  padding: 0;
+}
+#main .demo {
+  padding: 0;
+}
+.navbar {
+  display: none !important;
 }
 
 /*# sourceMappingURL=common.css.map*/

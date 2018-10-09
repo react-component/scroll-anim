@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>parallax.js - example - rc-scroll-anim@2.5.6-beta.4</title>
+  <title>parallax.js - example - rc-scroll-anim@2.5.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-scroll-anim@2.5.6-beta.4</h1>
+      <h1>rc-scroll-anim@2.5.6</h1>
 
       <p>scroll-anim anim component for react</p>
     </div>
@@ -271,18 +271,18 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     <div class="highlight"><pre><code language="js"><span class="hljs-comment">// use jsx to render html, do not modify simple.html</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rc-scroll-anim/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> ScrollAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-scroll-anim'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./assets/index.less'</span>;
 
 <span class="hljs-keyword">const</span> ScrollParallax = ScrollAnim.Parallax;
 <span class="hljs-keyword">const</span> ScrollElement = ScrollAnim.Element;
 <span class="hljs-keyword">const</span> _package = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  constructor() {
-    <span class="hljs-keyword">super</span>(...arguments);
+  constructor(props) {
+    <span class="hljs-keyword">super</span>(props);
     <span class="hljs-keyword">this</span>.state = {
       css: { backgroundColor: <span class="hljs-string">'#174270'</span>, height: <span class="hljs-number">920</span> },
       cssNoPosition: <span class="hljs-literal">true</span>,
@@ -351,14 +351,14 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             },
           }}
           style={{ transform: 'scale(0)', color: '#fff' }}
-          className="demo parallax-shape"
+          className="demo-content parallax-shape"
         &gt;
           Scale
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
           <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">rotate:</span> <span class="hljs-attribute">360</span> }}
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">rotate</span>(<span class="hljs-attribute">0</span>)' }}
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo2 parallax-shape"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content2 parallax-shape"</span>
         &gt;</span>
           rotate
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
@@ -370,14 +370,14 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             <span class="hljs-attribute">backgroundColor:</span> '#<span class="hljs-attribute">133252</span>',
             <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>',
           }}
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo2 parallax-shape"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content2 parallax-shape"</span>
         &gt;</span>
           X
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
           <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">rotateY:</span> <span class="hljs-attribute">360</span> }}
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">perspective</span>(<span class="hljs-attribute">200px</span>) <span class="hljs-attribute">rotateY</span>(<span class="hljs-attribute">0</span>)', <span class="hljs-attribute">backgroundColor:</span> '#<span class="hljs-attribute">0098CE</span>' }}
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo2 parallax-shape"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content2 parallax-shape"</span>
         &gt;</span>
           rotateY
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
@@ -391,14 +391,14 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
           <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">blur:</span> '<span class="hljs-attribute">0px</span>', <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0.5</span>, <span class="hljs-attribute">0.8</span>], <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span> }}
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">filter:</span> '<span class="hljs-attribute">blur</span>(<span class="hljs-attribute">20px</span>)', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>' }}
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo parallax-shape"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content parallax-shape"</span>
         &gt;</span>
           blur
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
           <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff000</span>', <span class="hljs-attribute">backgroundColor:</span> '#<span class="hljs-attribute">F38EAD</span>', <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0.3</span>, <span class="hljs-attribute">0.8</span>] }}
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">filter:</span> '<span class="hljs-attribute">blur</span>(<span class="hljs-attribute">0px</span>)', <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>' }}
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo parallax-shape"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content parallax-shape"</span>
         &gt;</span>
           color
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
@@ -423,7 +423,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             { <span class="hljs-attribute">translateX:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">playScale:</span> [<span class="hljs-attribute">0</span>, <span class="hljs-attribute">0.2</span>] },
           ]}
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">filter:</span> '<span class="hljs-attribute">blur</span>(<span class="hljs-attribute">10px</span>)', <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">translateX</span>(<span class="hljs-attribute">0px</span>)', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>' }}
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo parallax-shape"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content parallax-shape"</span>
         &gt;</span>
           timeline
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
@@ -444,6 +444,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-tag">&lt;<span class="hljs-title">img</span>
             <span class="hljs-attribute">src</span>=<span class="hljs-value">"https://os.alipayobjects.com/rmsportal/CrVCkwvtTQQvQHL.png"</span>
             <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> <span class="hljs-attribute">100</span> }}
+            <span class="hljs-attribute">alt</span>=<span class="hljs-value">"img"</span>
           /&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
@@ -453,6 +454,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-tag">&lt;<span class="hljs-title">img</span>
             <span class="hljs-attribute">src</span>=<span class="hljs-value">"https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png"</span>
             <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> <span class="hljs-attribute">150</span> }}
+            <span class="hljs-attribute">alt</span>=<span class="hljs-value">"img"</span>
           /&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">ScrollParallax</span>
@@ -462,6 +464,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-tag">&lt;<span class="hljs-title">img</span>
             <span class="hljs-attribute">src</span>=<span class="hljs-value">"https://os.alipayobjects.com/rmsportal/sfmdyWNlweIvfUh.png"</span>
             <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> <span class="hljs-attribute">200</span> }}
+            <span class="hljs-attribute">alt</span>=<span class="hljs-value">"img"</span>
           /&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollParallax</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>

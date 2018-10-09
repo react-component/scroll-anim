@@ -10,9 +10,9 @@ webpackJsonp([4],{
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ticker; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenOne__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__easing__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__easing__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ticker__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ticker__ = __webpack_require__(17);
 // export this package's api
 
 
@@ -58,8 +58,8 @@ var ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Tween__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ticker__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Tween__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ticker__ = __webpack_require__(17);
 
 
 
@@ -429,15 +429,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim_assets_index_less__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim_assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rc_queue_anim__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rc_queue_anim__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rc_tween_one__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__assets_index_less__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__assets_index_less__);
 
 
 
@@ -450,57 +450,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 var _package = __webpack_require__(69);
-var ScrollOverPack = __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim__["a" /* default */].OverPack;
-var Link = __WEBPACK_IMPORTED_MODULE_5_rc_scroll_anim__["a" /* default */].Link;
+
+var ScrollOverPack = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].OverPack;
+var Link = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].Link;
 
 var Demo = function (_React$Component) {
   __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(Demo, _React$Component);
 
   function Demo() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default()(this, Demo);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Demo.__proto__ || Object.getPrototypeOf(Demo)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.onFocus = function (e) {
+    return _ret = (_temp = (_this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (_ref = Demo.__proto__ || Object.getPrototypeOf(Demo)).call.apply(_ref, [this].concat(args))), _this), _this.onFocus = function (e) {
       console.log(e, 'focus');
       _this.dom = e.target;
       _this.barAnimate();
-    };
-
-    _this.barAnimate = function () {
+    }, _this.barAnimate = function () {
       if (!_this.dom) {
         return;
       }
-      var bar = _this.refs.bar;
+      var bar = _this.bar;
       bar.style.left = _this.dom.getBoundingClientRect().left + 'px';
-    };
-
-    return _this;
+    }, _temp), __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(_this, _ret);
   }
 
   __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(Demo, [{
     key: 'render',
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+      var _this2 = this;
+
+      return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
         'div',
         { style: { height: '100vh', overflow: 'scroll' }, id: 'box' },
-        __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
           'div',
           { className: 'nav' },
-          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
             'div',
             { className: 'logo' },
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
               'p',
               null,
               'Ant Motion'
             )
           ),
-          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
             'div',
             { className: 'nav-wap' },
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
               Link,
               { className: 'nav-list', to: 'page0', showHeightActive: ['50%', '10%'],
                 onFocus: this.onFocus,
@@ -509,7 +515,7 @@ var Demo = function (_React$Component) {
               },
               'Example'
             ),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
               Link,
               { className: 'nav-list', to: 'page1', showHeightActive: ['10%', '60%'], toShowHeight: true,
                 onFocus: this.onFocus,
@@ -518,7 +524,7 @@ var Demo = function (_React$Component) {
               },
               'Example2'
             ),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
               Link,
               { className: 'nav-list', to: 'page2', showHeightActive: ['60%', '50%'], toShowHeight: true,
                 onFocus: this.onFocus,
@@ -527,19 +533,21 @@ var Demo = function (_React$Component) {
               },
               'Example3'
             ),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { ref: 'bar', className: 'nav-bar' })
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { ref: function ref(c) {
+                _this2.bar = c;
+              }, className: 'nav-bar' })
           )
         ),
-        __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
           'div',
           { className: 'pack-page page0', id: 'page0' },
-          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_8_rc_queue_anim__["a" /* default */],
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_7_rc_queue_anim__["a" /* default */],
             { className: 'home-title' },
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
               'div',
               { className: 'page-title', key: 'title' },
-              __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                 'p',
                 null,
                 _package.name,
@@ -547,10 +555,10 @@ var Demo = function (_React$Component) {
                 _package.version
               )
             ),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
               'div',
               { className: 'page-description', key: 'c' },
-              __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                 'p',
                 null,
                 'The simple demo'
@@ -558,7 +566,7 @@ var Demo = function (_React$Component) {
             )
           )
         ),
-        __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
           ScrollOverPack,
           {
             id: 'page1',
@@ -566,21 +574,21 @@ var Demo = function (_React$Component) {
             replay: true,
             targetId: 'box'
           },
-          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["a" /* default */],
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_8_rc_tween_one__["a" /* default */],
             { className: 'tween-one', key: '0', animation: { opacity: 1 } },
             '\u9ED8\u8BA4\u8FDB\u5165\u4E0E\u51FA\u573A, \u9876\u90E8\u51FA\u573A'
           ),
-          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_8_rc_queue_anim__["a" /* default */],
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_7_rc_queue_anim__["a" /* default */],
             { key: '1' },
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '0', className: 'demo' }),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '1', className: 'demo', style: { backgroundColor: '#F38EAD' } }),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '2', className: 'demo' }),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '3', className: 'demo' })
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '0', className: 'demo-content' }),
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '1', className: 'demo-content', style: { backgroundColor: '#F38EAD' } }),
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '2', className: 'demo-content' }),
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '3', className: 'demo-content' })
           )
         ),
-        __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
           ScrollOverPack,
           {
             id: 'page2',
@@ -589,18 +597,18 @@ var Demo = function (_React$Component) {
             style: { backgroundColor: '#0098CE' },
             targetId: 'box'
           },
-          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["a" /* default */],
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_8_rc_tween_one__["a" /* default */],
             { className: 'tween-one', key: '0', animation: { opacity: 1 } },
             '\u9ED8\u8BA4\u51FA\u573A\u76F4\u63A5\u51FA\u73B0'
           ),
-          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_8_rc_queue_anim__["a" /* default */],
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_7_rc_queue_anim__["a" /* default */],
             { key: '1' },
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '0', className: 'demo' }),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '1', className: 'demo', style: { backgroundColor: '#F38EAD' } }),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '2', className: 'demo' }),
-            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { key: '3', className: 'demo' })
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '0', className: 'demo-content' }),
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '1', className: 'demo-content', style: { backgroundColor: '#F38EAD' } }),
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '2', className: 'demo-content' }),
+            __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement('div', { key: '3', className: 'demo-content' })
           )
         )
       );
@@ -608,9 +616,9 @@ var Demo = function (_React$Component) {
   }]);
 
   return Demo;
-}(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
+}(__WEBPACK_IMPORTED_MODULE_5_react___default.a.Component);
 
-__WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(Demo, null), document.getElementById('__react-content'));
+__WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ }),
 
@@ -1238,7 +1246,7 @@ module.exports = __webpack_require__(9).Array.from;
 "use strict";
 
 var ctx = __webpack_require__(39);
-var $export = __webpack_require__(17);
+var $export = __webpack_require__(16);
 var toObject = __webpack_require__(43);
 var call = __webpack_require__(29);
 var isArrayIter = __webpack_require__(30);

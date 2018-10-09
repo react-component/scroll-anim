@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>scrollScreen.js - example - rc-scroll-anim@2.5.6-beta.4</title>
+  <title>scrollScreen.js - example - rc-scroll-anim@2.5.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,21 +263,21 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-scroll-anim@2.5.6-beta.4</h1>
+      <h1>rc-scroll-anim@2.5.6</h1>
 
       <p>scroll-anim anim component for react</p>
     </div>
     <div class="example" id="__react-content"></div>
 
     <div class="highlight"><pre><code language="js"><span class="hljs-comment">// use jsx to render html, do not modify simple.html</span>
-
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rc-scroll-anim/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> ScrollAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-scroll-anim'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> QueueAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-queue-anim'</span>;
 <span class="hljs-keyword">import</span> TweenOne <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-tween-one'</span>;
 <span class="hljs-keyword">import</span> Animate <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-animate'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./assets/index.less'</span>;
+
 <span class="hljs-keyword">const</span> _package = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>);
 
 <span class="hljs-keyword">const</span> Link = ScrollAnim.Link;
@@ -286,29 +286,21 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">const</span> EventListener = ScrollAnim.Event;
 ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  constructor() {
-    <span class="hljs-keyword">super</span>(...arguments);
-    [
-      <span class="hljs-string">'barAnimate'</span>,
-      <span class="hljs-string">'onFocus'</span>,
-    ].forEach((method) =&gt; <span class="hljs-keyword">this</span>[method] = <span class="hljs-keyword">this</span>[method].bind(<span class="hljs-keyword">this</span>));
-  }
-
   componentDidMount() {
     <span class="hljs-comment">// 添加改变窗口事件,可加setTimeout</span>
     EventListener.addEventListener(<span class="hljs-string">'resize.userResize'</span>, <span class="hljs-keyword">this</span>.barAnimate.bind(<span class="hljs-keyword">this</span>));
   }
 
-  onFocus(e) {
+  onFocus = (e) =&gt; {
     <span class="hljs-keyword">this</span>.dom = e.target;
     <span class="hljs-keyword">this</span>.barAnimate();
   }
 
-  barAnimate() {
+  barAnimate = () =&gt; {
     <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.dom) {
       <span class="hljs-keyword">return</span>;
     }
-    <span class="hljs-keyword">const</span> bar = <span class="hljs-keyword">this</span>.refs.bar;
+    <span class="hljs-keyword">const</span> bar = <span class="hljs-keyword">this</span>.bar;
     bar.style.left = <span class="hljs-string">`<span class="hljs-subst">${this.dom.getBoundingClientRect().left}</span>px`</span>;
   }
 
@@ -348,13 +340,13 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
           &gt;</span>
             Page3
           <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"bar"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"nav-bar"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">{(c)</span> =&gt;</span> { this.bar = c; }} className="nav-bar" /&gt;
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">Element</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"pack-page page0"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"page0"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"home-title"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"page-title"</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"title"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">100</span>, <span class="hljs-attribute">overflow:</span> '<span class="hljs-attribute">auto</span>' }}&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">600</span> }}&gt;</span>{_package.name}@{_package.version}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>{_package.name}@{_package.version}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"page-description"</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"c"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>A scrollScreen demo<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
@@ -367,16 +359,15 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
           <span class="hljs-attribute">playScale</span>=<span class="hljs-value">{1}</span>
           <span class="hljs-attribute">replay</span>
           <span class="hljs-attribute">location</span>=<span class="hljs-value">"page1"</span>
-          <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">150</span> }}
         &gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">TweenOne</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"tween-one"</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"0"</span> <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span> }}&gt;</span>
             每次进入都启动播放
           <span class="hljs-tag">&lt;/<span class="hljs-title">TweenOne</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">100</span> }}&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"0"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"0"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content"</span> /&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollOverPack</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -391,10 +382,10 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
           只从上往下时播放
         <span class="hljs-tag">&lt;/<span class="hljs-title">TweenOne</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"0"</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"fade"</span> <span class="hljs-attribute">transitionAppear</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content2"</span> /&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">TweenOne</span>
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo2"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content2"</span>
           <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">y:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span> }}
           <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">translateY</span>(<span class="hljs-attribute">100px</span>)', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">0</span> }}
@@ -416,10 +407,10 @@ ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
         &gt;</span>
           只进入一次<span class="hljs-tag">&lt;/<span class="hljs-title">TweenOne</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"0"</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"fade"</span> <span class="hljs-attribute">transitionAppear</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content"</span> /&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">TweenOne</span>
-          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo"</span>
+          <span class="hljs-attribute">className</span>=<span class="hljs-value">"demo-content"</span>
           <span class="hljs-attribute">animation</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">y:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">1</span> }}
           <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">transform:</span> '<span class="hljs-attribute">translateY</span>(<span class="hljs-attribute">100px</span>)', <span class="hljs-attribute">opacity:</span> <span class="hljs-attribute">0</span> }}
