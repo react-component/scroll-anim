@@ -193,7 +193,7 @@ Use: scroll a screen window;
 |-----------|----------------|---------|----------------|
 | duration  | number         | 450     | scroll duration   |
 | ease      | string         | `easeInOutQuad` | easing |
-| docHeight | number         | null    | default to HTML height, when body or html the height: 100%, page height can not be obtained, need their own definition |
+| docHeight | number         | null    | Custom html height |
 | loop      | boolean        | false   | Before and after the phase cycle  |
 | scrollInterval | number    | 1000    | rolling interval time |
 
