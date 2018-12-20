@@ -64,7 +64,7 @@
     "core-js": "^2.5.1",
     "expect.js": "0.3.x",
     "pre-commit": "1.x",
-    "precommit-hook": "1.x",
+    "precommit-hook": "3.x",
     "rc-test": "6.x",
     "rc-tools": "8.x",
     "react": "^16.0.0",
