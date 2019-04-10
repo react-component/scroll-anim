@@ -9,6 +9,6 @@ export interface IVarsProps {
 }
 
 export default class RcSCrollScreen {
-  static init: (vars?: IVarsProps) => void;
-  static unMount: () => void;
+  public static init: (vars?: IVarsProps) => void;
+  public static unMount: () => void;
 }

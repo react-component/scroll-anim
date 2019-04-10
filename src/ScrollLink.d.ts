@@ -1,6 +1,6 @@
+import { IEaseType } from 'rc-tween-one/typings/AnimObject';
 import * as React from 'react';
 import { Omit } from './ScrollElement';
-import { IEaseType } from 'rc-tween-one/typings/AnimObject';
 
 export interface IProps<T> extends Omit<React.HTMLAttributes<T>, 'onFocus'> {
   to: string

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import easingTypes from 'tween-functions';
-import Timeline from 'rc-tween-one/lib/Tween';
+import { Tween as Timeline } from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
 import EventListener from './EventDispatcher';
 import { noop, dataToArray, objectEqual, currentScrollTop, windowHeight } from './util';
@@ -112,7 +112,8 @@ class ScrollParallax extends React.Component {
     if (this.timeline) {
       this.timeline.resetDefaultStyle();
     }
-    this.timeline = new Timeline(this.dom, this.defaultTweenData, {});
+    this.timeline = new Timeline(this.dom, this.defaultTweenData);
+    this.timeline.init();
     this.scrollEventListener();
   }
 

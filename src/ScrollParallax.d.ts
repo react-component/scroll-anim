@@ -1,5 +1,5 @@
+import { IAnimType, IBezierProps, IChildrenProps, IEaseCallBack, IEaseType, IStyleAnimProps } from 'rc-tween-one/typings/AnimObject';
 import * as React from 'react';
-import { IEaseCallBack, IAnimType, IEaseType, IBezierProps, IChildrenProps, IStyleAnimProps } from 'rc-tween-one/typings/AnimObject';
 
 export interface IAnimProps extends IStyleAnimProps {
   playScale?: number[];

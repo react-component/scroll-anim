@@ -2,12 +2,12 @@
 // Project: https://github.com/react-component/scroll-anim
 // Definitions by: jljsj33 <https://github.com/jljsj33>
 // Definitions: https://github.com/react-component/scroll-anim
+import ScrollEvent from './EventDispatcher';
 import ScrollElement from './ScrollElement';
+import ScrollLink from './ScrollLink';
 import ScrollOverPack from './ScrollOverPack';
 import ScrollParallax from './ScrollParallax';
-import ScrollLink from './ScrollLink';
 import Screen from './ScrollScreen';
-import ScrollEvent from './EventDispatcher';
 
 export const Element: typeof ScrollElement;
 export const OverPack: typeof ScrollOverPack;
