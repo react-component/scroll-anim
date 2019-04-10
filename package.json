@@ -57,14 +57,15 @@
     "saucelabs": "rc-test run saucelabs",
     "test": "rc-test run test",
     "chrome-test": "rc-test run chrome-test",
-    "coverage": "rc-test run coverage"
+    "coverage": "rc-test run coverage",
+    "validate": "npm ls"
   },
   "devDependencies": {
     "@types/react": "^16.0.0",
     "core-js": "^3.0.0",
     "expect.js": "0.3.x",
     "pre-commit": "1.x",
-    "precommit-hook": "1.x",
+    "precommit-hook": "3.x",
     "rc-animate": "2.x",
     "rc-queue-anim": "^1.3.0",
     "rc-test": "6.x",
