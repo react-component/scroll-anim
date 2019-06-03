@@ -43,14 +43,16 @@ class ScrollOverPack extends ScrollElement {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { show } = this.state;
+    const { always, children } = nextProps;
     this.setState({
-      children: toArrayChildren(nextProps.children),
+      children: toArrayChildren(children),
     }, () => {
       const inListener = EventListener._listeners.scroll &&
         EventListener._listeners.scroll.some(c => c.n === this.eventType.split('.')[1]);
-      if (nextProps.always && !inListener) {
+      if (always && !inListener) {
         this.addScrollEvent();
-      } else {
+      } else if(!always && !show) {
         this.scrollEventListener();
       }
     });
@@ -58,22 +60,24 @@ class ScrollOverPack extends ScrollElement {
 
   scrollEventListener = (e) => {
     this.getParam(e);
+    const { show } = this.state;
+    const { always, replay } = this.props;
     const isTop = this.elementShowHeight > this.clientHeight + this.leavePlayHeight;
-    if (this.enter || !this.props.replay && isTop) {
-      if (!this.state.show) {
+    if (this.enter || !replay && isTop) {
+      if (!show) {
         this.setState({
           show: true,
         });
       }
-      if (!this.props.always && this.eventType) {
+      if (!always && this.eventType) {
         EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
       }
-    } else {
+    } else if (always) {
       const bottomLeave = this.elementShowHeight < this.playHeight;
       // 设置往上时的出场点...
-      const topLeave = this.props.replay ? isTop : null;
+      const topLeave = replay ? isTop : null;
       if (topLeave || bottomLeave) {
-        if (this.state.show) {
+        if (show) {
           this.setState({
             show: false,
           });
