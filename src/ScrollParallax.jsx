@@ -105,6 +105,9 @@ class ScrollParallax extends React.Component {
   }
 
   resizeEventListener = () => {
+    if (this.onCompleteBool && !this.props.always) {
+      return;
+    }
     this.scrollTop = currentScrollTop();
     this.target = this.props.targetId && document.getElementById(this.props.targetId);
     this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
