@@ -21,15 +21,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rc_queue_anim__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rc_queue_anim__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rc_tween_one__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_animate__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__assets_index_less__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_animate__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__assets_index_less__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__assets_index_less__);
 
 
@@ -45,7 +45,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var _package = __webpack_require__(57);
+var _package = __webpack_require__(58);
 
 var Link = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].Link;
 var Element = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].Element;
@@ -299,11 +299,11 @@ var util = {
 
 /***/ }),
 
-/***/ 19:
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QueueAnim__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QueueAnim__ = __webpack_require__(21);
 // export this package's api
 
 
@@ -311,22 +311,22 @@ var util = {
 
 /***/ }),
 
-/***/ 20:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_createClass__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_createClass__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react__ = __webpack_require__(0);
@@ -334,8 +334,11 @@ var util = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__animTypes__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_react_lifecycles_compat__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__animTypes__ = __webpack_require__(33);
+
+
 
 
 
@@ -356,6 +359,125 @@ var typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps'
 var QueueAnim = function (_React$Component) {
   __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default()(QueueAnim, _React$Component);
 
+  __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_createClass___default()(QueueAnim, null, [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(props, _ref) {
+      var prevProps = _ref.prevProps,
+          children = _ref.children,
+          prevChildShow = _ref.childrenShow,
+          $self = _ref.$self;
+
+      var nextState = {
+        prevProps: props
+      };
+      if (prevProps && !$self.isInsideRender) {
+        var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(props.children).filter(function (c) {
+          return c;
+        });
+        var currentChildren = $self.originalChildren.filter(function (item) {
+          return item;
+        });
+        if (children.length) {
+          /**
+           * 多次刷新处理
+           * 如果 state.children 里还有元素，元素还在动画，当前子级加回在出场的子级;
+           */
+          var leaveChild = children.filter(function (item) {
+            return item && $self.keysToLeave.indexOf(item.key) >= 0;
+          });
+          $self.leaveUnfinishedChild = leaveChild.map(function (item) {
+            return item.key;
+          });
+          /**
+           * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
+           * 避逸 state.children 在 leaveComplete 里没全部完成不触发，
+           * leaveComplete 里如果动画完成了是会删除 keyToLeave，但 state.children 是在全部出场后才触发清除，
+           * 所以这里需要处理出场完成的元素做清除。
+           */
+          var stateChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["c" /* mergeChildren */])(currentChildren, children);
+          var currentChild = [];
+          var childReOrder = function childReOrder(child) {
+            child.forEach(function (item) {
+              var order = stateChildren.indexOf(item);
+              // -1 不应该出现的情况，直接插入数组后面.
+              if (order === -1) {
+                currentChild.push(item);
+              } else {
+                currentChild.splice(order, 0, item);
+              }
+            });
+          };
+          childReOrder(leaveChild);
+          childReOrder(currentChildren);
+          currentChildren = currentChild.filter(function (c) {
+            return c;
+          });
+        }
+        var newChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["c" /* mergeChildren */])(currentChildren, nextChildren);
+
+        var childrenShow = !newChildren.length ? {} : prevChildShow;
+        $self.keysToEnterPaused = {};
+        var emptyBool = !nextChildren.length && !currentChildren.length && children.length;
+        /**
+         * 在出场没结束时，childrenShow 里的值将不会清除。
+         * 再触发进场时， childrenShow 里的值是保留着的, 设置了 forcedReplay 将重新播放进场。
+         */
+        if (!emptyBool) {
+          // 空子级状态下刷新不做处理
+          var nextKeys = nextChildren.map(function (c) {
+            return c.key;
+          });
+          $self.keysToLeave.forEach(function (key) {
+            // 将所有在出场里的停止掉。避免间隔性出现
+            if (nextKeys.indexOf(key) >= 0) {
+              $self.keysToEnterPaused[key] = true;
+              currentChildren = currentChildren.filter(function (item) {
+                return item.key !== key;
+              });
+              if (props.forcedReplay) {
+                // 清掉所有出场的。
+                delete childrenShow[key];
+              }
+            }
+          });
+        }
+
+        $self.keysToEnter = [];
+        $self.keysToLeave = [];
+
+        // need render to avoid update
+        nextState.childrenShow = childrenShow;
+        nextState.children = newChildren;
+
+        nextChildren.forEach(function (c) {
+          if (!c) {
+            return;
+          }
+          var key = c.key;
+          var hasPrev = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* findChildInChildrenByKey */])(currentChildren, key);
+          if (!hasPrev && key) {
+            $self.keysToEnter.push(key);
+          }
+        });
+
+        currentChildren.forEach(function (c) {
+          if (!c) {
+            return;
+          }
+          var key = c.key;
+          var hasNext = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* findChildInChildrenByKey */])(nextChildren, key);
+          if (!hasNext && key) {
+            $self.keysToLeave.push(key);
+            __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["c" /* ticker */].clear($self.placeholderTimeoutIds[key]);
+            delete $self.placeholderTimeoutIds[key];
+          }
+        });
+        $self.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()($self.keysToEnter));
+      }
+      return nextState;
+    }
+  }]);
+
   function QueueAnim(props) {
     __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default()(this, QueueAnim);
 
@@ -364,7 +486,7 @@ var QueueAnim = function (_React$Component) {
      * 记录强制切换时是否需要添加 animation;
      * 如 enter 后, leave -> enter，样式是没有发生变化，就不需要添加 animation 属性。
      */
-    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (QueueAnim.__proto__ || Object.getPrototypeOf(QueueAnim)).call(this, props));
+    var _this = __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default()(this, (QueueAnim.__proto__ || Object.getPrototypeOf(QueueAnim)).call(this, props));
 
     _initialiseProps.call(_this);
 
@@ -411,8 +533,18 @@ var QueueAnim = function (_React$Component) {
      * 进场时 deley 的 timeout 记录;
      */
     _this.placeholderTimeoutIds = {};
+    /**
+     * @param childRefs;
+     * 储存 children 的 ref;
+     */
+    _this.childRefs = {};
+    /**
+     * @param currentRef;
+     * 记录 component 是组件时的 ref;
+     */
+    _this.currentRef = null;
     // 第一次进入，默认进场
-    var children = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(props));
+    var children = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* getChildrenFromProps */])(props));
     var childrenShow = {};
     children.forEach(function (child) {
       if (!child || !child.key) {
@@ -426,15 +558,16 @@ var QueueAnim = function (_React$Component) {
       }
     });
     _this.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(_this.keysToEnter));
-    _this.originalChildren = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(props));
+    _this.originalChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* getChildrenFromProps */])(props));
     _this.state = {
       children: children,
-      childrenShow: childrenShow
+      childrenShow: childrenShow,
+      $self: _this
     };
     return _this;
   }
 
-  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(QueueAnim, [{
+  __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_createClass___default()(QueueAnim, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (this.props.appear) {
@@ -442,131 +575,22 @@ var QueueAnim = function (_React$Component) {
       }
     }
   }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      var _this2 = this;
-
-      var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* toArrayChildren */])(nextProps.children).filter(function (item) {
-        return item;
-      });
-      var currentChildren = this.originalChildren.filter(function (item) {
-        return item;
-      });
-      if (this.state.children.length) {
-        /**
-         * 多次刷新处理
-         * 如果 state.children 里还有元素，元素还在动画，当前子级加回在出场的子级;
-         */
-        var leaveChild = this.state.children.filter(function (item) {
-          return item && _this2.keysToLeave.indexOf(item.key) >= 0;
-        });
-        this.leaveUnfinishedChild = leaveChild.map(function (item) {
-          return item.key;
-        });
-        /**
-         * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
-         * 避逸 state.children 在 leaveComplete 里没全部完成不触发，
-         * leaveComplete 里如果动画完成了是会删除 keyToLeave，但 state.children 是在全部出场后才触发清除，
-         * 所以这里需要处理出场完成的元素做清除。
-         */
-        var stateChildrens = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["c" /* mergeChildren */])(currentChildren, this.state.children);
-        var currentChild = [];
-        var childReOrder = function childReOrder(child) {
-          child.forEach(function (item) {
-            var order = stateChildrens.indexOf(item);
-            // -1 不应该出现的情况，直接插入数组后面.
-            if (order === -1) {
-              currentChild.push(item);
-            } else {
-              currentChild.splice(order, 0, item);
-            }
-          });
-        };
-        childReOrder(leaveChild);
-        childReOrder(currentChildren);
-        currentChildren = currentChild.filter(function (c) {
-          return c;
-        });
-      }
-      var newChildren = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["c" /* mergeChildren */])(currentChildren, nextChildren);
-
-      var childrenShow = !newChildren.length ? {} : this.state.childrenShow;
-      this.keysToEnterPaused = {};
-      var emptyBool = !nextChildren.length && !currentChildren.length && this.state.children.length;
-      /**
-       * 在出场没结束时，childrenShow 里的值将不会清除。
-       * 再触发进场时， childrenShow 里的值是保留着的, 设置了 forcedReplay 将重新播放进场。
-       */
-      if (!emptyBool) {
-        // 空子级状态下刷新不做处理
-        var nextKeys = nextChildren.map(function (c) {
-          return c.key;
-        });
-        this.keysToLeave.forEach(function (key) {
-          // 将所有在出场里的停止掉。避免间隔性出现
-          if (nextKeys.indexOf(key) >= 0) {
-            _this2.keysToEnterPaused[key] = true;
-            currentChildren = currentChildren.filter(function (item) {
-              return item.key !== key;
-            });
-            if (nextProps.forcedReplay) {
-              // 清掉所有出场的。
-              delete childrenShow[key];
-            }
-          }
-        });
-      }
-
-      this.keysToEnter = [];
-      this.keysToLeave = [];
-
-      // need render to avoid update
-      this.setState({
-        childrenShow: childrenShow,
-        children: newChildren
-      });
-
-      nextChildren.forEach(function (c) {
-        if (!c) {
-          return;
-        }
-        var key = c.key;
-        var hasPrev = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* findChildInChildrenByKey */])(currentChildren, key);
-        if (!hasPrev && key) {
-          _this2.keysToEnter.push(key);
-        }
-      });
-
-      currentChildren.forEach(function (c) {
-        if (!c) {
-          return;
-        }
-        var key = c.key;
-        var hasNext = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["a" /* findChildInChildrenByKey */])(nextChildren, key);
-        if (!hasNext && key) {
-          _this2.keysToLeave.push(key);
-          __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["c" /* ticker */].clear(_this2.placeholderTimeoutIds[key]);
-          delete _this2.placeholderTimeoutIds[key];
-        }
-      });
-      this.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToEnter));
-    }
-  }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      this.originalChildren = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(this.props));
+      this.originalChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* getChildrenFromProps */])(this.props));
       var keysToEnter = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToEnter));
       var keysToLeave = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToLeave));
       keysToEnter.forEach(this.performEnter);
       keysToLeave.forEach(this.performLeave);
+      this.isInsideRender = false;
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      var _this3 = this;
+      var _this2 = this;
 
       Object.keys(this.placeholderTimeoutIds).forEach(function (key) {
-        __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["c" /* ticker */].clear(_this3.placeholderTimeoutIds[key]);
+        __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["c" /* ticker */].clear(_this2.placeholderTimeoutIds[key]);
       });
       this.keysToEnter = [];
       this.keysToLeave = [];
@@ -575,17 +599,17 @@ var QueueAnim = function (_React$Component) {
   }, {
     key: 'getTweenType',
     value: function getTweenType(type, num) {
-      var data = __WEBPACK_IMPORTED_MODULE_11__animTypes__["a" /* default */][type];
+      var data = __WEBPACK_IMPORTED_MODULE_12__animTypes__["a" /* default */][type];
       return this.getTweenAnimConfig(data, num);
     }
   }, {
     key: 'getTweenAnimConfig',
     value: function getTweenAnimConfig(data, num, enterOrLeave) {
-      var _this4 = this;
+      var _this3 = this;
 
       if (Array.isArray(data)) {
         return data.map(function (item) {
-          return _this4.getTweenSingleConfig(item, num, enterOrLeave);
+          return _this3.getTweenSingleConfig(item, num, enterOrLeave);
         });
       }
       return this.getTweenSingleConfig(data, num, enterOrLeave);
@@ -593,13 +617,30 @@ var QueueAnim = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var tagProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(this.props, []);
+      var _this4 = this;
 
-      ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'forcedReplay', 'onEnd', 'appear'].forEach(function (key) {
-        return delete tagProps[key];
+      var _props = this.props,
+          component = _props.component,
+          componentProps = _props.componentProps,
+          interval = _props.interval,
+          duration = _props.duration,
+          delay = _props.delay,
+          type = _props.type,
+          animConfig = _props.animConfig,
+          ease = _props.ease,
+          leaveReverse = _props.leaveReverse,
+          animatingClassName = _props.animatingClassName,
+          forcedReplay = _props.forcedReplay,
+          onEnd = _props.onEnd,
+          appear = _props.appear,
+          tagProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'forcedReplay', 'onEnd', 'appear']);
+
+      var childrenToRender = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(this.state.children).map(this.getChildrenToRender);
+      var props = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, tagProps, this.props.componentProps, {
+        ref: function ref(c) {
+          _this4.currentRef = c;
+        }
       });
-      var childrenToRender = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* toArrayChildren */])(this.state.children).map(this.getChildrenToRender);
-      var props = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, tagProps, this.props.componentProps);
       return Object(__WEBPACK_IMPORTED_MODULE_7_react__["createElement"])(this.props.component, props, childrenToRender);
     }
   }]);
@@ -661,8 +702,8 @@ var _initialiseProps = function _initialiseProps() {
     var end = type === 'enter' ? 0 : 1;
     var animate = _this5.getAnimData(props, key, i, enterOrLeave, end);
     var startAnim = type === 'enter' && (props.forcedReplay || !_this5.childrenShow[key]) ? _this5.getAnimData(props, key, i, enterOrLeave, start) : null;
-    var ease = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.ease, key, i)[enterOrLeave];
-    var duration = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.duration, key, i)[enterOrLeave];
+    var ease = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(props.ease, key, i)[enterOrLeave];
+    var duration = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
       ease = ease.map(function (num) {
         return num * 100;
@@ -717,15 +758,15 @@ var _initialiseProps = function _initialiseProps() {
      * getTweenAnimConfig or getTweenType 第一个为到达的位置， 第二个为开始的位置。
      * 用 tween-one 的数组来实现老的动画逻辑。。。
      */
-    return props.animConfig ? _this5.getTweenAnimConfig(Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.animConfig, key, i)[enterOrLeave], startOrEnd, enterOrLeave) : _this5.getTweenType(Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.type, key, i)[enterOrLeave], startOrEnd);
+    return props.animConfig ? _this5.getTweenAnimConfig(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(props.animConfig, key, i)[enterOrLeave], startOrEnd, enterOrLeave) : _this5.getTweenType(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(props.type, key, i)[enterOrLeave], startOrEnd);
   };
 
   this.getChildrenToRender = function (child) {
-    var _props = _this5.props,
-        forcedReplay = _props.forcedReplay,
-        leaveReverse = _props.leaveReverse,
-        delay = _props.delay,
-        interval = _props.interval;
+    var _props2 = _this5.props,
+        forcedReplay = _props2.forcedReplay,
+        leaveReverse = _props2.leaveReverse,
+        delay = _props2.delay,
+        interval = _props2.interval;
 
     if (!child || !child.key) {
       return child;
@@ -745,13 +786,16 @@ var _initialiseProps = function _initialiseProps() {
         }
       });
     }
+    var ref = function ref() {
+      delete _this5.childRefs[key];
+    };
     // 处理出场
     if (i >= 0) {
       if (_this5.leaveUnfinishedChild.indexOf(key) >= 0) {
         return _this5.saveTweenOneTag[key];
       }
-      var $interval = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(interval, key, i)[1];
-      var $delay = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(delay, key, i)[1];
+      var $interval = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(interval, key, i)[1];
+      var $delay = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(delay, key, i)[1];
       // 减掉 leaveUnfinishedChild 里的个数，因为 leaveUnfinishedChild 是旧的出场，不应该计录在队列里。
       var order = (leaveReverse ? _this5.keysToLeave.length - i - 1 : i) - _this5.leaveUnfinishedChild.length;
       $delay = $interval * order + $delay;
@@ -759,6 +803,9 @@ var _initialiseProps = function _initialiseProps() {
     } else {
       // 处理进场;
       i = _this5.keysToEnterToCallback.indexOf(key);
+      ref = function ref(c) {
+        _this5.childRefs[key] = c && c.currentRef ? c.currentRef : c;
+      };
       // appear=false 时，设定 childrenShow 和 tweenToEnter 都为 true, 这里不渲染 animation;
       if (_this5.tweenToEnter[key] && !forcedReplay) {
         // 如果是已进入的，将直接返回标签。。
@@ -766,7 +813,8 @@ var _initialiseProps = function _initialiseProps() {
           key: key,
           component: child.type,
           forcedJudg: forcedJudg,
-          componentProps: child.props
+          componentProps: child.props,
+          ref: ref
         });
       } else if (!_this5.tweenToEnter[key]) {
         animation = _this5.enterAnimation[key] || _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
@@ -780,15 +828,16 @@ var _initialiseProps = function _initialiseProps() {
       component: child.type,
       forcedJudg: forcedJudg,
       componentProps: child.props,
-      animation: animation
+      animation: animation,
+      ref: ref
     });
     _this5.saveTweenOneTag[key] = tag;
     return tag;
   };
 
   this.performEnter = function (key, i) {
-    var interval = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[0];
-    var delay = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[0];
+    var interval = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[0];
+    var delay = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[0];
     _this5.placeholderTimeoutIds[key] = __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["c" /* ticker */].timeout(_this5.performEnterBegin.bind(_this5, key), interval * i + delay);
     if (_this5.keysToEnter.indexOf(key) >= 0) {
       _this5.keysToEnter.splice(_this5.keysToEnter.indexOf(key), 1);
@@ -801,6 +850,7 @@ var _initialiseProps = function _initialiseProps() {
     delete _this5.keysToEnterPaused[key];
     __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["c" /* ticker */].clear(_this5.placeholderTimeoutIds[key]);
     delete _this5.placeholderTimeoutIds[key];
+    _this5.isInsideRender = true;
     _this5.setState({ childrenShow: childrenShow });
   };
 
@@ -856,7 +906,8 @@ var _initialiseProps = function _initialiseProps() {
       return childrenShow[c];
     });
     if (!needLeave) {
-      var currentChildren = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_10__utils__["b" /* getChildrenFromProps */])(_this5.props));
+      var currentChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* getChildrenFromProps */])(_this5.props));
+      _this5.isInsideRender = true;
       _this5.setState({
         children: currentChildren,
         childrenShow: childrenShow
@@ -869,11 +920,11 @@ var _initialiseProps = function _initialiseProps() {
 };
 
 QueueAnim.isQueueAnim = true;
-/* harmony default export */ __webpack_exports__["a"] = (QueueAnim);
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_10_react_lifecycles_compat__["a" /* polyfill */])(QueueAnim));
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -881,7 +932,7 @@ QueueAnim.isQueueAnim = true;
 
 exports.__esModule = true;
 
-var _from = __webpack_require__(22);
+var _from = __webpack_require__(23);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -901,38 +952,38 @@ exports.default = function (arr) {
 
 /***/ }),
 
-/***/ 22:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(23), __esModule: true };
-
-/***/ }),
-
 /***/ 23:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(50);
-__webpack_require__(24);
-module.exports = __webpack_require__(7).Array.from;
-
+module.exports = { "default": __webpack_require__(24), __esModule: true };
 
 /***/ }),
 
 /***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(51);
+__webpack_require__(25);
+module.exports = __webpack_require__(7).Array.from;
+
+
+/***/ }),
+
+/***/ 25:
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
-var ctx = __webpack_require__(34);
+var ctx = __webpack_require__(38);
 var $export = __webpack_require__(13);
-var toObject = __webpack_require__(38);
-var call = __webpack_require__(25);
-var isArrayIter = __webpack_require__(26);
-var toLength = __webpack_require__(52);
-var createProperty = __webpack_require__(27);
-var getIterFn = __webpack_require__(28);
+var toObject = __webpack_require__(36);
+var call = __webpack_require__(26);
+var isArrayIter = __webpack_require__(27);
+var toLength = __webpack_require__(53);
+var createProperty = __webpack_require__(28);
+var getIterFn = __webpack_require__(29);
 
-$export($export.S + $export.F * !__webpack_require__(30)(function (iter) { Array.from(iter); }), 'Array', {
+$export($export.S + $export.F * !__webpack_require__(31)(function (iter) { Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
   from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
     var O = toObject(arrayLike);
@@ -963,7 +1014,7 @@ $export($export.S + $export.F * !__webpack_require__(30)(function (iter) { Array
 
 /***/ }),
 
-/***/ 25:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -982,7 +1033,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 /***/ }),
 
-/***/ 26:
+/***/ 27:
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
@@ -997,7 +1048,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 27:
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1013,10 +1064,10 @@ module.exports = function (object, index, value) {
 
 /***/ }),
 
-/***/ 28:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(29);
+var classof = __webpack_require__(30);
 var ITERATOR = __webpack_require__(1)('iterator');
 var Iterators = __webpack_require__(11);
 module.exports = __webpack_require__(7).getIteratorMethod = function (it) {
@@ -1028,11 +1079,11 @@ module.exports = __webpack_require__(7).getIteratorMethod = function (it) {
 
 /***/ }),
 
-/***/ 29:
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(37);
+var cof = __webpack_require__(40);
 var TAG = __webpack_require__(1)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -1058,7 +1109,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR = __webpack_require__(1)('iterator');
@@ -1087,7 +1138,7 @@ module.exports = function (exec, skipClosing) {
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1189,7 +1240,7 @@ function getChildrenFromProps(props) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1233,13 +1284,13 @@ function getChildrenFromProps(props) {
 
 /***/ }),
 
-/***/ 40:
+/***/ 41:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
@@ -1253,8 +1304,8 @@ function getChildrenFromProps(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ChildrenUtils__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__AnimateChild__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ChildrenUtils__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__AnimateChild__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__util_animate__ = __webpack_require__(16);
 
 
@@ -1501,6 +1552,8 @@ var Animate = function (_React$Component) {
 
 Animate.isAnimate = true;
 Animate.propTypes = {
+  className: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.string,
+  style: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.object,
   component: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
   componentProps: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.object,
   animation: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.object,
@@ -1610,7 +1663,7 @@ var _initialiseProps = function _initialiseProps() {
 
 /***/ }),
 
-/***/ 41:
+/***/ 42:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1618,7 +1671,7 @@ var _initialiseProps = function _initialiseProps() {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(58);
+var _defineProperty = __webpack_require__(59);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -1641,7 +1694,7 @@ exports.default = function (obj, key, value) {
 
 /***/ }),
 
-/***/ 42:
+/***/ 43:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1757,7 +1810,7 @@ function mergeChildren(prev, next) {
 
 /***/ }),
 
-/***/ 43:
+/***/ 44:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1775,7 +1828,7 @@ function mergeChildren(prev, next) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_css_animation__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_css_animation__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util_animate__ = __webpack_require__(16);
 
 
@@ -1885,21 +1938,23 @@ var AnimateChild = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_4_react___default.a.Component);
 
 AnimateChild.propTypes = {
-  children: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any
+  children: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  animation: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  transitionName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any
 };
 /* harmony default export */ __webpack_exports__["a"] = (AnimateChild);
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isCssAnimationSupported; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_component_classes__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_component_classes__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_component_classes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_component_classes__);
 
 
@@ -2079,7 +2134,7 @@ cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2215,7 +2270,7 @@ var TransitionEvents = {
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
