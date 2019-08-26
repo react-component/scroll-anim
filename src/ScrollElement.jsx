@@ -25,6 +25,24 @@ class ScrollElement extends React.Component {
     replay: false,
     componentProps: {},
   }
+
+  static getDerivedStateFromProps(props, { prevProps, $self }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps) {
+      $self.scrollEventListener();
+    }
+    return nextState; // eslint-disable-line
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      $self: this,
+    };
+  }
+
   componentDidMount() {
     this.dom = ReactDOM.findDOMNode(this);
     if (this.props.location) {
@@ -39,10 +57,6 @@ class ScrollElement extends React.Component {
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = `scroll.scrollEvent${date}${length}`;
     this.addScrollEvent();
-  }
-
-  componentWillReceiveProps() {
-    this.scrollEventListener();
   }
 
   componentWillUnmount() {
@@ -106,18 +120,17 @@ class ScrollElement extends React.Component {
   }
 
   render() {
-    const { ...props } = this.props;
-    const { componentProps, component } = props;
-    [
-      'component',
-      'playScale',
-      'location',
-      'targetId',
-      'onScroll',
-      'onChange',
-      'replay',
-      'componentProps',
-    ].forEach(key => delete props[key]);
+    const {
+      component,
+      playScale,
+      location,
+      targetId,
+      onScroll,
+      onChange,
+      replay,
+      componentProps,
+      ...props
+    } = this.props;
     return React.createElement(component, { ...props, ...componentProps });
   }
 }

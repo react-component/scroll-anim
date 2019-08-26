@@ -1,6 +1,6 @@
 {
   "name": "rc-scroll-anim",
-  "version": "2.5.9",
+  "version": "2.6.0",
   "description": "scroll-anim anim component for react",
   "keywords": [
     "react",
@@ -82,6 +82,7 @@
     "prop-types": "^15.6.0",
     "raf": "3.x",
     "rc-tween-one": "^2.4.0",
+    "react-lifecycles-compat": "^3.0.4",
     "tween-functions": "1.x"
   }
 }

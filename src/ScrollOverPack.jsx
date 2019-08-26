@@ -31,6 +31,16 @@ class ScrollOverPack extends ScrollElement {
     componentProps: {},
   }
 
+  static getDerivedStateFromProps(props, { prevProps, $self }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && !$self.isInsideRender) {
+      nextState.children = toArrayChildren(props.children);
+    }
+    return nextState;
+  }
+
   constructor(props) {
     super(props);
     this.children = toArrayChildren(props.children);
@@ -38,24 +48,24 @@ class ScrollOverPack extends ScrollElement {
     this.enter = false;
     this.state = {
       show: false,
+      $self: this,
       children: toArrayChildren(props.children),
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { show } = this.state;
-    const { always, children } = nextProps;
-    this.setState({
-      children: toArrayChildren(children),
-    }, () => {
+  componentDidUpdate() {
+    if (this.isInsideRender) {
+      const { always } = this.props;
+      const { show } = this.state;
       const inListener = EventListener._listeners.scroll &&
         EventListener._listeners.scroll.some(c => c.n === this.eventType.split('.')[1]);
       if (always && !inListener) {
         this.addScrollEvent();
-      } else if(!always && !show) {
+      } else if (!always && !show) {
         this.scrollEventListener();
       }
-    });
+    }
+    this.isInsideRender = false;
   }
 
   scrollEventListener = (e) => {
@@ -65,6 +75,7 @@ class ScrollOverPack extends ScrollElement {
     const isTop = this.elementShowHeight > this.clientHeight + this.leavePlayHeight;
     if (this.enter || !replay && isTop) {
       if (!show) {
+        this.isInsideRender = true;
         this.setState({
           show: true,
         });
@@ -78,6 +89,7 @@ class ScrollOverPack extends ScrollElement {
       const topLeave = replay ? isTop : null;
       if (topLeave || bottomLeave) {
         if (show) {
+          this.isInsideRender = true;
           this.setState({
             show: false,
           });
@@ -87,21 +99,20 @@ class ScrollOverPack extends ScrollElement {
   }
 
   render() {
-    const { ...props } = this.props;
-    const { componentProps, appear, component } = props;
-    [
-      'playScale',
-      'replay',
-      'component',
-      'always',
-      'scrollEvent',
-      'appear',
-      'location',
-      'targetId',
-      'onScroll',
-      'onChange',
-      'componentProps',
-    ].forEach(key => delete props[key]);
+    const { 
+      playScale, 
+      replay, 
+      component,
+      always,
+      scrollEvent,
+      appear,
+      location,
+      targetId,
+      onChange,
+      onScroll,
+      componentProps,
+      ...props
+     } = this.props;
     let childToRender;
     if (!this.oneEnter) {
       const show = !appear;

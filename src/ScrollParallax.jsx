@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import easingTypes from 'tween-functions';
 import { Tween as Timeline } from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
+
 import EventListener from './EventDispatcher';
 import { noop, dataToArray, objectEqual, currentScrollTop, windowHeight } from './util';
 
@@ -40,12 +41,29 @@ class ScrollParallax extends React.Component {
     componentProps: {},
   }
 
+  static getDerivedStateFromProps(props, { prevProps, $self }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps) {
+      const equal = objectEqual(prevProps.animation, props.animation);
+      if (!equal) {
+        $self.setDefaultData(props.animation || {});
+        $self.timeline.resetAnimData();
+        $self.timeline.setDefaultData($self.defaultTweenData);
+      }
+    }
+    return nextState; // eslint-disable-line
+  }
+
   constructor(props) {
     super(props);
     this.scrollTop = 0;
     this.defaultTweenData = [];
     this.defaultData = [];
-    this.state = {};
+    this.state = {
+      $self: this,
+    };
   }
 
   componentDidMount() {
@@ -61,15 +79,6 @@ class ScrollParallax extends React.Component {
 
     this.scrollEventListener();
     EventListener.addEventListener(this.eventType, this.scrollEventListener, this.target);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const equal = objectEqual(this.props.animation, nextProps.animation);
-    if (!equal) {
-      this.setDefaultData(nextProps.animation || {});
-      this.timeline.resetAnimData();
-      this.timeline.setDefaultData(this.defaultTweenData);
-    }
   }
 
   componentWillUnmount() {
@@ -202,17 +211,15 @@ class ScrollParallax extends React.Component {
   }
 
   render() {
-    const props = { ...this.props };
-    const { componentProps } = props;
-    [
-      'animation',
-      'always',
-      'component',
-      'location',
-      'id',
-      'targetId',
-      'componentProps',
-    ].forEach(key => delete props[key]);
+    const {
+      animation,
+      always,
+      component,
+      location,
+      targetId,
+      componentProps,
+      ...props
+    } = this.props;
     const style = { ...props.style };
     Object.keys(style).forEach(p => {
       if (p.indexOf('filter') >= 0 || p.indexOf('Filter') >= 0) {

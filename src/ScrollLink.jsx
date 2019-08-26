@@ -186,28 +186,27 @@ class ScrollLink extends React.Component {
   }
 
   render() {
-    const active = this.state.active ? this.props.active : '';
-    const { onClick, componentProps } = this.props;
-    const props = {
-      ...this.props,
-      onClick: (e) => {
-        onClick(e);
-        this.onClick(e);
-      },
-    };
-    [
-      'component',
-      'duration',
-      'active',
-      'showHeightActive',
-      'ease',
-      'toShowHeight',
-      'offsetTop',
-      'targetId',
-      'to',
-      'toHash',
-      'componentProps',
-    ].forEach(key => delete props[key]);
+    
+    const {
+      component,
+      onClick,
+      duration,
+      active: tagActive,
+      showHeightActive,
+      ease,
+      toShowHeight,
+      offsetTop,
+      targetId,
+      to,
+      toHash,
+      componentProps,
+      ...props
+    } = this.props;
+    const active = this.state.active ? tagActive : '';
+    props.onClick = (e) => {
+      onClick(e);
+      this.onClick(e);
+    }
     const reg = new RegExp(active, 'ig');
     const className = props.className || '';
     props.className = className.indexOf(active) === -1 ?
