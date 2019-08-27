@@ -1370,7 +1370,7 @@ function noop() {}
 /* 58 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.6.0","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.6.1","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
 
 /***/ }),
 /* 59 */
@@ -5390,13 +5390,12 @@ var ScrollOverPack = function (_ScrollElement) {
   __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(ScrollOverPack, null, [{
     key: 'getDerivedStateFromProps',
     value: function getDerivedStateFromProps(props, _ref) {
-      var prevProps = _ref.prevProps,
-          $self = _ref.$self;
+      var prevProps = _ref.prevProps;
 
       var nextState = {
         prevProps: props
       };
-      if (prevProps && !$self.isInsideRender) {
+      if (prevProps && props !== prevProps) {
         nextState.children = Object(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children);
       }
       return nextState;
@@ -5418,7 +5417,6 @@ var ScrollOverPack = function (_ScrollElement) {
       var isTop = _this.elementShowHeight > _this.clientHeight + _this.leavePlayHeight;
       if (_this.enter || !replay && isTop) {
         if (!show) {
-          _this.isInsideRender = true;
           _this.setState({
             show: true
           });
@@ -5432,7 +5430,6 @@ var ScrollOverPack = function (_ScrollElement) {
         var topLeave = replay ? isTop : null;
         if (topLeave || bottomLeave) {
           if (show) {
-            _this.isInsideRender = true;
             _this.setState({
               show: false
             });
@@ -5446,7 +5443,6 @@ var ScrollOverPack = function (_ScrollElement) {
     _this.enter = false;
     _this.state = {
       show: false,
-      $self: _this,
       children: Object(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children)
     };
     return _this;
@@ -5454,10 +5450,10 @@ var ScrollOverPack = function (_ScrollElement) {
 
   __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(ScrollOverPack, [{
     key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
+    value: function componentDidUpdate(prevProps) {
       var _this2 = this;
 
-      if (this.isInsideRender) {
+      if (prevProps !== this.props) {
         var always = this.props.always;
         var show = this.state.show;
 
@@ -5470,7 +5466,6 @@ var ScrollOverPack = function (_ScrollElement) {
           this.scrollEventListener();
         }
       }
-      this.isInsideRender = false;
     }
   }, {
     key: 'render',
