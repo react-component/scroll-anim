@@ -31,11 +31,11 @@ class ScrollOverPack extends ScrollElement {
     componentProps: {},
   }
 
-  static getDerivedStateFromProps(props, { prevProps, $self }) {
+  static getDerivedStateFromProps(props, { prevProps }) {
     const nextState = {
       prevProps: props,
     };
-    if (prevProps && !$self.isInsideRender) {
+    if (prevProps && props !== prevProps) {
       nextState.children = toArrayChildren(props.children);
     }
     return nextState;
@@ -48,13 +48,12 @@ class ScrollOverPack extends ScrollElement {
     this.enter = false;
     this.state = {
       show: false,
-      $self: this,
       children: toArrayChildren(props.children),
     };
   }
 
-  componentDidUpdate() {
-    if (this.isInsideRender) {
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
       const { always } = this.props;
       const { show } = this.state;
       const inListener = EventListener._listeners.scroll &&
@@ -65,7 +64,6 @@ class ScrollOverPack extends ScrollElement {
         this.scrollEventListener();
       }
     }
-    this.isInsideRender = false;
   }
 
   scrollEventListener = (e) => {
@@ -75,7 +73,6 @@ class ScrollOverPack extends ScrollElement {
     const isTop = this.elementShowHeight > this.clientHeight + this.leavePlayHeight;
     if (this.enter || !replay && isTop) {
       if (!show) {
-        this.isInsideRender = true;
         this.setState({
           show: true,
         });
@@ -89,7 +86,6 @@ class ScrollOverPack extends ScrollElement {
       const topLeave = replay ? isTop : null;
       if (topLeave || bottomLeave) {
         if (show) {
-          this.isInsideRender = true;
           this.setState({
             show: false,
           });
