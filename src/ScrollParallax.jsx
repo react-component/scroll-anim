@@ -45,7 +45,7 @@ class ScrollParallax extends React.Component {
     const nextState = {
       prevProps: props,
     };
-    if (prevProps) {
+    if (prevProps && props !== prevProps) {
       const equal = objectEqual(prevProps.animation, props.animation);
       if (!equal) {
         $self.setDefaultData(props.animation || {});

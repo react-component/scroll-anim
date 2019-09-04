@@ -30,7 +30,7 @@ class ScrollElement extends React.Component {
     const nextState = {
       prevProps: props,
     };
-    if (prevProps) {
+    if (prevProps && props !== prevProps) {
       $self.scrollEventListener();
     }
     return nextState; // eslint-disable-line
