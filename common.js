@@ -1370,7 +1370,7 @@ function noop() {}
 /* 58 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.6.1","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.6.2","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
 
 /***/ }),
 /* 59 */
@@ -2865,7 +2865,7 @@ var ScrollElement = function (_React$Component) {
       var nextState = {
         prevProps: props
       };
-      if (prevProps) {
+      if (prevProps && props !== prevProps) {
         $self.scrollEventListener();
       }
       return nextState; // eslint-disable-line
@@ -35851,7 +35851,7 @@ var ScrollParallax = function (_React$Component) {
       var nextState = {
         prevProps: props
       };
-      if (prevProps) {
+      if (prevProps && props !== prevProps) {
         var equal = Object(__WEBPACK_IMPORTED_MODULE_13__util__["d" /* objectEqual */])(prevProps.animation, props.animation);
         if (!equal) {
           $self.setDefaultData(props.animation || {});
@@ -35898,7 +35898,7 @@ var ScrollParallax = function (_React$Component) {
     };
 
     _this.resizeEventListener = function () {
-      if (_this.onCompleteBool && !_this.props.always) {
+      if (_this.defaultData[_this.defaultData.length - 1] && _this.defaultData[_this.defaultData.length - 1].onCompleteBool && !_this.props.always) {
         return;
       }
       _this.scrollTop = Object(__WEBPACK_IMPORTED_MODULE_13__util__["a" /* currentScrollTop */])();
@@ -35924,48 +35924,53 @@ var ScrollParallax = function (_React$Component) {
       var offsetTop = dom.getBoundingClientRect().top + scrollTop - targetTop;
       var elementShowHeight = scrollTop - offsetTop + _this.clientHeight;
       var currentShow = _this.scrollTop - offsetTop + _this.clientHeight;
-      _this.defaultData.forEach(function (item) {
+      _this.defaultData.forEach(function (item, i) {
+        var duration = _this.defaultData.map(function (c, ii) {
+          return ii < i && c.delay + c.duration || 0;
+        }).reduce(function (a, b) {
+          return a + b;
+        });
         var noUpdate = void 0;
-        if (elementShowHeight <= item.delay) {
-          if (!_this.onCompleteBackBool && _this.onStartBool) {
-            _this.onCompleteBackBool = true;
+        if (elementShowHeight <= item.delay + duration) {
+          if (!item.onCompleteBackBool && item.onStartBool) {
+            item.onCompleteBackBool = true;
             noUpdate = true;
             item.onCompleteBack();
           }
         } else {
-          _this.onCompleteBackBool = false;
+          item.onCompleteBackBool = false;
         }
-        if (elementShowHeight >= item.delay) {
-          if (!_this.onStartBool) {
-            _this.onStartBool = true;
+        if (elementShowHeight >= item.delay + duration) {
+          if (!item.onStartBool) {
+            item.onStartBool = true;
             noUpdate = true;
             item.onStart();
           }
         } else {
-          _this.onStartBool = false;
+          item.onStartBool = false;
         }
 
-        if (elementShowHeight <= item.delay + item.duration) {
-          if (!_this.onStartBackBool && _this.onCompleteBool) {
-            _this.onStartBackBool = true;
+        if (elementShowHeight <= item.delay + item.duration + duration) {
+          if (!item.onStartBackBool && item.onCompleteBool) {
+            item.onStartBackBool = true;
             noUpdate = true;
             item.onStartBack();
           }
         } else {
-          _this.onStartBackBool = false;
+          item.onStartBackBool = false;
         }
 
-        if (elementShowHeight >= item.delay + item.duration) {
-          if (!_this.onCompleteBool) {
-            _this.onCompleteBool = true;
+        if (elementShowHeight >= item.delay + item.duration + duration) {
+          if (!item.onCompleteBool) {
+            item.onCompleteBool = true;
             noUpdate = true;
             item.onComplete();
           }
         } else {
-          _this.onCompleteBool = false;
+          item.onCompleteBool = false;
         }
-        if (elementShowHeight >= item.delay && elementShowHeight <= item.delay + item.duration && !noUpdate) {
-          item.onUpdate(elementShowHeight / (item.delay + item.duration));
+        if (elementShowHeight >= item.delay + duration && elementShowHeight <= item.delay + item.duration + duration && !noUpdate) {
+          item.onUpdate(elementShowHeight / (item.delay + item.duration + duration));
         }
       });
       __WEBPACK_IMPORTED_MODULE_11_rc_tween_one_es_ticker__["a" /* default */].clear(_this.tickerId);
@@ -35986,7 +35991,7 @@ var ScrollParallax = function (_React$Component) {
 
       _this.scrollTop = scrollTop;
       // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
-      if (_this.onCompleteBool && _this.eventType && !_this.props.always) {
+      if (_this.defaultData[_this.defaultData.length - 1].onCompleteBool && _this.eventType && !_this.props.always) {
         __WEBPACK_IMPORTED_MODULE_12__EventDispatcher__["a" /* default */].removeEventListener(_this.eventType, _this.scrollEventListener, _this.target);
       }
     };
