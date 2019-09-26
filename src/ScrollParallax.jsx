@@ -114,7 +114,7 @@ class ScrollParallax extends React.Component {
   }
 
   resizeEventListener = () => {
-    if (this.onCompleteBool && !this.props.always) {
+    if (this.defaultData[this.defaultData.length - 1] && this.defaultData[this.defaultData.length - 1].onCompleteBool && !this.props.always) {
       return;
     }
     this.scrollTop = currentScrollTop();
@@ -140,51 +140,52 @@ class ScrollParallax extends React.Component {
     const offsetTop = dom.getBoundingClientRect().top + scrollTop - targetTop;
     const elementShowHeight = scrollTop - offsetTop + this.clientHeight;
     const currentShow = this.scrollTop - offsetTop + this.clientHeight;
-    this.defaultData.forEach(item => {
+    this.defaultData.forEach((item, i) => {
+      const duration = this.defaultData.map((c, ii) => ii < i && c.delay + c.duration || 0).reduce((a,b) => a + b);
       let noUpdate;
-      if (elementShowHeight <= item.delay) {
-        if (!this.onCompleteBackBool && this.onStartBool) {
-          this.onCompleteBackBool = true;
+      if (elementShowHeight <= item.delay + duration) {
+        if (!item.onCompleteBackBool && item.onStartBool) {
+          item.onCompleteBackBool = true;
           noUpdate = true;
           item.onCompleteBack();
         }
       } else {
-        this.onCompleteBackBool = false;
+        item.onCompleteBackBool = false;
       }
-      if (elementShowHeight >= item.delay) {
-        if (!this.onStartBool) {
-          this.onStartBool = true;
+      if (elementShowHeight >= item.delay + duration) {
+        if (!item.onStartBool) {
+          item.onStartBool = true;
           noUpdate = true;
           item.onStart();
         }
       } else {
-        this.onStartBool = false;
+        item.onStartBool = false;
       }
 
-      if (elementShowHeight <= item.delay + item.duration) {
-        if (!this.onStartBackBool && this.onCompleteBool) {
-          this.onStartBackBool = true;
+      if (elementShowHeight <= item.delay + item.duration + duration) {
+        if (!item.onStartBackBool && item.onCompleteBool) {
+          item.onStartBackBool = true;
           noUpdate = true;
           item.onStartBack();
         }
       } else {
-        this.onStartBackBool = false;
+        item.onStartBackBool = false;
       }
 
-      if (elementShowHeight >= item.delay + item.duration) {
-        if (!this.onCompleteBool) {
-          this.onCompleteBool = true;
+      if (elementShowHeight >= item.delay + item.duration + duration) {
+        if (!item.onCompleteBool) {
+          item.onCompleteBool = true;
           noUpdate = true;
           item.onComplete();
         }
       } else {
-        this.onCompleteBool = false;
+        item.onCompleteBool = false;
       }
-      if (elementShowHeight >= item.delay &&
-        elementShowHeight <= item.delay + item.duration &&
+      if (elementShowHeight >= item.delay + duration &&
+        elementShowHeight <= item.delay + item.duration + duration &&
         !noUpdate
       ) {
-        item.onUpdate(elementShowHeight / (item.delay + item.duration));
+        item.onUpdate(elementShowHeight / (item.delay + item.duration + duration));
       }
     });
     ticker.clear(this.tickerId);
@@ -205,7 +206,7 @@ class ScrollParallax extends React.Component {
 
     this.scrollTop = scrollTop;
     // 如果不一直靠滚动来执行动画，always=false而且动画全执行完了，，删除scrollEvent;
-    if (this.onCompleteBool && this.eventType && !this.props.always) {
+    if (this.defaultData[this.defaultData.length - 1].onCompleteBool && this.eventType && !this.props.always) {
       EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
     }
   }
