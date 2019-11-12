@@ -72,7 +72,8 @@ class ScrollScreenClass {
         const t = this.scrollTop - startManyHeight;
         tooNum = t > 0 ? Math.ceil(t / winHeight) : Math.floor(t / winHeight);
         this.num = tooNum;
-        this.toHeight = startManyHeight + tooNum * winHeight;
+        const tc = Math.ceil(startManyHeight / winHeight);
+        this.toHeight = (tc + tooNum) * winHeight;
       }
     }
   }
@@ -115,7 +116,7 @@ class ScrollScreenClass {
     this.rafID = -1;
   }
   getComputedStyle = (dom) => {
-    return document.defaultView && document.defaultView.getComputedStyle ?
+    return dom && document.defaultView && document.defaultView.getComputedStyle ?
       document.defaultView.getComputedStyle(dom) : {};
   }
   isScroll = (dom) => {
@@ -124,7 +125,7 @@ class ScrollScreenClass {
     const overflowY = style.overflowY;
     const isScrollOverflow = overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay'
       || overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay';
-    if (dom === document.body || dom === window) {
+    if (dom === document.body || !dom) {
       return false;
     } else if (dom.scrollHeight > dom.offsetHeight
       && isScrollOverflow
@@ -171,7 +172,7 @@ class ScrollScreenClass {
         const manyScale = manyHeight ? Math.ceil(manyHeight / winHeight) : 0;
         this.limitNum(-startManyScale, mapped.length - 1 + manyScale);
         const currentDom = mapped[this.num];
-        this.toHeight = currentDom ? currentDom.offsetTop : startManyHeight + this.num * winHeight;
+        this.toHeight = currentDom ? currentDom.offsetTop : (startManyScale + this.num) * winHeight;
         this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
         this.toHeight = this.toHeight > docHeight - winHeight ?
           (docHeight - winHeight) : this.toHeight;
