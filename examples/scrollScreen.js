@@ -41,15 +41,15 @@ var util = {
 
 /***/ }),
 
-/***/ 165:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(166);
+module.exports = __webpack_require__(165);
 
 
 /***/ }),
 
-/***/ 166:
+/***/ 165:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91,7 +91,6 @@ var Link = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].Link;
 var Element = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].Element;
 var ScrollOverPack = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].OverPack;
 var EventListener = __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].Event;
-__WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].scrollScreen.init({ loop: true });
 
 var Demo = function (_React$Component) {
   __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(Demo, _React$Component);
@@ -124,6 +123,7 @@ var Demo = function (_React$Component) {
     value: function componentDidMount() {
       // 添加改变窗口事件,可加setTimeout
       EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
+      __WEBPACK_IMPORTED_MODULE_4_rc_scroll_anim__["a" /* default */].scrollScreen.init({ loop: true, location: ['page0', 'page1', 'page2', 'page3'] });
     }
   }, {
     key: 'render',
@@ -2474,5 +2474,5 @@ ClassList.prototype.contains = function(name){
 
 /***/ })
 
-},[165]);
+},[164]);
 //# sourceMappingURL=scrollScreen.js.map

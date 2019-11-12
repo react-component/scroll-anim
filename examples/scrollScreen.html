@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>scrollScreen.js - example - rc-scroll-anim@2.6.3</title>
+  <title>scrollScreen.js - example - rc-scroll-anim@2.7.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-scroll-anim@2.6.3</h1>
+      <h1>rc-scroll-anim@2.7.0</h1>
 
       <p>scroll-anim anim component for react</p>
     </div>
@@ -284,11 +284,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">const</span> Element = ScrollAnim.Element;
 <span class="hljs-keyword">const</span> ScrollOverPack = ScrollAnim.OverPack;
 <span class="hljs-keyword">const</span> EventListener = ScrollAnim.Event;
-ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span> });
+
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   componentDidMount() {
     <span class="hljs-comment">// 添加改变窗口事件,可加setTimeout</span>
     EventListener.addEventListener(<span class="hljs-string">'resize.userResize'</span>, <span class="hljs-keyword">this</span>.barAnimate.bind(<span class="hljs-keyword">this</span>));
+    ScrollAnim.scrollScreen.init({ loop: <span class="hljs-literal">true</span>, location: [<span class="hljs-string">'page0'</span>, <span class="hljs-string">'page1'</span>, <span class="hljs-string">'page2'</span>, <span class="hljs-string">'page3'</span>] });
   }
 
   onFocus = (e) =&gt; {
