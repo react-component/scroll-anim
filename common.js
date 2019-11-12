@@ -1385,7 +1385,7 @@ var getPassive = function getPassive() {
 /* 58 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.7.0","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.7.1","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
 
 /***/ }),
 /* 59 */
@@ -37117,7 +37117,8 @@ var ScrollScreenClass = function ScrollScreenClass() {
         var t = _this.scrollTop - startManyHeight;
         tooNum = t > 0 ? Math.ceil(t / winHeight) : Math.floor(t / winHeight);
         _this.num = tooNum;
-        _this.toHeight = startManyHeight + tooNum * winHeight;
+        var tc = Math.ceil(startManyHeight / winHeight);
+        _this.toHeight = (tc + tooNum) * winHeight;
       }
     }
   };
@@ -37166,7 +37167,7 @@ var ScrollScreenClass = function ScrollScreenClass() {
   };
 
   this.getComputedStyle = function (dom) {
-    return document.defaultView && document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(dom) : {};
+    return dom && document.defaultView && document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(dom) : {};
   };
 
   this.isScroll = function (dom) {
@@ -37174,7 +37175,7 @@ var ScrollScreenClass = function ScrollScreenClass() {
     var overflow = style.overflow;
     var overflowY = style.overflowY;
     var isScrollOverflow = overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay' || overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay';
-    if (dom === document.body || dom === window) {
+    if (dom === document.body || !dom) {
       return false;
     } else if (dom.scrollHeight > dom.offsetHeight && isScrollOverflow && dom.scrollTop < dom.scrollHeight) {
       return true;
@@ -37220,7 +37221,7 @@ var ScrollScreenClass = function ScrollScreenClass() {
         var manyScale = manyHeight ? Math.ceil(manyHeight / winHeight) : 0;
         _this.limitNum(-startManyScale, mapped.length - 1 + manyScale);
         var currentDom = mapped[_this.num];
-        _this.toHeight = currentDom ? currentDom.offsetTop : startManyHeight + _this.num * winHeight;
+        _this.toHeight = currentDom ? currentDom.offsetTop : (startManyScale + _this.num) * winHeight;
         _this.toHeight = _this.toHeight < 0 ? 0 : _this.toHeight;
         _this.toHeight = _this.toHeight > docHeight - winHeight ? docHeight - winHeight : _this.toHeight;
       } else {
