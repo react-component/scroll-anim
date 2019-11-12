@@ -13,11 +13,12 @@ const Link = ScrollAnim.Link;
 const Element = ScrollAnim.Element;
 const ScrollOverPack = ScrollAnim.OverPack;
 const EventListener = ScrollAnim.Event;
-ScrollAnim.scrollScreen.init({ loop: true });
+
 class Demo extends React.Component {
   componentDidMount() {
     // 添加改变窗口事件,可加setTimeout
     EventListener.addEventListener('resize.userResize', this.barAnimate.bind(this));
+    ScrollAnim.scrollScreen.init({ loop: true, location: ['page0', 'page1', 'page2', 'page3'] });
   }
 
   onFocus = (e) => {

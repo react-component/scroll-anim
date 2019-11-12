@@ -2,7 +2,7 @@ import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import EventListener from './EventDispatcher';
 import ScrollElement from './ScrollElement';
-import { toArrayChildren, noop } from './util';
+import { toArrayChildren, noop, windowIsUndefined } from './util';
 
 class ScrollOverPack extends ScrollElement {
   static propTypes = {
@@ -95,9 +95,9 @@ class ScrollOverPack extends ScrollElement {
   }
 
   render() {
-    const { 
-      playScale, 
-      replay, 
+    const {
+      playScale,
+      replay,
       component,
       always,
       scrollEvent,
@@ -108,7 +108,10 @@ class ScrollOverPack extends ScrollElement {
       onScroll,
       componentProps,
       ...props
-     } = this.props;
+    } = this.props;
+    if (windowIsUndefined) {
+      return createElement(component, { ...props, ...componentProps });
+    }
     let childToRender;
     if (!this.oneEnter) {
       const show = !appear;

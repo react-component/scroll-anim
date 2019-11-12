@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import mapped from './Mapped';
 import EventListener from './EventDispatcher';
-import { noop, currentScrollTop, transformArguments, windowHeight } from './util';
+import { noop, currentScrollTop, transformArguments, windowHeight, windowIsUndefined } from './util';
 
 class ScrollElement extends React.Component {
   static propTypes = {
@@ -44,13 +43,10 @@ class ScrollElement extends React.Component {
   }
 
   componentDidMount() {
-    this.dom = ReactDOM.findDOMNode(this);
-    if (this.props.location) {
-      this.dom = document.getElementById(this.props.location);
-      mapped.register(this.props.location, this.dom);
-    } else if (this.props.id) {
-      mapped.register(this.props.id, this.dom);
+    if (windowIsUndefined) {
+      return;
     }
+    this.dom = ReactDOM.findDOMNode(this);
     const date = Date.now();
     this.target = this.props.targetId && document.getElementById(this.props.targetId);
 
@@ -60,7 +56,6 @@ class ScrollElement extends React.Component {
   }
 
   componentWillUnmount() {
-    mapped.unRegister(this.props.id);
     EventListener.removeEventListener(this.eventType, this.scrollEventListener, this.target);
   }
 

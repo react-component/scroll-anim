@@ -191,6 +191,7 @@ Use: scroll a screen window;
 
 | name      | type           | default | description    |
 |-----------|----------------|---------|----------------|
+| location  | array          | []      | llocation of scrolling screen, only element ID is supported in array |
 | duration  | number         | 450     | scroll duration   |
 | ease      | string         | `easeInOutQuad` | easing |
 | docHeight | number         | null    | Custom html height |

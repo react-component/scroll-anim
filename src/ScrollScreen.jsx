@@ -1,8 +1,7 @@
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
-import { currentScrollTop, getPassive } from './util';
-import mapped from './Mapped';
+import { currentScrollTop, getPassive, windowHeight, windowIsUndefined } from './util';
 
 // 设置默认数据
 function defaultData(vars) {
@@ -12,52 +11,80 @@ function defaultData(vars) {
     docHeight: vars.docHeight,
     scrollInterval: vars.scrollInterval || 1000,
     loop: vars.loop || false,
+    location: vars.location || [],
   };
 }
 
 const passive = getPassive();
 
-const ScrollScreen = {
-  init(vars) {
+class ScrollScreenClass {
+  init = (vars) => {
     this.vars = defaultData(vars || {});
     this.rafID = -1;
     this.toHeight = -1;
     this.num = 0;
-    // this.currentNum = 0;
-    ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll', 'isScroll']
-      .forEach((method) => { this[method] = this[method].bind(this); });
-    EventListener.addEventListener('wheel.scrollWheel', this.onWheel, null, passive);
-    // 刚进入时滚动条位置
-    setTimeout(this.startScroll);
-  },
-
-  startScroll() {
-    const _mapped = mapped.getMapped();
-    const _arr = _mapped.__arr;
-    if (!_arr.length) {
-      EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
+    if (windowIsUndefined) {
       return;
     }
+    EventListener.addEventListener('wheel.scrollWheel', this.onWheel, null, passive);
+    // dom 在 didMount 后高度没出来，加 setTimeout; 
+    setTimeout(this.startScroll);
+  }
+  unMount = () => {
+    EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
+  }
+  setCurrentNNum = () => {
+    const mapped = this.mapped;
+    const winHeight = windowHeight();
+    if (!mapped.length) {
+      // 如果是空，采用一屏一滚;
+      const docHeight = this.vars.docHeight || document.body.scrollHeight;
+      const scrollTopNum = this.scrollTop / winHeight;
+      const docTopNum = docHeight / winHeight;
+      const docEndScreenHeight = docHeight % winHeight;
+      const currentOffset = this.scrollTop % winHeight;
+      const currentTopScreen = Math.floor(scrollTopNum);
+      // 判断最后一屏是否过中间 
+      const currentScreen = Math.ceil(scrollTopNum) === Math.floor(docTopNum) ?
+        currentOffset / docEndScreenHeight : currentOffset / winHeight;
+      this.num = Math.round(currentTopScreen + currentScreen);
+      this.toHeight = this.num * winHeight;
+    } else {
+      mapped.forEach((dom, i) => {
+        const domOffsetTop = dom.offsetTop;
+        const domHeight = dom.getBoundingClientRect().height;
+        if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
+          this.num = i;
+          this.toHeight = domOffsetTop;
+        }
+      });
+      let tooNum;
+      const endDom = mapped[mapped.length - 1];
+      const startDom = mapped[0];
+      const startManyHeight = startDom.offsetTop;
+
+      if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
+        tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
+          endDom.getBoundingClientRect().height) / winHeight);
+        this.num = mapped.length + tooNum;
+        this.toHeight = endDom.offsetTop + endDom.getBoundingClientRect().height + tooNum * winHeight;
+      } else if (this.scrollTop < startManyHeight) {
+        const t = this.scrollTop - startManyHeight;
+        tooNum = t > 0 ? Math.ceil(t / winHeight) : Math.floor(t / winHeight);
+        this.num = tooNum;
+        this.toHeight = startManyHeight + tooNum * winHeight;
+      }
+    }
+  }
+  startScroll = () => {
+    const mapped = this.vars.location.map(str => document.getElementById(str)).filter(c => c);
+    this.mapped = mapped;
     this.scrollTop = currentScrollTop();
-    _arr.forEach((str, i) => {
-      const dom = _mapped[str];
-      const domOffsetTop = dom.offsetTop;
-      const domHeight = dom.getBoundingClientRect().height;
-      if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
-        this.num = i;
-        this.toHeight = domOffsetTop;
-      }
-    });
-    // 如果 toHeight === -1 且 this.scrollTop 有值时；
-    if (this.toHeight === -1) {
-      if (this.scrollTop > 0) {
-        const endDom = mapped.get(mapped.getMapped().__arr[mapped.getMapped().__arr.length - 1]);
-        const windowHeight = document.documentElement.clientHeight;
-        const tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
-          endDom.getBoundingClientRect().height) / windowHeight);
-        this.num = mapped.getMapped().__arr.length + tooNum;
-      }
-      return;
+    this.animEndScrollTop = this.scrollTop;
+    this.setCurrentNNum();
+    if (mapped[0] && mapped[0].offsetTop >= windowHeight()) {
+      console.warn(`Warning: The first screen is not at the top, which may lead to poor scrolling effect, "${
+        this.vars.location[0]}" offsetTop ${mapped[0].offsetTop}px.`)
     }
     if (this.toHeight !== this.scrollTop) {
       this.initTime = Date.now();
@@ -65,13 +92,14 @@ const ScrollScreen = {
     } else {
       this.toHeight = -1;
     }
-  },
-  raf() {
+  }
+  raf = () => {
     const duration = this.vars.duration;
     const now = Date.now();
     const progressTime = now - this.initTime > duration ? duration : now - this.initTime;
     const easeValue = easingTypes[this.vars.ease](progressTime, this.scrollTop,
       this.toHeight, duration);
+    this.animEndScrollTop = easeValue;
     window.scrollTo(window.scrollX, easeValue);
     if (progressTime === duration) {
       this.cancelRequestAnimationFrame();
@@ -81,21 +109,22 @@ const ScrollScreen = {
     } else {
       this.rafID = requestAnimationFrame(this.raf);
     }
-  },
-  cancelRequestAnimationFrame() {
+  }
+  cancelRequestAnimationFrame = () => {
     requestAnimationFrame.cancel(this.rafID);
     this.rafID = -1;
-  },
-  getComputedStyle(dom) {
-    return document.defaultView ? document.defaultView.getComputedStyle(dom) : {};
-  },
-  isScroll(dom) {
+  }
+  getComputedStyle = (dom) => {
+    return document.defaultView && document.defaultView.getComputedStyle ?
+      document.defaultView.getComputedStyle(dom) : {};
+  }
+  isScroll = (dom) => {
     const style = this.getComputedStyle(dom);
     const overflow = style.overflow;
     const overflowY = style.overflowY;
     const isScrollOverflow = overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay'
       || overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay';
-    if (dom === document.body) {
+    if (dom === document.body || dom === window) {
       return false;
     } else if (dom.scrollHeight > dom.offsetHeight
       && isScrollOverflow
@@ -103,79 +132,61 @@ const ScrollScreen = {
       return true;
     }
     return this.isScroll(dom.parentNode);
-  },
-  onWheel(e) {
-    const _mapped = mapped.getMapped();
-    if (!_mapped.__arr.length) {
-      EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
-      return;
+  }
+  limitNum = (min, max) => {
+    if (this.vars.loop) {
+      this.num = this.num < min ? max : this.num;
+      this.num = this.num > max ? min : this.num;
+    } else {
+      this.num = this.num < min ? min : this.num;
+      this.num = this.num > max ? max : this.num;
     }
+  }
+  onWheel = (e) => {
+    e.preventDefault();
     if (this.isScroll(e.target)) {
       return;
     }
     const deltaY = e.deltaY;
-    e.preventDefault();
+    const mapped = this.mapped;
     if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
-      // 如果滚动条托动过了，需要获取当前的num;
-      const _arr = _mapped.__arr;
-      const endDom = mapped.get(_arr[_arr.length - 1]);
-      const startDom = mapped.get(_arr[0]);
-      const windowHeight = document.documentElement.clientHeight;
+      const winHeight = windowHeight();
       this.scrollTop = currentScrollTop();
-      _arr.forEach((str, i) => {
-        const dom = _mapped[str];
-        const domOffsetTop = dom.offsetTop;
-        const domHeight = dom.getBoundingClientRect().height;
-        if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
-          this.num = i;
-        }
-      });
-      const startManyHeight = startDom.offsetTop;
-      const startManyScale = startManyHeight ? Math.ceil(startManyHeight / windowHeight) : 0;
-      let tooNum;
-      if (this.scrollTop > endDom.offsetTop + endDom.getBoundingClientRect().height) {
-        tooNum = Math.ceil((this.scrollTop - endDom.offsetTop -
-          endDom.getBoundingClientRect().height) / windowHeight);
-        this.num = _arr.length + tooNum;
-      } else if (this.scrollTop < startDom.offsetTop) {
-        tooNum = Math.ceil(-(this.scrollTop - startManyHeight) / windowHeight);
-        this.num = -tooNum;
+      const docHeight = this.vars.docHeight || document.body.scrollHeight;
+      if (this.animEndScrollTop !== this.scrollTop) {
+        this.setCurrentNNum();
       }
       if (deltaY < 0) {
         this.num--;
       } else if (deltaY > 0) {
         this.num++;
       }
-      const docHeight = this.vars.docHeight || document.body.scrollHeight;
-      const manyHeight = docHeight - endDom.offsetTop -
-        endDom.getBoundingClientRect().height;
-      const manyScale = manyHeight ? Math.ceil(manyHeight / windowHeight) : 0;
-      const maxNum = _arr.length + manyScale;
-      if (this.vars.loop) {
-        this.num = this.num < -startManyScale ? maxNum - 1 : this.num;
-        this.num = this.num >= maxNum ? -startManyScale : this.num;
+      if (mapped.length) {
+        const endDom = mapped[mapped.length - 1];
+        const startDom = mapped[0];
+        const startManyHeight = startDom.offsetTop;
+        const startManyScale = startManyHeight ? Math.ceil(startManyHeight / winHeight) : 0;
+        const manyHeight = docHeight - endDom.offsetTop -
+          endDom.getBoundingClientRect().height;
+        const manyScale = manyHeight ? Math.ceil(manyHeight / winHeight) : 0;
+        this.limitNum(-startManyScale, mapped.length - 1 + manyScale);
+        const currentDom = mapped[this.num];
+        this.toHeight = currentDom ? currentDom.offsetTop : startManyHeight + this.num * winHeight;
+        this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
+        this.toHeight = this.toHeight > docHeight - winHeight ?
+          (docHeight - winHeight) : this.toHeight;
       } else {
-        this.num = this.num <= -startManyScale ? -startManyScale : this.num;
-        this.num = this.num >= maxNum ? maxNum : this.num;
+        this.limitNum(0, Math.floor(docHeight / winHeight));
+        this.toHeight = winHeight * this.num;
       }
       this.initTime = Date.now();
-      const currentDom = mapped.get(mapped.getMapped().__arr[this.num]);
-      this.toHeight = currentDom ? currentDom.offsetTop : null;
-      this.toHeight = typeof this.toHeight !== 'number' ?
-        endDom.offsetTop + endDom.getBoundingClientRect().height +
-        windowHeight * (this.num - mapped.getMapped().__arr.length) : this.toHeight;
-      this.toHeight = this.toHeight < 0 ? 0 : this.toHeight;
-      this.toHeight = this.toHeight > docHeight - windowHeight ?
-        (docHeight - windowHeight) : this.toHeight;
       this.rafID = requestAnimationFrame(this.raf);
-      this.currentNum = this.num;
     }
-  },
-  unMount() {
-    EventListener.removeEventListener('wheel.scrollWheel', this.onWheel);
-  },
-};
+  }
+}
+
+const ScrollScreen = new ScrollScreenClass();
 export default {
-  init: ScrollScreen.init.bind(ScrollScreen),
-  unMount: ScrollScreen.unMount.bind(ScrollScreen),
+  init: ScrollScreen.init,
+  unMount: ScrollScreen.unMount,
 };
