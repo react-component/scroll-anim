@@ -9,7 +9,7 @@ function EventDispatcher(target) {
   this._listFun = {};
 }
 EventDispatcher.prototype = {
-  addEventListener(type, callback, target) {
+  addEventListener(type, callback, target, options) {
     const types = type.split('.');
     const _type = types[0];
     const namespaces = types[1];
@@ -39,7 +39,7 @@ EventDispatcher.prototype = {
     if (!this._listFun[listName]) {
       this._listFun[listName] = this._listFun[listName] || this.dispatchEvent.bind(this, { type: _type, target });
       if ($target.addEventListener) {
-        $target.addEventListener(_type, this._listFun[listName], false);
+        $target.addEventListener(_type, this._listFun[listName], options);
       } else if ($target.attachEvent) {
         $target.attachEvent(`on${_type}`, this._listFun[listName]);
       }

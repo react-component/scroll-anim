@@ -1,7 +1,7 @@
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
 import EventListener from './EventDispatcher';
-import { currentScrollTop } from './util';
+import { currentScrollTop, getPassive } from './util';
 import mapped from './Mapped';
 
 // 设置默认数据
@@ -15,6 +15,8 @@ function defaultData(vars) {
   };
 }
 
+const passive = getPassive();
+
 const ScrollScreen = {
   init(vars) {
     this.vars = defaultData(vars || {});
@@ -24,7 +26,7 @@ const ScrollScreen = {
     // this.currentNum = 0;
     ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll', 'isScroll']
       .forEach((method) => { this[method] = this[method].bind(this); });
-    EventListener.addEventListener('wheel.scrollWheel', this.onWheel);
+    EventListener.addEventListener('wheel.scrollWheel', this.onWheel, null, passive);
     // 刚进入时滚动条位置
     setTimeout(this.startScroll);
   },

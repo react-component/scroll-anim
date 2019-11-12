@@ -106,3 +106,18 @@ export function windowHeight() {
 
 export function noop() {
 }
+
+export const getPassive = () => {
+  let passiveSupported = false;
+  window.addEventListener(
+    'test',
+    () => { },
+    Object.defineProperty({}, 'passive', {
+      get: () => {
+        passiveSupported = true;
+        return null;
+      },
+    }),
+  );
+  return passiveSupported ? { passive: false } : false;
+}
