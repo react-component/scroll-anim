@@ -1118,7 +1118,7 @@ function EventDispatcher(target) {
   this._listFun = {};
 }
 EventDispatcher.prototype = {
-  addEventListener: function addEventListener(type, callback, target) {
+  addEventListener: function addEventListener(type, callback, target, options) {
     var types = type.split('.');
     var _type = types[0];
     var namespaces = types[1];
@@ -1148,7 +1148,7 @@ EventDispatcher.prototype = {
     if (!this._listFun[listName]) {
       this._listFun[listName] = this._listFun[listName] || this.dispatchEvent.bind(this, { type: _type, target: target });
       if ($target.addEventListener) {
-        $target.addEventListener(_type, this._listFun[listName], false);
+        $target.addEventListener(_type, this._listFun[listName], options);
       } else if ($target.attachEvent) {
         $target.attachEvent('on' + _type, this._listFun[listName]);
       }
@@ -1248,13 +1248,14 @@ EventDispatcher.prototype = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["e"] = toArrayChildren;
+/* harmony export (immutable) */ __webpack_exports__["f"] = toArrayChildren;
 /* harmony export (immutable) */ __webpack_exports__["b"] = dataToArray;
-/* harmony export (immutable) */ __webpack_exports__["f"] = transformArguments;
-/* harmony export (immutable) */ __webpack_exports__["d"] = objectEqual;
+/* harmony export (immutable) */ __webpack_exports__["g"] = transformArguments;
+/* harmony export (immutable) */ __webpack_exports__["e"] = objectEqual;
 /* harmony export (immutable) */ __webpack_exports__["a"] = currentScrollTop;
-/* harmony export (immutable) */ __webpack_exports__["g"] = windowHeight;
-/* harmony export (immutable) */ __webpack_exports__["c"] = noop;
+/* harmony export (immutable) */ __webpack_exports__["h"] = windowHeight;
+/* harmony export (immutable) */ __webpack_exports__["d"] = noop;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getPassive; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
@@ -1360,6 +1361,17 @@ function windowHeight() {
 
 function noop() {}
 
+var getPassive = function getPassive() {
+  var passiveSupported = false;
+  window.addEventListener('test', function () {}, Object.defineProperty({}, 'passive', {
+    get: function get() {
+      passiveSupported = true;
+      return null;
+    }
+  }));
+  return passiveSupported ? { passive: false } : false;
+};
+
 /***/ }),
 /* 57 */
 /***/ (function(module, exports) {
@@ -1370,7 +1382,7 @@ function noop() {}
 /* 58 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.6.2","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.6.3","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
 
 /***/ }),
 /* 59 */
@@ -2878,13 +2890,13 @@ var ScrollElement = function (_React$Component) {
     var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (ScrollElement.__proto__ || Object.getPrototypeOf(ScrollElement)).call(this, props));
 
     _this.getParam = function (e) {
-      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_11__util__["g" /* windowHeight */])();
+      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_11__util__["h" /* windowHeight */])();
       var scrollTop = _this.target ? _this.target.scrollTop : Object(__WEBPACK_IMPORTED_MODULE_11__util__["a" /* currentScrollTop */])();
       var domRect = _this.dom.getBoundingClientRect();
       var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
       var offsetTop = domRect.top + scrollTop - targetTop;
       _this.elementShowHeight = scrollTop - offsetTop + _this.clientHeight;
-      var playScale = Object(__WEBPACK_IMPORTED_MODULE_11__util__["f" /* transformArguments */])(_this.props.playScale);
+      var playScale = Object(__WEBPACK_IMPORTED_MODULE_11__util__["g" /* transformArguments */])(_this.props.playScale);
       var playScaleEnterArray = /([\+\-]?[0-9#\.]+)(px|vh|%)?/.exec(String(playScale[0])); // eslint-disable-line
       if (!playScaleEnterArray[2]) {
         _this.playHeight = _this.clientHeight * parseFloat(playScale[0]);
@@ -2993,8 +3005,8 @@ ScrollElement.propTypes = {
 };
 ScrollElement.defaultProps = {
   component: 'div',
-  onChange: __WEBPACK_IMPORTED_MODULE_11__util__["c" /* noop */],
-  onScroll: __WEBPACK_IMPORTED_MODULE_11__util__["c" /* noop */],
+  onChange: __WEBPACK_IMPORTED_MODULE_11__util__["d" /* noop */],
+  onScroll: __WEBPACK_IMPORTED_MODULE_11__util__["d" /* noop */],
   playScale: 0.5,
   replay: false,
   componentProps: {}
@@ -5396,7 +5408,7 @@ var ScrollOverPack = function (_ScrollElement) {
         prevProps: props
       };
       if (prevProps && props !== prevProps) {
-        nextState.children = Object(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children);
+        nextState.children = Object(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(props.children);
       }
       return nextState;
     }
@@ -5438,12 +5450,12 @@ var ScrollOverPack = function (_ScrollElement) {
       }
     };
 
-    _this.children = Object(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children);
+    _this.children = Object(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(props.children);
     _this.oneEnter = false;
     _this.enter = false;
     _this.state = {
       show: false,
-      children: Object(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children)
+      children: Object(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(props.children)
     };
     return _this;
   }
@@ -5487,7 +5499,7 @@ var ScrollOverPack = function (_ScrollElement) {
       var childToRender = void 0;
       if (!this.oneEnter) {
         var show = !appear;
-        var children = Object(__WEBPACK_IMPORTED_MODULE_10__util__["e" /* toArrayChildren */])(props.children).map(function (item) {
+        var children = Object(__WEBPACK_IMPORTED_MODULE_10__util__["f" /* toArrayChildren */])(props.children).map(function (item) {
           if (!item) {
             return null;
           }
@@ -5539,10 +5551,10 @@ ScrollOverPack.defaultProps = {
   component: 'div',
   playScale: 0.5,
   always: true,
-  scrollEvent: __WEBPACK_IMPORTED_MODULE_10__util__["c" /* noop */],
+  scrollEvent: __WEBPACK_IMPORTED_MODULE_10__util__["d" /* noop */],
   replay: false,
-  onChange: __WEBPACK_IMPORTED_MODULE_10__util__["c" /* noop */],
-  onScroll: __WEBPACK_IMPORTED_MODULE_10__util__["c" /* noop */],
+  onChange: __WEBPACK_IMPORTED_MODULE_10__util__["d" /* noop */],
+  onScroll: __WEBPACK_IMPORTED_MODULE_10__util__["d" /* noop */],
   appear: true,
   componentProps: {}
 };
@@ -35852,7 +35864,7 @@ var ScrollParallax = function (_React$Component) {
         prevProps: props
       };
       if (prevProps && props !== prevProps) {
-        var equal = Object(__WEBPACK_IMPORTED_MODULE_13__util__["d" /* objectEqual */])(prevProps.animation, props.animation);
+        var equal = Object(__WEBPACK_IMPORTED_MODULE_13__util__["e" /* objectEqual */])(prevProps.animation, props.animation);
         if (!equal) {
           $self.setDefaultData(props.animation || {});
           $self.timeline.resetAnimData();
@@ -35886,11 +35898,11 @@ var ScrollParallax = function (_React$Component) {
         cItem.onUpdate = null;
         cItem.onComplete = null;
         cItem.onRepeat = null;
-        aItem.onStart = aItem.onStart || __WEBPACK_IMPORTED_MODULE_13__util__["c" /* noop */];
-        aItem.onComplete = aItem.onComplete || __WEBPACK_IMPORTED_MODULE_13__util__["c" /* noop */];
-        aItem.onUpdate = aItem.onUpdate || __WEBPACK_IMPORTED_MODULE_13__util__["c" /* noop */];
-        aItem.onStartBack = aItem.onStartBack || __WEBPACK_IMPORTED_MODULE_13__util__["c" /* noop */];
-        aItem.onCompleteBack = aItem.onCompleteBack || __WEBPACK_IMPORTED_MODULE_13__util__["c" /* noop */];
+        aItem.onStart = aItem.onStart || __WEBPACK_IMPORTED_MODULE_13__util__["d" /* noop */];
+        aItem.onComplete = aItem.onComplete || __WEBPACK_IMPORTED_MODULE_13__util__["d" /* noop */];
+        aItem.onUpdate = aItem.onUpdate || __WEBPACK_IMPORTED_MODULE_13__util__["d" /* noop */];
+        aItem.onStartBack = aItem.onStartBack || __WEBPACK_IMPORTED_MODULE_13__util__["d" /* noop */];
+        aItem.onCompleteBack = aItem.onCompleteBack || __WEBPACK_IMPORTED_MODULE_13__util__["d" /* noop */];
         _this.defaultTweenData[i] = cItem;
         _this.defaultData[i] = aItem;
       };
@@ -35903,7 +35915,7 @@ var ScrollParallax = function (_React$Component) {
       }
       _this.scrollTop = Object(__WEBPACK_IMPORTED_MODULE_13__util__["a" /* currentScrollTop */])();
       _this.target = _this.props.targetId && document.getElementById(_this.props.targetId);
-      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_13__util__["g" /* windowHeight */])();
+      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_13__util__["h" /* windowHeight */])();
       _this.setDefaultData(_this.props.animation || {});
       if (_this.timeline) {
         _this.timeline.resetDefaultStyle();
@@ -35915,7 +35927,7 @@ var ScrollParallax = function (_React$Component) {
 
     _this.scrollEventListener = function () {
       var scrollTop = _this.target ? _this.target.scrollTop : Object(__WEBPACK_IMPORTED_MODULE_13__util__["a" /* currentScrollTop */])();
-      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_13__util__["g" /* windowHeight */])();
+      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_13__util__["h" /* windowHeight */])();
       var dom = _this.props.location ? document.getElementById(_this.props.location) : _this.dom;
       if (!dom) {
         throw new Error('"location" is null');
@@ -36840,7 +36852,7 @@ var ScrollLink = function (_React$Component) {
       _this.scrollTop = _this.target ? _this.target.scrollTop : Object(__WEBPACK_IMPORTED_MODULE_12__util__["a" /* currentScrollTop */])();
       var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
       var toTop = Math.round(elementRect.top + _this.scrollTop) - _this.props.offsetTop - targetTop;
-      var t = Object(__WEBPACK_IMPORTED_MODULE_12__util__["f" /* transformArguments */])(_this.props.showHeightActive)[0];
+      var t = Object(__WEBPACK_IMPORTED_MODULE_12__util__["g" /* transformArguments */])(_this.props.showHeightActive)[0];
       var toShow = t.match('%') ? _this.clientHeight * parseFloat(t) / 100 : t;
       _this.toTop = _this.props.toShowHeight ? toTop - toShow + 0.5 : toTop;
       _this.initTime = Date.now();
@@ -36854,7 +36866,7 @@ var ScrollLink = function (_React$Component) {
     };
 
     _this.getElement = function () {
-      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_12__util__["g" /* windowHeight */])();
+      _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_12__util__["h" /* windowHeight */])();
       var elementDom = document.getElementById(_this.props.to);
       var elementRect = elementDom && elementDom.getBoundingClientRect();
       return { elementDom: elementDom, elementRect: elementRect };
@@ -36928,7 +36940,7 @@ var ScrollLink = function (_React$Component) {
       var elementClientHeight = elementDom.clientHeight;
       var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
       var top = Math.round(-elementRect.top + targetTop);
-      var showHeightActive = Object(__WEBPACK_IMPORTED_MODULE_12__util__["f" /* transformArguments */])(_this.props.showHeightActive);
+      var showHeightActive = Object(__WEBPACK_IMPORTED_MODULE_12__util__["g" /* transformArguments */])(_this.props.showHeightActive);
       var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * _this.clientHeight : parseFloat(showHeightActive[0]);
       var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * _this.clientHeight : parseFloat(showHeightActive[1]);
       if (top >= Math.round(-startShowHeight) && top < Math.round(elementClientHeight - endShowHeight)) {
@@ -37035,9 +37047,9 @@ ScrollLink.defaultProps = {
   showHeightActive: '50%',
   ease: 'easeInOutQuad',
   toHash: false,
-  onClick: __WEBPACK_IMPORTED_MODULE_12__util__["c" /* noop */],
-  onFocus: __WEBPACK_IMPORTED_MODULE_12__util__["c" /* noop */],
-  onBlur: __WEBPACK_IMPORTED_MODULE_12__util__["c" /* noop */],
+  onClick: __WEBPACK_IMPORTED_MODULE_12__util__["d" /* noop */],
+  onFocus: __WEBPACK_IMPORTED_MODULE_12__util__["d" /* noop */],
+  onBlur: __WEBPACK_IMPORTED_MODULE_12__util__["d" /* noop */],
   componentProps: {}
 };
 
@@ -37074,6 +37086,8 @@ function defaultData(vars) {
   };
 }
 
+var passive = Object(__WEBPACK_IMPORTED_MODULE_3__util__["c" /* getPassive */])();
+
 var ScrollScreen = {
   init: function init(vars) {
     var _this = this;
@@ -37086,7 +37100,7 @@ var ScrollScreen = {
     ['raf', 'cancelRequestAnimationFrame', 'onWheel', 'startScroll', 'isScroll'].forEach(function (method) {
       _this[method] = _this[method].bind(_this);
     });
-    __WEBPACK_IMPORTED_MODULE_2__EventDispatcher__["a" /* default */].addEventListener('wheel.scrollWheel', this.onWheel);
+    __WEBPACK_IMPORTED_MODULE_2__EventDispatcher__["a" /* default */].addEventListener('wheel.scrollWheel', this.onWheel, null, passive);
     // 刚进入时滚动条位置
     setTimeout(this.startScroll);
   },
