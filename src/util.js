@@ -114,6 +114,9 @@ export function noop() {
 }
 
 export const getPassive = () => {
+  if (windowIsUndefined) {
+    return false;
+  }
   let passiveSupported = false;
   window.addEventListener(
     'test',
