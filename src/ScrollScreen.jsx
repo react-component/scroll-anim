@@ -54,8 +54,11 @@ class ScrollScreenClass {
         const domOffsetTop = dom.offsetTop;
         const domHeight = dom.getBoundingClientRect().height;
         if (this.scrollTop >= domOffsetTop && this.scrollTop < domOffsetTop + domHeight) {
-          this.num = i;
-          this.toHeight = domOffsetTop;
+          let exceed = (this.scrollTop - dom.offsetTop) / domHeight;
+          // 当前屏超过80%到下半屏, scrollOverPack 会动态改高度；
+          exceed = exceed > 0.8 ? 1 : 0;
+          this.num = i + exceed;
+          this.toHeight = domOffsetTop + exceed * domHeight;
         }
       });
       let tooNum;
@@ -125,7 +128,8 @@ class ScrollScreenClass {
     const overflowY = style.overflowY;
     const isScrollOverflow = overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay'
       || overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay';
-    if (dom === document.body || !dom) {
+    // dom.parentNode === document 解决在滚动条上滚动取不到 body;
+    if (dom === document.body || !dom || dom.parentNode === document) {
       return false;
     } else if (dom.scrollHeight > dom.offsetHeight
       && isScrollOverflow
