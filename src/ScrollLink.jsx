@@ -76,17 +76,11 @@ class ScrollLink extends React.Component {
   onClick = (e) => {
     e.preventDefault();
     EventListener.removeAllType('scroll.scrollAnchorEvent');
-    const { elementDom, elementRect } = this.getElement();
-    if (this.rafID !== -1 || !elementDom) {
+    this.elementDom = document.getElementById(this.props.to);;
+    if (this.rafID !== -1 || !this.elementDom) {
       return;
     }
     this.scrollTop = this.target ? this.target.scrollTop : currentScrollTop();
-    const targetTop = this.target ? this.target.getBoundingClientRect().top : 0;
-    const toTop = Math.round(elementRect.top + this.scrollTop) - this.props.offsetTop - targetTop;
-    const t = transformArguments(this.props.showHeightActive)[0];
-    const toShow = t.match('%') ? this.clientHeight * parseFloat(t) / 100 : t;
-    this.toTop = this.props.toShowHeight ?
-      toTop - toShow + 0.5 : toTop;
     this.initTime = Date.now();
     this.rafID = requestAnimationFrame(this.raf);
     scrollLinkLists.forEach(item => {
@@ -97,11 +91,15 @@ class ScrollLink extends React.Component {
     this.addActive();
   }
 
-  getElement = () => {
+  getToTop = () => {
+    const elementRect = this.elementDom && this.elementDom.getBoundingClientRect();
     this.clientHeight = this.target ? this.target.clientHeight : windowHeight();
-    const elementDom = document.getElementById(this.props.to);
-    const elementRect = elementDom && elementDom.getBoundingClientRect();
-    return { elementDom, elementRect };
+    const targetTop = this.target ? this.target.getBoundingClientRect().top : 0;
+    const toTop = Math.round(elementRect.top + currentScrollTop()) - this.props.offsetTop - targetTop;
+    const t = transformArguments(this.props.showHeightActive)[0];
+    const toShow = t.match('%') ? this.clientHeight * parseFloat(t) / 100 : t;
+    return this.props.toShowHeight ?
+      toTop - toShow + 0.5 : toTop;
   }
 
   cancelRequestAnimationFrame = () => {
@@ -127,6 +125,7 @@ class ScrollLink extends React.Component {
     }
   };
 
+
   raf = () => {
     if (this.rafID === -1) {
       return;
@@ -134,14 +133,16 @@ class ScrollLink extends React.Component {
     const duration = this.props.duration;
     const now = Date.now();
     const progressTime = now - this.initTime > duration ? duration : now - this.initTime;
+    // 动画时也会改变高度，动态获取
     const easeValue = easingTypes[this.props.ease](progressTime, this.scrollTop,
-      this.toTop, duration);
+      this.getToTop(), duration);
     if (this.target) {
       this.target.scrollTop = easeValue;
     } else {
       window.scrollTo(window.scrollX, easeValue);
     }
     if (progressTime === duration) {
+      this.elementDom = null;
       this.cancelRequestAnimationFrame();
       EventListener.reAllType('scroll.scrollAnchorEvent');
     } else {
@@ -163,19 +164,22 @@ class ScrollLink extends React.Component {
   }
 
   scrollEventListener = () => {
-    const { elementDom, elementRect } = this.getElement();
+    const elementDom = document.getElementById(this.props.to);
     if (!elementDom) {
       return;
     }
+    // 滚动时会改变高度, 动态获取高度
+    const clientHeight = this.target ? this.target.clientHeight : windowHeight();
+    const elementRect = elementDom.getBoundingClientRect();
     const elementClientHeight = elementDom.clientHeight;
     const targetTop = this.target ? this.target.getBoundingClientRect().top : 0;
     const top = Math.round(- elementRect.top + targetTop);
     const showHeightActive = transformArguments(this.props.showHeightActive);
     const startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[0]) / 100 * this.clientHeight :
+      parseFloat(showHeightActive[0]) / 100 * clientHeight :
       parseFloat(showHeightActive[0]);
     const endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ?
-      parseFloat(showHeightActive[1]) / 100 * this.clientHeight :
+      parseFloat(showHeightActive[1]) / 100 * clientHeight :
       parseFloat(showHeightActive[1]);
     if (top >= Math.round(-startShowHeight)
       && top < Math.round(elementClientHeight - endShowHeight)) {
@@ -186,7 +190,6 @@ class ScrollLink extends React.Component {
   }
 
   render() {
-    
     const {
       component,
       onClick,
