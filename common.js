@@ -1388,7 +1388,7 @@ var getPassive = function getPassive() {
 /* 58 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.7.3","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.7.4","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
 
 /***/ }),
 /* 59 */
@@ -36812,20 +36812,11 @@ var ScrollLink = function (_React$Component) {
     _this.onClick = function (e) {
       e.preventDefault();
       __WEBPACK_IMPORTED_MODULE_11__EventDispatcher__["a" /* default */].removeAllType('scroll.scrollAnchorEvent');
-
-      var _this$getElement = _this.getElement(),
-          elementDom = _this$getElement.elementDom,
-          elementRect = _this$getElement.elementRect;
-
-      if (_this.rafID !== -1 || !elementDom) {
+      _this.elementDom = document.getElementById(_this.props.to);;
+      if (_this.rafID !== -1 || !_this.elementDom) {
         return;
       }
       _this.scrollTop = _this.target ? _this.target.scrollTop : Object(__WEBPACK_IMPORTED_MODULE_12__util__["a" /* currentScrollTop */])();
-      var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
-      var toTop = Math.round(elementRect.top + _this.scrollTop) - _this.props.offsetTop - targetTop;
-      var t = Object(__WEBPACK_IMPORTED_MODULE_12__util__["g" /* transformArguments */])(_this.props.showHeightActive)[0];
-      var toShow = t.match('%') ? _this.clientHeight * parseFloat(t) / 100 : t;
-      _this.toTop = _this.props.toShowHeight ? toTop - toShow + 0.5 : toTop;
       _this.initTime = Date.now();
       _this.rafID = __WEBPACK_IMPORTED_MODULE_10_raf___default()(_this.raf);
       scrollLinkLists.forEach(function (item) {
@@ -36836,11 +36827,14 @@ var ScrollLink = function (_React$Component) {
       _this.addActive();
     };
 
-    _this.getElement = function () {
+    _this.getToTop = function () {
+      var elementRect = _this.elementDom && _this.elementDom.getBoundingClientRect();
       _this.clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_12__util__["h" /* windowHeight */])();
-      var elementDom = document.getElementById(_this.props.to);
-      var elementRect = elementDom && elementDom.getBoundingClientRect();
-      return { elementDom: elementDom, elementRect: elementRect };
+      var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
+      var toTop = Math.round(elementRect.top + Object(__WEBPACK_IMPORTED_MODULE_12__util__["a" /* currentScrollTop */])()) - _this.props.offsetTop - targetTop;
+      var t = Object(__WEBPACK_IMPORTED_MODULE_12__util__["g" /* transformArguments */])(_this.props.showHeightActive)[0];
+      var toShow = t.match('%') ? _this.clientHeight * parseFloat(t) / 100 : t;
+      return _this.props.toShowHeight ? toTop - toShow + 0.5 : toTop;
     };
 
     _this.cancelRequestAnimationFrame = function () {
@@ -36873,13 +36867,15 @@ var ScrollLink = function (_React$Component) {
       var duration = _this.props.duration;
       var now = Date.now();
       var progressTime = now - _this.initTime > duration ? duration : now - _this.initTime;
-      var easeValue = __WEBPACK_IMPORTED_MODULE_9_tween_functions___default.a[_this.props.ease](progressTime, _this.scrollTop, _this.toTop, duration);
+      // 动画时也会改变高度，动态获取
+      var easeValue = __WEBPACK_IMPORTED_MODULE_9_tween_functions___default.a[_this.props.ease](progressTime, _this.scrollTop, _this.getToTop(), duration);
       if (_this.target) {
         _this.target.scrollTop = easeValue;
       } else {
         window.scrollTo(window.scrollX, easeValue);
       }
       if (progressTime === duration) {
+        _this.elementDom = null;
         _this.cancelRequestAnimationFrame();
         __WEBPACK_IMPORTED_MODULE_11__EventDispatcher__["a" /* default */].reAllType('scroll.scrollAnchorEvent');
       } else {
@@ -36901,19 +36897,19 @@ var ScrollLink = function (_React$Component) {
     };
 
     _this.scrollEventListener = function () {
-      var _this$getElement2 = _this.getElement(),
-          elementDom = _this$getElement2.elementDom,
-          elementRect = _this$getElement2.elementRect;
-
+      var elementDom = document.getElementById(_this.props.to);
       if (!elementDom) {
         return;
       }
+      // 滚动时会改变高度, 动态获取高度
+      var clientHeight = _this.target ? _this.target.clientHeight : Object(__WEBPACK_IMPORTED_MODULE_12__util__["h" /* windowHeight */])();
+      var elementRect = elementDom.getBoundingClientRect();
       var elementClientHeight = elementDom.clientHeight;
       var targetTop = _this.target ? _this.target.getBoundingClientRect().top : 0;
       var top = Math.round(-elementRect.top + targetTop);
       var showHeightActive = Object(__WEBPACK_IMPORTED_MODULE_12__util__["g" /* transformArguments */])(_this.props.showHeightActive);
-      var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * _this.clientHeight : parseFloat(showHeightActive[0]);
-      var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * _this.clientHeight : parseFloat(showHeightActive[1]);
+      var startShowHeight = showHeightActive[0].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[0]) / 100 * clientHeight : parseFloat(showHeightActive[0]);
+      var endShowHeight = showHeightActive[1].toString().indexOf('%') >= 0 ? parseFloat(showHeightActive[1]) / 100 * clientHeight : parseFloat(showHeightActive[1]);
       if (top >= Math.round(-startShowHeight) && top < Math.round(elementClientHeight - endShowHeight)) {
         _this.addActive();
       } else {
