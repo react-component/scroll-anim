@@ -1388,7 +1388,7 @@ var getPassive = function getPassive() {
 /* 58 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"rc-scroll-anim","version":"2.7.4","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
+module.exports = {"name":"rc-scroll-anim","version":"2.7.5","description":"scroll-anim anim component for react","keywords":["react","react-component","react-scroll-anim","scroll","parallax","rc-parallax","scroll-anim","animation","animate","rc-animation","rc-animate","motion","rc-motion","ant-motion"],"homepage":"https://github.com/react-component/scroll-anim","author":"155259966@qq.com","repository":{"type":"git","url":"https://github.com/react-component/scroll-anim.git"},"bugs":{"url":"https://github.com/react-component/scroll-anim/issues"},"files":["lib","assets/*.css","dist","es"],"licenses":"MIT","main":"./lib/index","module":"./es/index","config":{"port":8020,"entry":{"rc-scroll-anim":["./assets/index.less","./src/index.js"]}},"scripts":{"dist":"rc-tools run dist","build":"rc-tools run build","gh-pages":"rc-tools run gh-pages","start":"rc-tools run server","compile":"rc-tools run compile --babel-runtime","pub":"rc-tools run pub --babel-runtime","lint":"rc-tools run lint --fix","karma":"rc-test run karma","saucelabs":"rc-test run saucelabs","test":"rc-test run test","chrome-test":"rc-test run chrome-test","coverage":"rc-test run coverage","validate":"npm ls"},"devDependencies":{"@types/react":"^16.0.0","core-js":"^3.0.0","expect.js":"0.3.x","pre-commit":"1.x","precommit-hook":"3.x","rc-animate":"2.x","rc-queue-anim":"^1.3.0","rc-test":"6.x","rc-tools":"8.x","react":"^16.0.0","react-dom":"^16.0.0","typescript":"3.x"},"pre-commit":["lint"],"dependencies":{"babel-runtime":"6.x","prop-types":"^15.6.0","raf":"3.x","rc-tween-one":"^2.4.0","react-lifecycles-compat":"^3.0.4","tween-functions":"1.x"}}
 
 /***/ }),
 /* 59 */
@@ -5465,7 +5465,7 @@ var ScrollOverPack = function (_ScrollElement) {
           props = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['playScale', 'replay', 'component', 'always', 'scrollEvent', 'appear', 'location', 'targetId', 'onChange', 'onScroll', 'componentProps']);
 
       if (__WEBPACK_IMPORTED_MODULE_10__util__["i" /* windowIsUndefined */]) {
-        return Object(__WEBPACK_IMPORTED_MODULE_6_react__["createElement"])(component, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, props, componentProps));
+        return Object(__WEBPACK_IMPORTED_MODULE_6_react__["createElement"])(component, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, props, componentProps), props.children);
       }
       var childToRender = void 0;
       if (!this.oneEnter) {
@@ -37172,7 +37172,7 @@ var ScrollScreenClass = function ScrollScreenClass() {
     return dom && document.defaultView && document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(dom) : {};
   };
 
-  this.isScroll = function (dom) {
+  this.isScroll = function (dom, deltaY) {
     var style = _this.getComputedStyle(dom);
     var overflow = style.overflow;
     var overflowY = style.overflowY;
@@ -37180,10 +37180,10 @@ var ScrollScreenClass = function ScrollScreenClass() {
     // dom.parentNode === document 解决在滚动条上滚动取不到 body;
     if (dom === document.body || !dom || dom.parentNode === document) {
       return false;
-    } else if (dom.scrollHeight > dom.offsetHeight && isScrollOverflow && dom.scrollTop < dom.scrollHeight) {
+    } else if (dom.scrollHeight > dom.offsetHeight && isScrollOverflow && dom.scrollTop + dom.offsetHeight + deltaY < dom.scrollHeight && dom.scrollTop + deltaY > 0) {
       return true;
     }
-    return _this.isScroll(dom.parentNode);
+    return _this.isScroll(dom.parentNode, deltaY);
   };
 
   this.limitNum = function (min, max) {
@@ -37197,11 +37197,12 @@ var ScrollScreenClass = function ScrollScreenClass() {
   };
 
   this.onWheel = function (e) {
-    e.preventDefault();
-    if (_this.isScroll(e.target)) {
+    var deltaY = e.deltaY;
+    if (_this.isScroll(e.target, deltaY)) {
       return;
     }
-    var deltaY = e.deltaY;
+    e.preventDefault();
+
     var mapped = _this.mapped;
     if (_this.rafID === -1 && deltaY !== 0 && _this.toHeight === -1) {
       var winHeight = Object(__WEBPACK_IMPORTED_MODULE_4__util__["h" /* windowHeight */])();
