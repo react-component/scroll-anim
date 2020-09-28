@@ -122,7 +122,7 @@ class ScrollScreenClass {
     return dom && document.defaultView && document.defaultView.getComputedStyle ?
       document.defaultView.getComputedStyle(dom) : {};
   }
-  isScroll = (dom) => {
+  isScroll = (dom, deltaY) => {
     const style = this.getComputedStyle(dom);
     const overflow = style.overflow;
     const overflowY = style.overflowY;
@@ -131,12 +131,15 @@ class ScrollScreenClass {
     // dom.parentNode === document 解决在滚动条上滚动取不到 body;
     if (dom === document.body || !dom || dom.parentNode === document) {
       return false;
-    } else if (dom.scrollHeight > dom.offsetHeight
-      && isScrollOverflow
-      && dom.scrollTop < dom.scrollHeight) {
+    } else if (
+      dom.scrollHeight > dom.offsetHeight && 
+      isScrollOverflow && 
+      dom.scrollTop + dom.offsetHeight + deltaY < dom.scrollHeight && 
+      dom.scrollTop + deltaY > 0
+    ) {
       return true;
     }
-    return this.isScroll(dom.parentNode);
+    return this.isScroll(dom.parentNode, deltaY);
   }
   limitNum = (min, max) => {
     if (this.vars.loop) {
@@ -148,11 +151,12 @@ class ScrollScreenClass {
     }
   }
   onWheel = (e) => {
-    e.preventDefault();
-    if (this.isScroll(e.target)) {
+    const deltaY = e.deltaY;
+    if (this.isScroll(e.target, deltaY)) {
       return;
     }
-    const deltaY = e.deltaY;
+    e.preventDefault();
+    
     const mapped = this.mapped;
     if (this.rafID === -1 && deltaY !== 0 && this.toHeight === -1) {
       const winHeight = windowHeight();

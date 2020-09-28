@@ -110,7 +110,7 @@ class ScrollOverPack extends ScrollElement {
       ...props
     } = this.props;
     if (windowIsUndefined) {
-      return createElement(component, { ...props, ...componentProps });
+      return createElement(component, { ...props, ...componentProps }, props.children);
     }
     let childToRender;
     if (!this.oneEnter) {
