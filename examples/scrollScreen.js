@@ -93,7 +93,7 @@ class Demo extends React.Component {
           <TweenOne className="tween-one" key="0" animation={{ opacity: 1 }}>
             每次进入都启动播放
           </TweenOne>
-          <QueueAnim key="1" style={{ height: 100, overflow: 'auto' }}>
+          <QueueAnim key="1" style={{ height: 100 }}>
             <div key="0" className="demo-content" />
             <div key="1" className="demo-content" />
             <div key="2" className="demo-content" />
