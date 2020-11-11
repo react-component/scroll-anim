@@ -1,6 +1,7 @@
 import { IEaseType } from 'rc-tween-one/typings/AnimObject';
 
 export interface IVarsProps {
+  location?: string[];
   duration?: number;
   ease?: IEaseType;
   docHeight?: number;
