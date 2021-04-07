@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import easingTypes from 'tween-functions';
 import { Tween as Timeline } from 'rc-tween-one';
@@ -64,10 +63,11 @@ class ScrollParallax extends React.Component {
     this.state = {
       $self: this,
     };
+    this.domRef = React.createRef();
   }
 
   componentDidMount() {
-    this.dom = ReactDom.findDOMNode(this);
+    this.dom = this.domRef.current;
     const date = Date.now();
     const length = EventListener._listeners.scroll ? EventListener._listeners.scroll.length : 0;
     this.eventType = `scroll.scrollEvent${date}${length}`;
@@ -232,7 +232,7 @@ class ScrollParallax extends React.Component {
       }
     });
     props.style = style;
-    return React.createElement(this.props.component, { ...props, ...componentProps });
+    return React.createElement(this.props.component, { ...props, ...componentProps, ref: this.domRef });
   }
 }
 

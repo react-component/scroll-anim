@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import EventListener from './EventDispatcher';
 import { noop, currentScrollTop, transformArguments, windowHeight, windowIsUndefined } from './util';
@@ -40,13 +39,14 @@ class ScrollElement extends React.Component {
     this.state = {
       $self: this,
     };
+    this.domRef = React.createRef();
   }
 
   componentDidMount() {
     if (windowIsUndefined) {
       return;
     }
-    this.dom = ReactDOM.findDOMNode(this);
+    this.dom = this.domRef.current;
     const date = Date.now();
     this.target = this.props.targetId && document.getElementById(this.props.targetId);
 
@@ -126,7 +126,7 @@ class ScrollElement extends React.Component {
       componentProps,
       ...props
     } = this.props;
-    return React.createElement(component, { ...props, ...componentProps });
+    return React.createElement(component, { ...props, ...componentProps, ref: this.domRef });
   }
 }
 ScrollElement.isScrollElement = true;

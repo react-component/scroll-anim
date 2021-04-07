@@ -2,7 +2,6 @@
  * Created by jljsj on 16/1/13.
  */
 import React, { createElement } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import easingTypes from 'tween-functions';
 import requestAnimationFrame from 'raf';
@@ -51,10 +50,11 @@ class ScrollLink extends React.Component {
     this.state = {
       active: false,
     };
+    this.domRef = React.createRef();
   }
 
   componentDidMount() {
-    this.dom = ReactDOM.findDOMNode(this);
+    this.dom = this.domRef.current;
     this.target = this.props.targetId && document.getElementById(this.props.targetId);
     scrollLinkLists.push(this);
     const date = Date.now();
@@ -214,7 +214,7 @@ class ScrollLink extends React.Component {
     const className = props.className || '';
     props.className = className.indexOf(active) === -1 ?
       `${className} ${active}`.trim() : className.replace(reg, '').trim();
-    return createElement(this.props.component, { ...props, ...componentProps });
+    return createElement(this.props.component, { ...props, ...componentProps, ref: this.domRef });
   }
 }
 ScrollLink.isScrollLink = true;
