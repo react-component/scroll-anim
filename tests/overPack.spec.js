@@ -14,35 +14,33 @@ describe('rc-scroll-anim', () => {
   let tickerId = 0;
 
   function createScrollOverPack(props) {
-    class OverPackDemo extends React.PureComponent {
-      render() {
-        return (<div
-          style={{ height: 500, overflow: 'scroll', position: 'absolute', width: '100%', top: 0 }}
-          id="c-div"
+    const OverPackDemo = (props) => {
+      return (<div
+        style={{ height: 500, overflow: 'scroll', position: 'absolute', width: '100%', top: 0 }}
+        id="c-div"
+      >
+        <div style={{ height: 1000 }} />
+        <ScrollAnim.OverPack
+          {...props}
+          style={{ height: 1000 }}
+          targetId="c-div"
         >
-          <div style={{ height: 1000 }} />
-          <ScrollAnim.OverPack
-            {...this.props}
-            style={{ height: 1000 }}
-            targetId="c-div"
+          <TweenOne
+            key="one"
+            animation={{ opacity: 1 }}
+            className="tween-one"
+            style={{ opacity: 0 }}
+            component="i"
           >
-            <TweenOne
-              key="one"
-              animation={{ opacity: 1 }}
-              className="tween-one"
-              style={{ opacity: 0 }}
-              component="i"
-            >
-              demo
+            demo
             </TweenOne>
-            <QueueAnim key="queueAnim" className="queue-anim">
-              <p key="0">demo</p>
-              <p key="1">demo</p>
-            </QueueAnim>
-          </ScrollAnim.OverPack>
-        </div>);
-      }
-    }
+          <QueueAnim key="queueAnim" className="queue-anim">
+            <p key="0">demo</p>
+            <p key="1">demo</p>
+          </QueueAnim>
+        </ScrollAnim.OverPack>
+      </div>);
+    };
     return ReactDom.render(<OverPackDemo {...props} />, div);
   }
 

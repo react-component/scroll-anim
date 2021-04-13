@@ -20,7 +20,3 @@ Thumbs.db
 node_modules
 .cache
 *.css
-build
-lib
-dist
-es
