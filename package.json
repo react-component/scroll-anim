@@ -61,7 +61,7 @@
     "validate": "npm ls"
   },
   "devDependencies": {
-    "@types/react": "^16.0.0",
+    "@types/react": "^17.0.7",
     "core-js": "^3.0.0",
     "expect.js": "0.3.x",
     "pre-commit": "1.x",
